@@ -1,0 +1,143 @@
+/* Estilos globais */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Barra de progresso */
+#progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  z-index: 2000;
+}
+
+#progress-bar {
+  width: 0;
+  height: 100%;
+  background: #16B097;
+  transition: width 0.2s linear;
+}
+
+/* Seções */
+section {
+  padding: 4rem 1rem;
+  min-height: 100vh;
+}
+
+.cube {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  margin: 2rem auto;
+}
+
+.cube .face {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: #16B097aa;
+  border: 2px solid #0F8A7E;
+}
+
+.cube .front  { transform: translateZ(75px); }
+.cube .back   { transform: rotateY(180deg) translateZ(75px); }
+.cube .right  { transform: rotateY(90deg)  translateZ(75px); }
+.cube .left   { transform: rotateY(-90deg) translateZ(75px); }
+.cube .top    { transform: rotateX(90deg)  translateZ(75px); }
+.cube .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+.cube.reveal {
+  animation: cube-spin 6s linear infinite;
+}
+
+@keyframes cube-spin {
+  from { transform: rotateX(0) rotateY(0); }
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.focus-mode body > *:not(header):not(#progress-container) {
+  filter: grayscale(0.8);
+  opacity: 0.7;
+}
+
+/* Títulos formatados */
+.section-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Card de tarefa */
+.task-card {
+  max-width: 300px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  text-align: center;
+}
+
+.task-card:focus {
+  outline: 2px solid #16B097;
+}
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+#overlay.open {
+  display: flex;
+}
+
+.task-form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
