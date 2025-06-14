@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playbook Auto Arremate</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/tone@14.8.39/build/Tone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+</head>
+<body>
+  <div id="progress-container"><div id="progress-bar"></div></div>
+  <header>
+    <nav>
+      <a href="#" data-target="capa">Capa</a>
+      <a href="#" data-target="central">Central</a>
+      <a href="#" data-target="manual">Manual</a>
+      <a href="#" data-target="autocards">Autocards</a>
+      <a href="#" data-target="evolucao">Evolução</a>
+    </nav>
+    <button onclick="toggleFocus()">Foco</button>
+  </header>
+  <main id="content"></main>
+  <div id="overlay" aria-hidden="true"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
