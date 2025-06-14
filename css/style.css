@@ -54,6 +54,11 @@ section {
   height: 150px;
   transform-style: preserve-3d;
   margin: 2rem auto;
+  animation-name: cube-spin;
+  animation-timeline: view();
+  animation-range: entry 0% exit 100%;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
 }
 
 .cube .face {
@@ -80,9 +85,17 @@ section {
   to { transform: rotateX(360deg) rotateY(360deg); }
 }
 
-html.focus-mode body > *:not(header):not(#progress-container) {
+html.focus-mode header {
+  display: none;
+}
+
+html.focus-mode body > *:not(#progress-container) {
   filter: grayscale(0.8);
   opacity: 0.7;
+}
+
+body.no-scroll {
+  overflow: hidden;
 }
 
 /* Títulos formatados */

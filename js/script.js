@@ -48,19 +48,40 @@ function applyStagger(container) {
 
 // Som ao clicar
 let synth;
-function playTone() {
+function playTone(type = 'click') {
   if (!window.Tone) return;
   if (!synth) synth = new Tone.Synth().toDestination();
-  synth.triggerAttackRelease('C5', '8n');
+  const now = Tone.now();
+  switch (type) {
+    case 'open':
+      synth.triggerAttackRelease('C4', '8n', now);
+      synth.triggerAttackRelease('E4', '8n', now + 0.1);
+      synth.triggerAttackRelease('G4', '8n', now + 0.2);
+      break;
+    case 'close':
+      synth.triggerAttackRelease('G4', '8n', now);
+      synth.triggerAttackRelease('E4', '8n', now + 0.1);
+      synth.triggerAttackRelease('C4', '8n', now + 0.2);
+      break;
+    case 'send':
+      synth.triggerAttackRelease('C5', '4n', now);
+      break;
+    case 'hover':
+      synth.triggerAttackRelease('C4', '16n', now);
+      break;
+    default:
+      synth.triggerAttackRelease('C4', '8n', now);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('mouseover', () => playTone('hover'));
     a.addEventListener('click', e => {
       e.preventDefault();
       const target = a.getAttribute('data-target');
       loadPartial(target);
-      playTone();
+      playTone('click');
     });
   });
   loadPartial('capa');
@@ -90,6 +111,7 @@ function openTaskForm(card) {
     </div>`;
   const form = overlay.querySelector('.task-form');
   overlay.classList.add('open');
+  document.body.classList.add('no-scroll');
 
   const start = card.getBoundingClientRect();
   const end = form.getBoundingClientRect();
@@ -101,17 +123,16 @@ function openTaskForm(card) {
     transformOrigin: 'top left'
   });
   gsap.to(form, {duration: 0.6, x:0, y:0, scaleX:1, scaleY:1, ease:'elastic.out(1,0.5)'});
-  playTone();
+  playTone('open');
 
-  overlay.querySelector('.close-btn').addEventListener('click', closeTaskForm);
+  overlay.querySelector('.close-btn').addEventListener('click', () => closeTaskForm());
   overlay.querySelector('form').addEventListener('submit', e => {
     e.preventDefault();
-    closeTaskForm();
-    playTone();
+    closeTaskForm('send');
   });
 }
 
-function closeTaskForm() {
+function closeTaskForm(type = 'close') {
   const overlay = document.getElementById('overlay');
   const form = overlay.querySelector('.task-form');
   if (!form) return;
@@ -128,6 +149,8 @@ function closeTaskForm() {
     onComplete: () => {
       overlay.classList.remove('open');
       overlay.innerHTML = '';
+      document.body.classList.remove('no-scroll');
     }
   });
+  playTone(type);
 }
