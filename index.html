@@ -9,19 +9,20 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 </head>
 <body>
+  <a href="#content" class="skip-link">Pular para o conteúdo</a>
   <div id="progress-container"><div id="progress-bar"></div></div>
   <header>
-    <nav>
+    <nav role="navigation" aria-label="Navegação principal">
       <a href="#" data-target="capa">Capa</a>
       <a href="#" data-target="central">Central</a>
       <a href="#" data-target="manual">Manual</a>
       <a href="#" data-target="autocards">Autocards</a>
       <a href="#" data-target="evolucao">Evolução</a>
     </nav>
-    <button onclick="toggleFocus()">Foco</button>
+    <button onclick="toggleFocus()" aria-label="Alternar modo foco">Foco</button>
   </header>
   <main id="content"></main>
-  <div id="overlay" aria-hidden="true"></div>
+  <div id="overlay" aria-hidden="true" role="dialog" aria-modal="true"></div>
   <script src="js/script.js"></script>
 </body>
 </html>

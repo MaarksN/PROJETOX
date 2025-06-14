@@ -5,9 +5,6 @@ function loadPartial(name) {
     .then(html => {
       const container = document.getElementById('content');
       container.innerHTML = html;
-      if (name === 'capa') {
-        observeCube();
-      }
       if (name === 'autocards') {
         initAutocards();
       }
@@ -18,26 +15,13 @@ function loadPartial(name) {
 
 // Progress bar
 function updateProgress() {
-  const height = document.body.scrollHeight - window.innerHeight;
-  const scrolled = window.scrollY;
-  const percent = (scrolled / height) * 100;
-  document.getElementById('progress-bar').style.width = `${percent}%`;
+  const doc = document.documentElement;
+  const height = doc.scrollHeight - doc.clientHeight;
+  const percent = (doc.scrollTop / height) * 100;
+  document.getElementById("progress-bar").style.width = `${percent}%`;
 }
-window.addEventListener('scroll', updateProgress);
 
-// Observa cubo para revelar
-function observeCube() {
-  const cube = document.querySelector('.cube');
-  if (!cube) return;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        cube.classList.add('reveal');
-      }
-    });
-  });
-  obs.observe(cube);
-}
+window.addEventListener("scroll", updateProgress);
 
 function applyStagger(container) {
   const items = container.querySelectorAll('h1, h2, p, li');

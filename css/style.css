@@ -5,6 +5,8 @@ body {
   background: #f5f5f5;
   color: #333;
 }
+.skip-link {position:absolute;left:-999px;top:-999px;background:#fff;padding:0.5rem;z-index:2000;}
+.skip-link:focus{left:1rem;top:1rem;}
 
 header {
   position: sticky;
@@ -76,9 +78,6 @@ section {
 .cube .top    { transform: rotateX(90deg)  translateZ(75px); }
 .cube .bottom { transform: rotateX(-90deg) translateZ(75px); }
 
-.cube.reveal {
-  animation: cube-spin 6s linear infinite;
-}
 
 @keyframes cube-spin {
   from { transform: rotateX(0) rotateY(0); }
