@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Auto Arremate® / Arremaq 3.0</title>
+    <!-- Fontes Google para títulos e corpo do texto -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS (Animate On Scroll) para animações de rolagem -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS para utilitários de estilo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Variáveis de Cores e Fontes (Consolidadas e Ajustadas) */
+        :root {
+            --aa-green: #16B097; /* Verde principal da Auto Arremate */
+            --aa-dark-blue: #1C2E42; /* Azul escuro principal */
+            --aa-light-gray: #AEB0B2; /* Cinza claro */
+            --aa-medium-gray: #6c7a89; /* Cinza médio */
+            --aa-white: #FFFFFF; /* Branco */
+            --aa-black: #000000; /* Preto */
+            --aa-green-darker: #0F8A7E; /* Verde mais escuro */
+            --aa-green-text-dark-theme: #2DD4BF; /* Verde para texto no tema escuro */
+            --aa-green-lighter: #D2F3EC; /* Verde mais claro */
+            --aa-green-pastel: #f0fdfa; /* Verde pastel */
+            --aa-dark-blue-lighter: #2C4A6B; /* Azul escuro mais claro */
+
+            --arremaq-orange: #FF8C00; /* Laranja principal da Arremaq */
+            --arremaq-orange-darker: #D97706; /* Laranja mais escuro */
+            --arremaq-orange-text-dark-theme: #FDBA74; /* Laranja para texto no tema escuro */
+            --arremaq-orange-lighter: #FFD073; /* Laranja mais claro */
+            --arremaq-orange-pastel: #fffbeb; /* Laranja pastel */
+            --arremaq-orange-darkest: #6b3e00; /* Laranja mais escuro */
+            
+            --aa-green-darkest: #17575c; /* Verde mais escuro */
+            --aa-shiny-gray-light: #E5E7EB; /* Cinza brilhante claro */
+            --aa-shiny-gray-dark: #374151; /* Cinza brilhante escuro */
+
+            /* Fontes */
+            --font-headings-cover: 'Manrope', sans-serif; /* Fonte para títulos da capa */
+            --font-body-cover: 'Manrope', sans-serif;    /* Fonte para corpo da capa */
+            --font-primary-portal: 'Manrope', sans-serif; /* Fonte primária do portal */
+            --font-headings-portal: 'Sora', sans-serif; /* Fonte para títulos do portal */
+
+            /* Fundos */
+            --bg-main-light: var(--aa-green-pastel); /* Fundo principal tema claro */
+            --bg-main-dark: #0a121c; /* Fundo principal tema escuro */
+            --bg-content-light-portal: var(--aa-white); /* Fundo de conteúdo tema claro */
+            --bg-content-dark-portal: #1e293b; /* Fundo de conteúdo tema escuro */
+            --bg-cards-section-light: #f0f4f8; /* Fundo para seção de cards tema claro */
+            --bg-cards-section-dark: #111827; /* Fundo para seção de cards tema escuro */
+
+            /* Textos */
+            --text-headings-light-portal: var(--aa-dark-blue); /* Cor dos títulos tema claro */
+            --text-headings-dark-portal: var(--aa-green-lighter); /* Cor dos títulos tema escuro */
+            --text-body-light-portal: #334155; /* Cor do corpo do texto tema claro */
+            --text-body-dark-portal: #cbd5e1; /* Cor do corpo do texto tema escuro */
+            --text-muted-light-portal: #616161; /* Cor do texto mudo tema claro */
+            --text-muted-dark-portal: #94a3b8; /* Cor do texto mudo tema escuro */
+            
+            /* Bordas */
+            --border-color-light-portal: #e2e8f0; /* Cor da borda tema claro */
+            --border-color-dark-portal: #334155; /* Cor da borda tema escuro */
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Raios de Borda */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --radius-card-portal: 1.25rem;
+            --radius-button-portal: 0.75rem;
+            --radius-round: 9999px; /* Adicionado para botões arredondados */
+
+            --transition-main: .25s cubic-bezier(.4,0,.2,1); /* Transição principal */
+        }
+
+        /* Ajustes específicos para tema escuro, se necessário além das variáveis já definidas */
+        html[data-theme='dark'] :root { }
+
+        /* Estilos base do HTML e Body */
+        html { 
+            scroll-behavior: smooth; /* Rolagem suave */
+            font-family: var(--font-body-cover); /* Fonte padrão para todo o documento */
+            font-size: 91%; /* FONTE BASE REDUZIDA EM 30% (130% * 0.7 = 91%) */
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover); 
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            overflow-x: hidden; /* Evita rolagem horizontal */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.7; /* Espaçamento entre linhas */
+        }
+        /* Estilos do body para tema escuro */
+        html[data-theme='dark'] body {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+
+        /* Estilos da Seção de Capa */
+        .capa-section { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: clamp(1.2rem, 4.8vw, 2.4rem) clamp(0.8rem, 4vw, 1.6rem); 
+            text-align: center; 
+            position: relative; 
+            /* Gradiente de fundo animado */
+            background: linear-gradient(60deg, var(--arremaq-orange-pastel) 0%, var(--arremaq-orange-lighter) 15%, var(--aa-shiny-gray-light) 35%, var(--aa-green-lighter) 55%, var(--aa-shiny-gray-light) 75%, var(--aa-green-pastel) 90%, var(--arremaq-orange-pastel) 100%); 
+            background-size: 300% 300%; 
+            animation: backgroundGradientAnimation 20s ease infinite; 
+            overflow: hidden; 
+        }
+        /* Gradiente de fundo para tema escuro */
+        html[data-theme='dark'] .capa-section { 
+            background: linear-gradient(60deg, var(--arremaq-orange-darkest) 0%, var(--arremaq-orange-darker) 15%, var(--aa-shiny-gray-dark) 35%, var(--aa-dark-blue) 55%, var(--aa-shiny-gray-dark) 75%, var(--aa-green-darkest) 90%, var(--arremaq-orange-darkest) 100%); 
+            background-size: 300% 300%; 
+            animation: backgroundGradientAnimation 20s ease infinite; 
+        }
+        /* Animação do gradiente de fundo */
+        @keyframes backgroundGradientAnimation { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        /* Contêiner de logotipos */
+        .logos-container { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; } 
+        /* Estilos dos logotipos */
+        .playbook-logo { 
+            width: 192px; 
+            max-width: 45%; 
+            height: auto; 
+            display: block; 
+            filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.1)); 
+            animation: logo-float 3s ease-in-out infinite alternate, logo-blink 2s linear infinite; 
+        }
+        /* Sombra do logotipo para tema escuro */
+        html[data-theme='dark'] .playbook-logo { filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.3)); }
+        /* Animação de flutuação do logotipo */
+        @keyframes logo-float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } } 
+        /* Animação de piscar do logotipo */
+        @keyframes logo-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
+        /* Título da capa */
+        .capa-title { 
+            font-family: var(--font-headings-cover); 
+            font-weight: 800; 
+            text-align: center; 
+            margin-top: 0.4em; 
+            margin-bottom: 0.6em; 
+            font-size: clamp(1rem, 2.2vw, 1.35rem); /* Ajustado para 4 linhas e fonte base menor */
+            line-height: 1.5; /* Ajustado para 4 linhas */
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            color: var(--aa-dark-blue); 
+        }
+        /* Cor do título da capa para tema escuro */
+        html[data-theme='dark'] .capa-title { 
+            color: var(--aa-green-lighter); 
+        }
+        /* Linhas do título da capa */
+        .capa-title .capa-title-line {
+            display: block; 
+            margin-bottom: 0.15em; /* Espaço menor entre as linhas do título */
+        }
+        .capa-title .capa-title-line:last-child {
+            margin-bottom: 0;
+        }
+        /* Efeito de brilho para o título */
+        .capa-title.fun-title-effect { animation: fun-title-glow-animation 4s ease-in-out infinite alternate; position: relative; }
+        /* Animação de brilho para o título */
+        @keyframes fun-title-glow-animation { 0% { text-shadow: 0 0 5px rgba(22, 176, 151, 0.4), 0 0 10px rgba(255, 140, 0, 0.3); } 50% { text-shadow: 0 0 15px rgba(22, 176, 151, 0.8), 0 0 20px rgba(255, 140, 0, 0.7); } 100% { text-shadow: 0 0 5px rgba(22, 176, 151, 0.4), 0 0 10px rgba(255, 140, 0, 0.3); } }
+        
+        /* Cor original dos emojis */
+        .emoji-original-color { -webkit-text-fill-color: initial; text-fill-color: initial; background: none; display: inline-block; text-shadow: none; }
+        
+        /* Cores específicas para texto */
+        .text-aa-green-darker { color: var(--aa-green-darker) !important; -webkit-text-fill-color: var(--aa-green-darker) !important; text-fill-color: var(--aa-green-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; -webkit-text-fill-color: var(--aa-green-text-dark-theme) !important; text-fill-color: var(--aa-green-text-dark-theme) !important; }
+        .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; -webkit-text-fill-color: var(--arremaq-orange-darker) !important; text-fill-color: var(--arremaq-orange-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; -webkit-text-fill-color: var(--arremaq-orange-text-dark-theme) !important; text-fill-color: var(--arremaq-orange-text-dark-theme) !important; }
+        
+        /* Frases de destaque */
+        .frase-destaque { 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% em relação ao anterior (0.65rem * 1.3 = 0.845rem) */
+            font-size: clamp(0.845rem, 1.69vw, 1.17rem); 
+            font-weight: 700; 
+            background: transparent; 
+            border-radius: var(--radius-lg); 
+            padding: 0.3em 0.6em; 
+            margin-bottom: 0.8rem; 
+            margin-top: 0.6em; 
+            display: block; 
+            max-width: 90%; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+            transition: all var(--transition-main); 
+        }
+        /* Sombra da frase de destaque para tema escuro */
+        html[data-theme='dark'] .frase-destaque { text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        /* Cores específicas para frases de destaque */
+        .frase-destaque-verde { color: var(--aa-green-darker); }
+        html[data-theme='dark'] .frase-destaque-verde { color: var(--aa-green-text-dark-theme); }
+        .frase-destaque-laranja { color: var(--arremaq-orange-darker); }
+        html[data-theme='dark'] .frase-destaque-laranja { color: var(--arremaq-orange-text-dark-theme); }
+        /* Estilo dos emojis nas frases de destaque */
+        .frase-destaque .emoji { margin: 0 0.25em; font-size: 1em; /* Ajustado para nova base */ vertical-align: middle; -webkit-text-fill-color: initial; text-fill-color: initial; background: none; text-shadow: none; }
+        /* Animação de pulsar para frases de destaque */
+        @keyframes fun-frase-pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.02); opacity: 1; } }
+        .frase-destaque.fun-frase-effect { animation: fun-frase-pulse 3s ease-in-out infinite; }
+        
+        /* Texto "Criado por" */
+        .capa-criado { 
+            font-family: var(--font-body-cover); 
+            /* font-size aumentado em 30% (0.6rem * 1.3 = 0.78rem) */
+            font-size: 0.78rem; 
+            color: var(--aa-dark-blue); 
+            opacity: 0.95; 
+            margin-top: 1rem; 
+            margin-bottom: 1rem; 
+            font-weight: 500; 
+            animation: created-by-pulse 5s infinite alternate; 
+            text-align: center; 
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1); 
+        }
+        /* Estilo "Criado por" para tema escuro */
+        html[data-theme='dark'] .capa-criado { color: #E2E8F0; opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+        /* Animação para "Criado por" */
+        @keyframes created-by-pulse { 0% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } 50% { text-shadow: 0 0 7px rgba(22, 176, 151, 0.4), 0 0 4px rgba(255, 140, 0, 0.3); transform: scale(1.03); } 100% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } }
+        /* Estilo dos emojis em "Criado por" */
+        .capa-criado .emoji { font-size: 1em; /* Ajustado para nova base */ vertical-align: baseline; margin: 0 0.15em; }
+        /* Nome do criador */
+        .capa-criado .creator-name { 
+            font-weight: 700; 
+            background: linear-gradient(45deg, var(--aa-green-darker) 20%, var(--aa-green) 50%, var(--arremaq-orange) 80%); 
+            -webkit-background-clip: text; 
+            -moz-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent; 
+            text-fill-color: transparent; 
+            padding: 0 0.2em; 
+            display: inline-block; 
+        }
+        /* Nome do criador para tema escuro */
+        html[data-theme='dark'] .capa-criado .creator-name { 
+            background: linear-gradient(45deg, var(--aa-green-lighter) 20%, var(--aa-green) 50%, var(--arremaq-orange-lighter) 80%); 
+            -webkit-background-clip: text; 
+            -moz-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent; 
+            text-fill-color: transparent; 
+        }
+        
+        /* Botão "Iniciar" */
+        .btn-iniciar { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.6em; 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% (0.75rem * 1.3 = 0.975rem) */
+            font-size: 0.975rem; 
+            font-weight: bold; 
+            padding: 0.6em 1.5em; 
+            background-image: linear-gradient(45deg, var(--aa-green-darker) 0%, var(--aa-green) 50%, var(--aa-green-darker) 100%); 
+            background-size: 200% auto; 
+            color: var(--aa-white); 
+            border: none; 
+            border-radius: var(--radius-full); /* Alterado para --radius-full */
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(22, 176, 151, 0.3), 0 1.5px 3px -1.5px var(--aa-green-darker) inset; 
+            transition: all 0.4s ease-out; 
+            outline: none; 
+            margin-top: 1.2em; 
+            margin-bottom: 1.2em; 
+            text-transform: uppercase; 
+            letter-spacing: 0.07em; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .btn-iniciar:hover { background-position: right center; transform: scale(1.08) translateY(-3px); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset, 0 0 12px var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-iniciar { background-image: linear-gradient(45deg, var(--aa-green) 0%, var(--aa-green-lighter) 50%, var(--aa-green) 100%); color: var(--aa-dark-blue); box-shadow: 0 4px 12px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset; }
+        html[data-theme='dark'] .btn-iniciar:hover { color: var(--aa-dark-blue); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.5), 0 1.5px 3px -1.5px var(--aa-green-darker) inset, 0 0 16px var(--aa-green); }
+        .btn-iniciar svg { width: 1.2em; height: 1.2em; transition: transform 0.4s ease; }
+        .btn-iniciar:hover svg { transform: rotate(15deg) scale(1.15) translateX(2.5px); } 
+        
+        .capa-social-links { margin-top: 1.2rem; display: flex; gap: 1.2rem; justify-content: center; align-items: center; } 
+        .capa-social-links a { color: var(--aa-dark-blue); font-size: 1.3rem; transition: color var(--transition-main), transform var(--transition-main); }
+        .capa-social-links a:hover { color: var(--aa-green); transform: scale(1.2) rotate(-5deg); }
+        html[data-theme='dark'] .capa-social-links a { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .capa-social-links a:hover { color: var(--aa-white); }
+
+        /* Estilos da Nova Seção de Cards (Menu Principal) */
+        .menu-principal-section { min-height: 100vh; padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); text-align: center; background-color: var(--bg-cards-section-light); }
+        html[data-theme='dark'] .menu-principal-section { background-color: var(--bg-cards-section-dark); }
+        .menu-principal-title { font-family: var(--font-headings-cover); font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--text-headings-light-portal); margin-bottom: 2.5rem; line-height: 1.3; text-transform: uppercase; }
+        html[data-theme='dark'] .menu-principal-title { color: var(--text-headings-dark-portal); }
+        .menu-card { text-decoration: none; background-color: var(--bg-content-light-portal); border-radius: var(--radius-xl); padding: 2rem 1.5rem; box-shadow: var(--shadow-lg); transition: all var(--transition-main); border: 1px solid var(--border-color-light-portal); display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; height: 100%; min-height: 280px; justify-content: center; }
+        .menu-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: var(--shadow-xl); border-color: var(--aa-green); }
+        html[data-theme='dark'] .menu-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .menu-card:hover { border-color: var(--aa-green-lighter); }
+        .menu-card-icon { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1; }
+        .menu-card-title { font-family: var(--font-headings-cover); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.4; }
+        html[data-theme='dark'] .menu-card-title { color: var(--text-headings-dark-portal); }
+        .menu-card-title .text-aa-green-darker { color: var(--aa-green-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; }
+        .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; }
+
+        /* Estilos da Seção de Detalhes do Manual do Pit Stop (Guia Estratégico) */
+        .manual-pitstop-detalhes-section { background-color: var(--bg-main-light); color: var(--text-body-light-portal); padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); min-height: 100vh; }
+        html[data-theme='dark'] .manual-pitstop-detalhes-section { background-color: var(--bg-main-dark); color: var(--text-body-dark-portal); }
+        .manual-pitstop-main-title { font-family: var(--font-headings-portal); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-headings-light-portal); text-align: center; margin-bottom: 2rem; text-transform: uppercase; }
+        html[data-theme='dark'] .manual-pitstop-main-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-card { background-color: var(--bg-content-light-portal); border: 2px solid var(--border-color-light-portal); border-left: 5px solid var(--aa-green); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); transition: all var(--transition-main); cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 220px; justify-content: flex-start; }
+        #playbookIndexContainer .index-item-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-xl); border-left-color: var(--arremaq-orange); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); border-left-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card:hover { border-left-color: var(--arremaq-orange-lighter); border-color: var(--arremaq-orange-lighter); }
+        #playbookIndexContainer .index-item-emoji { font-size: 2.2rem; margin-bottom: 1rem; color: var(--arremaq-orange); line-height: 1; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-emoji { color: var(--arremaq-orange-lighter); }
+        .emoji-autoarremate-color { color: var(--aa-green-darker) !important; } 
+        html[data-theme='dark'] .emoji-autoarremate-color { color: var(--aa-green-text-dark-theme) !important; }
+        .emoji-arremaq-color { color: var(--arremaq-orange-darker) !important; } 
+        html[data-theme='dark'] .emoji-arremaq-color { color: var(--arremaq-orange-text-dark-theme) !important; }
+        #playbookIndexContainer .index-item-title { font-family: var(--font-headings-portal); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.3; }
+        #playbookIndexContainer .index-item-title strong { text-transform: uppercase; font-weight: 800; display: block; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-sub { font-family: var(--font-primary-portal); font-size: 0.7rem; color: var(--text-muted-light-portal); line-height: 1.5; margin-top: auto; padding-top: 0.5rem; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub { color: var(--text-muted-dark-portal); }
+        
+        .playbook-sub-section { padding-top: 2rem; padding-bottom: 2rem; background-color: var(--bg-main-light); min-height: 100vh; }
+        html[data-theme='dark'] .playbook-sub-section { background-color: var(--bg-main-dark); }
+        .playbook-content-title { font-family: var(--font-headings-portal); font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; color: var(--text-headings-light-portal); margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;}
+        html[data-theme='dark'] .playbook-content-title { color: var(--text-headings-dark-portal); }
+        .playbook-content-title .emoji { font-size: 1.1em; margin-right: 0.6rem; color: var(--aa-green); }
+        html[data-theme='dark'] .playbook-content-title .emoji { color: var(--aa-green-lighter); }
+        .playbook-sub-section p { margin-bottom: 1rem; line-height: 1.8; font-size: 0.85rem; color: var(--text-body-light-portal); }
+        html[data-theme='dark'] .playbook-sub-section p { color: var(--text-body-dark-portal); }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 3rem; }
+        .btn-nav { padding: 0.7rem 1.5rem; border-radius: var(--radius-lg); font-weight: 700; transition: all var(--transition-main); border: 2px solid transparent; text-transform: uppercase; box-shadow: var(--shadow-sm); font-size: 0.8rem; }
+        .btn-nav:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .btn-nav.prev { background-color: var(--text-muted-light-portal); color: var(--aa-white); border-color: var(--aa-dark-blue); }
+        .btn-nav.prev:hover { background-color: var(--aa-dark-blue); }
+        html[data-theme='dark'] .btn-nav.prev { background-color: var(--text-muted-dark-portal); color: var(--bg-main-dark); border-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-nav.prev:hover { background-color: var(--aa-green-lighter); color: var(--aa-dark-blue); }
+        .btn-nav.next { background-color: var(--aa-green); color: var(--aa-white); border-color: var(--aa-green-darker); }
+        .btn-nav.next:hover { background-color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-nav.next { background-color: var(--arremaq-orange-lighter); color: var(--aa-dark-blue); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] .btn-nav.next:hover { background-color: var(--arremaq-orange); color: var(--aa-white); }
+        .btn-nav.disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; opacity: 0.7; border-color: #cbd5e1; }
+        html[data-theme='dark'] .btn-nav.disabled { background-color: #334155; color: #64748b; border-color: #475569; }
+        
+        .btn-voltar-secao { display: inline-flex; align-items: center; font-family: var(--font-headings-cover); font-weight: 600; padding: 0.6rem 1.2rem; border-radius: var(--radius-button-portal); text-decoration: none; transition: all var(--transition-main); border: 2px solid var(--aa-green); background-color: transparent; color: var(--aa-green-darker); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2rem; }
+        .btn-voltar-secao:hover { background-color: var(--aa-green-lighter); border-color: var(--aa-green-darker); transform: translateY(-2px); color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-voltar-secao { border-color: var(--aa-green-lighter); color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-voltar-secao:hover { background-color: var(--aa-green-darker); border-color: var(--aa-green-lighter); color: var(--aa-white); }
+        .btn-voltar-secao i { margin-right: 0.5rem; }
+
+        .theme-toggle-button { position: fixed; bottom: 20px; right: 20px; background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-lg); z-index: 1000; transition: all var(--transition-main); }
+        .theme-toggle-button:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .theme-toggle-button { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .theme-toggle-button:hover { color: var(--aa-green-lighter); }
+        .accessibility-controls { position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1001; }
+        .accessibility-btn { background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md); transition: all var(--transition-main); }
+        .accessibility-btn:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .accessibility-btn { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .accessibility-btn:hover { color: var(--aa-green-lighter); }
+
+        .hidden { display: none !important; }
+
+        /* Estilos para os cards da Jornada do Cliente dentro do Playbook */
+        .jornada-card-playbook {
+            background-color: var(--bg-content-light-portal);
+            border: 1px solid var(--border-color-light-portal);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-main);
+            text-decoration: none; /* Para o caso de ser um link <a> */
+            display: block; /* Para o caso de ser um link <a> */
+            color: inherit; /* Para o caso de ser um link <a> */
+        }
+        .jornada-card-playbook:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--aa-green);
+        }
+        html[data-theme='dark'] .jornada-card-playbook {
+            background-color: var(--bg-content-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+        html[data-theme='dark'] .jornada-card-playbook:hover {
+            border-color: var(--aa-green-lighter);
+        }
+        .jornada-card-playbook h3 {
+            font-family: var(--font-headings-portal);
+            color: var(--aa-green-darker);
+            font-size: 1.1rem; /* Ajustado */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        html[data-theme='dark'] .jornada-card-playbook h3 {
+            color: var(--aa-green-text-dark-theme);
+        }
+        .jornada-card-playbook p {
+            font-size: 0.8rem; /* Ajustado */
+            color: var(--text-body-light-portal);
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        html[data-theme='dark'] .jornada-card-playbook p {
+            color: var(--text-body-dark-portal);
+        }
+        .jornada-card-playbook .details-prompt-playbook {
+            font-size: 0.75rem; /* Ajustado */
+            color: var(--arremaq-orange-darker);
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        html[data-theme='dark'] .jornada-card-playbook .details-prompt-playbook {
+            color: var(--arremaq-orange-lighter);
+        }
+
+        /* Estilos para o Organograma da Jornada do Cliente */
+        .organograma-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem; /* Espaçamento entre os nós e estágios */
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-content-light-portal);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        html[data-theme='dark'] .organograma-wrapper {
+            background-color: var(--bg-content-dark-portal);
+        }
+
+        .flow-node {
+            background-color: var(--aa-white);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            font-weight: 600;
+            color: var(--aa-dark-blue);
+            border: 1px solid var(--border-color-light-portal);
+            transition: all var(--transition-main);
+        }
+        html[data-theme='dark'] .flow-node {
+            background-color: var(--aa-dark-blue-lighter);
+            color: var(--aa-green-lighter);
+            border-color: var(--border-color-dark-portal);
+        }
+        .flow-node.start-node, .flow-node.end-node {
+            font-size: 1.1rem;
+            padding: 1.2rem 2rem;
+            border-width: 2px;
+        }
+        .flow-node.start-node {
+            border-color: var(--aa-green);
+            color: var(--aa-green-darker);
+            background-color: var(--aa-green-lighter);
+        }
+        html[data-theme='dark'] .flow-node.start-node {
+            border-color: var(--aa-green-text-dark-theme);
+            color: var(--aa-green-text-dark-theme);
+            background-color: var(--aa-green-darkest);
+        }
+        .flow-node.end-node {
+            border-color: var(--arremaq-orange);
+            color: var(--arremaq-orange-darker);
+            background-color: var(--arremaq-orange-lighter);
+        }
+        html[data-theme='dark'] .flow-node.end-node {
+            border-color: var(--arremaq-orange-text-dark-theme);
+            color: var(--arremaq-orange-text-dark-theme);
+            background-color: var(--arremaq-orange-darkest);
+        }
+
+        .flow-connector-stage {
+            font-size: 1.5rem;
+            color: var(--aa-medium-gray);
+            margin: 0.5rem 0;
+        }
+        html[data-theme='dark'] .flow-connector-stage {
+            color: var(--text-muted-dark-portal);
+        }
+
+        .stage-group {
+            border: 2px solid var(--border-color-light-portal);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            max-width: 800px; /* Limita a largura dos grupos */
+            box-shadow: var(--shadow-md);
+            background-color: var(--bg-cards-section-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        html[data-theme='dark'] .stage-group {
+            background-color: var(--bg-cards-section-dark);
+            border-color: var(--border-color-dark-portal);
+        }
+
+        .stage-title-node {
+            font-family: var(--font-headings-portal);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--aa-dark-blue);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        html[data-theme='dark'] .stage-title-node {
+            color: var(--aa-green-lighter);
+        }
+
+        .stage-objective {
+            font-size: 0.9rem;
+            color: var(--text-body-light-portal);
+            text-align: center;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        html[data-theme='dark'] .stage-objective {
+            color: var(--text-body-dark-portal);
+        }
+        .stage-objective .emoji {
+            margin-right: 0.5em;
+        }
+
+        .flow-connector-vertical {
+            width: 2px;
+            height: 1.5rem;
+            background-color: var(--aa-light-gray);
+            margin: 0.5rem 0;
+        }
+        html[data-theme='dark'] .flow-connector-vertical {
+            background-color: var(--aa-medium-gray);
+        }
+
+        .interaction-node {
+            background-color: var(--aa-white);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color-light-portal);
+            width: 90%; /* Ajuste para não ser muito largo */
+            max-width: 450px; /* Limite de largura */
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-main);
+        }
+        .interaction-node:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--aa-green);
+        }
+        html[data-theme='dark'] .interaction-node {
+            background-color: var(--aa-dark-blue-lighter);
+            border-color: var(--border-color-dark-portal);
+        }
+        html[data-theme='dark'] .interaction-node:hover {
+            border-color: var(--aa-green-lighter);
+        }
+        .interaction-node h4 {
+            font-family: var(--font-primary-portal);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--aa-dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        html[data-theme='dark'] .interaction-node h4 {
+            color: var(--aa-green-lighter);
+        }
+
+        .interaction-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted-light-portal);
+            margin-bottom: 0.5rem;
+        }
+        html[data-theme='dark'] .interaction-subtitle {
+            color: var(--text-muted-dark-portal);
+        }
+
+        .interaction-details-prompt {
+            font-size: 0.7rem;
+            color: var(--arremaq-orange-darker);
+            font-style: italic;
+        }
+        html[data-theme='dark'] .interaction-details-prompt {
+            color: var(--arremaq-orange-lighter);
+        }
+
+        /* Container de texto para jornadas */
+        .text-content-container {
+            padding: 1rem;
+            background-color: var(--bg-content-light-portal);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+        html[data-theme='dark'] .text-content-container {
+            background-color: var(--bg-content-dark-portal);
+        }
+
+        /* Estilos para o texto de introdução na Jornada do Cliente */
+        .jornada-explicacao {
+            background-color: var(--aa-white); /* Fundo branco ou claro */
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        html[data-theme='dark'] .jornada-explicacao {
+            background-color: var(--bg-content-dark-portal);
+        }
+        .jornada-explicacao p {
+            font-size: 0.95rem;
+            color: var(--text-body-light-portal);
+            margin-bottom: 1rem;
+        }
+        html[data-theme='dark'] .jornada-explicacao p {
+            color: var(--text-body-dark-portal);
+        }
+        .jornada-explicacao p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ANIMAÇÃO SVG DA JORNADA */
+        .jornada-animation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #0a121c; /* Cor de fundo escura para a animação */
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            margin-top: 2rem;
+            max-width: 800px; /* Limita a largura do container da animação */
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jornada-svg {
+            width: 100%;
+            height: 350px; /* Altura fixa para a animação */
+            background-color: #334155; /* Cor da estrada */
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+        }
+
+        .car-svg {
+            fill: #3b82f6; /* Cor do carro */
+            stroke: #1e3a8a;
+            stroke-width: 2;
+            transform-origin: center; /* Garante rotação a partir do centro */
+            animation: drivePath 10s linear infinite forwards; /* Animação do carro ao longo do path */
+        }
+        
+        .road-lines {
+            stroke: white;
+            stroke-dasharray: 10 10;
+            animation: roadMove 2s linear infinite; /* Animação das linhas da estrada */
+        }
+
+        @keyframes roadMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(20px); } /* Move as linhas para baixo */
+        }
+
+        .stage-marker {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            font-family: var(--font-primary-portal);
+            font-size: 14px;
+            font-weight: 600;
+            text-anchor: middle;
+            fill: var(--aa-white); /* Cor do texto do marcador */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Define os keyframes para a animação do carro ao longo do path */
+        @keyframes drivePath {
+            0% { 
+                offset-distance: 0%; 
+                transform: rotate(0deg); 
+            }
+            15% { 
+                offset-distance: 15%; 
+                transform: rotate(0deg); 
+            }
+            25% { 
+                offset-distance: 25%; 
+                transform: rotate(20deg); /* Curva para a direita */
+            }
+            35% { 
+                offset-distance: 35%; 
+                transform: rotate(0deg); 
+            }
+            50% { 
+                offset-distance: 50%; 
+                transform: rotate(-20deg); /* Curva para a esquerda */
+            }
+            65% { 
+                offset-distance: 65%; 
+                transform: rotate(0deg); 
+            }
+            80% { 
+                offset-distance: 80%; 
+                transform: rotate(20deg); /* Curva para a direita */
+            }
+            90% { 
+                offset-distance: 90%; 
+                transform: rotate(0deg); 
+            }
+            100% { 
+                offset-distance: 100%; 
+                transform: rotate(0deg); 
+            }
+        }
+
+        /* Atrasos para cada marcador aparecer na hora certa */
+        .stage-marker.stage-1 { animation-delay: 1s; }
+        .stage-marker.stage-2 { animation-delay: 2.5s; }
+        .stage-marker.stage-3 { animation-delay: 4.5s; }
+        .stage-marker.stage-4 { animation-delay: 6.5s; }
+        .stage-marker.stage-5 { animation-delay: 8.5s; }
+        
+        @media (max-width: 1024px) { 
+            .menu-principal-section .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer.grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #jornadaClienteCardsContainer.grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr));} /* Responsividade para cards da jornada */
+        }
+        @media (max-width: 768px) {
+            html { font-size: 84%; } 
+            .capa-title { font-size: clamp(1.0rem, 2.2vw, 1.3rem); } 
+            .frase-destaque { font-size: clamp(0.6rem, 1.3vw, 0.8rem); max-width: 95%;}
+            .playbook-logo { width: 148px; } 
+            .accessibility-controls { top: 10px; right: 10px; gap: 8px;}
+            .accessibility-btn { width: 40px; height: 40px; font-size: 1.1rem;}
+            .menu-principal-title { font-size: clamp(1.1rem, 2.8vw, 1.7rem); }
+            .menu-card { padding: 1.5rem 1rem; min-height: 240px; }
+            .menu-card-icon { font-size: 2.2rem; }
+            .menu-card-title { font-size: 0.8rem; }
+            .manual-pitstop-main-title { font-size: clamp(1.2rem, 2.8vw, 1.7rem); }
+            .playbook-content-title { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+            #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer .index-item-card { min-height: 180px; }
+            #playbookIndexContainer .index-item-emoji { font-size: 1.8rem; }
+            #playbookIndexContainer .index-item-title { font-size: 0.7rem; }
+            #playbookIndexContainer .index-item-sub { font-size: 0.55rem; }
+            .playbook-sub-section p { font-size: 0.7rem; }
+            #jornadaClienteCardsContainer.grid-cols-3, #jornadaClienteCardsContainer.grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr));} /* Responsividade para cards da jornada */
+
+        }
+        @media (max-width: 640px) { 
+             .menu-principal-section .grid-cols-4, .menu-principal-section .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+             #playbookIndexContainer.grid-cols-4, #playbookIndexContainer.grid-cols-2, #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 77%; } 
+            .playbook-logo { width: 116px; } 
+            .btn-iniciar { font-size: 0.7rem; padding: 0.5em 1.1em; }
+            .capa-title { font-size: clamp(0.9rem, 2.5vw, 1.2rem); line-height: 1.5;} 
+            .frase-destaque { font-size: clamp(0.6rem, 1.2vw, 0.75rem); }
+            .menu-principal-title { font-size: clamp(1rem, 2.8vw, 1.5rem); }
+            .manual-pitstop-main-title { font-size: clamp(1.1rem, 2.8vw, 1.5rem); }
+             .menu-card { min-height: 200px; }
+            .menu-card-title { font-size: 0.75rem; }
+            .playbook-sub-section p { font-size: 0.65rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Controles de Acessibilidade (Tamanho da Fonte e Leitura de Página) -->
+    <div class="accessibility-controls">
+        <button id="increaseFontBtn" class="accessibility-btn" aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+            <i class="fas fa-search-plus"></i>
+        </button>
+        <button id="decreaseFontBtn" class="accessibility-btn" aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+            <i class="fas fa-search-minus"></i>
+        </button>
+        <button id="readPageBtn" class="accessibility-btn" aria-label="Ler página em voz alta" title="Ler Página">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Container principal de todo o portal -->
+    <main id="main-portal-completo">
+        <!-- Seção de Capa -->
+        <section id="capa-section" class="capa-section" data-aos="fade-in" data-aos-duration="1000">
+            <div class="logos-container">
+                <!-- Logotipo Auto Arremate com fallback -->
+                <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logotipo da Auto Arremate" class="playbook-logo" data-aos="zoom-in" data-aos-delay="200" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/16B097?text=Auto+Arremate&font=manrope'; this.alt='Logotipo Auto Arremate Indisponível';">
+                <!-- Logotipo Arremaq com fallback -->
+                <img src="https://www.arremaq.com.br/wp-content/uploads/2021/01/Logotipo-Arremaqsuperbid.png" alt="Logotipo da Arremaq" class="playbook-logo" data-aos="zoom-in" data-aos-delay="300" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/FF8C00?text=Arremaq&font=manrope'; this.alt='Logotipo Arremaq Indisponível';">
+            </div>
+            <h1 class="capa-title fun-title-effect" data-aos="fade-up" data-aos-delay="400">
+                <span class="capa-title-line"><span class="emoji-original-color">🏎️</span> ACELERA SUCESSO 2025<span class="emoji-original-color">💨</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">⚡</span> SEU GUIA RELÂMPAGO <span class="emoji-original-color">💡</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🎯</span> PARA UMA PERFORMANCE CAMPEÃ <span class="emoji-original-color">🏁</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🏆</span> NA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> <span class="emoji-original-color">🏅</span></span>
+            </h1>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="600">
+                <span class="emoji">🚀</span> SÓ OS FORTES ACELERAM, MAS APENAS OS SÁBIOS DOMINAM A ARTE DE FREAR! <span class="emoji">🛑</span>
+            </p>
+            <p class="frase-destaque frase-destaque-laranja" data-aos="fade-up" data-aos-delay="700">
+                <span class="emoji">⚡</span> <strong>A VIDA É UMA CORRIDA; ACELERE COM CORAGEM!</strong> <span class="emoji">💨</span>
+            </p>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="800">
+                <span class="emoji">🛣️</span> <strong>CADA CURVA É UMA OPORTUNIDADE, NÃO UM OBSTÁCULO. VAMOS NESSA!</strong> <span class="emoji">🚀</span>
+            </p>
+            <p class="capa-criado" data-aos="fade-up" data-aos-delay="900"> <span class="emoji">✨</span> Criado pelo <span class="emoji">👨‍💻</span> Analista de Operações - <strong class="creator-name">Marcelo do Nascimento</strong> <span class="emoji">🚀</span>
+            </p>
+            <button id="btnIniciarCapa" class="btn-iniciar" data-aos="fade-up" data-aos-delay="1000"> EMBARCAR NESSA CORRIDA ÉPICA!
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 1.2em; height: 1.2em;"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <div class="capa-social-links" data-aos="fade-up" data-aos-delay="1100"> <a href="https://facebook.com/auto-arremate" target="_blank" aria-label="Facebook Auto Arremate"><i class="fab fa-facebook-f"></i></a> <a href="https://www.autoarremate.com.br/podcast-dirigindo-vendas/" target="_blank" aria-label="Podcast Dirigindo Vendas" title="Podcast Dirigindo Vendas"><i class="fas fa-podcast"></i></a> <a href="https://www.instagram.com/autoarremate/" target="_blank" aria-label="Instagram Auto Arremate"><i class="fab fa-instagram"></i></a> <a href="https://www.linkedin.com/company/autoarremate/" target="_blank" aria-label="LinkedIn Auto Arremate"><i class="fab fa-linkedin-in"></i></a> <a href="https://wa.me/5511940366065" target="_blank" aria-label="WhatsApp Auto Arremate"><i class="fab fa-whatsapp"></i></a> <a href="tel:01640421197" aria-label="Telefone Auto Arremate"><i class="fas fa-phone"></i></a>
+            </div>
+        </section>
+
+        <!-- Seção do Menu Principal -->
+        <section id="menu-principal-section" class="menu-principal-section hidden" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="menu-principal-title" data-aos="fade-down">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️</span><span class="emoji-original-color">🗺️</span><span class="emoji-original-color">🎨</span><span class="emoji-original-color">⛽</span>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-12">
+                    <div id="openManualPitStopBtn" class="menu-card" data-aos="fade-up" data-aos-delay="100">
+                        <span class="menu-card-icon"><i class="fas fa-tools text-gray-600 dark:text-gray-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🛠️</span> MANUAL DO PIT STOP <span class="text-aa-green-darker">AAR</span>: ESTRATÉGIAS PARA VENCER CADA CORRIDA! <span class="emoji-original-color">🏁🏆</span>
+                        </h3>
+                    </div>
+                    <!-- NOVO CARD: Jornada do Cliente AA -->
+                    <div id="openJornadaClienteAABtn" class="menu-card" data-aos="fade-up" data-aos-delay="200">
+                        <span class="menu-card-icon"><i class="fas fa-project-diagram text-blue-500 dark:text-blue-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🗺️</span> JORNADA DO CLIENTE <span class="text-aa-green-darker">AUTO ARREMATE</span>
+                        </h3>
+                    </div>
+                    <div id="openBoxIdentidadeBtn" class="menu-card" data-aos="fade-up" data-aos-delay="300">
+                        <span class="menu-card-icon"><i class="fas fa-palette text-purple-500 dark:text-purple-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span>: AS CORES E O DNA DA NOSSA ESCUDERIA VENCEDORA! <span class="emoji-original-color">🏁✨</span>
+                        </h3>
+                    </div>
+                    <div id="openAcademiaRepassadoresBtn" class="menu-card" data-aos="fade-up" data-aos-delay="400">
+                        <span class="menu-card-icon"><i class="fas fa-graduation-cap text-red-500 dark:text-red-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0: TURBINE SEU TALENTO PARA A VITÓRIA! <span class="emoji-original-color">🏎️</span>
+                        </h3>
+                    </div>
+                </div>
+                <button id="backToCoverBtnMenu" class="btn-voltar-secao mt-12 mx-auto">
+                    <i class="fas fa-arrow-left"></i> VOLTAR À CAPA
+                </button>
+            </div>
+        </section>
+
+        <!-- Seção de Detalhes do Manual do Pit Stop (índice) -->
+        <section id="manual-pitstop-detalhes-section" class="manual-pitstop-detalhes-section hidden" data-aos="fade-in">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL
+                </button>
+                <h2 class="manual-pitstop-main-title">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️🗺️🎨⛽</span>
+                </h2>
+                <div id="playbookIndexContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 py-6">
+                    </div>
+            </div>
+        </section>
+
+        <!-- NOVA SEÇÃO: ÍNDICE DA JORNADA DO CLIENTE -->
+        <section id="jornada-cliente-aa-content-section" class="hidden playbook-sub-section" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL
+                </button>
+                <h2 class="playbook-content-title text-center mb-6">
+                    <span class="emoji-original-color">🗺️</span> PORTAL DA JORNADA DO CLIENTE VENDEDOR <span class="text-aa-green-darker">AUTO ARREMATE</span>
+                </h2>
+                <div class="jornada-explicacao mb-12 text-left md:text-center max-w-4xl mx-auto bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg">
+                    <p class="text-lg font-semibold text-aa-dark-blue dark:text-aa-green-lighter mb-4">
+                        Bem-vindo ao seu guia mestre para a Jornada do Cliente Vendedor na <span class="text-aa-green-darker">Auto Arremate®</span>!
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-3">
+                        Compreender profundamente cada etapa da experiência dos nossos clientes vendedores de repasses B2B é fundamental para o nosso sucesso mútuo. Este portal é o seu mapa estratégico, projetado para fornecer clareza e insights sobre como conduzimos os leads desde o interesse inicial até se tornarem parceiros valiosos e de longo prazo.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                        Abaixo, você encontrará os principais tipos de jornadas que gerenciamos. Cada card representa um fluxo estratégico, detalhando os objetivos, os pontos de contato cruciais, as interações chave e as ferramentas que empregamos para otimizar a venda do estoque de repasse do cliente, aumentar sua liquidez e rentabilidade.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        <strong class="text-aa-green-darker dark:text-aa-green-text-dark-theme">Navegue por cada card para explorar os fluxos detalhados e todos os recursos associados a cada jornada específica.</strong> Prepare-se para dominar os caminhos que levam à excelência no atendimento e aos resultados campeões!
+                    </p>
+                </div>
+                <!-- Container para os cards da jornada do cliente (preenchido via JS) -->
+                <div id="jornadaClienteCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSEÇÕES DE CONTEÚDO DO MANUAL DO PIT STOP -->
+        <!-- Seção: Nossa Pista de Decolagem -->
+        <section id="playbook-sec-0-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🚀</span><strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Bem-vindo à <span class="text-aa-green-darker">Auto Arremate</span> e <span class="text-arremaq-orange-darker">Arremaq</span>! Nossa jornada começou com a visão de revolucionar o mercado de repasse de veículos e máquinas. Acreditamos que com paixão, inovação e um time dedicado, podemos alcançar resultados extraordinários. Nossos valores são o combustível que nos move: integridade em cada negociação, excelência no atendimento, agilidade nos processos e um compromisso inabalável com o sucesso dos nossos clientes e parceiros. Juntos, somos uma equipe imbatível, pronta para acelerar rumo ao futuro!</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev disabled" disabled>❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-1-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Auto Arremate na Pole Position -->
+        <section id="playbook-sec-1-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-autoarremate-color">🚗</span><strong><span class="text-aa-green-darker">AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong></h2> 
+                <p>Na <span class="text-aa-green-darker">Auto Arremate</span>, somos especialistas em veículos leves. Nossa plataforma oferece um ecossistema completo para a gestão e comercialização eficiente de carros de passeio, SUVs, picapes e utilitários. Desde a avaliação precisa, passando pela preparação e documentação, até a venda estratégica em nossos canais, garantimos a melhor performance e liquidez para os ativos dos nossos parceiros. Nossos diferenciais incluem tecnologia de ponta, uma vasta rede de compradores e um time focado em resultados.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-0-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Arremaq - A Força Bruta -->
+        <section id="playbook-sec-arremaq-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-arremaq-color">🚜</span><strong><span class="text-arremaq-orange-darker">ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong></h2> 
+                <p>A <span class="text-arremaq-orange-darker">Arremaq</span> é a divisão de peso pesado, especializada no repasse de máquinas agrícolas, equipamentos de construção e caminhões. Entendemos as particularidades deste segmento e oferecemos soluções robustas para otimizar a liquidação desses ativos. Com uma avaliação técnica criteriosa, logística eficiente e canais de venda direcionados, conectamos vendedores a compradores qualificados, maximizando o valor de tratores, colheitadeiras, escavadeiras e outros gigantes do campo e da obra.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-1-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-2-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Mapeando os Campeões -->
+        <section id="playbook-sec-2-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🎯</span><strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> (ICPS & PERSONAS)!</strong></h2> 
+                <p>Para vencer no mercado, é crucial conhecer quem são nossos clientes. Definimos Perfis de Cliente Ideal (ICPs) para cada segmento: concessionárias, locadoras, frotistas (B2B), consumidores finais (B2C) e o setor do agronegócio. A partir dos ICPs, criamos personas detalhadas como o "Carlos da Concessionária", a "Fernanda Frotista" e o "Roberto Agricultor", entendendo suas necessidades, dores, motivações e canais de comunicação preferidos. Isso nos permite personalizar nossa abordagem e oferecer soluções que realmente fazem a diferença.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-persona-animation-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: A Jornada do Cliente Vencedor (Animação) -->
+        <section id="playbook-persona-animation-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO GUIA ESTRATÉGICO </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">📊</span><strong>A JORNADA DO CLIENTE VENCEDOR <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong></h2> 
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <section id="intro-jornada-animacao" data-aos="fade-up" class="text-center">
+                        <h3 class="playbook-section-title !text-center" style="text-transform: uppercase;">
+                            <span class="emoji">🎬</span> <strong>LUZES, CÂMERA, ACELERAÇÃO! A GRANDE CORRIDA DO CLIENTE!</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">🌟</span>Prepare-se para visualizar a emocionante jornada do nosso cliente ideal! <span class="sentence-emoji">🏎️</span>Nesta animação, você verá o caminho que um cliente percorre desde o primeiro contacto até se tornar um parceiro fiel da Auto Arremate & Arremaq. <span class="sentence-emoji">🛣️</span>Acompanhe cada etapa, desde a Descoberta até a Fidelização, e entenda como otimizamos cada ponto de contacto.</p>
+                        <p><span class="sentence-emoji">🚦</span>Esta visualização é uma ferramenta poderosa para compreender a perspetiva do cliente e alinhar as nossas estratégias para garantir uma "bandeirada final" de sucesso mútuo. <span class="sentence-emoji">🏆</span></p>
+                        
+                        <div class="jornada-animation-container">
+                            <svg class="jornada-svg" viewBox="0 0 600 350" preserveAspectRatio="xMidYMid meet">
+                                <!-- Estrada com linhas animadas -->
+                                <rect x="0" y="0" width="600" height="350" fill="#334155" />
+                                <line class="road-lines" x1="150" y1="0" x2="150" y2="350" stroke-width="4" />
+                                <line class="road-lines" x1="300" y1="0" x2="300" y2="350" stroke-width="4" />
+                                <line class="road-lines" x1="450" y1="0" x2="450" y2="350" stroke-width="4" />
+
+                                <!-- Path para o carro seguir -->
+                                <path id="routePath" fill="none" stroke="transparent" stroke-width="2" d="M100,320 C200,200 400,200 500,80" />
+
+                                <!-- Carro (emoji ou SVG simples) -->
+                                <g class="car-svg">
+                                    <text x="0" y="0" font-size="30" text-anchor="middle" dominant-baseline="middle">
+                                        <textPath href="#routePath" startOffset="0%">
+                                            🏎️
+                                            <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                                                <mpath href="#routePath" />
+                                            </animateMotion>
+                                        </textPath>
+                                    </text>
+                                </g>
+
+                                <!-- Marcadores de Etapa -->
+                                <g class="stage-marker stage-1" transform="translate(100,300)">
+                                    <circle r="15" fill="#16B097" />
+                                    <text y="5" fill="white">1</text>
+                                    <text y="30" fill="white" font-size="12">DESCOBERTA</text>
+                                </g>
+                                <g class="stage-marker stage-2" transform="translate(200,210)">
+                                    <circle r="15" fill="#FF8C00" />
+                                    <text y="5" fill="white">2</text>
+                                    <text y="30" fill="white" font-size="12">CONSIDERAÇÃO</text>
+                                </g>
+                                <g class="stage-marker stage-3" transform="translate(350,150)">
+                                    <circle r="15" fill="#16B097" />
+                                    <text y="5" fill="white">3</text>
+                                    <text y="30" fill="white" font-size="12">DECISÃO</text>
+                                </g>
+                                <g class="stage-marker stage-4" transform="translate(480,100)">
+                                    <circle r="15" fill="#FF8C00" />
+                                    <text y="5" fill="white">4</text>
+                                    <text y="30" fill="white" font-size="12">COMPRA</text>
+                                </g>
+                                <g class="stage-marker stage-5" transform="translate(550,50)">
+                                    <circle r="15" fill="#16B097" />
+                                    <text y="5" fill="white">5</text>
+                                    <text y="30" fill="white" font-size="12">PÓS-VENDA</text>
+                                </g>
+
+                                <!-- Linha de Chegada -->
+                                <line x1="530" y1="20" x2="580" y2="20" stroke="white" stroke-width="5" />
+                                <text x="555" y="40" fill="white" font-size="16" text-anchor="middle">🏁</text>
+                                <text x="555" y="60" fill="white" font-size="12" text-anchor="middle">CHEGADA</text>
+
+                            </svg>
+                        </div>
+                    </section>
+                </div>
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-2-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-3-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Qualificação de Alta Performance -->
+        <section id="playbook-sec-3-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🧠</span><strong>PIT STOP DA SABEDORIA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong></h2> 
+                <p>Qualificar um lead é como ajustar o motor para a corrida: essencial para a performance. Utilizamos metodologias consagradas: <strong>SPIN Selling</strong> (Situação, Problema, Implicação, Necessidade de Solução) para entender profundamente o contexto do cliente; <strong>SNAP Selling</strong> (Simples, iNestimável, Alinhado, Prioridade) para nos comunicarmos de forma clara e relevante; e <strong>AIDA</strong> (Atenção, Interesse, Desejo, Ação) para guiar o cliente pelo funil. Essas ferramentas nos ajudam a identificar os leads com maior potencial e a focar nossos esforços onde eles trarão mais resultados.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-persona-animation-section">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-4-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Blindagem Anti-Objeção -->
+        <section id="playbook-sec-4-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🛡️</span><strong>BLINDAGEM ANTI-OBJEÇÃO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong></h2> 
+                <p>Objeções são curvas desafiadoras, mas com a estratégia certa, viram ultrapassagens. Mapeamos as objeções mais comuns (preço, concorrência, prazo, necessidade) e preparamos respostas e contra-argumentos eficazes. A técnica do "Sentir, Sentiu, Descobriu" (Eu entendo como você se sente, outros clientes se sentiram assim, mas descobriram que...) é uma ferramenta poderosa. O segredo é ouvir atentamente, validar a preocupação do cliente e apresentar soluções que reforcem o valor da nossa proposta.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-3-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-5-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Rotas da Conquista -->
+        <section id="playbook-sec-5-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🗺️</span><strong>ROTAS DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong></h2> 
+                <p>Nossa prospecção é multicanal. Para <strong>Outbound</strong>, utilizamos cold calling estratégico, e-mails personalizados e LinkedIn Sales Navigator, seguindo cadências de contato bem definidas (ex: 7 toques em 15 dias). Para <strong>Inbound</strong>, investimos em SEO, marketing de conteúdo relevante (blog, webinars) e mídias sociais para atrair leads qualificados. Ferramentas de CRM são essenciais para gerenciar os fluxos, registrar interações e garantir que nenhum lead seja perdido no caminho.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-4-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-6-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Alianças de Aço -->
+        <section id="playbook-sec-6-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">🤝</span><strong>ALIANÇAS DE AÇO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong></h2> 
+                <p>No universo B2B, a confiança é a base de grandes parcerias. Realizamos uma validação criteriosa de CNPJs, analisando a saúde financeira, histórico de mercado e reputação de potenciais parceiros. Utilizamos ferramentas de consulta e due diligence para mitigar riscos e garantir transações seguras. Nosso objetivo é construir relações de longo prazo, baseadas na transparência e no benefício mútuo, fortalecendo todo o ecossistema de repasse.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-5-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-7-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: A Arte da Comunicação Estratégica -->
+        <section id="playbook-sec-7-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">✍️</span><strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong></h2> 
+                <p>A comunicação é a chave para abrir portas e fechar negócios. Desenvolvemos modelos de e-mails, scripts de ligação e apresentações que são testados e otimizados para conversão. Utilizamos gatilhos mentais (escassez, prova social, autoridade), storytelling para conectar emocionalmente e uma linguagem clara e persuasiva. Cada interação é uma oportunidade de reforçar nossa marca e demonstrar nosso profissionalismo. [Exemplos de templates podem ser anexados ou linkados aqui].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-6-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-8-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Dicionário dos Mestres -->
+        <section id="playbook-sec-8-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📖</span><strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Para falar a língua dos campeões, é preciso conhecer os termos. Este glossário reúne os principais jargões e conceitos técnicos do mercado de veículos, máquinas, leilões e repasse. De "Lance Mínimo" a "Vistoria Cautelar", de "ROPS/FOPS" a "Tabela FIPE/Molicar", você encontrará aqui as definições para se comunicar com clareza e confiança. [O glossário pode ser uma lista A-Z ou categorizado].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-7-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-9-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Evolução Contínua -->
+        <section id="playbook-sec-9-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📈</span><strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong></h2> 
+                <p>O mercado está sempre em movimento, e nosso playbook também! Esta é uma ferramenta viva, que será atualizada regularmente com novas estratégias, aprendizados do campo de batalha e feedbacks da equipe. Encorajamos todos a contribuir com sugestões e insights para que este guia se torne cada vez mais poderoso e eficaz. A busca pela excelência é uma corrida sem linha de chegada!</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-8-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-10-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Canais de Contato e Suporte -->
+        <section id="playbook-sec-10-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">📞</span><strong>CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong></h2> 
+                <p>Sua comunicação direta com a liderança e áreas de apoio. Para dúvidas sobre o playbook, sugestões ou necessidade de suporte em negociações complexas, utilize os seguintes canais: E-mail: liderancacomercial@autoarremate.com.br | Ramal: XXXX | Grupo de WhatsApp "Estrategistas AAR". Nosso compromisso é com respostas rápidas e soluções eficazes para manter você na liderança.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-9-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-13-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Engenharia Interna -->
+        <section id="playbook-sec-13-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange);">⚙️</span><strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Conheça os bastidores da nossa operação: <strong>Marketing</strong> (geração de leads, branding), <strong>Operações</strong> (logística, pátios, vistorias), <strong>Financeiro</strong> (crédito, pagamentos), <strong>Jurídico</strong> (contratos, compliance) e <strong>Tecnologia</strong> (plataforma, CRM). Entender como cada setor contribui para o sucesso do cliente e do vendedor fortalece a colaboração e otimiza os resultados. [Pode incluir um organograma simplificado ou contatos chave de cada área].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-10-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-material-comercial-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Material Comercial -->
+        <section id="playbook-sec-material-comercial-content-main" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">📚</span><strong>NOSSO ARSENAL DE VENDAS: MATERIAIS COMERCIAIS PARA UMA COMUNICAÇÃO DE ALTO IMPACTO!</strong>
+                </h2>
+                <p>Aqui você encontrará todos os materiais de apoio necessários para suas atividades comerciais na <span class="text-aa-green-darker">Auto Arremate</span> e <span class="text-arremaq-orange-darker">Arremaq</span>. Estes recursos foram desenvolvidos para garantir uma comunicação profissional, persuasiva e alinhada com nossa identidade visual e estratégias de vendas. Utilize-os para apresentar nossos serviços, educar clientes e fortalecer sua atuação no mercado.</p>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Apresentações e Propostas:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">Deck Institucional:</span> Uma visão geral completa das empresas, nossos valores e diferenciais. Ideal para primeiras reuniões.</li>
+                    <li><span class="font-semibold">Modelos de Propostas Personalizadas:</span> Para Auto Arremate (veículos leves) e Arremaq (máquinas pesadas), adaptáveis às necessidades de cada cliente.</li>
+                    <li><span class="font-semibold">Cases de Sucesso:</span> Exemplos práticos de como ajudamos nossos clientes a alcançar seus objetivos.</li>
+                </ul>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Flyers e Folhetos Digitais:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">Serviços da Auto Arremate:</span> Destaques dos benefícios do repasse de veículos leves.</li>
+                    <li><span class="font-semibold">Serviços da Arremaq:</span> Foco nos diferenciais para máquinas agrícolas e de construção.</li>
+                    <li><span class="font-semibold">Guia Rápido do Vendedor/Comprador:</span> Informações essenciais para novos parceiros.</li>
+                </ul>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Templates de E-mail e Scripts de Ligação:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">E-mails de Prospecção (Cold Outreach):</span> Modelos testados para iniciar contato.</li>
+                    <li><span class="font-semibold">E-mails de Follow-up:</span> Para manter o engajamento após reuniões ou propostas.</li>
+                    <li><span class="font-semibold">Scripts para Qualificação (SPIN/SNAP):</span> Guias para suas ligações de prospecção e qualificação.</li>
+                </ul>
+                <p class="mt-8 text-center font-bold text-lg text-aa-dark-blue dark:text-aa-green-lighter">
+                    <span class="emoji-original-color">🌟</span> Acesse a pasta compartilhada no Google Drive para download de todos os materiais: <br>
+                    <a href="https://drive.google.com/drive/folders/SEU_LINK_AQUI" target="_blank" class="text-aa-green hover:underline">Link para a Pasta de Materiais Comerciais</a>
+                </p>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-13-content-main">❮ VOLTAR</button>
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-autocards-content-main">AVANÇAR ❯</button>
+                </div>
+            </div>
+        </section>
+        <!-- Seção: AutoCards -->
+        <section id="playbook-autocards-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🃏</span><strong>AUTOCARDS™ <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong></h2> 
+                <p>Os AutoCards™ são uma ferramenta exclusiva de gamificação para impulsionar a prospecção. Cada card representa um desafio, uma meta ou uma tática de vendas. Ao completar os objetivos, você ganha pontos, desbloqueia novas cartas e avança no ranking dos campeões. Uma forma divertida e eficaz de motivar a equipe e transformar a prospecção em um jogo viciante! [Pode incluir link para plataforma dos AutoCards ou manual de uso].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-material-comercial-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Desafio dos Campeões (Quiz Gamificado) -->
+        <section id="playbook-quiz-gamificado-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">🏆</span><strong>DESAFIO DOS CAMPEÕES <span class="text-aa-green-darker">AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong></h2> 
+                <p>Chegou a hora de testar seus conhecimentos! Este quiz gamificado aborda os principais conceitos do playbook, estratégias de vendas e informações sobre nossos produtos e mercado. Responda corretamente, acumule pontos e mostre que você está pronto para acelerar rumo ao sucesso! [Pode ser um link para um formulário Google, Typeform, ou uma ferramenta de quiz interna].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-autocards-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-corrida-svg-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Seção: Grande Prêmio Auto Arremate (Jogo de Corrida SVG 2D) -->
+        <section id="playbook-corrida-svg-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange-darker);">🏎️💨</span><strong>GRANDE PRÊMIO <span class="text-aa-green-darker">AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong></h2> 
+                <p>[Placeholder para Jogo de Corrida SVG 2D - Esta seção pode conter um jogo interativo simples, onde o usuário controla um carro, desvia de obstáculos (objeções) e coleta itens (vendas fechadas). Pode ser um projeto futuro mais elaborado.]</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">❮ VOLTAR</button> 
+                    <button class="btn-nav next disabled" disabled>AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+
+        <!-- SEÇÕES DE JORNADA DETALHADAS -->
+
+        <!-- Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-30 Dias) -->
+        <section id="inbound30-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🚀</span> <strong>Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-30 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🎯</span> Objetivo: Conduzir o lead qualificado (Gerente de Seminovos, Dono de Concessionária, Gerente de Desmobilização/Frota de Locadora), que demonstrou interesse inicial através dos canais de inbound, até à assinatura do contrato. 🤝 O foco é demonstrar claramente como a Auto Arremate® otimiza a venda do seu stock de repasse, aumenta a liquidez e a rentabilidade.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🌱 Atração, Conscientização e Levantada de Mão (Dias 1-7)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> O objetivo aqui é atrair potenciais clientes vendedores através de conteúdo relevante, fazê-los tomar conhecimento da Auto Arremate® e identificar aqueles que estão prontos para uma conversa.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound30" data-interaction-id="inbound30_s1_i1">
+                                <h4>📚 Consumo de Conteúdo Relevante</h4>
+                                <p class="interaction-subtitle">Canal: Blog, LinkedIn, Webinars, Materiais Ricos. | Resp: Marketing.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound30" data-interaction-id="inbound30_s1_i2">
+                                <h4>🙋 Levantada de Mão (Pedido de Contato/Demonstração)</h4>
+                                <p class="interaction-subtitle">Canal: Formulário no site, CTA em e-mails. | Resp: Marketing, SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação e Descoberta (Dias 5-15)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> O objetivo é entender profundamente as necessidades, dores, processos atuais e o potencial de venda do lead Inbound, qualificando-o como uma oportunidade real.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound30" data-interaction-id="inbound30_s2_i1">
+                                <h4>📞 Contacto Inicial e Agendamento da Reunião de Descoberta (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: Ligação telefónica, E-mail. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound30" data-interaction-id="inbound30_s2_i2">
+                                <h4>💬 Reunião de Descoberta (Executivo de Contas/Closer)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução e Proposta (Dias 10-25)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> O objetivo é demonstrar de forma personalizada como a Auto Arremate® resolve as dores específicas do cliente vendedor e apresentar uma proposta de valor clara.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound30" data-interaction-id="inbound30_s3_i1">
+                                <h4>🖥️ Demonstração Personalizada da Plataforma (Executivo de Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada com compartilhamento de tela. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound30" data-interaction-id="inbound30_s3_i2">
+                                <h4>📄 Envio da Proposta Comercial</h4>
+                                <p class="interaction-subtitle">Canal: E-mail. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação e Fechamento (Dias 20-30)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> O objetivo é alinhar expectativas, superar últimas objeções e formalizar a parceria com o cliente vendedor.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound30" data-interaction-id="inbound30_s4_i1">
+                                <h4>🗣️ Reunião de Follow-up da Proposta e Negociação</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, ligação, e-mail. | Resp: Executivo de Contas/Closer, COO/Diretor Comercial.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound30" data-interaction-id="inbound30_s4_i2">
+                                <h4>🎉 Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Plataforma de Assinatura Eletrónica. | Resp: Executivo de Contas/Closer, Jurídico, Financeiro, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="outbound90-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next navigateToRota66SubSection" data-target="outbound30-content-main">PRÓXIMA JORNADA ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-30 Dias) -->
+        <section id="outbound30-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🎯</span> <strong>Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-30 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🏹</span> Objetivo: Atingir proativamente leads qualificados (Gerentes de Seminovos, Donos de Concessionária, Gerentes de Frota), demonstrando rapidamente o valor da Auto Arremate® para otimizar a venda do seu stock de repasse e fechar o contrato em até 30 dias.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">✨ Prospecção Ativa e Despertar do Interesse (Dias 1-10)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> Identificar e abordar proativamente potenciais clientes vendedores, apresentando a Auto Arremate® como uma solução valiosa e conseguindo uma primeira interação positiva.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound30" data-interaction-id="outbound30_s1_i1">
+                                <h4>🗺️ Pesquisa e Identificação de Leads (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: LinkedIn Sales Navigator, bases de dados de concessionárias/locadoras, notícias do setor, indicações. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound30" data-interaction-id="outbound30_s1_i2">
+                                <h4>📞 Primeiro Contacto e Conexão (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: Cadência de 3-5 toques (e-mail, telefone, LinkedIn). | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação e Descoberta Acelerada (Dias 7-20)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Validar rapidamente o fit do lead, entender os seus desafios principais na venda de repasse e identificar como a Auto Arremate® pode gerar valor imediato.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound30" data-interaction-id="outbound30_s2_i1">
+                                <h4>🚀 Reunião de Qualificação/Descoberta (Executivo de Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução e Proposta Direta (Dias 15-25)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Demonstrar de forma focada como a Auto Arremate® resolve as dores do cliente e apresentar uma proposta clara e objetiva.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound30" data-interaction-id="outbound30_s3_i1">
+                                <h4>🎬 Demonstração Direcionada da Plataforma</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada com compartilhamento de tela. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound30" data-interaction-id="outbound30_s3_i2">
+                                <h4>✉️ Envio da Proposta Comercial Objetiva</h4>
+                                <p class="interaction-subtitle">Canal: E-mail. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação Ágil e Fechamento (Dias 20-30)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> Alinhar rapidamente as expectativas, superar objeções finais e formalizar a parceria.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound30" data-interaction-id="outbound30_s4_i1">
+                                <h4>⚡ Reunião de Follow-up e Negociação Rápida</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, ligação, e-mail. | Resp: Executivo de Contas/Closer.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound30" data-interaction-id="outbound30_s4_i2">
+                                <h4>✅ Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Assinatura Eletrónica. | Resp: Executivo de Contas/Closer, Jurídico, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="inbound30-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next navigateToRota66SubSection" data-target="inbound60-content-main">PRÓXIMA JORNADA ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-60 Dias) -->
+        <section id="inbound60-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🌟</span> <strong>Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-60 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🚀</span> Objetivo: Conduzir o lead qualificado, que demonstrou interesse inicial, até à assinatura do contrato num ciclo de até 60 dias. 🤝 Foco em nutrir o interesse e demonstrar valor de forma consistente.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🌱 Atração, Conscientização e Levantada de Mão (Dias 1-10)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> Atrair potenciais clientes através de conteúdo, gerar conhecimento da marca e identificar os que estão prontos para conversar.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound60" data-interaction-id="inbound60_s1_i1">
+                                <h4>📰 Consumo de Conteúdo Inicial</h4>
+                                <p class="interaction-subtitle">Canal: Blog, LinkedIn, Materiais Ricos. | Resp: Marketing.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound60" data-interaction-id="inbound60_s1_i2">
+                                <h4>👆 Levantada de Mão (Pedido de Info/Demo)</h4>
+                                <p class="interaction-subtitle">Canal: Formulário no site, CTAs. | Resp: Marketing, SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação e Descoberta Detalhada (Dias 11-30)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Entender as necessidades, dores e potencial do lead, qualificando-o como oportunidade e construindo relacionamento.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound60" data-interaction-id="inbound60_s2_i1">
+                                <h4>🗣️ Contacto Inicial e Agendamento (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: Telefone, E-mail. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound60" data-interaction-id="inbound60_s2_i2">
+                                <h4>💡 Reunião de Descoberta Aprofundada (Executivo Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução e Proposta Consultiva (Dias 31-50)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Demonstrar como a Auto Arremate® resolve os problemas do cliente e apresentar uma proposta de valor robusta.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound60" data-interaction-id="inbound60_s3_i1">
+                                <h4>🎬 Demonstração Personalizada e Detalhada</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound60" data-interaction-id="inbound60_s3_i2">
+                                <h4>📈 Envio da Proposta Comercial e Follow-up Estratégico</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Telefone. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação e Fechamento (Dias 51-60)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> Alinhar expectativas, superar objeções e formalizar a parceria.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound60" data-interaction-id="inbound60_s4_i1">
+                                <h4>⚖️ Reunião de Negociação e Ajustes</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, E-mail. | Resp: Executivo Contas, Direção.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound60" data-interaction-id="inbound60_s4_i2">
+                                <h4>✍️ Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Assinatura Eletrónica. | Resp: Executivo Contas, Jurídico, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="outbound30-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next navigateToRota66SubSection" data-target="outbound60-content-main">PRÓXIMA JORNADA ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-60 Dias) -->
+        <section id="outbound60-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🎯</span> <strong>Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-60 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🏹</span> Objetivo: Abordar e conduzir leads qualificados até ao fecho em 60 dias, nutrindo o relacionamento e demonstrando valor de forma proativa.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">✨ Prospecção Ativa e Despertar do Interesse (Dias 1-15)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> Identificar, abordar e estabelecer uma conexão inicial com potenciais clientes, apresentando a Auto Arremate®.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound60" data-interaction-id="outbound60_s1_i1">
+                                <h4>🗺️ Pesquisa e Segmentação de Leads (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: LinkedIn Sales Navigator, Bases de dados. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound60" data-interaction-id="outbound60_s1_i2">
+                                <h4>📞 Cadência de Primeiro Contacto e Conexão (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Telefone, LinkedIn. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação e Descoberta Aprofundada (Dias 16-35)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Validar o fit do lead, entender desafios e identificar como a Auto Arremate® pode gerar valor.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound60" data-interaction-id="outbound60_s2_i1">
+                                <h4>💡 Reunião de Qualificação/Descoberta (Executivo Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound60" data-interaction-id="outbound60_s2_i2">
+                                <h4>nurturing Follow-up e Nutrição Pós-Descoberta</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Conteúdo Relevante. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução e Proposta (Dias 36-50)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Demonstrar de forma personalizada como a Auto Arremate® resolve as dores do cliente e apresentar uma proposta de valor.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound60" data-interaction-id="outbound60_s3_i1">
+                                <h4>🎬 Demonstração Detalhada da Plataforma</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound60" data-interaction-id="outbound60_s3_i2">
+                                <h4>✉️ Envio da Proposta Comercial e Alinhamento</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Telefone. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação e Fechamento (Dias 51-60)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> Alinhar expectativas, superar objeções e formalizar a parceria.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound60" data-interaction-id="outbound60_s4_i1">
+                                <h4>⚖️ Reunião de Negociação e Ajustes</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, E-mail. | Resp: Executivo Contas, Direção.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound60" data-interaction-id="outbound60_s4_i2">
+                                <h4>🎉 Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Assinatura Eletrónica. | Resp: Executivo Contas, Jurídico, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="inbound60-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next navigateToRota66SubSection" data-target="inbound90-content-main">PRÓXIMA JORNADA ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-90 Dias) -->
+        <section id="inbound90-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🌟</span> <strong>Jornada do Cliente Vendedor via INBOUND MARKETING (Pré-Contrato 0-90 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🚀</span> Objetivo: Conduzir o lead qualificado até à assinatura do contrato num ciclo de até 90 dias, com foco na educação contínua e construção de um relacionamento sólido.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🌱 Atração, Conscientização, Levantada de Mão e Nutrição Inicial (Dias 1-20)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> Atrair, educar e identificar leads prontos para uma conversa, nutrindo-os ao longo do tempo.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound90" data-interaction-id="inbound90_s1_i1">
+                                <h4>🌍 Consumo de Conteúdo Amplo e Engajamento Progressivo</h4>
+                                <p class="interaction-subtitle">Canal: Blog, LinkedIn, Webinars, Materiais Ricos, Calculadoras ROI. | Resp: Marketing.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound90" data-interaction-id="inbound90_s1_i2">
+                                <h4>🙋 Levantada de Mão (Pedido de Info/Demo/Teste Avançado)</h4>
+                                <p class="interaction-subtitle">Canal: Formulários específicos, CTAs em nutrição avançada, Chat. | Resp: Marketing, SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação Consultiva e Mapeamento de Cenário (Dias 21-50)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Realizar uma qualificação profunda, entender o cenário completo do cliente e começar a construir o caso de valor.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound90" data-interaction-id="inbound90_s2_i1">
+                                <h4>📞 Contacto Pós-Levantada de Mão e Agendamento (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: Telefone, E-mail personalizado. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound90" data-interaction-id="inbound90_s2_i2">
+                                <h4>🗺️ Reuniões de Descoberta e Mapeamento de Stakeholders (Executivo Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, Reuniões Presenciais (estratégicas). | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução Estratégica e Construção de Consenso (Dias 51-75)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Apresentar a Auto Arremate® como parceira estratégica, alinhando com objetivos de longo prazo e obtendo buy-in dos decisores.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound90" data-interaction-id="inbound90_s3_i1">
+                                <h4>🎬 Demonstração Estratégica e Workshop de Valor</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, Apresentação Presencial. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound90" data-interaction-id="inbound90_s3_i2">
+                                <h4>📈 Envio e Apresentação da Proposta Comercial Final</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Reunião de apresentação. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação Final, Alinhamento Jurídico/Financeiro e Fechamento (Dias 76-90)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> Finalizar detalhes contratuais, obter aprovações e formalizar a parceria de longo prazo.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="inbound90" data-interaction-id="inbound90_s4_i1">
+                                <h4>⚖️ Reuniões de Negociação Final e Alinhamentos Contratuais</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, E-mail, Envolvimento Jurídico. | Resp: Executivo Contas, Direção, Jurídico.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="inbound90" data-interaction-id="inbound90_s4_i2">
+                                <h4>🎉 Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Assinatura Eletrónica. | Resp: Executivo Contas, Jurídico, Financeiro, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="outbound60-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next navigateToRota66SubSection" data-target="outbound90-content-main">PRÓXIMA JORNADA ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-90 Dias) -->
+        <section id="outbound90-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToRota66IndexBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR À JORNADA DO CLIENTE
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">🎯</span> <strong>Jornada do Cliente Vendedor via OUTBOUND MARKETING (Pré-Contrato 0-90 Dias) - Auto Arremate®</strong>
+                </h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <p class="text-center text-lg italic text-gray-700 dark:text-gray-300">
+                        <span class="sentence-emoji">🏹</span> Objetivo: Abordar e conduzir leads qualificados até ao fecho em 90 dias, com uma abordagem consultiva e construção de relacionamento de longo prazo.
+                    </p>
+
+                    <div class="organograma-wrapper">
+                        <div class="flow-node start-node" data-aos="zoom-in">
+                            🎯 <strong>Início da Jornada:</strong> Cliente com Necessidade de Repasse
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">✨ Prospecção Ativa, Conexão e Despertar Inicial do Interesse (Dias 1-20)</h3>
+                            <p class="stage-objective"><span class="emoji">🏁</span> Identificar, abordar e estabelecer uma conexão inicial com potenciais clientes, apresentando a Auto Arremate® como solução relevante.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound90" data-interaction-id="outbound90_s1_i1">
+                                <h4>🗺️ Pesquisa Aprofundada e Identificação de Leads (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: LinkedIn Sales Navigator, Bases de dados, Relatórios de Mercado. | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound90" data-interaction-id="outbound90_s1_i2">
+                                <h4>📞 Cadência de Primeiro Contacto e Conexão Consultiva (SDR/BDR)</h4>
+                                <p class="interaction-subtitle">Canal: E-mail personalizado, Telefone, LinkedIn (com partilha de insights). | Resp: SDR/BDR.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🔎 Qualificação Profunda, Mapeamento de Decisores e Construção de Valor (Dias 21-50)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Validar o fit do lead, entender processos, desafios e metas, mapear influenciadores e construir um forte caso de valor.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound90" data-interaction-id="outbound90_s2_i1">
+                                <h4>💡 Múltiplas Reuniões de Qualificação/Descoberta (Executivo Contas)</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, Visitas (contas estratégicas). | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">💡 Apresentação da Solução Estratégica e Proposta de Valor (Dias 51-75)</h3>
+                            <p class="stage-objective"><span class="emoji">🎯</span> Apresentar a Auto Arremate® como parceira estratégica, alinhando com objetivos de longo prazo e apresentando proposta formal.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound90" data-interaction-id="outbound90_s3_i1">
+                                <h4>🎬 Demonstração Estratégica para Múltiplos Stakeholders</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, Apresentação Presencial. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound90" data-interaction-id="outbound90_s3_i2">
+                                <h4>📈 Envio da Proposta Comercial Detalhada e Alinhada</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Reunião de apresentação. | Resp: Executivo Contas.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+
+                        <div class="stage-group" data-aos="fade-up">
+                            <h3 class="stage-title-node">🤝 Negociação Final, Alinhamento Jurídico e Fechamento (Dias 71-90)</h3>
+                            <p class="stage-objective"><span class="emoji">🤝</span> Finalizar detalhes contratuais, superar objeções e formalizar a parceria de longo prazo.</p>
+                            
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="100" data-journey-id="outbound90" data-interaction-id="outbound90_s4_i1">
+                                <h4>⚖️ Reuniões de Negociação Final e Alinhamento de Termos</h4>
+                                <p class="interaction-subtitle">Canal: Videochamada, E-mail, Envolvimento Jurídico. | Resp: Executivo Contas, Direção, Jurídico.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                            <div class="flow-connector-vertical"></div>
+                            <div class="flow-node interaction-node" data-aos="fade-up" data-aos-delay="200" data-journey-id="outbound90" data-interaction-id="outbound90_s4_i2">
+                                <h4>🎉 Fechamento e Assinatura do Contrato</h4>
+                                <p class="interaction-subtitle">Canal: E-mail, Assinatura Eletrónica. | Resp: Executivo Contas, Jurídico, Financeiro, CS.</p>
+                                <p class="interaction-details-prompt"><em>Clique para detalhes...</em></p>
+                            </div>
+                        </div>
+                        <div class="flow-connector-stage">▼</div>
+                        <div class="flow-node end-node" data-aos="zoom-in">
+                            🌟 <strong>Fim da Jornada (Pré-Contrato):</strong> Cliente Pronto para Próximos Passos
+                        </div>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToRota66SubSection" data-target="inbound90-content-main">❮ JORNADA ANTERIOR</button>
+                    <button class="btn-nav next disabled" disabled>FIM DAS JORNADAS ❯</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÕES DE CONTEÚDO FUTURO (placeholders) -->
+        <!-- Seção: Box da Identidade -->
+        <section id="box-identidade-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre o Box da Identidade <span class="text-aa-green-darker">Auto Arremate</span> em breve!</p>
+            </div>
+        </section>
+        <!-- Seção: Academia de Repassadores -->
+        <section id="academia-repassadores-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0</h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre a Academia de Repassadores 3.0 em breve!</p>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Botão flutuante para alternar tema -->
+    <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Alternar tema" title="Alternar Tema">
+        <i class="fas fa-moon"></i> 
+    </button>
+
+    <!-- Script AOS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicializa AOS
+            AOS.init({ duration: 700, once: true, offset: 50 });
+
+            // Referências aos elementos das seções principais
+            const capaSection = document.getElementById('capa-section');
+            const menuPrincipalSection = document.getElementById('menu-principal-section');
+            const manualPitstopDetalhesSection = document.getElementById('manual-pitstop-detalhes-section');
+            const jornadaClienteAaContentSection = document.getElementById('jornada-cliente-aa-content-section'); 
+            const boxIdentidadeContentSection = document.getElementById('box-identidade-content-section');
+            const academiaRepassadoresContentSection = document.getElementById('academia-repassadores-content-section');
+            // Referências às subseções de jornada
+            const inbound30ContentMain = document.getElementById('inbound30-content-main');
+            const inbound60ContentMain = document.getElementById('inbound60-content-main');
+            const inbound90ContentMain = document.getElementById('inbound90-content-main');
+            const outbound30ContentMain = document.getElementById('outbound30-content-main');
+            const outbound60ContentMain = document.getElementById('outbound60-content-main');
+            const outbound90ContentMain = document.getElementById('outbound90-content-main');
+            
+            // Coleção de todas as subseções do playbook (incluindo as de jornada)
+            const allPlaybookSubSections = document.querySelectorAll('.playbook-sub-section'); 
+            
+            // Referências aos botões de navegação
+            const btnIniciarCapa = document.getElementById('btnIniciarCapa');
+            const backToCoverBtnMenu = document.getElementById('backToCoverBtnMenu');
+            const openManualPitStopBtn = document.getElementById('openManualPitStopBtn');
+            const openJornadaClienteAABtn = document.getElementById('openJornadaClienteAABtn'); 
+            const openBoxIdentidadeBtn = document.getElementById('openBoxIdentidadeBtn');
+            const openAcademiaRepassadoresBtn = document.getElementById('openAcademiaRepassadoresBtn');
+            const backToMenuPrincipalBtns = document.querySelectorAll('.backToMenuPrincipalBtn');
+            const backToManualPitStopDetalhesBtns = document.querySelectorAll('.backToManualPitStopDetalhesBtn');
+            const backToRota66IndexBtns = document.querySelectorAll('.backToRota66IndexBtn'); // Botões de voltar para o índice da jornada
+
+            const jornadaClienteCardsContainer = document.getElementById('jornadaClienteCardsContainer');
+
+            // Dados para os cards da Jornada do Cliente (para popular o índice)
+            const journeysDataForPlaybook = [
+                { id: "inbound30-content-main", shortTitle: "🌟 Inbound (0-30 Dias)", objective: "Conduzir leads qualificados via Inbound Marketing à assinatura do contrato em até 30 dias, demonstrando otimização na venda de repasse, liquidez e rentabilidade." },
+                { id: "outbound30-content-main", shortTitle: "🎯 Outbound (0-30 Dias)", objective: "Atingir proativamente leads qualificados, demonstrando rapidamente o valor da Auto Arremate® para otimizar a venda do seu stock e fechar o contrato em até 30 dias." },
+                { id: "inbound60-content-main", shortTitle: "🌟 Inbound (0-60 Dias)", objective: "Conduzir leads Inbound até à assinatura do contrato num ciclo de até 60 dias, nutrindo o interesse e demonstrando valor de forma consistente." },
+                { id: "outbound60-content-main", shortTitle: "🎯 Outbound (0-60 Dias)", objective: "Abordar e conduzir leads qualificados via Outbound até ao fecho em 60 dias, nutrindo o relacionamento e demonstrando valor de forma proativa." },
+                { id: "inbound90-content-main", shortTitle: "🌟 Inbound (0-90 Dias)", objective: "Conduzir leads Inbound até à assinatura do contrato num ciclo de até 90 dias, com foco na educação contínua e construção de um relacionamento sólido." },
+                { id: "outbound90-content-main", shortTitle: "🎯 Outbound (0-90 Dias)", objective: "Abordar e conduzir leads Outbound até ao fecho em 90 dias, com abordagem consultiva e construção de relacionamento de longo prazo." }
+            ];
+
+            /**
+             * Renderiza os cards do índice da jornada do cliente.
+             */
+            function renderJornadaClienteCards() {
+                if (!jornadaClienteCardsContainer) return;
+                jornadaClienteCardsContainer.innerHTML = ''; // Limpa o container antes de renderizar
+                journeysDataForPlaybook.forEach(journey => {
+                    const cardDiv = document.createElement('div'); // Criar div em vez de 'a'
+                    cardDiv.className = 'jornada-card-playbook'; 
+                    cardDiv.setAttribute('data-aos', 'fade-up');
+                    cardDiv.setAttribute('data-target', journey.id); // Adiciona data-target para navegação JS
+                    
+                    cardDiv.innerHTML = `
+                        <h3 class="text-lg font-semibold mb-2">${journey.shortTitle}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">${journey.objective}</p>
+                        <span class="details-prompt-playbook">Ver Detalhes da Jornada <i class="fas fa-arrow-right ml-1"></i></span>
+                    `;
+                    // Adiciona evento de clique para a div, chamando showSection
+                    cardDiv.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = e.currentTarget.getAttribute('data-target');
+                        showSection(document.getElementById(targetId));
+                    });
+                    jornadaClienteCardsContainer.appendChild(cardDiv);
+                });
+            }
+
+            /**
+             * Exibe uma seção específica e esconde as outras.
+             * Garante que apenas uma seção principal ou subseção de playbook esteja visível.
+             * @param {HTMLElement} sectionToShow A seção a ser exibida.
+             */
+            function showSection(sectionToShow) {
+                // Esconde todas as seções principais
+                const mainSections = [
+                    capaSection, menuPrincipalSection, manualPitstopDetalhesSection, 
+                    jornadaClienteAaContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection
+                ];
+                mainSections.forEach(s => {
+                    if (s) s.classList.add('hidden');
+                });
+
+                // Esconde todas as subseções detalhadas do playbook/jornada
+                allPlaybookSubSections.forEach(s => {
+                    if (s) s.classList.add('hidden');
+                });
+
+                // Exibe a seção desejada e rola para o topo
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    AOS.refreshHard(); 
+                    
+                    // Se a seção da jornada do cliente (índice) for mostrada, renderizar os cards
+                    if (sectionToShow.id === 'jornada-cliente-aa-content-section') {
+                        renderJornadaClienteCards();
+                    }
+                }
+            }
+
+            // Event Listeners para navegação entre seções principais
+            if (btnIniciarCapa) { 
+                btnIniciarCapa.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(menuPrincipalSection); 
+                }); 
+            }
+            if (backToCoverBtnMenu) { 
+                backToCoverBtnMenu.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(capaSection); 
+                }); 
+            }
+            if (openManualPitStopBtn) { 
+                openManualPitStopBtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(manualPitstopDetalhesSection); 
+                    renderPlaybookIndex(); 
+                }); 
+            }
+            
+            // Event listener para o card "Jornada do Cliente AA" no menu principal
+            if (openJornadaClienteAABtn) { 
+                openJornadaClienteAABtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(jornadaClienteAaContentSection); 
+                }); 
+            }
+
+            if (openBoxIdentidadeBtn) { openBoxIdentidadeBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(boxIdentidadeContentSection); }); }
+            if (openAcademiaRepassadoresBtn) { openAcademiaRepassadoresBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(academiaRepassadoresContentSection); }); }
+            
+            // Botões "Voltar ao Menu Principal" (genéricos)
+            backToMenuPrincipalBtns.forEach(button => { 
+                button.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(menuPrincipalSection); 
+                }); 
+            });
+            // Botões "Voltar ao Manual" (genéricos)
+            backToManualPitStopDetalhesBtns.forEach(button => { 
+                button.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(manualPitstopDetalhesSection); 
+                }); 
+            });
+
+            // Botões "VOLTAR À JORNADA DO CLIENTE" (específicos para as seções de jornada)
+            backToRota66IndexBtns.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(jornadaClienteAaContentSection); // Volta para o índice de jornadas
+                });
+            });
+
+            // Dados do índice do Playbook (Manual do Pit Stop)
+            const indexDataPlaybook = [
+                { emoji: "🚀", title: "<strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", targetSectionId: "playbook-sec-0-content-main", sentenceEmoji: "📜" },
+                { emoji: "<span class='emoji-autoarremate-color'>🚗</span>", title: "<strong><span class='text-aa-green-darker'>AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong>", sub: "Descubra como nossa plataforma acelera a gestão e venda de veículos leves, da captação à comercialização.", targetSectionId: "playbook-sec-1-content-main", sentenceEmoji: "🏆" },
+                { emoji: "<span class='emoji-arremaq-color'>🚜</span>", title: "<strong><span class='text-arremaq-orange-darker'>ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong>", sub: "Soluções de peso e estratégias robustas para o repasse eficiente de máquinas agrícolas e de construção.", targetSectionId: "playbook-sec-arremaq-content-main", sentenceEmoji: "⚙️" },
+                { emoji: "🎯", title: "<strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> (ICPS & PERSONAS)!</strong>", sub: "Identifique os perfis de clientes com maior potencial e as personas chave para uma abordagem estratégica.", targetSectionId: "playbook-sec-2-content-main", sentenceEmoji: "🌟" },
+                { emoji: "📊", title: "<strong>A JORNADA DO CLIENTE VENCEDOR <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong>", sub: "Visualize a transformação do cliente, da necessidade à solução, através de nossa animação dinâmica.", targetSectionId: "playbook-persona-animation-section", sentenceEmoji: "🎬" },
+                { emoji: "🧠", title: "<strong>PIT STOP DA SABEDORIA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong>", sub: "Domine as técnicas de qualificação (SPIN, SNAP, AIDA) para abastecer seu funil com leads de qualidade.", targetSectionId: "playbook-sec-3-content-main", sentenceEmoji: "💡" },
+                { emoji: "🛡️", title: "<strong>BLINDAGEM ANTI-OBJEÇÃO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong>", sub: "Estratégias e contra-argumentos para transformar objeções em oportunidades de fechar negócio.", targetSectionId: "playbook-sec-4-content-main", sentenceEmoji: "⚔️" },
+                { emoji: "🗺️", title: "<strong>ROTAS DA CONQUISTA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong>", sub: "Roteiros, cadências e modelos de abordagem para prospecção Inbound e Outbound que geram resultados.", targetSectionId: "playbook-sec-5-content-main", sentenceEmoji: "🧭" },
+                { emoji: "🤝", title: "<strong>ALIANÇAS DE AÇO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong>", sub: "Critérios e ferramentas para validar parceiros CNPJ e construir relações comerciais sólidas e seguras.", targetSectionId: "playbook-sec-6-content-main", sentenceEmoji: "🔗" },
+                { emoji: "✍️", title: "<strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong>", sub: "Termos de impacto, orientações e exemplos práticos para uma comunicação persuasiva e eficaz.", targetSectionId: "playbook-sec-7-content-main", sentenceEmoji: "🗣️" },
+                { emoji: "📖", title: "<strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Decifre os termos técnicos e jargões do mercado automotivo e de máquinas para dominar a linguagem do setor.", targetSectionId: "playbook-sec-8-content-main", sentenceEmoji: "📚" },
+                { emoji: "📈", title: "<strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong>", sub: "Os próximos passos para o desenvolvimento do playbook e o crescimento contínuo da nossa equipe.", targetSectionId: "playbook-sec-9-content-main", sentenceEmoji: "🌌" },
+                { emoji: "📞", title: "<strong>CENTRAL DE COMANDO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong>", sub: "Acesse nossos canais de suporte dedicados e encontre ajuda rápida para suas dúvidas e desafios.", targetSectionId: "playbook-sec-10-content-main", sentenceEmoji: "🛠️" },
+                { emoji: "⚙️", title: "<strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Descubra a sinergia e o papel de cada setor na construção do nosso sucesso e no suporte à sua performance.", targetSectionId: "playbook-sec-13-content-main", sentenceEmoji: "🏛️" },
+                { emoji: "📚", title: "<strong>NOSSO ARSENAL DE VENDAS: MATERIAIS COMERCIAIS PARA UMA COMUNICAÇÃO DE ALTO IMPACTO!</strong>", sub: "Ferramentas essenciais para a equipe comercial, desde apresentações a modelos de proposta.", targetSectionId: "playbook-sec-material-comercial-content-main", sentenceEmoji: "📝" },
+                { emoji: "🃏", title: "<strong>AUTOCARDS™ <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong>", sub: "Utilize nossos cartões estratégicos para transformar sua equipe em uma força de prospecção imbatível.", targetSectionId: "playbook-autocards-content-main", sentenceEmoji: "✨" },
+                { emoji: "🏆", title: "<strong>DESAFIO DOS CAMPEÕES <span class='text-aa-green-darker'>AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong>", sub: "Teste sua sabedoria e astúcia em nosso quiz gamificado sobre o playbook e o universo do repasse!", targetSectionId: "playbook-quiz-gamificado-section", sentenceEmoji: "🏅" },
+                { emoji: "🏎️💨", title: "<strong>GRANDE PRÊMIO <span class='text-aa-green-darker'>AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong>", sub: "Desafie seus limites e rivais em nosso jogo 2D de alta octanagem e torne-se uma lenda da pista digital!", targetSectionId: "playbook-corrida-svg-section", sentenceEmoji: "🏁" }
+            ];
+
+            const playbookIndexContainer = document.getElementById('playbookIndexContainer');
+
+            /**
+             * Renderiza os cards do índice do playbook na seção de detalhes do manual.
+             */
+            function renderPlaybookIndex() {
+                if (!playbookIndexContainer) return;
+                playbookIndexContainer.innerHTML = ''; 
+                indexDataPlaybook.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'index-item-card'; 
+                    card.setAttribute('data-target', item.targetSectionId);
+                    let emojiHtml = item.emoji;
+                    if (item.emoji.includes("emoji-autoarremate-color") || item.emoji.includes("emoji-arremaq-color")) {
+                        // Já é um span com classe, não precisa envolver
+                    } else { 
+                         emojiHtml = `<span class="emoji-original-color">${item.emoji}</span>`;
+                    }
+
+                    card.innerHTML = `
+                        <span class="index-item-emoji">${emojiHtml}</span>
+                        <h3 class="index-item-title">${item.title}</h3>
+                        <p class="index-item-sub">
+                            ${item.sentenceEmoji ? `<span class="sentence-emoji emoji-original-color">${item.sentenceEmoji}</span>` : ''}
+                            ${item.sub}
+                        </p>`;
+                    card.addEventListener('click', () => {
+                        showSection(document.getElementById(item.targetSectionId));
+                    });
+                    playbookIndexContainer.appendChild(card);
+                });
+            }
+            
+            // Adiciona event listeners para os botões de navegação "Próximo" e "Voltar" dentro das subseções do playbook
+            document.querySelectorAll('.navigateToPlaybookSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    if (targetId) {
+                        showSection(document.getElementById(targetId));
+                    }
+                });
+            });
+
+            // Ajusta a navegação dos botões "PRÓXIMA JORNADA" e "JORNADA ANTERIOR" dentro das seções de jornada
+            document.querySelectorAll('.navigateToRota66SubSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    if (targetId) {
+                        showSection(document.getElementById(targetId));
+                    }
+                });
+            });
+
+
+            // --- Funcionalidade de Alternar Tema (Claro/Escuro) ---
+            const htmlEl = document.documentElement; // Elemento raiz HTML
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
+
+            /**
+             * Aplica o tema especificado ao documento e atualiza o ícone do botão.
+             * @param {string} theme O tema a ser aplicado ('light' ou 'dark').
+             */
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                if (themeToggleBtn) { 
+                    themeToggleBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+                }
+            }
+            
+            // Carrega o tema salvo no localStorage ou usa a preferência do sistema
+            let storedTheme = null;
+            try { storedTheme = localStorage.getItem('theme'); } catch (e) { console.warn("LocalStorage não disponível para persistência do tema.");}
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(storedTheme || preferredTheme); 
+
+            // Adiciona event listener para o botão de alternar tema
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; 
+                    applyTheme(newTheme); 
+                    try { localStorage.setItem('theme', newTheme); } catch (e) { console.warn("LocalStorage não está disponível para persistência do tema."); }
+                });
+            }
+
+            // --- Controles de Acessibilidade de Fonte ---
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const FONT_STEP_PERCENT = 10; 
+            const MIN_HTML_FONT_PERCENT = 60; 
+            const MAX_HTML_FONT_PERCENT = 140; 
+
+            /**
+             * Obtém o tamanho da fonte atual do elemento HTML em porcentagem.
+             * @returns {number} O tamanho da fonte atual em porcentagem.
+             */
+            function getCurrentHtmlFontSizePercent() {
+                const currentSizePx = parseFloat(window.getComputedStyle(htmlEl).fontSize);
+                const browserBaseSizePx = 16; 
+                return (currentSizePx / browserBaseSizePx) * 100;
+            }
+
+            // Adiciona event listener para o botão de aumentar fonte
+            if (increaseFontBtn) {
+                increaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent + FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.min(newPercent, MAX_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+            // Adiciona event listener para o botão de diminuir fonte
+            if (decreaseFontBtn) {
+                decreaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent - FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.max(newPercent, MIN_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+
+            // --- Leitura de Voz (Text-to-Speech) ---
+            const readPageBtn = document.getElementById('readPageBtn');
+            const synth = window.speechSynthesis;
+            let isReading = false;
+            let utterance = null;
+
+            if (readPageBtn && synth) {
+                readPageBtn.addEventListener('click', () => {
+                    if (synth.speaking) { synth.cancel(); return; }
+                    let activeSection = null;
+                    // Determina a seção ativa para leitura
+                    const mainSectionsForReading = [
+                        capaSection, menuPrincipalSection, manualPitstopDetalhesSection, 
+                        jornadaClienteAaContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection,
+                        inbound30ContentMain, inbound60ContentMain, inbound90ContentMain,
+                        outbound30ContentMain, outbound60ContentMain, outbound90ContentMain
+                    ];
+                    activeSection = mainSectionsForReading.find(s => s && !s.classList.contains('hidden'));
+                    
+                    if (!activeSection) { /* Substitua alert() por um modal customizado */ console.error("Nenhuma seção ativa encontrada para leitura."); return; }
+                    
+                    let textToRead = "";
+                    // Exclui elementos da animação SVG da leitura
+                    const elementsToExclude = ['.jornada-animation-container', '.jornada-svg'];
+                    activeSection.querySelectorAll('h1, h2, h3, h4, p, .menu-card-title, .index-item-title, .index-item-sub, .frase-destaque, .capa-criado, .jornada-explicacao p, .jornada-card-playbook h3, .jornada-card-playbook p, .stage-title-node, .stage-objective, .interaction-node h4, .interaction-subtitle, .interaction-details-prompt').forEach(el => { 
+                        let shouldExclude = false;
+                        for (const selector of elementsToExclude) {
+                            if (el.closest(selector)) {
+                                shouldExclude = true;
+                                break;
+                            }
+                        }
+                        if (!shouldExclude && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && window.getComputedStyle(el).display !== 'none' && window.getComputedStyle(el).visibility !== 'hidden') { 
+                            textToRead += el.textContent.replace(/<br>/gi, ' ').trim() + ". "; 
+                        } 
+                    });
+                    if (textToRead.trim() === "") { /* Substitua alert() por um modal customizado */ console.error("Nenhum texto principal encontrado para leitura na seção atual."); return; }
+                    
+                    utterance = new SpeechSynthesisUtterance(textToRead.replace(/\s+/g, ' ').trim());
+                    utterance.lang = 'pt-BR';
+                    utterance.onstart = () => { isReading = true; readPageBtn.innerHTML = '<i class="fas fa-stop-circle"></i>'; readPageBtn.setAttribute('aria-label', 'Parar leitura'); readPageBtn.title = 'Parar Leitura'; };
+                    utterance.onend = () => { isReading = false; readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); readPageBtn.title = 'Ler Página'; utterance = null; };
+                    utterance.onerror = (event) => { console.error('Erro na síntese de voz:', event.error); isReading = false; readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); readPageBtn.title = 'Ler Página'; /* Substitua alert() por um modal customizado */ console.error('Erro ao tentar ler a página.'); utterance = null; };
+                    synth.speak(utterance);
+                });
+            } else if (readPageBtn) {
+                readPageBtn.style.display = 'none'; 
+                console.warn("Web Speech API (SpeechSynthesis) não é suportada neste navegador.");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Book Interativo - Auto Arremate®</title>
+    <!-- Chosen Palette: Auto Arremate Official Palette -->
+    <!-- Application Structure Plan: A single-page application (SPA) starting with an engaging hero section, followed by a card-based navigation hub for quick access to key brand guidelines (Logo, Cores, Tipografia, etc.). Each card smoothly scrolls to a dedicated, detailed section. This hub-and-spoke model is chosen for usability, allowing users to quickly find specific information, which is a primary use-case for a brand manual, rather than forcing a linear progression. A sticky top navigation appears on scroll for persistent access to all sections. -->
+    <!-- Visualization & Content Choices: Logo rules are shown with visual examples of correct/incorrect usage using HTML/CSS for clarity. Color palettes are presented as interactive swatches (divs) with a JS-powered "copy-to-clipboard" feature for practicality. Typography is demonstrated with live, styled text. Image guidelines and application examples are displayed in clean, responsive grid layouts. This approach prioritizes interactivity and utility over static presentation. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ibm+Plex+Sans:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* neutral-50 */
+            color: #374151; /* neutral-700 */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: #1C2E42;
+        }
+        .brand-gradient-text {
+            background: linear-gradient(45deg, #16B097, #1C2E42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-icon {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            color: #16B097;
+        }
+        #top-nav {
+            transition: top 0.3s ease-in-out;
+        }
+        .color-swatch {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .color-swatch:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Sticky Header -->
+    <nav id="top-nav" class="hidden fixed top-0 w-full bg-white/80 backdrop-blur-sm shadow-md z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-icon-1.svg" alt="Ícone Auto Arremate" class="h-8 w-auto">
+                    <span class="ml-3 font-bold text-xl text-[#1C2E42]">Brand Book</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#logo" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Logo</a>
+                        <a href="#cores" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Cores</a>
+                        <a href="#tipografia" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Tipografia</a>
+                        <a href="#elementos" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Elementos</a>
+                        <a href="#imagens" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Imagens</a>
+                        <a href="#aplicacoes" class="text-gray-700 hover:text-[#16B097] px-3 py-2 rounded-md text-sm font-medium">Aplicações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <header class="bg-white">
+            <div class="max-w-6xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
+                <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo Auto Arremate" class="w-64 mx-auto mb-6">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Brand Book Interativo</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    O guia de referência para a construção de uma marca consistente, forte e coesa. Explore nossas diretrizes e utilize nossos ativos para comunicar a essência da Auto Arremate®.
+                </p>
+            </div>
+        </header>
+
+        <!-- Navigation Hub Section -->
+        <section class="py-12 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="#logo" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-gem section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Nosso Logo</h3>
+                        <p class="text-gray-600">A principal assinatura da nossa marca. Aprenda a usá-lo corretamente.</p>
+                    </a>
+                    <a href="#cores" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-palette section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Nossas Cores</h3>
+                        <p class="text-gray-600">A paleta que transmite a emoção e a personalidade da nossa marca.</p>
+                    </a>
+                    <a href="#tipografia" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-font section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Nossa Tipografia</h3>
+                        <p class="text-gray-600">As fontes que dão voz à nossa comunicação e garantem legibilidade.</p>
+                    </a>
+                    <a href="#elementos" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-puzzle-piece section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Elementos Gráficos</h3>
+                        <p class="text-gray-600">Ícones e grafismos que enriquecem e padronizam nossa comunicação.</p>
+                    </a>
+                    <a href="#imagens" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-image section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Uso de Imagens</h3>
+                        <p class="text-gray-600">Diretrizes para fotos e ilustrações que refletem nosso universo visual.</p>
+                    </a>
+                    <a href="#aplicacoes" class="block p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
+                        <i class="fas fa-layer-group section-icon"></i>
+                        <h3 class="text-xl font-bold mb-2">Aplicações</h3>
+                        <p class="text-gray-600">Veja exemplos práticos da nossa identidade em diferentes materiais.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo Section -->
+        <section id="logo" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">🏛️ Nosso Logo</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">O logo é nosso principal identificador. Representa nossa essência e deve ser aplicado com cuidado e respeito para garantir reconhecimento e consistência. Apresentamos aqui as versões corretas e as regras de aplicação.</p>
+
+                <h3 class="text-2xl font-bold mb-6">Versões Principais</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+                    <div class="p-8 border border-gray-200 rounded-lg text-center">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo Horizontal" class="h-20 mx-auto">
+                        <p class="mt-4 font-semibold">Versão Horizontal</p>
+                        <p class="text-sm text-gray-600">Ideal para cabeçalhos e espaços amplos.</p>
+                    </div>
+                    <div class="p-8 border border-gray-200 rounded-lg text-center">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-vertical.svg" alt="Logo Vertical" class="h-28 mx-auto">
+                        <p class="mt-4 font-semibold">Versão Vertical</p>
+                        <p class="text-sm text-gray-600">Use preferencialmente em layouts verticais.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-6">Usos Incorretos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="p-4 border border-red-300 bg-red-50 rounded-lg text-center">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo Distorcido" class="h-20 mx-auto" style="transform: scaleX(1.5);">
+                        <p class="mt-4 font-semibold text-red-800"><i class="fas fa-times-circle mr-2"></i>Não distorça</p>
+                    </div>
+                     <div class="p-4 border border-red-300 bg-red-50 rounded-lg text-center">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo com cor errada" class="h-20 mx-auto" style="filter: hue-rotate(180deg);">
+                        <p class="mt-4 font-semibold text-red-800"><i class="fas fa-times-circle mr-2"></i>Não altere as cores</p>
+                    </div>
+                     <div class="p-4 border border-red-300 bg-red-50 rounded-lg text-center">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo com sombra" class="h-20 mx-auto" style="filter: drop-shadow(4px 4px 2px rgba(0,0,0,0.3));">
+                        <p class="mt-4 font-semibold text-red-800"><i class="fas fa-times-circle mr-2"></i>Não adicione efeitos</p>
+                    </div>
+                     <div class="p-4 border border-red-300 bg-red-50 rounded-lg text-center bg-cover" style="background-image: url('https://placehold.co/400x200/cccccc/333333?text=Fundo+Polu%C3%ADdo')">
+                        <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logo em fundo poluído" class="h-20 mx-auto mix-blend-screen">
+                        <p class="mt-4 font-semibold text-red-800 bg-white/70 rounded"><i class="fas fa-times-circle mr-2"></i>Não use em fundos poluídos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="cores" class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">🎨 Nossas Cores</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">As cores são fundamentais para transmitir nossa personalidade: moderna, confiável e dinâmica. Clique em uma cor para copiar o código HEX.</p>
+                
+                <h3 class="text-2xl font-bold mb-6">Paleta Principal</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#16B097', this)">
+                        <div class="w-full h-32 rounded-lg shadow-md" style="background-color: #16B097;"></div>
+                        <h4 class="font-bold mt-4 text-lg">Verde AA</h4>
+                        <p class="text-gray-600">#16B097</p>
+                    </div>
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#1C2E42', this)">
+                        <div class="w-full h-32 rounded-lg shadow-md" style="background-color: #1C2E42;"></div>
+                        <h4 class="font-bold mt-4 text-lg">Azul Escuro</h4>
+                        <p class="text-gray-600">#1C2E42</p>
+                    </div>
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#AEB0B2', this)">
+                        <div class="w-full h-32 rounded-lg shadow-md" style="background-color: #AEB0B2;"></div>
+                        <h4 class="font-bold mt-4 text-lg">Cinza</h4>
+                        <p class="text-gray-600">#AEB0B2</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-6">Paleta de Destaque (Neon)</h3>
+                <p class="text-center max-w-3xl mx-auto mb-8">Use com moderação para CTAs e destaques. **Importante:** Não use duas cores neon na mesma arte.</p>
+                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#39FF14', this)">
+                        <div class="w-full h-24 rounded-lg shadow-md" style="background-color: #39FF14;"></div>
+                        <h4 class="font-bold mt-3 text-base">Verde Neon</h4>
+                    </div>
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#00FFFF', this)">
+                        <div class="w-full h-24 rounded-lg shadow-md" style="background-color: #00FFFF;"></div>
+                        <h4 class="font-bold mt-3 text-base">Cyan Neon</h4>
+                    </div>
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#2890FF', this)">
+                        <div class="w-full h-24 rounded-lg shadow-md" style="background-color: #2890FF;"></div>
+                        <h4 class="font-bold mt-3 text-base">Azul Neon</h4>
+                    </div>
+                    <div class="color-swatch text-center" onclick="copyToClipboard('#BF00FF', this)">
+                        <div class="w-full h-24 rounded-lg shadow-md" style="background-color: #BF00FF;"></div>
+                        <h4 class="font-bold mt-3 text-base">Violeta Neon</h4>
+                    </div>
+                     <div class="color-swatch text-center" onclick="copyToClipboard('#FF00FF', this)">
+                        <div class="w-full h-24 rounded-lg shadow-md" style="background-color: #FF00FF;"></div>
+                        <h4 class="font-bold mt-3 text-base">Roxo Neon</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="tipografia" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">✒️ Nossa Tipografia</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">A tipografia define o tom da nossa comunicação. Usamos uma combinação que equilibra modernidade e legibilidade, garantindo que nossa mensagem seja sempre clara e impactante.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">IBM Plex Sans</h3>
+                        <p class="text-gray-600 mb-6">Usada para títulos e destaques. Sua estrutura forte e moderna transmite tecnologia e eficiência.</p>
+                        <div class="p-6 bg-gray-50 rounded-lg">
+                            <p class="text-4xl" style="font-family: 'IBM Plex Sans', sans-serif;">Versátil & Carros</p>
+                            <p class="mt-4 text-sm" style="font-family: 'IBM Plex Sans', sans-serif;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#$%^&*()</p>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold mb-4">Inter</h3>
+                        <p class="text-gray-600 mb-6">Usada para textos corridos. Projetada para máxima legibilidade em qualquer tamanho, garantindo uma leitura confortável.</p>
+                        <div class="p-6 bg-gray-50 rounded-lg">
+                            <p class="text-base mb-4">A fonte Inter foi projetada com ênfase na legibilidade, tornando-a fácil de ler em diferentes tamanhos e resoluções. Ela possui proporções equilibradas e formas claras que facilitam a visualização de textos longos.</p>
+                            <p class="text-sm">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#$%^&*()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Elements Section -->
+        <section id="elementos" class="py-20 bg-gray-50">
+             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">✨ Elementos Gráficos</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">Para enriquecer nossa comunicação e manter a consistência, utilizamos um conjunto de ícones e grafismos alinhados à nossa identidade visual.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Ícones Font Awesome</h3>
+                        <p class="text-gray-600 mb-6">Utilizamos a família de ícones Font Awesome (estilos "Light" ou "Regular") para padronizar a ilustração de funcionalidades, tópicos e ações em nossa comunicação.</p>
+                        <div class="flex flex-wrap gap-6 text-3xl text-[#1C2E42]">
+                            <i class="fas fa-car"></i>
+                            <i class="fas fa-gavel"></i>
+                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-handshake"></i>
+                            <i class="fas fa-headset"></i>
+                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-file-signature"></i>
+                            <i class="fas fa-tags"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                         <h3 class="text-2xl font-bold mb-4">Contorno do Ícone</h3>
+                         <p class="text-gray-600 mb-6">O contorno do nosso ícone é um elemento gráfico versátil, usado para criar profundidade e dinamismo nos layouts.</p>
+                         <div class="relative h-48">
+                             <div class="absolute top-0 left-10 w-48 h-32 bg-[#1C2E42] rounded-2xl transform -rotate-12"></div>
+                             <div class="absolute top-8 left-20 w-48 h-32 border-4 border-[#16B097] rounded-2xl transform rotate-6"></div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Images Section -->
+        <section id="imagens" class="py-20 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">🖼️ Uso de Imagens</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">As imagens conectam nossa marca à realidade dos nossos clientes. Adotamos dois estilos principais que devem ser usados de acordo com o contexto da comunicação.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="p-8 bg-gray-50 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4">Fotos Reais</h3>
+                        <p class="mb-4">Essenciais para gerar conexão e credibilidade. Devem ser autênticas e alinhadas ao nosso universo.</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Devem retratar o conteúdo abordado (veículos, negociações).</li>
+                            <li>Evitar fotos genéricas ou muito posadas.</li>
+                            <li>Aplicar um filtro sutil com tons de verde ou azul.</li>
+                            <li>Tratar a imagem para garantir boa iluminação e contraste.</li>
+                        </ul>
+                        <img src="https://i.imgur.com/wP8aL5G.jpeg" alt="Exemplo de foto real de um carro em um anúncio" class="mt-6 rounded-lg w-full object-cover h-64">
+                    </div>
+                    <div class="p-8 bg-gray-50 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4">Ilustrações Cartoon 3D</h3>
+                        <p class="mb-4">Para comunicação institucional e didática, usamos elementos 3D com um estilo moderno e amigável.</p>
+                         <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>As cores devem seguir a paleta da marca.</li>
+                            <li>Manter o contraste entre os elementos.</li>
+                            <li>Garantir que os objetos 3D tenham relação com o conteúdo.</li>
+                            <li>Usar de forma pontual para não sobrecarregar a arte.</li>
+                        </ul>
+                        <img src="https://i.imgur.com/lJ4Z3sA.jpeg" alt="Exemplo de ilustração 3D em um post sobre o cérebro e pós-venda" class="mt-6 rounded-lg w-full object-cover h-64">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Applications Section -->
+        <section id="aplicacoes" class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12">🚀 Aplicações da Marca</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto mb-16">Veja como nossa identidade visual ganha vida em diferentes materiais de comunicação, mantendo sempre a consistência e o profissionalismo.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/kS5x8A5.png" alt="Exemplo de post para Instagram" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Post Institucional</h3>
+                            <p class="text-gray-600 mt-2">Comunicação de valor, como "O diferencial estratégico", usando a identidade visual para reforçar a mensagem.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/nJgqK8C.png" alt="Exemplo de post de podcast" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Conteúdo de Podcast</h3>
+                            <p class="text-gray-600 mt-2">Identidade forte para nossos conteúdos em áudio, como o podcast "Dirigindo Vendas".</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/39hN3jL.png" alt="Exemplo de Cotação Rápida" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Material de Marketplace</h3>
+                            <p class="text-gray-600 mt-2">Peças para o aplicativo e plataforma, combinando 3D e informações claras para o usuário.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/k7dZ6a2.png" alt="Exemplo de oferta de veículo" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Post de Oferta</h3>
+                            <p class="text-gray-600 mt-2">Anúncios de veículos com destaque para a informação principal, como o desconto sobre a FIPE.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/oVcY3eW.png" alt="Exemplo de post com ilustração 3D" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Post com Ilustração</h3>
+                            <p class="text-gray-600 mt-2">Uso de personagens e elementos 3D para abordar temas complexos de forma didática.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="https://i.imgur.com/EKIx3P8.png" alt="Exemplo de feed do Instagram" class="w-full h-auto object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg">Composição de Feed</h3>
+                            <p class="text-gray-600 mt-2">A harmonia visual do feed do Instagram, mostrando a consistência entre diferentes tipos de posts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1C2E42] text-white">
+        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 Auto Arremate®. Todos os direitos reservados.</p>
+            <p class="text-sm text-gray-400 mt-2">Este brand book é um guia para o uso correto da identidade visual da marca.</p>
+        </div>
+    </footer>
+    
+    <div id="copy-notification" class="hidden fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg">
+        Copiado para a área de transferência!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topNav = document.getElementById('top-nav');
+            
+            const handleScroll = () => {
+                if (window.scrollY > 300) {
+                    topNav.classList.remove('hidden');
+                } else {
+                    topNav.classList.add('hidden');
+                }
+            };
+            
+            window.addEventListener('scroll', handleScroll);
+
+            const navLinks = document.querySelectorAll('#top-nav a, .grid a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.currentTarget.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        const topOffset = targetElement.offsetTop - (document.getElementById('top-nav').offsetHeight || 0);
+                        window.scrollTo({
+                            top: topOffset,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const notification = document.getElementById('copy-notification');
+                
+                // Show notification
+                notification.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

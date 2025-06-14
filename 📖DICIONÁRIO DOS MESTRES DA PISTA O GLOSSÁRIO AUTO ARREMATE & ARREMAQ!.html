@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário dos Mestres: Glossário</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Variáveis de Cores e Fontes (Consolidadas e Ajustadas) */
+        :root {
+            --aa-green: #16B097;
+            --aa-dark-blue: #1C2E42;
+            --aa-light-gray: #AEB0B2; 
+            --aa-medium-gray: #6c7a89; 
+            --aa-white: #FFFFFF;
+            --aa-black: #000000;
+            --aa-green-darker: #0F8A7E; 
+            --aa-green-text-dark-theme: #2DD4BF; 
+            --aa-green-lighter: #D2F3EC;
+            --aa-green-pastel: #f0fdfa; 
+            --aa-dark-blue-lighter: #2C4A6B;
+
+            --arremaq-orange: #FF8C00;
+            --arremaq-orange-darker: #D97706; 
+            --arremaq-orange-text-dark-theme: #FDBA74; 
+            --arremaq-orange-lighter: #FFD073;
+            --arremaq-orange-pastel: #fffbeb;
+            --arremaq-orange-darkest: #6b3e00; 
+            
+            --aa-green-darkest: #17575c; 
+            --aa-shiny-gray-light: #E5E7EB; 
+            --aa-shiny-gray-dark: #374151;  
+
+            /* Fontes */
+            --font-headings-cover: 'Manrope', sans-serif; 
+            --font-body-cover: 'Manrope', sans-serif;    
+            --font-primary-portal: 'Manrope', sans-serif;
+            --font-headings-portal: 'Sora', sans-serif;
+
+            /* Fundos */
+            --bg-main-light: var(--aa-green-pastel); 
+            --bg-main-dark: #0a121c; 
+            --bg-content-light-portal: var(--aa-white);
+            --bg-content-dark-portal: #1e293b; 
+            --bg-cards-section-light: #f0f4f8; 
+            --bg-cards-section-dark: #111827;  
+
+
+            /* Textos */
+            --text-headings-light-portal: var(--aa-dark-blue);
+            --text-headings-dark-portal: var(--aa-green-lighter);
+            --text-body-light-portal: #334155; 
+            --text-body-dark-portal: #cbd5e1; 
+            --text-muted-light-portal: #616161; 
+            --text-muted-dark-portal: #94a3b8; 
+            
+            /* Bordas */
+            --border-color-light-portal: #e2e8f0; 
+            --border-color-dark-portal: #334155; 
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Raios de Borda */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --radius-card-portal: 1.25rem;
+            --radius-button-portal: 0.75rem;
+            --radius-round: 9999px;
+
+            --transition-main: .25s cubic-bezier(.4,0,.2,1);
+        }
+
+        html[data-theme='dark'] :root {
+            /* Ajustes específicos para tema escuro, se necessário além das variáveis já definidas */
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+            font-family: var(--font-body-cover); 
+            font-size: 91%;
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover); 
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            overflow-x: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        html[data-theme='dark'] body {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+
+        /* Estilos da Seção de Capa */
+        .capa-section { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: clamp(1.2rem, 4.8vw, 2.4rem) clamp(0.8rem, 4vw, 1.6rem); text-align: center; position: relative; background: linear-gradient(60deg, var(--arremaq-orange-pastel) 0%, var(--arremaq-orange-lighter) 15%, var(--aa-shiny-gray-light) 35%, var(--aa-green-lighter) 55%, var(--aa-shiny-gray-light) 75%, var(--aa-green-pastel) 90%, var(--arremaq-orange-pastel) 100%); background-size: 300% 300%; animation: backgroundGradientAnimation 20s ease infinite; overflow: hidden; }
+        html[data-theme='dark'] .capa-section { background: linear-gradient(60deg, var(--arremaq-orange-darkest) 0%, var(--arremaq-orange-darker) 15%, var(--aa-shiny-gray-dark) 35%, var(--aa-dark-blue) 55%, var(--aa-shiny-gray-dark) 75%, var(--aa-green-darkest) 90%, var(--arremaq-orange-darkest) 100%); background-size: 300% 300%; animation: backgroundGradientAnimation 20s ease infinite; }
+        @keyframes backgroundGradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .logos-container { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; } 
+        .playbook-logo { width: 192px; max-width: 45%; height: auto; display: block; filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.1)); animation: logo-float 3s ease-in-out infinite alternate, logo-blink 2s linear infinite; }
+        html[data-theme='dark'] .playbook-logo { filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.3)); }
+        @keyframes logo-float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } } 
+        @keyframes logo-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
+        .capa-title { 
+            font-family: var(--font-headings-cover); 
+            font-weight: 800; 
+            text-align: center; 
+            margin-top: 0.4em; 
+            margin-bottom: 0.6em; 
+            font-size: clamp(1rem, 2.2vw, 1.35rem); 
+            line-height: 1.5; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            color: var(--aa-dark-blue); 
+        }
+        html[data-theme='dark'] .capa-title { 
+            color: var(--aa-green-lighter); 
+        }
+        .capa-title .capa-title-line {
+            display: block; 
+            margin-bottom: 0.15em; 
+        }
+        .capa-title .capa-title-line:last-child {
+            margin-bottom: 0;
+        }
+        .capa-title.fun-title-effect { animation: fun-title-glow-animation 4s ease-in-out infinite alternate; position: relative; }
+        @keyframes fun-title-glow-animation {
+            0%, 100% { text-shadow: 0 0 5px rgba(22, 176, 151, 0.3), 0 0 10px rgba(255, 140, 0, 0.2); }
+            50% { text-shadow: 0 0 10px rgba(22, 176, 151, 0.6), 0 0 20px rgba(255, 140, 0, 0.4); }
+        }
+        
+        .emoji-original-color { -webkit-text-fill-color: initial; text-fill-color: initial; background: none; display: inline-block; text-shadow: none; }
+        
+        .text-aa-green-darker { color: var(--aa-green-darker) !important; -webkit-text-fill-color: var(--aa-green-darker) !important; text-fill-color: var(--aa-green-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; -webkit-text-fill-color: var(--aa-green-text-dark-theme) !important; text-fill-color: var(--aa-green-text-dark-theme) !important; }
+        .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; -webkit-text-fill-color: var(--arremaq-orange-darker) !important; text-fill-color: var(--arremaq-orange-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; -webkit-text-fill-color: var(--arremaq-orange-text-dark-theme) !important; text-fill-color: var(--arremaq-orange-text-dark-theme) !important; }
+        
+        .frase-destaque { 
+            font-family: var(--font-headings-cover); 
+            font-size: clamp(0.845rem, 1.69vw, 1.17rem); 
+            font-weight: 700; 
+            background: transparent; 
+            border-radius: var(--radius-lg); 
+            padding: 0.3em 0.6em; 
+            margin-bottom: 0.8rem; 
+            margin-top: 0.6em; 
+            display: block; 
+            max-width: 90%; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+            transition: all var(--transition-main); 
+        }
+        html[data-theme='dark'] .frase-destaque { text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .frase-destaque-verde { color: var(--aa-green-darker); }
+        html[data-theme='dark'] .frase-destaque-verde { color: var(--aa-green-text-dark-theme); }
+        .frase-destaque-laranja { color: var(--arremaq-orange-darker); }
+        html[data-theme='dark'] .frase-destaque-laranja { color: var(--arremaq-orange-text-dark-theme); }
+        .frase-destaque .emoji { margin: 0 0.25em; font-size: 1em; vertical-align: middle; -webkit-text-fill-color: initial; text-fill-color: initial; background: none; text-shadow: none; }
+        @keyframes fun-frase-pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.02); opacity: 1; } }
+        .frase-destaque.fun-frase-effect { animation: fun-frase-pulse 3s ease-in-out infinite; }
+        
+        .capa-criado { 
+            font-family: var(--font-body-cover); 
+            font-size: 0.78rem; 
+            color: var(--aa-dark-blue); 
+            opacity: 0.95; 
+            margin-top: 1rem; 
+            margin-bottom: 1rem; 
+            font-weight: 500; 
+            animation: created-by-pulse 5s infinite alternate; 
+            text-align: center; 
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1); 
+        }
+        html[data-theme='dark'] .capa-criado { color: #E2E8F0; opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+        @keyframes created-by-pulse { 0% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } 50% { text-shadow: 0 0 7px rgba(22, 176, 151, 0.4), 0 0 4px rgba(255, 140, 0, 0.3); transform: scale(1.03); } 100% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } }
+        .capa-criado .emoji { font-size: 1em; vertical-align: baseline; margin: 0 0.15em; }
+        .capa-criado .creator-name { font-weight: 700; background: linear-gradient(45deg, var(--aa-green-darker) 20%, var(--aa-green) 50%, var(--arremaq-orange) 80%); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent; text-fill-color: transparent; padding: 0 0.2em; display: inline-block; }
+        html[data-theme='dark'] .capa-criado .creator-name { background: linear-gradient(45deg, var(--aa-green-lighter) 20%, var(--aa-green) 50%, var(--arremaq-orange-lighter) 80%); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent; text-fill-color: transparent; }
+        
+        .btn-iniciar { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.6em; 
+            font-family: var(--font-headings-cover); 
+            font-size: 0.975rem; 
+            font-weight: bold; 
+            padding: 0.6em 1.5em; 
+            background-image: linear-gradient(45deg, var(--aa-green-darker) 0%, var(--aa-green) 50%, var(--aa-green-darker) 100%); 
+            background-size: 200% auto; 
+            color: var(--aa-white); 
+            border: none; 
+            border-radius: var(--radius-round); 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(22, 176, 151, 0.3), 0 1.5px 3px -1.5px var(--aa-green-darker) inset; 
+            transition: all 0.4s ease-out; 
+            outline: none; 
+            margin-top: 1.2em; 
+            margin-bottom: 1.2em; 
+            text-transform: uppercase; 
+            letter-spacing: 0.07em; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .btn-iniciar:hover { background-position: right center; transform: scale(1.08) translateY(-3px); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset, 0 0 12px var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-iniciar { background-image: linear-gradient(45deg, var(--aa-green) 0%, var(--aa-green-lighter) 50%, var(--aa-green) 100%); color: var(--aa-dark-blue); box-shadow: 0 4px 12px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset; }
+        html[data-theme='dark'] .btn-iniciar:hover { color: var(--aa-dark-blue); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.5), 0 1.5px 3px -1.5px var(--aa-green-darker) inset, 0 0 16px var(--aa-green); }
+        .btn-iniciar svg { width: 1.2em; height: 1.2em; transition: transform 0.4s ease; }
+        .btn-iniciar:hover svg { transform: rotate(15deg) scale(1.15) translateX(2.5px); } 
+        
+        .capa-social-links { margin-top: 1.2rem; display: flex; gap: 1.2rem; justify-content: center; align-items: center; } 
+        .capa-social-links a { color: var(--aa-dark-blue); font-size: 1.3rem; transition: color var(--transition-main), transform var(--transition-main); }
+        .capa-social-links a:hover { color: var(--aa-green); transform: scale(1.2) rotate(-5deg); }
+        html[data-theme='dark'] .capa-social-links a { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .capa-social-links a:hover { color: var(--aa-white); }
+
+        /* Estilos da Nova Seção de Cards (Menu Principal) */
+        .menu-principal-section { min-height: 100vh; padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); text-align: center; background-color: var(--bg-cards-section-light); }
+        html[data-theme='dark'] .menu-principal-section { background-color: var(--bg-cards-section-dark); }
+        .menu-principal-title { font-family: var(--font-headings-cover); font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--text-headings-light-portal); margin-bottom: 2.5rem; line-height: 1.3; text-transform: uppercase; }
+        html[data-theme='dark'] .menu-principal-title { color: var(--text-headings-dark-portal); }
+        .menu-card { background-color: var(--bg-content-light-portal); border-radius: var(--radius-xl); padding: 2rem 1.5rem; box-shadow: var(--shadow-lg); transition: all var(--transition-main); border: 1px solid var(--border-color-light-portal); display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; height: 100%; min-height: 280px; justify-content: center; }
+        .menu-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: var(--shadow-xl); border-color: var(--aa-green); }
+        html[data-theme='dark'] .menu-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .menu-card:hover { border-color: var(--aa-green-lighter); }
+        .menu-card-icon { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1; }
+        .menu-card-title { font-family: var(--font-headings-cover); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.4; }
+        html[data-theme='dark'] .menu-card-title { color: var(--text-headings-dark-portal); }
+        .menu-card-title .text-aa-green-darker { color: var(--aa-green-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; }
+        .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; }
+
+        /* Estilos da Seção de Detalhes do Manual do Pit Stop (Guia Estratégico) */
+        .manual-pitstop-detalhes-section { background-color: var(--bg-main-light); color: var(--text-body-light-portal); padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); min-height: 100vh; }
+        html[data-theme='dark'] .manual-pitstop-detalhes-section { background-color: var(--bg-main-dark); color: var(--text-body-dark-portal); }
+        .manual-pitstop-main-title { font-family: var(--font-headings-portal); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-headings-light-portal); text-align: center; margin-bottom: 2rem; text-transform: uppercase; }
+        html[data-theme='dark'] .manual-pitstop-main-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-card { background-color: var(--bg-content-light-portal); border: 2px solid var(--border-color-light-portal); border-left: 5px solid var(--aa-green); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); transition: all var(--transition-main); cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 220px; justify-content: flex-start; }
+        #playbookIndexContainer .index-item-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-xl); border-left-color: var(--arremaq-orange); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); border-left-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card:hover { border-left-color: var(--arremaq-orange-lighter); border-color: var(--arremaq-orange-lighter); }
+        #playbookIndexContainer .index-item-emoji { font-size: 2.2rem; margin-bottom: 1rem; color: var(--arremaq-orange); line-height: 1; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-emoji { color: var(--arremaq-orange-lighter); }
+        .emoji-autoarremate-color { color: var(--aa-green-darker) !important; } 
+        html[data-theme='dark'] .emoji-autoarremate-color { color: var(--aa-green-text-dark-theme) !important; }
+        .emoji-arremaq-color { color: var(--arremaq-orange-darker) !important; } 
+        html[data-theme='dark'] .emoji-arremaq-color { color: var(--arremaq-orange-text-dark-theme) !important; }
+        #playbookIndexContainer .index-item-title { font-family: var(--font-headings-portal); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.3; }
+        #playbookIndexContainer .index-item-title strong { text-transform: uppercase; font-weight: 800; display: block; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-sub { font-family: var(--font-primary-portal); font-size: 0.7rem; color: var(--text-muted-light-portal); line-height: 1.5; margin-top: auto; padding-top: 0.5rem; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub { color: var(--text-muted-dark-portal); }
+        #playbookIndexContainer .index-item-sub .sentence-emoji { margin-right: 0.3em; color: var(--aa-green); }
+        html[data-theme='dark'] .index-item-sub .sentence-emoji { color: var(--aa-green-lighter); }
+        
+        .playbook-sub-section { padding-top: 2rem; padding-bottom: 2rem; background-color: var(--bg-main-light); min-height: 100vh; }
+        html[data-theme='dark'] .playbook-sub-section { background-color: var(--bg-main-dark); }
+        .playbook-content-title { font-family: var(--font-headings-portal); font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; color: var(--text-headings-light-portal); margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;}
+        html[data-theme='dark'] .playbook-content-title { color: var(--text-headings-dark-portal); }
+        .playbook-content-title .emoji { font-size: 1.1em; margin-right: 0.6rem; color: var(--aa-green); }
+        html[data-theme='dark'] .playbook-content-title .emoji { color: var(--aa-green-lighter); }
+        .playbook-sub-section p { margin-bottom: 1rem; line-height: 1.8; font-size: 0.85rem; color: var(--text-body-light-portal); }
+        html[data-theme='dark'] .playbook-sub-section p { color: var(--text-body-dark-portal); }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 3rem; }
+        .btn-nav { padding: 0.7rem 1.5rem; border-radius: var(--radius-lg); font-weight: 700; transition: all var(--transition-main); border: 2px solid transparent; text-transform: uppercase; box-shadow: var(--shadow-sm); font-size: 0.8rem; }
+        .btn-nav:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .btn-nav.prev { background-color: var(--text-muted-light-portal); color: var(--aa-white); border-color: var(--aa-dark-blue); }
+        .btn-nav.prev:hover { background-color: var(--aa-dark-blue); }
+        html[data-theme='dark'] .btn-nav.prev { background-color: var(--text-muted-dark-portal); color: var(--bg-main-dark); border-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-nav.prev:hover { background-color: var(--aa-green-lighter); color: var(--aa-dark-blue); }
+        .btn-nav.next { background-color: var(--aa-green); color: var(--aa-white); border-color: var(--aa-green-darker); }
+        .btn-nav.next:hover { background-color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-nav.next { background-color: var(--arremaq-orange-lighter); color: var(--aa-dark-blue); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] .btn-nav.next:hover { background-color: var(--arremaq-orange); color: var(--aa-white); }
+        .btn-nav.disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; opacity: 0.7; border-color: #cbd5e1; }
+        html[data-theme='dark'] .btn-nav.disabled { background-color: #334155; color: #64748b; border-color: #475569; }
+        
+        .btn-voltar-secao { display: inline-flex; align-items: center; font-family: var(--font-headings-cover); font-weight: 600; padding: 0.6rem 1.2rem; border-radius: var(--radius-button-portal); text-decoration: none; transition: all var(--transition-main); border: 2px solid var(--aa-green); background-color: transparent; color: var(--aa-green-darker); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2rem; }
+        .btn-voltar-secao:hover { background-color: var(--aa-green-lighter); border-color: var(--aa-green-darker); transform: translateY(-2px); color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-voltar-secao { border-color: var(--aa-green-lighter); color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-voltar-secao:hover { background-color: var(--aa-green-darker); border-color: var(--aa-green-lighter); color: var(--aa-white); }
+        .btn-voltar-secao i { margin-right: 0.5rem; }
+
+        .theme-toggle-button { position: fixed; bottom: 20px; right: 20px; background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-lg); z-index: 1000; transition: all var(--transition-main); }
+        .theme-toggle-button:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .theme-toggle-button { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .theme-toggle-button:hover { color: var(--aa-green-lighter); }
+        .accessibility-controls { position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1001; }
+        .accessibility-btn { background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md); transition: all var(--transition-main); }
+        .accessibility-btn:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .accessibility-btn { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .accessibility-btn:hover { color: var(--aa-green-lighter); }
+
+        .hidden { display: none !important; }
+
+        /* Estilos do Glossário */
+        .glossary-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .glossary-term {
+            /* estilos do summary do interactive-section group */
+            padding: 1rem 1.5rem;
+            font-family: var(--font-headings-portal);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-headings-light-portal);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: all var(--transition-main);
+        }
+        html[data-theme='dark'] .glossary-term {
+            color: var(--text-headings-dark-portal);
+        }
+        .glossary-term:hover {
+            background-color: var(--aa-green-lighter);
+            border-radius: var(--radius-lg);
+            color: var(--aa-dark-blue);
+        }
+        html[data-theme='dark'] .glossary-term:hover {
+            background-color: var(--aa-dark-blue-lighter);
+            color: var(--aa-white);
+        }
+        .glossary-term .emoji {
+            margin-right: 0.75rem;
+            font-size: 1.2em;
+            color: var(--arremaq-orange); /* Cor padrão para os emojis do glossário */
+        }
+        html[data-theme='dark'] .glossary-term .emoji {
+            color: var(--arremaq-orange-lighter);
+        }
+        .glossary-definition {
+            padding: 0.5rem 1.5rem 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: var(--text-body-light-portal);
+        }
+        html[data-theme='dark'] .glossary-definition {
+            color: var(--text-body-dark-portal);
+        }
+        .glossary-definition strong {
+            color: var(--text-headings-light-portal);
+        }
+        html[data-theme='dark'] .glossary-definition strong {
+            color: var(--text-headings-dark-portal);
+        }
+
+        .highlight { background-color: #f5f5f5; border-left-color: #9e9e9e; }
+        html[data-theme='dark'] .highlight { background-color: #212121; border-left-color: #bdbdbd; }
+        .text-gray-900 { color: #212121; }
+        html[data-theme='dark'] .text-gray-900 { color: #bdbdbd; }
+
+
+        @media (max-width: 1024px) { 
+            .menu-principal-section .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer.grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 84%; } 
+            .capa-title { font-size: clamp(1.0rem, 2.2vw, 1.3rem); } 
+            .frase-destaque { font-size: clamp(0.6rem, 1.3vw, 0.8rem); max-width: 95%;}
+            .playbook-logo { width: 148px; } 
+            .accessibility-controls { top: 10px; right: 10px; gap: 8px;}
+            .accessibility-btn { width: 40px; height: 40px; font-size: 1.1rem;}
+            .menu-principal-title { font-size: clamp(1.1rem, 2.8vw, 1.7rem); }
+            .menu-card { padding: 1.5rem 1rem; min-height: 240px; }
+            .menu-card-icon { font-size: 2.2rem; }
+            .menu-card-title { font-size: 0.8rem; }
+            .manual-pitstop-main-title { font-size: clamp(1.2rem, 2.8vw, 1.7rem); }
+            .playbook-content-title { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+            #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer .index-item-card { min-height: 180px; }
+            #playbookIndexContainer .index-item-emoji { font-size: 1.8rem; }
+            #playbookIndexContainer .index-item-title { font-size: 0.7rem; }
+            #playbookIndexContainer .index-item-sub { font-size: 0.55rem; }
+            .playbook-sub-section p { font-size: 0.7rem; }
+
+        }
+        @media (max-width: 640px) { 
+             .menu-principal-section .grid-cols-4, .menu-principal-section .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+             #playbookIndexContainer.grid-cols-4, #playbookIndexContainer.grid-cols-2, #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 77%; } 
+            .playbook-logo { width: 116px; } 
+            .btn-iniciar { font-size: 0.7rem; padding: 0.5em 1.1em; }
+            .capa-title { font-size: clamp(0.9rem, 2.5vw, 1.2rem); line-height: 1.5;} 
+            .frase-destaque { font-size: clamp(0.6rem, 1.2vw, 0.75rem); }
+            .menu-principal-title { font-size: clamp(1rem, 2.8vw, 1.5rem); }
+            .manual-pitstop-main-title { font-size: clamp(1.1rem, 2.8vw, 1.5rem); }
+             .menu-card { min-height: 200px; }
+            .menu-card-title { font-size: 0.75rem; }
+            .playbook-sub-section p { font-size: 0.65rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="accessibility-controls">
+        <button id="increaseFontBtn" class="accessibility-btn" aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+            <i class="fas fa-search-plus"></i>
+        </button>
+        <button id="decreaseFontBtn" class="accessibility-btn" aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+            <i class="fas fa-search-minus"></i>
+        </button>
+        <button id="readPageBtn" class="accessibility-btn" aria-label="Ler página em voz alta" title="Ler Página">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <main id="main-portal-completo">
+        <!-- Seções ocultas para navegação futura, incluídas para completude -->
+        <section id="capa-section" class="capa-section hidden" data-aos="fade-in" data-aos-duration="1000"></section>
+        <section id="menu-principal-section" class="menu-principal-section hidden"></section>
+        <section id="manual-pitstop-detalhes-section" class="manual-pitstop-detalhes-section hidden"></section>
+        <section id="rota-66-content-section" class="hidden playbook-sub-section"></section>
+        <section id="box-identidade-content-section" class="hidden playbook-sub-section"></section>
+        <section id="academia-repassadores-content-section" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-0-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-1-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-arremaq-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-2-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-persona-animation-section" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-3-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-4-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-5-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-6-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-7-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-9-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-10-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-sec-13-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-autocards-content-main" class="hidden playbook-sub-section"></section>
+        <section id="playbook-quiz-gamificado-section" class="hidden playbook-sub-section"></section>
+        <section id="playbook-corrida-svg-section" class="hidden playbook-sub-section"></section>
+
+        <!-- Conteúdo da Seção Glossário -->
+        <section id="playbook-sec-8-content-main" class="playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO GUIA ESTRATÉGICO
+                </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📖</span><strong>DICIONÁRIO DOS MESTRES DA PISTA: O GLOSSÁRIO AUTO ARREMATE & ARREMAQ!</strong></h2>
+                <div class="text-content-container playbook-text space-y-10 mt-8">
+                    <section id="intro-glossario" data-aos="fade-up">
+                        <h3 class="playbook-section-title !text-center" style="text-transform: uppercase;">
+                            <span class="emoji">📚</span> <strong>FALANDO A LÍNGUA DOS CAMPEÕES: SEU MANUAL DE TERMOS DA CORRIDA!</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">🏎️</span>Nobre piloto, para dominar as pistas do mercado automotivo e de máquinas pesadas, é fundamental falar a língua dos boxes e entender cada termo técnico como um verdadeiro engenheiro de equipe! <span class="sentence-emoji">🛠️</span>Este glossário é o seu "dicionário de bordo", reunindo os termos e conceitos mais importantes que você ouvirá nas garagens, nas negociações e aqui na Auto Arremate® e Arremaq®. <span class="sentence-emoji">🏆</span>Consultar este guia é como ter o Doc Hudson sussurrando dicas no seu rádio: essencial para construir credibilidade, comunicar-se com clareza e não ficar perdido como o Relâmpago em Radiator Springs pela primeira vez!</p>
+                        <p><span class="sentence-emoji">🏁</span>Prepare-se para abastecer seu vocabulário e acelerar nas conversas com a confiança de quem entende cada detalhe do motor!</p>
+                    </section>
+
+                    <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+
+                    <section id="glossario-termos" data-aos="fade-up">
+                        <h3 class="playbook-section-title !text-center" style="text-transform: uppercase;">
+                            <span class="emoji">🔤</span> <strong>DE A A Z: OS TERMOS QUE TODO PILOTO DE ELITE PRECISA CONHECER!</strong>
+                        </h3>
+                        <div class="glossary-container mt-6 space-y-5">
+                            <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-blue-600 dark:text-blue-300"><span class="emoji text-xl">🅰️</span> Termos com A</strong>
+                                    <i class="fas fa-chevron-down text-blue-500 dark:text-blue-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>Alienação Fiduciária:</strong> É como quando você financia um carro novo e ele fica "preso" ao banco até você pagar todas as parcelas. O carro é seu para usar, mas se não pagar, o banco (o "xerife" da história) pode pegá-lo de volta. É uma garantia para quem emprestou o dinheiro.</p>
+                                    <p><strong>ARR (Annual Recurring Revenue):</strong> Receita Recorrente Anual. Para negócios com modelo de assinatura (como um serviço de streaming para carros de corrida), é o total de dinheiro que entra todo ano dessas assinaturas. Mostra a saúde e a previsibilidade da "equipe".</p>
+                                    <p><strong>Assertividade:</strong> É a habilidade de se comunicar como o Doc Hudson: claro, direto e confiante, defendendo seus pontos de vista com respeito, sem ser agressivo como o Chick Hicks nem passivo como um carro estacionado.</p>
+                                </div>
+                            </details>
+                            <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-green-600 dark:text-green-300"><span class="emoji text-xl">🅱️</span> Termos com B</strong>
+                                     <i class="fas fa-chevron-down text-green-500 dark:text-green-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>B2B (Business-to-Business):</strong> Negócios entre "escuderias". Uma empresa vendendo para outra empresa (ex: a Auto Arremate vendendo para uma concessionária).</p>
+                                    <p><strong>B2C (Business-to-Consumer):</strong> Negócios da "escuderia" para o "fã". Uma empresa vendendo diretamente para o consumidor final (ex: uma concessionária vendendo um carro para você).</p>
+                                    <p><strong>Benchmarking:</strong> É como olhar o tempo de volta dos outros pilotos ou as estratégias de box das outras equipes para aprender e melhorar sua própria performance. Comparar para evoluir!</p>
+                                    <p><strong>Break-even Point (Ponto de Equilíbrio):</strong> É a linha de chegada onde suas receitas totais (o dinheiro que você ganhou na corrida) igualam seus custos totais (tudo que você gastou com o carro, equipe, combustível). A partir daqui, qualquer volta extra é lucro!</p>
+                                </div>
+                            </details>
+                            <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-red-600 dark:text-red-300"><span class="emoji text-xl">🅲</span> Termos com C</strong>
+                                    <i class="fas fa-chevron-down text-red-500 dark:text-red-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>CAC (Custo de Aquisição de Cliente):</strong> Quanto sua equipe gastou em marketing e vendas (adesivos, comerciais, salário do vendedor) para trazer um novo fã (cliente) para sua torcida.</p>
+                                    <p><strong>Cadência:</strong> A sequência e a frequência dos seus "pit stops de comunicação" (contatos) em um fluxo de prospecção. Quantas vezes e quando você liga ou manda e-mail para um prospect.</p>
+                                    <p><strong>CNAE (Classificação Nacional de Atividades Econômicas):</strong> O "tipo de corrida" que uma empresa está oficialmente registrada para participar. Importante para saber se ela pode comprar de você no B2B.</p>
+                                    <p><strong>Cold Call:</strong> Uma ligação "na fria" para um prospect que ainda não levantou a bandeira de interesse na sua solução. É como bater na porta da garagem dele sem avisar.</p>
+                                    <p><strong>Cold Mail:</strong> Um e-mail "na fria", enviado para um prospect que não te conhece ainda. Precisa ser muito bom para não ir direto para a "caixa de peças velhas" (spam).</p>
+                                    <p><strong>Cross-selling:</strong> Vender "acessórios" para um cliente que já comprou o "carro principal". Ex: Se ele comprou um carro, oferecer seguro ou um jogo de rodas esportivas.</p>
+                                    <p><strong>CRM (Customer Relationship Management):</strong> O "computador de bordo" da sua equipe de vendas. Software para gerenciar o relacionamento com o cliente, registrando todas as conversas, dados e histórico de corridas juntos.</p>
+                                    <p><strong>CTA (Call to Action - Chamada para Ação):</strong> A bandeirada final que você dá para o prospect. Instrução clara para ele realizar uma ação desejada (ex: "Clique aqui para um test drive!", "Agende seu pit stop estratégico!").</p>
+                                    <p><strong>Churn Rate (Taxa de Abandono):</strong> A porcentagem de "fãs" (clientes) que deixaram sua equipe ou cancelaram a assinatura em um certo período. Quanto menor, melhor, significa que seus fãs são leais!</p>
+                                </div>
+                            </details>
+                             <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-purple-600 dark:text-purple-300"><span class="emoji text-xl">🅿️</span> Termos com P</strong>
+                                    <i class="fas fa-chevron-down text-purple-500 dark:text-purple-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>PDGC (Precificação, Divulgação, Gestão, Comercialização):</strong> Os quatro pilares do motor da Auto Arremate, representando as frentes de atuação da nossa plataforma para garantir a vitória dos nossos parceiros.</p>
+                                    <p><strong>Persona:</strong> O "avatar" do seu cliente ideal, como um personagem do filme Carros. Uma representação semi-fictícia, baseada em dados, para ajudar a entender quem ele é, o que ele quer e como falar a língua dele.</p>
+                                    <p><strong>Pipeline de Vendas (Funil de Vendas):</strong> O "mapa da pista" do seu processo de vendas, mostrando todas as etapas desde o primeiro contato (a largada) até o fechamento do negócio (a bandeirada final).</p>
+                                    <p><strong>Pitch de Vendas:</strong> Sua "volta de apresentação" rápida e persuasiva sobre seu produto ou serviço, como o Relâmpago se apresentando para a Dinoco.</p>
+                                    <p><strong>Prospect:</strong> Um "piloto promissor". Potencial cliente que se encaixa no perfil ideal (ICP) e demonstrou algum nível de interesse em correr com sua equipe.</p>
+                                </div>
+                            </details>
+                             <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-orange-600 dark:text-orange-300"><span class="emoji text-xl">🆁</span> Termos com R</strong>
+                                    <i class="fas fa-chevron-down text-orange-500 dark:text-orange-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>RaioX (Auto Arremate):</strong> Nossa ferramenta de inspeção digital de veículos, que vê através da lataria como o Superman, mostrando todos os detalhes do "motor e chassi".</p>
+                                    <p><strong>RaioX+ (Auto Arremate):</strong> O RaioX com superpoderes! Inclui consulta de histórico veicular completo, como um dossiê do FBI sobre o passado do carro.</p>
+                                    <p><strong>Rapport:</strong> Criar uma conexão e um relacionamento de amizade e confiança com o prospect, como a amizade do Relâmpago e do Mate. Essencial para abrir portas!</p>
+                                    <p><strong>Remarketing (Locadoras):</strong> O processo de "aposentar" os carros da frota de locação e vendê-los para dar espaço para modelos mais novos brilharem na pista.</p>
+                                    <p><strong>Repasse (Concessionárias):</strong> O processo de vender veículos do estoque da concessionária para outros lojistas ou canais B2B, otimizando o giro e abrindo espaço na garagem.</p>
+                                    <p><strong>ROI (Return on Investment - Retorno Sobre o Investimento):</strong> O "troféu financeiro". Métrica que calcula o lucro ou benefício obtido em relação ao custo de um investimento. Mostra se valeu a pena gastar combustível naquela corrida.</p>
+                                </div>
+                            </details>
+                            <details class="interactive-section group" data-aos="fade-up">
+                                <summary class="interactive-summary-obj glossary-term">
+                                    <strong class="text-lg font-semibold text-indigo-600 dark:text-indigo-300"><span class="emoji text-xl">🆂</span> Termos com S</strong>
+                                     <i class="fas fa-chevron-down text-indigo-500 dark:text-indigo-400 transform transition-transform duration-300 group-open:rotate-180"></i>
+                                </summary>
+                                <div class="interactive-content glossary-definition">
+                                    <p><strong>SaaS (Software as a Service):</strong> Software como Serviço. Modelo de "aluguel de carro supertecnológico". Você acessa o software online, geralmente por assinatura, em vez de comprar e instalar na sua garagem.</p>
+                                    <p><strong>SDR (Sales Development Representative):</strong> O "olheiro da equipe de corrida". Profissional de vendas focado na prospecção e qualificação inicial de leads, encontrando os pilotos promissores.</p>
+                                    <p><strong>SPIN Selling:</strong> Metodologia de vendas que é como um "GPS para a conversa", baseada em fazer perguntas sobre Situação, Problema, Implicação e Necessidade de solução.</p>
+                                    <p><strong>SNAP Selling:</strong> Metodologia de vendas focada em tornar o processo "rápido como um raio": Simples, iNestimável (valor), Alinhado e Prioritário para o cliente.</p>
+                                    <p><strong>SQL (Sales Qualified Lead):</strong> "Piloto pronto para a corrida principal". Lead Qualificado por Vendas. Prospect que foi avaliado pela equipe de vendas e considerado pronto para uma abordagem comercial mais aprofundada.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+
+                    <div class="highlight bg-gray-50 dark:bg-slate-700 border-l-8 border-gray-500 dark:border-gray-400 rounded-r-xl p-8 shadow-2xl text-left md:text-justify leading-relaxed mt-10" data-aos="fade-up">
+                        <p class="text-lg md:text-xl text-gray-900 dark:text-gray-100">
+                            <strong class="block text-2xl md:text-3xl mb-4 font-bold text-center tracking-wider"><span class="emoji">💡</span> DESVENDOU O CÓDIGO DA PISTA?</strong>
+                            <span class="sentence-emoji">🏁</span>Este glossário é seu companheiro de equipe para todas as horas! <span class="sentence-emoji">🛠️</span>Consulte-o sempre que encontrar um termo novo ou precisar daquela palavra exata para impressionar na negociação. <span class="sentence-emoji">🏆</span>Com o vocabulário dos campeões na ponta da língua, você estará sempre pronto para acelerar rumo ao sucesso! Katchau!
+                        </p>
+                    </div>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-7-content-main">❮ A ARTE DA COMUNICAÇÃO</button>
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-9-content-main">EVOLUÇÃO CONTÍNUA ❯</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Alternar tema" title="Alternar Tema">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({ duration: 700, once: true, offset: 50 });
+
+            // Variáveis de elementos da página (incluindo todas as seções, mesmo que ocultas inicialmente)
+            const capaSection = document.getElementById('capa-section');
+            const menuPrincipalSection = document.getElementById('menu-principal-section');
+            const manualPitstopDetalhesSection = document.getElementById('manual-pitstop-detalhes-section');
+            const rota66ContentSection = document.getElementById('rota-66-content-section');
+            const boxIdentidadeContentSection = document.getElementById('box-identidade-content-section');
+            const academiaRepassadoresContentSection = document.getElementById('academia-repassadores-content-section');
+            const allPlaybookSubSections = document.querySelectorAll('.playbook-sub-section'); // Seleciona todas as sub-seções
+
+            // Botões de navegação
+            const btnIniciarCapa = document.getElementById('btnIniciarCapa');
+            const backToCoverBtnMenu = document.getElementById('backToCoverBtnMenu');
+            const openManualPitStopBtn = document.getElementById('openManualPitStopBtn');
+            const openRota66Btn = document.getElementById('openRota66Btn');
+            const openBoxIdentidadeBtn = document.getElementById('openBoxIdentidadeBtn');
+            const openAcademiaRepassadoresBtn = document.getElementById('openAcademiaRepassadoresBtn');
+            const backToMenuPrincipalBtns = document.querySelectorAll('.backToMenuPrincipalBtn');
+            const backToManualPitStopDetalhesBtns = document.querySelectorAll('.backToManualPitStopDetalhesBtn');
+
+            // Função para mostrar uma seção específica e ocultar todas as outras
+            function showSection(sectionToShow) {
+                // Oculta todas as seções principais
+                [capaSection, menuPrincipalSection, manualPitstopDetalhesSection, rota66ContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection].forEach(s => {
+                    if (s) s.classList.add('hidden');
+                });
+                // Oculta todas as sub-seções do playbook, exceto a que será exibida
+                allPlaybookSubSections.forEach(s => {
+                    if (s && s !== sectionToShow) s.classList.add('hidden');
+                });
+                // Exibe a seção desejada, rola para o topo e atualiza o AOS
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    AOS.refreshHard(); // Refresca AOS para que as animações sejam reativadas na nova seção
+                }
+            }
+
+            // Adiciona event listeners para botões de navegação principais (se existirem)
+            if (btnIniciarCapa) {
+                btnIniciarCapa.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(menuPrincipalSection); // Exemplo: ir para o menu principal
+                });
+            }
+            if (backToCoverBtnMenu) {
+                backToCoverBtnMenu.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(capaSection);
+                });
+            }
+            // Adiciona event listeners para os botões de navegação do menu principal (se existirem)
+            if (openManualPitStopBtn) {
+                openManualPitStopBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(manualPitstopDetalhesSection);
+                    // Você pode adicionar uma função renderPlaybookIndex() aqui se tiver um índice dinâmico
+                });
+            }
+            if (openRota66Btn) {
+                openRota66Btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(rota66ContentSection);
+                });
+            }
+            if (openBoxIdentidadeBtn) {
+                openBoxIdentidadeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(boxIdentidadeContentSection);
+                });
+            }
+            if (openAcademiaRepassadoresBtn) {
+                openAcademiaRepassadoresBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(academiaRepassadoresContentSection);
+                });
+            }
+
+            // Adiciona event listeners para todos os botões de voltar ao menu principal
+            backToMenuPrincipalBtns.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(menuPrincipalSection);
+                });
+            });
+
+            // Adiciona event listeners para todos os botões de voltar ao manual do pit stop
+            backToManualPitStopDetalhesBtns.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showSection(manualPitstopDetalhesSection);
+                });
+            });
+
+            // Lógica para alternar o tema (claro/escuro)
+            const htmlEl = document.documentElement;
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
+
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+                }
+            }
+
+            // Tenta carregar o tema do LocalStorage, caso contrário, usa a preferência do sistema
+            let storedTheme = null;
+            try { storedTheme = localStorage.getItem('theme'); } catch (e) { console.warn("LocalStorage não disponível para persistência do tema.");}
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(storedTheme || preferredTheme);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                    try { localStorage.setItem('theme', newTheme); } catch (e) { console.warn("LocalStorage não está disponível para persistência do tema."); }
+                });
+            }
+
+            // --- Controles de Acessibilidade de Fonte ---
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const FONT_STEP_PERCENT = 10;
+            const MIN_HTML_FONT_PERCENT = 60;
+            const MAX_HTML_FONT_PERCENT = 140;
+
+            function getCurrentHtmlFontSizePercent() {
+                const currentSizePx = parseFloat(window.getComputedStyle(htmlEl).fontSize);
+                const browserBaseSizePx = 16;
+                return (currentSizePx / browserBaseSizePx) * 100;
+            }
+
+            if (increaseFontBtn) {
+                increaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent + FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.min(newPercent, MAX_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+            if (decreaseFontBtn) {
+                decreaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent - FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.max(newPercent, MIN_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+
+            // --- Leitura de Voz (Text-to-Speech) ---
+            const readPageBtn = document.getElementById('readPageBtn');
+            const synth = window.speechSynthesis;
+            let isReading = false;
+            let utterance = null;
+
+            if (readPageBtn && synth) {
+                readPageBtn.addEventListener('click', () => {
+                    if (synth.speaking) {
+                        synth.cancel(); // Se estiver lendo, cancela a leitura
+                        return;
+                    }
+                    // Identifica a seção ativa para leitura
+                    let activeSection = null;
+                    // Lista de todas as seções e sub-seções a serem verificadas
+                    const allSections = [
+                        capaSection, menuPrincipalSection, manualPitstopDetalhesSection,
+                        rota66ContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection,
+                        ...Array.from(allPlaybookSubSections) // Adiciona todas as sub-seções dinamicamente
+                    ];
+
+                    for (const section of allSections) {
+                        if (section && !section.classList.contains('hidden')) {
+                            activeSection = section;
+                            break;
+                        }
+                    }
+
+                    if (!activeSection) {
+                        // Usa um modal customizado em vez de alert
+                        const modal = document.createElement('div');
+                        modal.innerHTML = `
+                            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                                    <p>Nenhuma seção ativa encontrada para leitura.</p>
+                                    <button onclick="this.parentNode.parentNode.remove()" style="margin-top: 15px; padding: 8px 15px; background-color: var(--aa-green); color: white; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                        return;
+                    }
+
+                    // Extrai o texto da seção ativa
+                    let textToRead = "";
+                    activeSection.querySelectorAll('h1, h2, h3, h4, p, .menu-card-title, .index-item-title, .index-item-sub, .frase-destaque, .capa-criado, li').forEach(el => {
+                        if (el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') {
+                            textToRead += el.textContent.replace(/<br>/gi, ' ').trim() + ". ";
+                        }
+                    });
+
+                    if (textToRead.trim() === "") {
+                        // Usa um modal customizado em vez de alert
+                        const modal = document.createElement('div');
+                        modal.innerHTML = `
+                            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                                    <p>Nenhum texto principal encontrado para leitura na seção atual.</p>
+                                    <button onclick="this.parentNode.parentNode.remove()" style="margin-top: 15px; padding: 8px 15px; background-color: var(--aa-green); color: white; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                        return;
+                    }
+
+                    utterance = new SpeechSynthesisUtterance(textToRead.replace(/\s+/g, ' ').trim());
+                    utterance.lang = 'pt-BR'; // Define o idioma para português do Brasil
+
+                    // Eventos de início, fim e erro da leitura
+                    utterance.onstart = () => {
+                        isReading = true;
+                        readPageBtn.innerHTML = '<i class="fas fa-stop-circle"></i>'; // Altera ícone para parar
+                        readPageBtn.setAttribute('aria-label', 'Parar leitura');
+                        readPageBtn.title = 'Parar Leitura';
+                    };
+                    utterance.onend = () => {
+                        isReading = false;
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; // Volta ao ícone de ler
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta');
+                        readPageBtn.title = 'Ler Página';
+                        utterance = null;
+                    };
+                    utterance.onerror = (event) => {
+                        console.error('Erro na síntese de voz:', event.error);
+                        isReading = false;
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta');
+                        readPageBtn.title = 'Ler Página';
+                         // Usa um modal customizado em vez de alert
+                        const modal = document.createElement('div');
+                        modal.innerHTML = `
+                            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                                    <p>Erro ao tentar ler a página.</p>
+                                    <button onclick="this.parentNode.parentNode.remove()" style="margin-top: 15px; padding: 8px 15px; background-color: var(--aa-green); color: white; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(modal);
+                        utterance = null;
+                    };
+                    synth.speak(utterance); // Inicia a leitura
+                });
+            } else if (readPageBtn) {
+                readPageBtn.style.display = 'none'; // Esconde o botão se a API não for suportada
+                console.warn("Web Speech API (SpeechSynthesis) não é suportada neste navegador.");
+            }
+
+            // Adiciona event listeners para os botões de navegação de sub-seções
+            document.querySelectorAll('.navigateToPlaybookSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    if (targetId) {
+                        showSection(document.getElementById(targetId));
+                    }
+                });
+            });
+
+            // Exibir a seção 'playbook-sec-8-content-main' ao carregar a página
+            showSection(document.getElementById('playbook-sec-8-content-main'));
+        });
+    </script>
+</body>
+</html>

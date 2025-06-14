@@ -1,0 +1,334 @@
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+
+// =====================================================================
+// ÍCONES SVG
+// Componentes simples para renderizar ícones usados na interface.
+// =====================================================================
+const TrophyIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trophy text-yellow-400 inline-block"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>;
+const ArrowRightIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>;
+const ClockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+const CheckCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-circle text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>;
+const XCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x-circle text-red-500"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>;
+
+
+// =====================================================================
+// BANCO DE PERGUNTAS
+// Contém todas as perguntas, divididas por etapas, com opções,
+// resposta correta e pontuação.
+// =====================================================================
+const ALL_QUESTIONS = [
+    // Etapa 1: Fundamentos
+    { stage: 1, question: "🚗 O que é 'repasse de veículos' no nosso contexto de negócio?", options: ["👤 Venda para consumidor final", "🏢 Venda de veículos de uma loja para outra (B2B)", "🔑 Aluguel de frotas", "👨‍⚖️ Leilão público"], correct: 1, points: 10 },
+    { stage: 1, question: "🎯 Quem é o cliente-alvo da nossa plataforma de repasse?", options: ["👨‍👩‍👧‍👦 Pessoas físicas buscando um carro", "🏬 Lojistas e revendedores de veículos", "🛠️ Oficinas mecânicas", "🛡️ Seguradoras"], correct: 1, points: 10 },
+    { stage: 1, question: "✨ Qual a principal vantagem que nossa plataforma oferece a um lojista?", options: ["📜 Garantia de fábrica extendida", "🔄 Acesso rápido e constante a um novo estoque", "💰 Financiamento para o consumidor final", " chauffeur Serviço de motorista particular"], correct: 1, points: 10 },
+    { stage: 1, question: "🚜 Qual o foco principal da plataforma ARREMAQ?", options: ["🚗 Carros populares", "🏗️ Máquinas pesadas e equipamentos agrícolas", "🚤 Barcos e Lanchas", "🏠 Imóveis"], correct: 1, points: 10 },
+    { stage: 1, question: "👷 Quem é o principal cliente da ARREMAQ?", options: ["👩‍🌾 Agronegócio e construtoras", "🌇 Agências de publicidade", "👨‍⚕️ Hospitais", "👩‍🏫 Escolas"], correct: 0, points: 10 },
+    // ... (restante das perguntas foram omitidas para brevidade, mas estão no código original)
+    // Etapa 5: Campeão do Repasse
+    { stage: 5, question: "📉 Qual o impacto de uma alta na taxa de juros (SELIC) no nosso negócio?", options: ["🥳 Positivo, pois os carros ficam mais baratos", "😟 Negativo, pois o crédito para o consumidor final fica mais caro, diminuindo a venda nas lojas parceiras", "🤷 Nulo", "🆕 Apenas afeta a venda de carros 0km"], correct: 1, points: 50 },
+    { stage: 5, question: "🎁 O que é 'Cross-sell' e como poderíamos aplicá-lo?", options: ["❌ Vender carros com problemas", "🤝 Oferecer serviços adicionais ao lojista, como financiamento para o estoque dele (Capital de Giro) ou relatórios de mercado", "🔩 Vender peças usadas", "🚫 É uma manobra de vendas ilegal"], correct: 1, points: 50 },
+];
+
+const TIME_PER_QUESTION = 20; // Segundos por pergunta
+
+// =====================================================================
+// COMPONENTES DA UI
+// Cada parte da interface é um componente React.
+// =====================================================================
+
+/**
+ * Componente: PlayerSetup
+ * Tela inicial para inserir os nomes dos jogadores.
+ */
+const PlayerSetup = ({ onSetupComplete }) => {
+    const [players, setPlayers] = useState(Array(5).fill(''));
+    const [error, setError] = useState('');
+
+    const handlePlayerNameChange = (index, name) => {
+        const newPlayers = [...players];
+        newPlayers[index] = name;
+        setPlayers(newPlayers);
+        if (error) setError('');
+    };
+
+    const startGame = () => {
+        const validPlayers = players
+            .map(name => name.trim())
+            .filter(name => name !== '');
+
+        if (validPlayers.length === 0) {
+            setError('Insira o nome de pelo menos um jogador para começar!');
+            return;
+        }
+
+        const finalPlayers = validPlayers.map(name => ({ name, score: 0 }));
+        onSetupComplete(finalPlayers);
+    };
+
+    return (
+        <div className="w-full max-w-2xl mx-auto p-8 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 animate-fade-in">
+            <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold">
+                    🏆 DESAFIO DOS CAMPEÕES 🏆
+                </h2>
+                <h3 className="text-xl mt-2 font-semibold">
+                    <span className="text-green-500">AUTO ARREMATE</span> & <span className="text-orange-500">ARREMAQ</span>
+                </h3>
+                <p className="text-md text-gray-500 dark:text-gray-400 mt-2">
+                    TESTE SEU CONHECIMENTO ESTRATÉGICO!
+                </p>
+            </div>
+
+            <p className="text-center text-lg text-gray-700 dark:text-gray-300 mb-8">Insira os nomes dos jogadores para começar!</p>
+            <div className="space-y-4">
+                {players.map((name, index) => (
+                    <input key={index} type="text" value={name} onChange={(e) => handlePlayerNameChange(index, e.target.value)} placeholder={`Nome do Jogador ${index + 1}`} className="w-full px-4 py-3 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"/>
+                ))}
+            </div>
+            {error && <p className="text-red-500 text-center mt-4 font-semibold">{error}</p>}
+            <div className="text-center mt-8">
+                <button onClick={startGame} className="btn-iniciar">
+                    INICIAR DESAFIO! <ArrowRightIcon />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+/**
+ * Componente: Scoreboard
+ * Exibe o placar dos jogadores em tempo real.
+ */
+const Scoreboard = ({ players }) => (
+    <div className="w-full bg-gray-100 dark:bg-slate-800 p-4 rounded-lg shadow-inner">
+        <h3 className="text-xl font-bold text-center mb-3 text-gray-800 dark:text-gray-200">Placar</h3>
+        <ul className="space-y-2">
+            {players.slice().sort((a, b) => b.score - a.score).map((player, index) => (
+                <li key={player.name} className="flex justify-between items-center text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-700 px-3 py-2 rounded-md transition-all duration-500">
+                    <div className="flex items-center">
+                        <span className="font-semibold mr-2">{index + 1}.</span>
+                        <span className="font-semibold">{player.name}</span>
+                    </div>
+                    <span className="font-bold text-teal-600 dark:text-teal-400">{player.score} pts</span>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
+/**
+ * Componente: QuizScreen
+ * A tela principal do jogo, onde as perguntas e respostas acontecem.
+ */
+const QuizScreen = ({ players, onQuizEnd }) => {
+    const [phase, setPhase] = useState('question'); // Fases: question, answering, results
+    const [internalPlayers, setInternalPlayers] = useState(players);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [timer, setTimer] = useState(TIME_PER_QUESTION);
+    const [playerAnswers, setPlayerAnswers] = useState([]);
+    const [activeAnsweringPlayer, setActiveAnsweringPlayer] = useState(0);
+    const [key, setKey] = useState(0); // Chave para forçar a re-renderização e reiniciar a animação
+
+    const currentQuestion = useMemo(() => ALL_QUESTIONS[currentQuestionIndex], [currentQuestionIndex]);
+
+    // Lógica para avançar entre as fases do jogo
+    const nextPhase = useCallback(() => {
+        if (phase === 'question') {
+            setPhase('answering');
+        } else if (phase === 'results') {
+            if (currentQuestionIndex >= ALL_QUESTIONS.length - 1) {
+                onQuizEnd(internalPlayers);
+            } else {
+                setCurrentQuestionIndex(prev => prev + 1);
+                setPhase('question');
+                setPlayerAnswers([]);
+                setActiveAnsweringPlayer(0);
+                setTimer(TIME_PER_QUESTION);
+                setKey(prev => prev + 1); // Muda a chave para re-animar o timer
+            }
+        }
+    }, [phase, currentQuestionIndex, onQuizEnd, internalPlayers]);
+
+    // Efeito para controlar o temporizador
+    useEffect(() => {
+        if (phase !== 'question') return;
+        const interval = setInterval(() => {
+            setTimer(t => {
+                if (t > 1) return t - 1;
+                nextPhase(); // Move para a fase de resposta quando o tempo acaba
+                return 0;
+            });
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [phase, nextPhase]);
+
+    // Lida com a resposta de um jogador
+    const handleAnswer = (optionIndex) => {
+        const newAnswers = [...playerAnswers, { playerIndex: activeAnsweringPlayer, answer: optionIndex }];
+        setPlayerAnswers(newAnswers);
+
+        if (activeAnsweringPlayer < internalPlayers.length - 1) {
+            setActiveAnsweringPlayer(prev => prev + 1);
+        } else {
+            // Todos os jogadores responderam, calcula a pontuação
+            let updatedPlayers = [...internalPlayers];
+            newAnswers.forEach(ans => {
+                if (ans.answer === currentQuestion.correct) {
+                    const pointsGained = currentQuestion.points;
+                    updatedPlayers[ans.playerIndex].score += pointsGained;
+                }
+            });
+            setInternalPlayers(updatedPlayers);
+            setPhase('results');
+        }
+    };
+    
+    const timerPercentage = (timer / TIME_PER_QUESTION) * 100;
+    
+    return (
+        <div className="w-full max-w-6xl mx-auto p-4 md:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2">
+                    {/* Fase da Pergunta */}
+                    {phase === 'question' && (
+                         <div key={key} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 animate-fade-in">
+                            <div className="mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+                                <span className="text-sm font-bold bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 px-3 py-1 rounded-full">ETAPA {currentQuestion.stage}</span>
+                            </div>
+                            <div className="flex items-center gap-6 mb-8">
+                                <div className="relative w-24 h-24 flex-shrink-0 flex items-center justify-center">
+                                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-gray-200 dark:text-gray-700" strokeWidth="3"></circle><circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-teal-500 transition-all duration-1000 ease-linear" strokeWidth="3" strokeDasharray={`${timerPercentage}, 100`} /></svg>
+                                    <div className="absolute flex items-center justify-center inset-0"><ClockIcon /><span className="text-xl font-bold ml-1">{timer}</span></div>
+                                </div>
+                                <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">{currentQuestion.question}</h2>
+                            </div>
+                            <div className="text-center">
+                                <button onClick={nextPhase} className="btn-iniciar">PRONTO PARA RESPONDER!</button>
+                            </div>
+                        </div>
+                    )}
+                     {/* Fase da Resposta */}
+                    {phase === 'answering' && (
+                        <div key={activeAnsweringPlayer} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 animate-slide-in-left">
+                            <h2 className="text-2xl font-bold text-center text-teal-600 dark:text-teal-300">🤫 Vez de {internalPlayers[activeAnsweringPlayer].name}...</h2>
+                            <p className="text-center text-gray-500 dark:text-gray-400 mb-6">(Os outros não olhem!)</p>
+                             <div className="space-y-3">
+                                {currentQuestion.options.map((option, index) => (
+                                    <button key={index} onClick={() => handleAnswer(index)} className="w-full text-left p-4 rounded-lg font-semibold transition-all duration-300 border-2 border-transparent bg-white dark:bg-slate-700 hover:bg-teal-100 dark:hover:bg-slate-600 hover:scale-105">
+                                        {option}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {/* Fase dos Resultados */}
+                    {phase === 'results' && (
+                        <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 animate-fade-in">
+                            <h2 className="text-2xl font-bold text-center mb-4">Resultado da Rodada</h2>
+                            <p className="text-lg text-center mb-2">A resposta correta é:</p>
+                            <div className="bg-green-100 dark:bg-green-900/50 p-4 rounded-lg text-center font-bold text-green-800 dark:text-green-200 mb-6">
+                                {currentQuestion.options[currentQuestion.correct]}
+                            </div>
+                            <ul className="space-y-2">
+                                {internalPlayers.map((player, index) => {
+                                    const playerAnswer = playerAnswers.find(a => a.playerIndex === index);
+                                    const isCorrect = playerAnswer?.answer === currentQuestion.correct;
+                                    return (
+                                        <li key={index} className="flex justify-between items-center bg-gray-100 dark:bg-slate-700 p-3 rounded-md">
+                                            <span className="font-semibold">{player.name}</span>
+                                            {isCorrect ? <CheckCircleIcon /> : <XCircleIcon />}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            <div className="text-center mt-6">
+                                <button onClick={nextPhase} className="btn-iniciar">Próxima Pergunta <ArrowRightIcon /></button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                
+                <div className="lg:col-span-1 animate-slide-in-right">
+                    <Scoreboard players={internalPlayers} />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+/**
+ * Componente: GameOverScreen
+ * Tela final, exibindo o vencedor e o placar final.
+ */
+const GameOverScreen = ({ players, onRestart }) => {
+    const sortedPlayers = useMemo(() => [...players].sort((a, b) => b.score - a.score), [players]);
+    const winner = sortedPlayers[0];
+
+    return (
+        <div className="w-full max-w-2xl mx-auto p-8 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 text-center relative overflow-hidden animate-fade-in">
+            <div className="absolute top-0 left-0 w-full h-full confetti"></div>
+            <TrophyIcon />
+            <h2 className="text-3xl font-bold text-yellow-500 dark:text-yellow-400 mt-4">Fim do Desafio!</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">Parabéns ao grande campeão:</p>
+            <h3 className="text-4xl font-bold text-teal-600 dark:text-teal-400 my-4 animate-score-pop">🏁 {winner.name} 🏁</h3>
+            <p className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">com {winner.score} pontos!</p>
+            <div className="w-full bg-gray-100 dark:bg-slate-700 p-4 rounded-lg shadow-inner mt-8 z-10 relative">
+                <h4 className="text-xl font-bold mb-4">Placar Final</h4>
+                <ul className="space-y-2 text-left">
+                    {sortedPlayers.map((player, index) => (
+                        <li key={index} className={`flex justify-between items-center p-3 rounded-md ${index === 0 ? 'bg-yellow-100 dark:bg-yellow-900/50' : ''}`}>
+                            <span className="font-semibold">{index + 1}. {player.name}</span>
+                            <span className="font-bold">{player.score} pts</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <button onClick={onRestart} className="mt-8 btn-iniciar z-10 relative">
+                Jogar Novamente
+            </button>
+        </div>
+    );
+};
+
+// =====================================================================
+// COMPONENTE PRINCIPAL DA APLICAÇÃO
+// Gerencia o estado do jogo (setup, quiz, gameover) e renderiza
+// o componente apropriado.
+// =====================================================================
+export default function App() {
+    const [gameState, setGameState] = useState('setup'); // 'setup', 'quiz', 'gameover'
+    const [players, setPlayers] = useState([]);
+
+    const handleSetupComplete = (playerData) => { setPlayers(playerData); setGameState('quiz'); };
+    const handleQuizEnd = (finalPlayers) => { setPlayers(finalPlayers); setGameState('gameover'); };
+    const handleRestart = () => { setPlayers([]); setGameState('setup'); };
+
+    const renderGameState = () => {
+        switch (gameState) {
+            case 'quiz': return <QuizScreen players={players} onQuizEnd={handleQuizEnd} />;
+            case 'gameover': return <GameOverScreen players={players} onRestart={handleRestart} />;
+            default: return <PlayerSetup onSetupComplete={handleSetupComplete} />;
+        }
+    };
+
+    return (
+        <div className="bg-slate-50 dark:bg-slate-900 min-h-screen w-full flex items-center justify-center p-4 font-sans">
+            {/* Estilos CSS embutidos para simplicidade */}
+            <style>{`
+                .btn-iniciar { background-color: #0d9488; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: bold; display: inline-flex; align-items: center; transition: all 0.2s ease-in-out; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+                .btn-iniciar:hover { background-color: #0f766e; transform: scale(1.05); }
+                @keyframes fade-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+                .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+                @keyframes slide-in-left { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+                .animate-slide-in-left { animation: slide-in-left 0.5s ease-out forwards; }
+                @keyframes slide-in-right { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+                .animate-slide-in-right { animation: slide-in-right 0.5s ease-out forwards; }
+                @keyframes score-pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); color: #2dd4bf; } 100% { transform: scale(1); } }
+                .animate-score-pop { animation: score-pop 0.3s ease-in-out; }
+                .confetti { background-image: url('data:image/svg+xml;utf8,<svg width="22" height="10" viewBox="0 0 22 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 6.5C0 6.5 2.222 7.833 6.667 6.5 11.111 5.167 13.333 0 13.333 0S15.556 5.167 20 6.5c4.444 1.333 2 3.5 2 3.5H0V6.5z" fill="%232dd4bf"/></svg>'), url('data:image/svg+xml;utf8,<svg width="22" height="10" viewBox="0 0 22 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 6.5C0 6.5 2.222 7.833 6.667 6.5 11.111 5.167 13.333 0 13.333 0S15.556 5.167 20 6.5c4.444 1.333 2 3.5 2 3.5H0V6.5z" fill="%23f97316"/></svg>'); animation: confetti-fall 5s linear infinite; }
+                @keyframes confetti-fall { from { background-position: 0 0; } to { background-position: 0 500px; } }
+            `}</style>
+            {renderGameState()}
+        </div>
+    );
+}

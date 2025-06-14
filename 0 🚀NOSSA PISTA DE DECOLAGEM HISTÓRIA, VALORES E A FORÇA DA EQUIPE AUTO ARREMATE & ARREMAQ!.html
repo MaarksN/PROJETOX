@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Auto Arremate® / Arremaq 3.0 - Pista de Decolagem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Variáveis de Cores e Fontes (Consolidadas e Ajustadas) */
+        :root {
+            --aa-green: #16B097;
+            --aa-dark-blue: #1C2E42;
+            --aa-light-gray: #AEB0B2;
+            --aa-medium-gray: #6c7a89;
+            --aa-white: #FFFFFF;
+            --aa-black: #000000;
+            --aa-green-darker: #0F8A7E;
+            --aa-green-text-dark-theme: #2DD4BF;
+            --aa-green-lighter: #D2F3EC;
+            --aa-green-pastel: #f0fdfa;
+            --aa-dark-blue-lighter: #2C4A6B;
+
+            --arremaq-orange: #FF8C00;
+            --arremaq-orange-darker: #D97706;
+            --arremaq-orange-text-dark-theme: #FDBA74;
+            --arremaq-orange-lighter: #FFD073;
+            --arremaq-orange-pastel: #fffbeb;
+            --arremaq-orange-darkest: #6b3e00;
+
+            --aa-green-darkest: #17575c;
+            --aa-shiny-gray-light: #E5E7EB;
+            --aa-shiny-gray-dark: #374151;
+
+            /* Fontes */
+            --font-headings-cover: 'Manrope', sans-serif;
+            --font-body-cover: 'Manrope', sans-serif;
+            --font-primary-portal: 'Manrope', sans-serif;
+            --font-headings-portal: 'Sora', sans-serif;
+
+            /* Fundos */
+            --bg-main-light: var(--aa-green-pastel);
+            --bg-main-dark: #0a121c;
+            --bg-content-light-portal: var(--aa-white);
+            --bg-content-dark-portal: #1e293b;
+
+            /* Textos */
+            --text-headings-light-portal: var(--aa-dark-blue);
+            --text-headings-dark-portal: var(--aa-green-lighter);
+            --text-body-light-portal: #334155;
+            --text-body-dark-portal: #cbd5e1;
+            --text-muted-light-portal: #616161;
+            --text-muted-dark-portal: #94a3b8;
+
+            /* Bordas */
+            --border-color-light-portal: #e2e8f0;
+            --border-color-dark-portal: #334155;
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+            /* Raios de Borda */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --radius-button-portal: 0.75rem;
+
+            --transition-main: .25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        html[data-theme='dark'] :root {}
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-body-cover);
+            font-size: 91%;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover);
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        html[data-theme='dark'] body {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+        
+        .emoji-original-color {
+            -webkit-text-fill-color: initial;
+            text-fill-color: initial;
+            background: none;
+            display: inline-block;
+            text-shadow: none;
+        }
+
+        .text-aa-green-darker {
+            color: var(--aa-green-darker) !important;
+            -webkit-text-fill-color: var(--aa-green-darker) !important;
+            text-fill-color: var(--aa-green-darker) !important;
+            background: none !important;
+        }
+
+        html[data-theme='dark'] .text-aa-green-darker {
+            color: var(--aa-green-text-dark-theme) !important;
+            -webkit-text-fill-color: var(--aa-green-text-dark-theme) !important;
+            text-fill-color: var(--aa-green-text-dark-theme) !important;
+        }
+
+        .text-arremaq-orange-darker {
+            color: var(--arremaq-orange-darker) !important;
+            -webkit-text-fill-color: var(--arremaq-orange-darker) !important;
+            text-fill-color: var(--arremaq-orange-darker) !important;
+            background: none !important;
+        }
+
+        html[data-theme='dark'] .text-arremaq-orange-darker {
+            color: var(--arremaq-orange-text-dark-theme) !important;
+            -webkit-text-fill-color: var(--arremaq-orange-text-dark-theme) !important;
+            text-fill-color: var(--arremaq-orange-text-dark-theme) !important;
+        }
+        
+        /* Estilos da Seção de Conteúdo (Pista de Decolagem e Essência) */
+        .playbook-sub-section {
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem);
+            min-height: 100vh;
+        }
+
+        html[data-theme='dark'] .playbook-sub-section {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+        
+        .playbook-content-title {
+            font-family: var(--font-headings-portal);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-headings-light-portal);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        html[data-theme='dark'] .playbook-content-title {
+            color: var(--text-headings-dark-portal);
+        }
+
+        .playbook-section-title {
+            font-family: var(--font-headings-portal);
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-headings-light-portal);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centraliza o título e o emoji */
+            gap: 0.75rem;
+        }
+        
+        html[data-theme='dark'] .playbook-section-title {
+             color: var(--text-headings-dark-portal);
+        }
+
+        .playbook-section-title .emoji {
+            font-size: 1.5em;
+            line-height: 1;
+        }
+
+        .text-content-container p {
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            font-size: 1rem;
+            color: var(--text-body-light-portal);
+        }
+
+        html[data-theme='dark'] .text-content-container p {
+            color: var(--text-body-dark-portal);
+        }
+        
+        .text-content-container .sentence-emoji {
+            margin-right: 0.5em;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background-color: #f0fdfa; /* Verde bem claro */
+            border-left: 8px solid var(--aa-green);
+            padding: 2rem;
+            border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+            margin: 2.5rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        html[data-theme='dark'] .highlight {
+            background-color: #112a2f;
+            border-color: var(--aa-green-lighter);
+        }
+
+        .highlight p {
+             color: #0f5132; /* Tom de verde escuro */
+             font-size: 1.1rem;
+             line-height: 1.7;
+        }
+        
+        html[data-theme='dark'] .highlight p {
+             color: var(--aa-green-lighter);
+        }
+
+        .highlight strong {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--aa-green-darker);
+        }
+        
+        html[data-theme='dark'] .highlight strong {
+            color: var(--aa-green-text-dark-theme);
+        }
+
+        .brand-logo {
+            max-height: 60px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+        
+        html[data-theme='dark'] .brand-logo {
+            filter: brightness(0) invert(1);
+        }
+
+        .theme-toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--bg-content-light-portal);
+            color: var(--text-headings-light-portal);
+            border: 1px solid var(--border-color-light-portal);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: all var(--transition-main);
+        }
+
+        .theme-toggle-button:hover {
+            transform: scale(1.1);
+            color: var(--aa-green);
+        }
+
+        html[data-theme='dark'] .theme-toggle-button {
+            background-color: var(--bg-content-dark-portal);
+            color: var(--text-headings-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+
+        html[data-theme='dark'] .theme-toggle-button:hover {
+            color: var(--aa-green-lighter);
+        }
+
+        .accessibility-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        .accessibility-btn {
+            background-color: var(--bg-content-light-portal);
+            color: var(--text-headings-light-portal);
+            border: 1px solid var(--border-color-light-portal);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-main);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            color: var(--aa-green);
+        }
+
+        html[data-theme='dark'] .accessibility-btn {
+            background-color: var(--bg-content-dark-portal);
+            color: var(--text-headings-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+
+        html[data-theme='dark'] .accessibility-btn:hover {
+            color: var(--aa-green-lighter);
+        }
+        
+        @media (max-width: 768px) {
+            html {
+                font-size: 84%;
+            }
+            .playbook-content-title {
+                font-size: clamp(1.5rem, 3.2vw, 2rem);
+            }
+             .playbook-section-title {
+                font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            }
+            .accessibility-controls {
+                top: 10px;
+                right: 10px;
+                gap: 8px;
+            }
+
+            .accessibility-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .text-content-container p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            html {
+                font-size: 77%;
+            }
+            .text-content-container p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="accessibility-controls">
+        <button id="increaseFontBtn" class="accessibility-btn" aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+            <i class="fas fa-search-plus"></i>
+        </button>
+        <button id="decreaseFontBtn" class="accessibility-btn" aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+            <i class="fas fa-search-minus"></i>
+        </button>
+        <button id="readPageBtn" class="accessibility-btn" aria-label="Ler página em voz alta" title="Ler Página">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <main id="main-portal-completo">
+        <!-- SEÇÃO DE CONTEÚDO (PISTA DE DECOLAGEM) -->
+        <section id="pista-decolagem-section" class="playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                     <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logotipo da Auto Arremate" style="max-height: 50px; display: inline-block; margin-right: 1rem;" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/16B097?text=Auto+Arremate&font=manrope'; this.alt='Logotipo Auto Arremate Indisponível';">
+                     <img src="https://www.arremaq.com.br/wp-content/uploads/2021/01/Logotipo-Arremaqsuperbid.png" alt="Logotipo da Arremaq" style="max-height: 50px; display: inline-block;" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/FF8C00?text=Arremaq&font=manrope'; this.alt='Logotipo Arremaq Indisponível';">
+                </div>
+                
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🚀</span><strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2>
+                
+                <div class="text-content-container space-y-10 mt-8">
+                    <!-- Conteúdo combinado de "Nossa Essência" e "Pista de Decolagem" -->
+                     <section id="nossa-essencia" data-aos="fade-up">
+                        <h3 class="playbook-section-title">
+                            <span class="emoji">🧭</span> <strong>A NASCENTE DA NOSSA JORNADA</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">🌟</span>Bem-vindo(a) ao coração da Auto Arremate & Arremaq, nobre piloto! <span class="sentence-emoji">🏎️</span>Aqui, cada linha de código e cada estratégia são impulsionadas por um propósito maior: revolucionar a forma como o mercado acelera seus negócios. <span class="sentence-emoji">🛠️</span>Somos mais que uma plataforma; somos o seu copiloto na jornada rumo à máxima performance, equipados com a mais alta tecnologia e uma paixão contagiante por inovação. <span class="sentence-emoji">🚦</span>Nossa cultura é um pit stop de ideias brilhantes, onde a colaboração e a busca incessante pela excelência abastecem nosso motor diariamente.</p>
+                        <p><span class="sentence-emoji">🏆</span>Nossa jornada começou com a visão de criar um ecossistema onde concessionárias, locadoras, financeiras e montadoras pudessem não apenas vender e comprar ativos, mas também otimizar cada etapa do processo. <span class="sentence-emoji">💨</span>Queremos que você sinta a emoção de estar sempre na vanguarda, com as ferramentas certas para deixar a concorrência comendo poeira!</p>
+                    </section>
+
+                    <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+                    
+                     <section id="historia-superbid" data-aos="fade-up">
+                        <h3 class="playbook-section-title">
+                            <span class="emoji">🏆</span> <strong>NOSSOS MENTORES LENDÁRIOS</strong>
+                        </h3>
+                         <div class="text-center my-6">
+                            <img src="https://www.superbid.net/assets/logo_superbid_nova_marca.svg" alt="Logotipo Grupo Superbid" class="brand-logo" onerror="this.onerror=null; this.src='https://placehold.co/200x60/cccccc/333333?text=Logo+Superbid';">
+                        </div>
+                        <p><span class="sentence-emoji">🥇</span>Nascemos com pedigree de campeão! Fazemos parte do <strong>Grupo Superbid</strong>, o "Rei da Pista" dos repasses online na América Latina desde 1999. <span class="sentence-emoji">🏁</span>Essa herança nos deu um motor potente de expertise, credibilidade e acesso a um grid de largada com milhares de compradores e vendedores.</p>
+                         <div class="text-center my-6">
+                            <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/12/logo-actionlabs.svg" alt="Logotipo Action Labs" class="brand-logo" onerror="this.onerror=null; this.src='https://placehold.co/200x50/cccccc/333333?text=Logo+ActionLabs';">
+                        </div>
+                        <p><span class="sentence-emoji">🚀</span>E para garantir que estejamos sempre com o "nitro" ligado na inovação, contamos com a <strong>Action Labs</strong>, o laboratório de ideias turbinadas do Grupo Superbid. É de lá que saem as tecnologias de ponta que nos mantêm na pole position.</p>
+                    </section>
+                    
+                    <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+
+                    <section id="nossa-missao" data-aos="fade-up">
+                        <h3 class="playbook-section-title">
+                            <span class="emoji">🎯</span> <strong>NOSSA BANDEIRA QUADRICULADA</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">🏁</span>Qual é a nossa grande corrida? Ser a <strong>plataforma Nº1</strong> em soluções digitais para o mercado automotivo e de máquinas pesadas! <span class="sentence-emoji">🏎️</span>Queremos ser o motor turbo que impulsiona concessionárias, locadoras, revendedores, financeiras e montadoras, transformando a maneira como gerenciam e aceleram a venda de seus ativos.</p>
+                        <p><span class="sentence-emoji">🔗</span>Nosso objetivo é ser a <strong>ponte tecnológica</strong> que conecta todos os pilotos deste mercado, simplificando as manobras mais complexas e turbinando a rentabilidade de cada parceiro.</p>
+                    </section>
+
+                    <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+
+                    <section id="nossos-valores" data-aos="fade-up">
+                        <h3 class="playbook-section-title">
+                            <span class="emoji">💖</span> <strong>O COMBUSTÍVEL DA NOSSA ALMA</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">⛽</span>Tudo o que fazemos é abastecido por valores sólidos. Eles são o nosso GPS interno, guiando cada interação:</p>
+                        <ul class="grid md:grid-cols-2 gap-x-8 gap-y-6 mt-6 text-left">
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">🎯</span>
+                                <div><strong>CLIENTE NO PÓDIO (FOCO NO CLIENTE):</strong> <span class="sentence-emoji">🏆</span>Entregamos um carro que supera todas as expectativas na pista!</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">🤝</span>
+                                <div><strong>JOGO LIMPO E PISTA TRANSPARENTE (ÉTICA E TRANSPARÊNCIA):</strong> <span class="sentence-emoji">🚦</span>Negócios e amizades na base da confiança e clareza total.</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">🚀</span>
+                                <div><strong>CORAGEM PARA ACELERAR (OUSADIA PARA CRIAR E EMPREENDER):</strong> <span class="sentence-emoji">🗺️</span>Bravura para desbravar novas rotas e buscar o crescimento turbo!</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">✨</span>
+                                <div><strong>PIT STOP DE INOVAÇÃO (INOVAÇÃO CONSTANTE):</strong> <span class="sentence-emoji">💡</span>Buscamos incessantemente por tecnologias e ajustes que otimizem cada segundo na pista.</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">🌳</span>
+                                <div><strong>CORRIDA CONSCIENTE (SUSTENTABILIDADE):</strong> <span class="sentence-emoji">🌍</span>Geramos valor pensando no meio ambiente e no impacto social.</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">⚙️</span>
+                                <div><strong>ENGENHARIA DE ALTA PERFORMANCE (EXCELÊNCIA OPERACIONAL):</strong> <span class="sentence-emoji">🛠️</span>Eficiência e qualidade de campeão em cada peça e estratégia.</div>
+                            </li>
+                            <li class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-slate-800 rounded-lg shadow hover:shadow-md transition-shadow">
+                                <span class="emoji text-2xl">😊</span>
+                                <div><strong>EQUIPE UNIDA, VITÓRIA GARANTIDA (VALORIZAÇÃO DAS PESSOAS):</strong> <span class="sentence-emoji">🫂</span>Valorizamos nossos talentos, criando um ambiente de camaradagem e colaboração.</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+                    
+                    <section id="o-que-e-playbook" data-aos="fade-up">
+                        <h3 class="playbook-section-title">
+                            <span class="emoji">🗺️</span> <strong>SEU GUIA DE PISTA ESTRATÉGICO</strong>
+                        </h3>
+                        <p><span class="sentence-emoji">📖</span>Este não é um simples manual, é o seu <strong>mapa do tesouro</strong> para o sucesso! <span class="sentence-emoji">🏆</span>Ele foi forjado para equipá-lo com o conhecimento mais afiado, as estratégias mais velozes e as ferramentas mais potentes para você dominar o mercado.</p>
+                        <p><span class="sentence-emoji">⚙️</span>Use este guia como seu fiel companheiro de equipe. Consulte, estude e, acima de tudo, <strong>APLIQUE</strong> cada gota de sabedoria. <span class="sentence-emoji">🚀</span>Lembre-se: o seu sucesso é o nosso pódio, e estamos juntos em cada volta desta emocionante corrida!</p>
+                    </section>
+                    
+                    <div class="highlight" data-aos="fade-up">
+                        <p>
+                            <strong class="text-center"><span class="emoji">🏆</span> CAMPEÃO, ESTE É O SEU MOMENTO!</strong>
+                            <span class="sentence-emoji">🏁</span>Com este Guia Estratégico em mãos, você tem o mapa para todas as vitórias. <span class="sentence-emoji">🏎️</span>Estude cada seção, absorva cada insight como se fosse o melhor combustível aditivado, e prepare-se para deixar sua marca na história. <span class="sentence-emoji">🚀</span>A pista é toda sua. Acelere para o sucesso!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Alternar tema" title="Alternar Tema">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a biblioteca AOS para animações de rolagem
+            AOS.init({
+                duration: 700,
+                once: true,
+                offset: 50
+            });
+
+            // Lógica para alternar o tema (claro/escuro)
+            const htmlEl = document.documentElement;
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
+
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+                }
+            }
+
+            let storedTheme = null;
+            try {
+                storedTheme = localStorage.getItem('theme');
+            } catch (e) {
+                console.warn("LocalStorage não disponível para persistência do tema.");
+            }
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(storedTheme || preferredTheme);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                    try {
+                        localStorage.setItem('theme', newTheme);
+                    } catch (e) {
+                        console.warn("LocalStorage não está disponível para persistência do tema.");
+                    }
+                });
+            }
+
+            // --- Controles de Acessibilidade de Fonte ---
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const FONT_STEP_PERCENT = 10;
+            const MIN_HTML_FONT_PERCENT = 60;
+            const MAX_HTML_FONT_PERCENT = 140;
+
+            function getCurrentHtmlFontSizePercent() {
+                const currentSizePx = parseFloat(window.getComputedStyle(htmlEl).fontSize);
+                const browserBaseSizePx = 16;
+                return (currentSizePx / browserBaseSizePx) * 100;
+            }
+
+            if (increaseFontBtn) {
+                increaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent + FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.min(newPercent, MAX_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+            if (decreaseFontBtn) {
+                decreaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent - FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.max(newPercent, MIN_HTML_FONT_PERCENT) + '%';
+                });
+            }
+            
+             // --- Leitura de Voz (Text-to-Speech) ---
+            const readPageBtn = document.getElementById('readPageBtn');
+            const synth = window.speechSynthesis;
+            let isReading = false;
+            let utterance = null;
+
+            if (readPageBtn && synth) {
+                readPageBtn.addEventListener('click', () => {
+                    if (synth.speaking) {
+                        synth.cancel();
+                        return;
+                    }
+                    
+                    const activeSection = document.getElementById('pista-decolagem-section');
+
+                    if (!activeSection) {
+                        console.warn("Nenhuma seção ativa encontrada para leitura.");
+                        return;
+                    }
+
+                    let textToRead = "";
+                     activeSection.querySelectorAll('h2, h3, h4, p, strong, li').forEach(el => {
+                        if (el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && el.offsetParent !== null) { // Checa se o elemento está visível
+                             textToRead += el.textContent.replace(/<br>/gi, ' ').trim() + ". ";
+                        }
+                    });
+
+                    if (textToRead.trim() === "") {
+                        console.warn("Nenhum texto principal encontrado para leitura na seção atual.");
+                        return;
+                    }
+
+                    utterance = new SpeechSynthesisUtterance(textToRead.replace(/\s+/g, ' ').trim());
+                    utterance.lang = 'pt-BR';
+
+                    utterance.onstart = () => {
+                        isReading = true;
+                        readPageBtn.innerHTML = '<i class="fas fa-stop-circle"></i>';
+                        readPageBtn.setAttribute('aria-label', 'Parar leitura');
+                        readPageBtn.title = 'Parar Leitura';
+                    };
+                    utterance.onend = () => {
+                        isReading = false;
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta');
+                        readPageBtn.title = 'Ler Página';
+                        utterance = null;
+                    };
+                    utterance.onerror = (event) => {
+                        console.error('Erro na síntese de voz:', event.error);
+                        isReading = false;
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta');
+                        readPageBtn.title = 'Ler Página';
+                        utterance = null;
+                    };
+                    synth.speak(utterance);
+                });
+            } else if (readPageBtn) {
+                readPageBtn.style.display = 'none';
+                console.warn("Web Speech API (SpeechSynthesis) não é suportada neste navegador.");
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACADEMIA DE REPASSADORES AUTO ARREMATE & ARREMAQ TURBINE SEU TALENTO PARA A VITÓRIA!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --aa-green: #16B097;
+            --aa-dark-blue: #1C2E42;
+            --aa-light-gray: #AEB0B2;
+            --aa-white: #FFFFFF;
+            --aa-black: #000000;
+            --aa-green-darker: #0F8A7E;
+            --aa-green-lighter: #D2F3EC;
+            --aa-green-pastel: #e0f7fa;
+            --aa-dark-blue-lighter: #2C4A6B;
+            --arremaq-orange: #FF8C00;
+            --arremaq-orange-lighter: #FFD073;
+            --arremaq-orange-pastel: #fff3e0;
+            --arremaq-orange-darker: #CC7000;
+            --font-headings-cover: 'IBM Plex Sans', sans-serif;
+            --font-body-cover: 'Inter', sans-serif;
+            --font-primary-portal: 'Manrope', sans-serif;
+            --font-headings-portal: 'Sora', sans-serif;
+            --brand-primary-accent-portal: var(--aa-green);
+            --brand-primary-accent-darker-portal: var(--aa-green-darker);
+            --brand-primary-accent-lighter-portal: var(--aa-green-lighter);
+            --brand-secondary-accent-portal: var(--arremaq-orange);
+            --brand-tertiary-accent-portal: var(--aa-dark-blue);
+            --bg-main-light: #F7FAFC;
+            --bg-main-dark: #101419;
+            --bg-content-light-portal: var(--aa-white);
+            --bg-content-dark-portal: #1A202C;
+            --bg-interactive-light-portal: #EDF2F7;
+            --bg-interactive-dark-portal: #2D3748;
+            --bg-ai-tool-light: #E6FFFA;
+            --bg-ai-tool-dark: #1C2A3A;
+            --text-headings-light-portal: var(--aa-dark-blue);
+            --text-headings-dark-portal: #E2E8F0;
+            --text-body-light-portal: #4A5568;
+            --text-body-dark-portal: #CBD5E0;
+            --text-on-accent-portal: var(--aa-white);
+            --text-muted-light-portal: #718096;
+            --text-muted-dark-portal: #A0AEC0;
+            --border-color-light-portal: #E2E8F0;
+            --border-color-dark-portal: #4A5568;
+            --shadow-color-light-portal: rgba(22, 176, 151, 0.1);
+            --shadow-color-dark-portal: rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 1px 3px 0 var(--shadow-color-light-portal), 0 1px 2px 0 var(--shadow-color-light-portal);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.02);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+            --shadow-xl: 0 20px 25px -5px var(--shadow-color-light-portal), 0 10px 10px -5px var(--shadow-color-light-portal);
+            --shadow-primary-glow-light: 0 0 20px rgba(22, 176, 151, 0.25);
+            --shadow-primary-glow-dark: 0 0 20px rgba(22, 176, 151, 0.45);
+            --radius-lg: 0.75rem;
+            --radius-round: 50px;
+            --radius-card-portal: 1.25rem;
+            --radius-button-portal: 0.75rem;
+            --transition-main: .3s cubic-bezier(.4,0,.2,1);
+        }
+        html[data-theme='dark'] :root {
+            --shadow-sm: 0 1px 3px 0 var(--shadow-color-dark-portal), 0 1px 2px 0 var(--shadow-color-dark-portal);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.2), 0 2px 4px -1px rgba(0,0,0,0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
+            --shadow-xl: 0 20px 25px -5px var(--shadow-color-dark-portal), 0 10px 10px -5px var(--shadow-color-dark-portal);
+            --brand-secondary-accent-portal: var(--arremaq-orange-lighter);
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-body-cover);
+            background: var(--bg-main-light);
+            color: var(--aa-dark-blue);
+            font-size: 16px;
+        }
+        html[data-theme='dark'] {
+            background: var(--bg-main-dark);
+            color: #E2E8F0;
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+            width: 100%;
+            padding-top: 0;
+        }
+        .global-header {
+            background-color: var(--bg-content-light-portal);
+            box-shadow: var(--shadow-md);
+            padding: 1rem 1.5rem;
+            position: sticky; top: 0; z-index: 1000;
+            transition: background-color var(--transition-main);
+        }
+        html[data-theme='dark'] .global-header {
+            background-color: var(--bg-content-dark-portal);
+        }
+        .header-logo {
+            font-family: var(--font-headings-portal); font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+        .header-logo .title-autoarremate-part { color: var(--brand-primary-accent-portal); }
+        .header-logo .title-arremaq-part { color: var(--brand-secondary-accent-portal); }
+        html[data-theme='dark'] .header-logo .title-autoarremate-part { color: var(--brand-primary-accent-lighter-portal); }
+        html[data-theme='dark'] .header-logo .title-arremaq-part { color: var(--arremaq-orange-lighter); }
+        .dark-toggle, .voice-toggle {
+            background-color: var(--bg-interactive-light-portal);
+            border: 1px solid var(--border-color-light-portal);
+            color: var(--text-muted-light-portal);
+            padding: 0.6rem; border-radius: 50%;
+            transition: all var(--transition-main);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+        }
+        .dark-toggle:hover, .voice-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            color: var(--brand-primary-accent-portal);
+            border-color: var(--brand-primary-accent-portal);
+        }
+        .voice-toggle.listening {
+            color: var(--aa-green-darker);
+            border-color: var(--aa-green-darker);
+            animation: pulse 1.5s infinite;
+        }
+        html[data-theme='dark'] .dark-toggle, html[data-theme='dark'] .voice-toggle {
+            background-color: var(--bg-interactive-dark-portal);
+            border-color: var(--border-color-dark-portal);
+            color: var(--text-muted-dark-portal);
+        }
+        html[data-theme='dark'] .dark-toggle:hover, html[data-theme='dark'] .voice-toggle:hover {
+            color: var(--brand-primary-accent-lighter-portal);
+            border-color: var(--brand-primary-accent-lighter-portal);
+        }
+         html[data-theme='dark'] .voice-toggle.listening {
+            color: var(--aa-green-lighter);
+            border-color: var(--aa-green-lighter);
+        }
+        .dark-toggle svg, .voice-toggle svg { width: 1.25rem; height: 1.25rem; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(22, 176, 151, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(22, 176, 151, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(22, 176, 151, 0); }
+        }
+        #portal-cards-section,
+        .service-tools-section,
+        #training-center-content-section,
+        #ai-tool-interaction-section {
+             padding: 2rem 1rem;
+            background: linear-gradient(100deg, var(--aa-green-pastel) 0%, var(--aa-green-lighter) 48%, var(--arremaq-orange-lighter) 52%, var(--arremaq-orange-pastel) 100%);
+        }
+        html[data-theme='dark'] #portal-cards-section,
+        html[data-theme='dark'] .service-tools-section,
+        html[data-theme='dark'] #training-center-content-section,
+        html[data-theme='dark'] #ai-tool-interaction-section {
+             background: linear-gradient(100deg, #17575c 0%, var(--aa-dark-blue) 48%, var(--arremaq-orange-darker) 52%, #6b3e00 100%);
+        }
+        #portal-cards-section .page-title {
+            font-family: var(--font-headings-portal);
+            font-weight: 800;
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            margin-bottom: 0.75rem;
+            line-height: 1.25;
+        }
+        #portal-cards-section .page-title .title-autoarremate-part { color: var(--aa-green); }
+        #portal-cards-section .page-title .title-arremaq-part { color: var(--arremaq-orange); }
+        html[data-theme='dark'] #portal-cards-section .page-title .title-autoarremate-part { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #portal-cards-section .page-title .title-arremaq-part { color: var(--arremaq-orange-lighter); }
+        #portal-cards-section .page-subtitle {
+            font-family: var(--font-primary-portal);
+            font-size: 1.1rem;
+            color: var(--aa-dark-blue);
+            max-width: 60ch;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        html[data-theme='dark'] #portal-cards-section .page-subtitle { color: var(--aa-light-gray); }
+        #ai-tool-interaction-section .container {
+            background-color: var(--bg-ai-tool-light);
+            border-radius: var(--radius-card-portal);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .container {
+            background-color: var(--bg-ai-tool-dark);
+        }
+        #ai-tool-interaction-section .ai-tool-title {
+            font-family: var(--font-headings-portal);
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+            color: var(--brand-primary-accent-portal);
+            margin-bottom: 0.5rem;
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .ai-tool-title {
+            color: var(--brand-primary-accent-lighter-portal);
+        }
+        #ai-tool-interaction-section .ai-tool-description {
+            font-family: var(--font-primary-portal);
+            font-size: 1rem;
+            color: var(--text-body-light-portal);
+            margin-bottom: 1.5rem;
+            max-width: 70ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .ai-tool-description {
+            color: var(--text-body-dark-portal);
+        }
+        #ai-tool-interaction-section .input-field-label {
+            display: block;
+            font-family: var(--font-primary-portal);
+            font-weight: 600;
+            color: var(--text-headings-light-portal);
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .input-field-label {
+            color: var(--text-headings-dark-portal);
+        }
+        #ai-tool-interaction-section .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-button-portal);
+            border: 1px solid var(--border-color-light-portal);
+            background-color: var(--aa-white);
+            color: var(--text-body-light-portal);
+            font-family: var(--font-primary-portal);
+            margin-bottom: 1rem;
+            transition: border-color var(--transition-main), box-shadow var(--transition-main);
+        }
+        #ai-tool-interaction-section .input-field:focus {
+            outline: none;
+            border-color: var(--brand-primary-accent-portal);
+            box-shadow: 0 0 0 3px var(--shadow-color-light-portal);
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .input-field {
+            background-color: var(--bg-interactive-dark-portal);
+            border-color: var(--border-color-dark-portal);
+            color: var(--text-body-dark-portal);
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .input-field:focus {
+            border-color: var(--brand-primary-accent-lighter-portal);
+            box-shadow: 0 0 0 3px rgba(22, 176, 151, 0.3);
+        }
+        #ai-tool-interaction-section .btn-ai-action {
+            background-color: var(--brand-primary-accent-portal);
+            color: var(--text-on-accent-portal);
+            padding: 0.75rem 1.5rem;
+            font-family: var(--font-headings-cover);
+            font-weight: 600;
+            border-radius: var(--radius-button-portal);
+            transition: all var(--transition-main);
+            cursor: pointer;
+        }
+        #ai-tool-interaction-section .btn-ai-action:hover:not(:disabled) {
+            background-color: var(--brand-primary-accent-darker-portal);
+            transform: translateY(-2px);
+        }
+         #ai-tool-interaction-section .btn-ai-action:disabled {
+            background-color: var(--aa-light-gray);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .btn-ai-action {
+             background-color: var(--brand-primary-accent-lighter-portal);
+             color: var(--aa-dark-blue);
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .btn-ai-action:hover:not(:disabled) {
+            background-color: var(--aa-green);
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section .btn-ai-action:disabled {
+            background-color: var(--aa-light-gray);
+            color: var(--text-muted-dark-portal);
+        }
+
+        #ai-tool-interaction-section #aiToolOutput {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-interactive-light-portal);
+            color: var(--text-body-light-portal);
+            text-align: left;
+            white-space: pre-wrap;
+             min-height: 100px;
+            border: 1px solid var(--border-color-light-portal);
+            font-family: var(--font-primary-portal);
+            line-height: 1.6;
+        }
+        html[data-theme='dark'] #ai-tool-interaction-section #aiToolOutput {
+            background-color: var(--bg-interactive-dark-portal);
+            color: var(--text-body-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+        #saveFeedbackMessage {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            min-height: 1.25rem;
+        }
+        .feedback-success { color: var(--aa-green-darker); }
+        .feedback-error { color: var(--arremaq-orange-darker); }
+        html[data-theme='dark'] .feedback-success { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .feedback-error { color: var(--arremaq-orange-lighter); }
+        #portal-cards-section > .container,
+        .service-tools-section > .container,
+        #training-center-content-section > .container {
+            background-color: transparent;
+        }
+        .section-title-main {
+            font-family: var(--font-headings-portal);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--border-color-light-portal);
+            color: var(--text-headings-light-portal);
+        }
+        html[data-theme='dark'] .section-title-main {
+            border-bottom-color: var(--border-color-dark-portal);
+            color: var(--text-headings-dark-portal);
+        }
+        .section-title-main i {
+            margin-right: 0.6rem;
+            font-size: 0.85em;
+        }
+        .group-title {
+            font-family: var(--font-headings-portal);
+            color: var(--text-headings-light-portal);
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid;
+            border-image-slice: 1;
+        }
+        html[data-theme='dark'] .group-title {
+            color: var(--text-headings-dark-portal);
+        }
+        .group-title i {
+            transition: color 0.3s ease;
+        }
+        #training-center-content-section .section-title-main i { color: var(--brand-primary-accent-portal); }
+         html[data-theme='dark'] #training-center-content-section .section-title-main i { color: var(--aa-green-lighter); }
+        @keyframes sway {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .portal-card, .service-card {
+            background-color: var(--bg-content-light-portal);
+            border-radius: var(--radius-round);
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-main);
+            border: 2px solid transparent;
+            cursor: pointer;
+            animation: sway 7s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .portal-card:nth-child(odd), .service-card:nth-child(odd) { animation-delay: -3.5s; }
+        .portal-card:hover, .service-card:hover {
+            transform: translateY(-7px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--brand-primary-accent-portal);
+            animation-play-state: paused;
+        }
+        html[data-theme='dark'] .portal-card, html[data-theme='dark'] .service-card {
+            background-color: var(--bg-content-dark-portal);
+        }
+        html[data-theme='dark'] .portal-card:hover, html[data-theme='dark'] .service-card:hover {
+            border-color: var(--brand-primary-accent-lighter-portal);
+        }
+        .portal-card-icon, .service-card-icon {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
+        }
+        #openPlaybookBtn .portal-card-icon { color: var(--brand-secondary-accent-portal); }
+        #openTrainingCenterBtn .portal-card-icon { color: var(--brand-primary-accent-portal); }
+        html[data-theme='dark'] #openPlaybookBtn .portal-card-icon { color: var(--arremaq-orange-lighter); }
+        html[data-theme='dark'] #openTrainingCenterBtn .portal-card-icon { color: var(--aa-green-lighter); }
+        .portal-card-title, .service-card-title {
+            font-family: var(--font-headings-portal);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--text-headings-light-portal);
+        }
+        html[data-theme='dark'] .portal-card-title, html[data-theme='dark'] .service-card-title {
+            color: var(--text-headings-dark-portal);
+        }
+        .portal-card-description, .service-card-description {
+            font-family: var(--font-primary-portal);
+            font-size: 0.9rem;
+            color: var(--text-body-light-portal);
+            line-height: 1.5;
+        }
+        html[data-theme='dark'] .portal-card-description, html[data-theme='dark'] .service-card-description {
+            color: var(--text-body-dark-portal);
+        }
+        .btn-back {
+            display: inline-flex; align-items: center;
+            font-family: var(--font-headings-portal); font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-button-portal);
+            text-decoration: none; transition: all var(--transition-main);
+            border: 2px solid var(--border-color-light-portal);
+            background-color: var(--bg-interactive-light-portal);
+            color: var(--text-body-light-portal);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .btn-back:hover {
+            background-color: var(--border-color-light-portal);
+            border-color: var(--text-muted-light-portal);
+            transform: translateX(-2px);
+        }
+        html[data-theme='dark'] .btn-back {
+            background-color: var(--bg-interactive-dark-portal);
+            color: var(--text-body-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+        html[data-theme='dark'] .btn-back:hover {
+            background-color: var(--border-color-dark-portal);
+            border-color: var(--text-muted-dark-portal);
+        }
+        .btn-back i { margin-right: 0.4rem; }
+        .training-card {
+            background-color: var(--bg-content-light-portal);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-main);
+            border: 2px solid transparent;
+        }
+        html[data-theme='dark'] .training-card { background-color: var(--bg-content-dark-portal); }
+        .training-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-primary-accent-portal);
+        }
+        html[data-theme='dark'] .training-card:hover { border-color: var(--brand-primary-accent-lighter-portal); }
+        .card-icon-wrapper {
+            color: var(--aa-white);
+            width: 6rem; height: 6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--aa-green);
+            transition: transform .3s ease;
+        }
+        .training-card:hover .card-icon-wrapper {
+            transform: scale(1.1) rotate(-10deg);
+        }
+        .card-icon-wrapper i {
+            font-size: 3rem;
+        }
+        html[data-theme='dark'] .card-icon-wrapper {
+            background-color: var(--aa-dark-blue-lighter);
+            color: var(--aa-green-lighter);
+        }
+        .training-card .card-title {
+            font-family: var(--font-headings-portal);
+            font-size: 1.4rem;
+            color: var(--aa-green);
+            margin-bottom: 0.5rem;
+        }
+        html[data-theme='dark'] .training-card .card-title { color: var(--aa-green-lighter); }
+        .training-card .card-description {
+            font-family: var(--font-primary-portal);
+            color: var(--text-body-light-portal);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+         }
+        html[data-theme='dark'] .training-card .card-description { color: var(--text-body-dark-portal); }
+        .training-card .card-button {
+            font-family: var(--font-primary-portal);
+            font-weight: 600;
+            color: var(--arremaq-orange);
+            margin-top: auto;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-main);
+        }
+        .training-card:hover .card-button {
+             color: var(--arremaq-orange-darker);
+             transform: translateX(3px);
+        }
+        html[data-theme='dark'] .training-card .card-button {
+            color: var(--arremaq-orange-lighter);
+        }
+        html[data-theme='dark'] .training-card:hover .card-button {
+            color: var(--aa-white);
+        }
+        #roleplayLogContainer {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-interactive-light-portal);
+            color: var(--text-body-light-portal);
+            text-align: left;
+            white-space: pre-wrap;
+            min-height: 150px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color-light-portal);
+        }
+        html[data-theme='dark'] #roleplayLogContainer {
+             background-color: var(--bg-interactive-dark-portal);
+            color: var(--text-body-dark-portal);
+            border-color: var(--border-color-dark-portal);
+        }
+        #roleplayLog .user-message { font-weight: bold; color: var(--aa-green-darker); margin-bottom: 0.5rem;}
+        #roleplayLog .ai-message { color: var(--arremaq-orange-darker); margin-bottom: 1rem; }
+        html[data-theme='dark'] #roleplayLog .user-message { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #roleplayLog .ai-message { color: var(--arremaq-orange-lighter); }
+        /* Color coding icons by service */
+        [data-service-icon="gemini"], .service-title-gemini { color: var(--aa-green); }
+        [data-service-icon="openai"], .service-title-openai { color: #4CAF50; }
+        [data-service-icon="jira"], .service-title-jira { color: #0052CC; }
+        [data-service-icon="slack"], .service-title-slack { color: #4A154B; }
+        [data-service-icon="google"], .service-title-google { color: #EA4335; }
+        [data-service-icon="hubspot"], .service-title-hubspot { color: #FF7A59; }
+        [data-service-icon="apollo"], .service-title-apollo { color: #5069FF; }
+
+        html[data-theme='dark'] [data-service-icon="gemini"], html[data-theme='dark'] .service-title-gemini { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] [data-service-icon="openai"], html[data-theme='dark'] .service-title-openai { color: #81C784; }
+        html[data-theme='dark'] [data-service-icon="jira"], html[data-theme='dark'] .service-title-jira { color: #4C9AFF; }
+        html[data-theme='dark'] [data-service-icon="slack"], html[data-theme='dark'] .service-title-slack { color: #E01E5A; }
+        html[data-theme='dark'] [data-service-icon="google"], html[data-theme='dark'] .service-title-google { color: #F28B82; }
+        html[data-theme='dark'] [data-service-icon="hubspot"], html[data-theme='dark'] .service-title-hubspot { color: #FFAB91; }
+        html[data-theme='dark'] [data-service-icon="apollo"], html[data-theme='dark'] .service-title-apollo { color: #8C9EFF; }
+
+
+        @media (max-width: 768px) {
+            html { font-size: 15px; }
+            .capa-section { padding: clamp(1.5rem, 6vw, 3rem) clamp(0.8rem, 4vw, 1.5rem); }
+            .capa-title { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+            .frase-destaque { font-size: clamp(0.9rem, 2vw, 1.1rem); }
+            .logos-container { flex-direction: column; gap: 1rem; }
+            .playbook-logo { width: 140px; }
+            .global-header { padding: 0.8rem 1rem;}
+            .header-logo { font-size: 1.15rem;}
+            .dark-toggle, .voice-toggle { padding: 0.5rem;}
+            .dark-toggle svg, .voice-toggle svg { width: 1.1rem; height: 1.1rem;}
+            #portal-cards-section .page-title { font-size: clamp(1.8rem, 4vw, 2.4rem);}
+            #portal-cards-section .page-subtitle { font-size: 1rem;}
+            .section-title-main { font-size: clamp(1.5rem, 3.2vw, 2rem);}
+            .portal-card-icon, .service-card-icon { font-size: 3rem; }
+            .portal-card-title, .service-card-title {font-size: 1.2rem;}
+            .portal-card-description, .service-card-description {font-size: 0.8rem;}
+            .card-icon-wrapper { width: 5rem; height: 5rem; }
+            .card-icon-wrapper i { font-size: 2.5rem; }
+            .training-card .card-title {font-size: 1.2rem;}
+            #ai-tool-interaction-section .ai-tool-title { font-size: clamp(1.4rem, 3vw, 2rem); }
+        }
+         @media (max-width: 480px) {
+            .playbook-logo { width: 110px; }
+            .btn-iniciar { font-size: 0.9rem; padding: 0.6em 1.3em; }
+            .capa-title { font-size: clamp(1.4rem, 4vw, 1.8rem); line-height: 1.25;}
+            .frase-destaque { font-size: clamp(0.8rem, 1.8vw, 1rem); }
+            .portal-card-icon, .service-card-icon { font-size: 2.5rem;}
+            .portal-card-title, .service-card-title {font-size: 1.1rem;}
+            .card-icon-wrapper { width: 4.5rem; height: 4.5rem; }
+            .card-icon-wrapper i { font-size: 2.2rem; }
+            .training-card .card-title {font-size: 1.05rem;}
+            .header-logo { font-size: 1rem;}
+            .global-header .flex > .dark-toggle { margin-left: 0.5rem;}
+          }
+    </style>
+</head>
+<body>
+    <header id="main-portal-header" class="global-header">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="header-logo">
+                <span class="title-autoarremate-part">Auto Arremate®</span><span class="title-arremaq-part"> / Arremaq</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="voiceToggle" class="voice-toggle" aria-label="Ativar Comandos de Voz">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button id="themeTogglePortal" class="dark-toggle" aria-label="Alternar Modo Escuro">
+                    <svg id="moonIconPortal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c3.73 0 7.01-1.977 8.647-4.998z" /></svg>
+                    <svg id="sunIconPortal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591M12 6.75A5.25 5.25 0 006.75 12a5.25 5.25 0 005.25 5.25 5.25 5.25 0 005.25-5.25A5.25 5.25 0 0012 6.75z" /></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="portal-cards-section" class="text-center py-8 md:py-10" data-aos="fade-up">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="page-title">
+                    ACADEMIA DE REPASSADORES
+                </h1>
+                <p class="page-subtitle mx-auto">
+                    Seu acesso de elite ao conhecimento e ferramentas para vendas automotivas de alta performance.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 max-w-3xl mx-auto">
+                    <div id="openPlaybookBtn" class="portal-card" data-aos="fade-right" data-aos-delay="100">
+                        <i class="fas fa-book-reader portal-card-icon"></i>
+                        <h2 class="portal-card-title">Playbook Comercial</h2>
+                        <p class="portal-card-description">Acesse o índice detalhado e navegue pelos capítulos do nosso playbook.</p>
+                    </div>
+                    <div id="openTrainingCenterBtn" class="portal-card" data-aos="fade-left" data-aos-delay="200">
+                        <i class="fas fa-graduation-cap portal-card-icon"></i>
+                        <h2 class="portal-card-title">Central de Treinamento IA</h2>
+                        <p class="portal-card-description">Explore ferramentas de IA interativas para aprimorar suas habilidades.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Principal da Central de Treinamento (Índice de Serviços) -->
+        <section id="training-center-content-section" class="hidden py-8 md:py-10" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <button class="btn-back back-to-portal mb-6">
+                    <i class="fas fa-arrow-left"></i> Voltar ao Portal Principal
+                </button>
+                <h2 class="section-title-main text-center">
+                    <i class="fas fa-brain"></i>Central de Ferramentas de IA
+                </h2>
+                <div id="training-center-index-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
+                    <!-- Cards dos SERVIÇOS (Gemini, OpenAI, etc) serão populados aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Container para as Seções Dedicadas de cada Serviço -->
+        <div id="service-tools-pages-container">
+            <!-- As páginas de ferramentas de cada serviço serão injetadas aqui dinamicamente -->
+        </div>
+
+        <section id="ai-tool-interaction-section" class="hidden py-8 md:py-10" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <button id="backToServicePageBtn" class="btn-back mb-6">
+                    <i class="fas fa-arrow-left"></i> Voltar para Ferramentas
+                </button>
+                <div class="max-w-2xl mx-auto">
+                    <h2 id="aiToolTitle" class="ai-tool-title">Nome da Ferramenta de IA</h2>
+                    <p id="aiToolDescription" class="ai-tool-description mb-6">Descrição da ferramenta.</p>
+
+                    <div id="aiToolInputFieldsContainer" class="space-y-4 mb-6 text-left">
+                        <!-- Campos de input da ferramenta serão gerados aqui pelo JS -->
+                    </div>
+                    
+                    <div id="roleplayLogContainer" class="hidden max-w-2xl mx-auto mb-6">
+                        <h3 class="text-lg font-semibold mb-2 text-left" style="color: var(--text-headings-light-portal);">Log da Conversa:</h3>
+                        <div id="roleplayLog" class="text-sm"></div>
+                    </div>
+
+                    <div id="buttonsContainer" class="flex flex-wrap justify-center gap-4 mt-4">
+                        <!-- Botões de ação serão inseridos aqui -->
+                    </div>
+                    <div id="saveFeedbackMessage" class="mt-2 text-sm h-5"></div>
+
+                    <h3 class="text-xl font-semibold mt-8 mb-3 text-left" style="color: var(--text-headings-light-portal);">
+                        Resultado da IA:
+                    </h3>
+                    <div id="aiToolOutput" class="max-w-2xl mx-auto">
+                        Aguardando sua solicitação...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        const firebaseConfigFromHost = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        const firebaseConfig = firebaseConfigFromHost ? JSON.parse(firebaseConfigFromHost) : {
+            apiKey: "YOUR_FALLBACK_API_KEY",
+            authDomain: "YOUR_FALLBACK_AUTH_DOMAIN",
+            projectId: "YOUR_FALLBACK_PROJECT_ID",
+            storageBucket: "YOUR_FALLBACK_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_FALLBACK_MESSAGING_SENDER_ID",
+            appId: "YOUR_FALLBACK_APP_ID"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        setLogLevel('debug');
+        
+        window.db = db;
+        window.auth = auth;
+        window.firebaseAddDoc = addDoc;
+        window.firebaseCollection = collection;
+        window.firebaseServerTimestamp = serverTimestamp;
+
+        let currentUserId = null;
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                console.log("Usuário autenticado:", currentUserId);
+            } else {
+                console.log("Nenhum usuário autenticado. Realizando login...");
+                const customToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (customToken) {
+                    signInWithCustomToken(auth, customToken).catch(err => {
+                        console.error("Erro no login com token customizado, tentando anônimo:", err);
+                        signInAnonymously(auth).catch(e => console.error("Erro no login anônimo:", e));
+                    });
+                } else {
+                    signInAnonymously(auth).catch(e => console.error("Erro no login anônimo:", e));
+                }
+            }
+             updateSaveButtonState();
+        });
+        window.getCurrentUserId = () => currentUserId;
+        window.updateSaveButtonState = () => {
+             const saveBtn = document.getElementById('aiToolSaveBtn');
+             if(saveBtn) {
+                const outputText = document.getElementById('aiToolOutput')?.textContent || '';
+                const hasValidResult = outputText && outputText !== 'Aguardando sua solicitação...' && !outputText.toLowerCase().includes('erro');
+                saveBtn.disabled = !(currentUserId && hasValidResult);
+             }
+        };
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Variáveis globais de estado
+        let currentAiToolData = null;
+        let currentRoleplayConversation = [];
+
+        async function callApi(service, action, payload, buttonToAnimate) {
+            const API_SERVER_URL = '/api/v1';
+            const endpoint = `${API_SERVER_URL}/${service}/${action}`;
+            const aiToolOutput = document.getElementById('aiToolOutput');
+            const saveBtn = document.getElementById('aiToolSaveBtn');
+
+            const originalButtonText = buttonToAnimate.innerHTML;
+            buttonToAnimate.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando...';
+            buttonToAnimate.disabled = true;
+            document.querySelectorAll('.btn-ai-action').forEach(btn => btn.disabled = true);
+            if(saveBtn) saveBtn.disabled = true;
+            aiToolOutput.textContent = 'Processando sua solicitação com a IA...';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.error || 'Ocorreu um erro desconhecido na API.');
+                
+                window.updateSaveButtonState();
+                return result;
+            } catch (error) {
+                console.error(`Falha ao chamar a API (${endpoint}):`, error);
+                aiToolOutput.innerHTML = `<span class="text-red-500"><b>Erro:</b> ${error.message}</span>`;
+                return null;
+            } finally {
+                buttonToAnimate.innerHTML = originalButtonText;
+                document.querySelectorAll('.btn-ai-action').forEach(btn => btn.disabled = false);
+                window.updateSaveButtonState();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({ duration: 700, once: true, offset: 50 });
+
+            const htmlEl = document.documentElement;
+            const themeTogglePortalBtn = document.getElementById('themeTogglePortal');
+            const sunIconPortal = document.getElementById('sunIconPortal');
+            const moonIconPortal = document.getElementById('moonIconPortal');
+            
+            function applyTheme(theme, manualToggle = false) {
+                htmlEl.setAttribute('data-theme', theme);
+                const isDarkMode = theme === 'dark';
+                sunIconPortal.style.display = isDarkMode ? 'block' : 'none';
+                moonIconPortal.style.display = isDarkMode ? 'none' : 'block';
+                if (manualToggle) {
+                    try { localStorage.setItem('theme', theme); } catch (e) { console.warn("LocalStorage não disponível."); }
+                }
+            }
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+            themeTogglePortalBtn.addEventListener('click', () => applyTheme(htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true));
+
+            // Seleção de elementos da página
+            const portalCardsSection = document.getElementById('portal-cards-section');
+            const trainingCenterContentSection = document.getElementById('training-center-content-section');
+            const serviceToolsPagesContainer = document.getElementById('service-tools-pages-container');
+            const aiToolInteractionSection = document.getElementById('ai-tool-interaction-section');
+            const trainingCenterIndexContainer = document.getElementById('training-center-index-container');
+            const aiToolTitleEl = document.getElementById('aiToolTitle');
+            const aiToolDescriptionEl = document.getElementById('aiToolDescription');
+            const aiToolInputFieldsContainerEl = document.getElementById('aiToolInputFieldsContainer');
+            const aiToolOutputEl = document.getElementById('aiToolOutput');
+            const buttonsContainer = document.getElementById('buttonsContainer');
+            const roleplayLogContainer = document.getElementById('roleplayLogContainer');
+            const roleplayLogEl = document.getElementById('roleplayLog');
+            const saveFeedbackMessageEl = document.getElementById('saveFeedbackMessage');
+            
+            const allPageSections = [portalCardsSection, trainingCenterContentSection, serviceToolsPagesContainer, aiToolInteractionSection];
+            function showTargetSection(sectionToShow) {
+                allPageSections.forEach(section => section && section.classList.add('hidden'));
+                if(sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                    if (sectionToShow.parentElement === serviceToolsPagesContainer) {
+                        serviceToolsPagesContainer.classList.remove('hidden');
+                    }
+                    setTimeout(() => AOS.refreshHard(), 50);
+                }
+            }
+            
+            document.getElementById('openTrainingCenterBtn').addEventListener('click', () => { populateTrainingCenterIndex(); showTargetSection(trainingCenterContentSection); window.scrollTo({top: 0, behavior: 'smooth'}); });
+            
+            document.body.addEventListener('click', function(event) {
+                const backToPortalBtn = event.target.closest('.back-to-portal');
+                if (backToPortalBtn) {
+                     showTargetSection(portalCardsSection); window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+                const backToTrainingBtn = event.target.closest('.back-to-training-center');
+                if (backToTrainingBtn) {
+                     showTargetSection(trainingCenterContentSection); window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+                 const backToServicePageBtn = event.target.closest('#backToServicePageBtn');
+                 if (backToServicePageBtn) {
+                     showTargetSection(document.getElementById(`${currentAiToolData.service}-tools-section`)); window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            });
+
+            // ============================================================================================
+            // INÍCIO DA BASE DE DADOS COMPLETA DE FERRAMENTAS (350 CHAMADAS)
+            // ============================================================================================
+            const allAiTools = [
+                 // --- 1. Ferramentas Gemini (50) ---
+                { service: 'gemini', action: 'generate-bio', title: "Gerar Bio Profissional", description: "Cria uma bio profissional curta para perfil/link-in-bio.", icon: "fa-user-tie", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "role", label: "Cargo/Área:", type: "text"}] },
+                { service: 'gemini', action: 'generate-sales-email', title: "Gerar E-mail de Prospecção", description: "Cria um e-mail de prospecção personalizado para o lead.", icon: "fa-envelope-open-text", inputFields: [{id: "leadName", label: "Nome do Lead:", type: "text"}, {id: "context", label: "Contexto sobre o lead:", type: "textarea"}] },
+                { service: 'gemini', action: 'generate-objection-responses', title: "Respostas a Objeções", description: "Sugere respostas comerciais para uma objeção recebida.", icon: "fa-shield-halved", inputFields: [{id: "objection", label: "Objeção do Cliente:", type: "text"}, {id: "context", label: "Contexto do produto/serviço:", type: "textarea"}] },
+                { service: 'gemini', action: 'auto-summary-profile', title: "Resumir Perfil de Lead", description: "Gera um resumo do perfil do lead com base em dados textuais.", icon: "fa-file-alt", inputFields: [{id: "profile", label: "Dados do Perfil (texto):", type: "textarea"}] },
+                { service: 'gemini', action: 'linkedin-post', title: "Post LinkedIn Automático", description: "Gera texto para post de LinkedIn sobre novo link ou conquista.", icon: "fa-brands fa-linkedin", inputFields: [{id: "linkTitle", label: "Título do Link/Conquista:", type: "text"}, {id: "userName", label: "Seu Nome:", type: "text"}] },
+                { service: 'gemini', action: 'generate-product-pitch', title: "Pitch de Produto", description: "Cria um pitch rápido do produto para um perfil alvo.", icon: "fa-microphone-alt", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "target", label: "Perfil Alvo:", type: "text"}] },
+                { service: 'gemini', action: 'faq-answer', title: "FAQ Automático", description: "Sugere resposta automatizada para perguntas frequentes.", icon: "fa-question-circle", inputFields: [{id: "question", label: "Pergunta Frequente:", type: "text"}] },
+                { service: 'gemini', action: 'ai-script-call', title: "Script de Ligação SDR", description: "Cria roteiro de ligação com IA, adaptado ao contexto.", icon: "fa-phone-volume", inputFields: [{id: "context", label: "Contexto da Ligação:", type: "textarea"}] },
+                { service: 'gemini', action: 'meeting-recap', title: "Resumo de Reunião", description: "Resume os pontos principais de uma reunião a partir da transcrição.", icon: "fa-clipboard-list", inputFields: [{id: "transcript", label: "Transcrição da Reunião:", type: "textarea"}] },
+                { service: 'gemini', action: 'auto-detect-lead-stage', title: "Detectar Estágio do Lead", description: "Analisa o histórico e classifica o estágio do lead automaticamente.", icon: "fa-tasks", inputFields: [{id: "history", label: "Histórico de Interações:", type: "textarea"}] },
+                { service: 'gemini', action: 'next-step', title: "Sugerir Próximo Passo", description: "Sugere próxima ação na jornada do lead.", icon: "fa-shoe-prints", inputFields: [{id: "leadData", label: "Dados do Lead:", type: "textarea"}] },
+                { service: 'gemini', action: 'spin-questions', title: "Geração de Perguntas SPIN", description: "Sugere perguntas de SPIN Selling para qualificação.", icon: "fa-brain", inputFields: [{id: "context", label: "Contexto do Lead/Produto:", type: "textarea"}] },
+                { service: 'gemini', action: 'mini-guide', title: "Mini-manual Personalizado", description: "Gera um mini-manual de boas práticas sobre determinado tema.", icon: "fa-book-open", inputFields: [{id: "topic", label: "Tema do Manual:", type: "text"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'gemini', action: 'sentiment-analysis', title: "Análise de Sentimento", description: "Analisa sentimento (positivo, neutro, negativo) de texto enviado.", icon: "fa-smile-beam", inputFields: [{id: "text", label: "Texto para Análise:", type: "textarea"}] },
+                { service: 'gemini', action: 'suggest-title', title: "Sugerir Título para Post", description: "Sugere título atrativo para post, artigo ou link.", icon: "fa-lightbulb", inputFields: [{id: "text", label: "Texto Base:", type: "textarea"}] },
+                { service: 'gemini', action: 'agenda-suggestion', title: "Geração de Agenda", description: "Gera uma agenda sugerida para reuniões comerciais.", icon: "fa-calendar-alt", inputFields: [{id: "meetingContext", label: "Contexto da Reunião:", type: "textarea"}] },
+                { service: 'gemini', action: 'auto-reply-chat', title: "Resposta Automática Chat", description: "Sugere resposta pronta para mensagem recebida via chat.", icon: "fa-reply", inputFields: [{id: "message", label: "Mensagem Recebida:", type: "text"}, {id: "context", label: "Seu Contexto:", type: "text"}] },
+                { service: 'gemini', action: 'generate-slogan', title: "Criação de Slogan", description: "Gera slogan criativo para produto ou marca.", icon: "fa-bullhorn", inputFields: [{id: "company", label: "Empresa:", type: "text"}, {id: "product", label: "Produto:", type: "text"}] },
+                { service: 'gemini', action: 'summarize-article', title: "Resumir Blog ou Artigo", description: "Resume conteúdo de artigo para facilitar leitura rápida.", icon: "fa-newspaper", inputFields: [{id: "url", label: "URL do Artigo (Opcional):", type: "text"}, {id: "articleText", label: "Texto do Artigo:", type: "textarea"}] },
+                { service: 'gemini', action: 'review-copy', title: "Revisar Texto Comercial", description: "Analisa e sugere melhorias em copy de vendas.", icon: "fa-spell-check", inputFields: [{id: "text", label: "Texto para Revisão:", type: "textarea"}] },
+                { service: 'gemini', action: 'generate-cta', title: "Geração de CTA", description: "Sugere chamada para ação eficiente para conversão.", icon: "fa-mouse-pointer", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto da Página/Anúncio:", type: "text"}] },
+                { service: 'gemini', action: 'thank-you-note', title: "Texto de Agradecimento", description: "Gera mensagem de agradecimento profissional para envio pós-venda.", icon: "fa-gift", inputFields: [{id: "userName", label: "Nome do Cliente:", type: "text"}, {id: "context", label: "Contexto da Compra:", type: "text"}] },
+                { service: 'gemini', action: 'suggest-product-name', title: "Sugerir Nome de Produto", description: "Sugere nomes para novos produtos ou serviços.", icon: "fa-tag", inputFields: [{id: "segment", label: "Segmento de Mercado:", type: "text"}, {id: "context", label: "Descrição do Produto:", type: "textarea"}] },
+                { service: 'gemini', action: 'whatsapp-message', title: "Criar Mensagem WhatsApp", description: "Gera mensagem curta para envio via WhatsApp.", icon: "fa-brands fa-whatsapp", inputFields: [{id: "context", label: "Contexto/Objetivo da Mensagem:", type: "text"}] },
+                { service: 'gemini', action: 'followup-message', title: "Mensagem de Follow-up", description: "Sugere mensagem de follow-up baseada em interação anterior.", icon: "fa-calendar-check", inputFields: [{id: "context", label: "Contexto do Lead:", type: "text"}, {id: "lastInteraction", label: "Última Interação:", type: "textarea"}] },
+                { service: 'gemini', action: 'list-faq', title: "Lista de Dúvidas Frequentes", description: "Gera lista de perguntas frequentes para o produto.", icon: "fa-list-ul", inputFields: [{id: "product", label: "Produto/Serviço:", type: "text"}] },
+                { service: 'gemini', action: 'tech-answer', title: "Resposta Técnica Produto", description: "Responde tecnicamente dúvidas sobre produto.", icon: "fa-microchip", inputFields: [{id: "question", label: "Dúvida Técnica:", type: "text"}, {id: "product", label: "Produto:", type: "text"}] },
+                { service: 'gemini', action: 'generate-checklist', title: "Geração de Checklists", description: "Cria checklist operacional para processo comercial ou técnico.", icon: "fa-check-double", inputFields: [{id: "process", label: "Nome do Processo:", type: "text"}] },
+                { service: 'gemini', action: 'roleplay', title: "Roleplay Interativo (Chatbot)", description: "Simule conversas de vendas com uma IA e receba feedback.", icon: "fa-comments", isRoleplayTool: true, inputFields: [{id: "roleplayScenario", label: "Defina o Cenário do Roleplay:", type: "textarea", placeholder: "Ex: Sou um vendedor da Auto Arremate tentando vender nosso plano premium para um revendedor de carros usados que atualmente usa a concorrência."}, {id: "userUtterance", label: "Sua Fala Inicial (Vendedor):", type: "textarea", placeholder: "Digite sua primeira fala aqui..."}]},
+                { service: 'gemini', action: 'generate-goals', title: "Geração de Objetivos", description: "Sugere objetivos claros para time comercial.", icon: "fa-flag-checkered", inputFields: [{id: "context", label: "Contexto do Time/Projeto:", type: "textarea"}] },
+                { service: 'gemini', action: 'email-subject', title: "Sugerir Assunto de E-mail", description: "Sugere linha de assunto para maximizar abertura de e-mail.", icon: "fa-envelope", inputFields: [{id: "context", label: "Contexto do E-mail:", type: "textarea"}] },
+                { service: 'gemini', action: 'video-script', title: "Roteiro de Vídeo Pitch", description: "Cria roteiro sucinto para vídeo institucional ou comercial.", icon: "fa-video", inputFields: [{id: "context", label: "Contexto do Vídeo:", type: "text"}, {id: "duration", label: "Duração (em segundos):", type: "number"}] },
+                { service: 'gemini', action: 'client-questions', title: "Sugerir Perguntas para Cliente", description: "Sugere perguntas para mapear dores e oportunidades com cliente.", icon: "fa-user-secret", inputFields: [{id: "context", label: "Contexto do Cliente/Produto:", type: "textarea"}] },
+                { service: 'gemini', action: 'welcome-message', title: "Geração de Mensagem de Boas-vindas", description: "Gera mensagem personalizada para onboarding de usuário.", icon: "fa-hand-sparkles", inputFields: [{id: "userName", label: "Nome do Usuário:", type: "text"}] },
+                { service: 'gemini', action: 'motivation', title: "Mensagem Motivacional", description: "Sugere mensagem motivacional para o time.", icon: "fa-fist-raised", inputFields: [{id: "context", label: "Contexto do Time:", type: "text"}, {id: "userName", label: "Nome (Opcional):", type: "text"}] },
+                { service: 'gemini', action: 'special-offer', title: "Sugestão de Oferta Especial", description: "Cria texto de oferta especial para campanha.", icon: "fa-tags", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'gemini', action: 'negotiation-argument', title: "Argumento para Negociação", description: "Sugere argumento de negociação para SDR/CS.", icon: "fa-comments-dollar", inputFields: [{id: "context", label: "Contexto da Negociação:", type: "textarea"}] },
+                { service: 'gemini', action: 'competitor-analysis', title: "Análise de Concorrente", description: "Resume pontos fortes e fracos de concorrente informado.", icon: "fa-balance-scale", inputFields: [{id: "competitor", label: "Nome do Concorrente:", type: "text"}, {id: "context", label: "Seu Produto/Mercado:", type: "text"}] },
+                { service: 'gemini', action: 'webinar-topic', title: "Sugestão de Tema para Webinar", description: "Sugere temas para webinars de vendas ou treinamento.", icon: "fa-chalkboard-teacher", inputFields: [{id: "context", label: "Área de Atuação/Produto:", type: "text"}] },
+                { service: 'gemini', action: 'write-case', title: "Escrever Mini-Case", description: "Gera case de sucesso rápido para compartilhar no time.", icon: "fa-medal", inputFields: [{id: "result", label: "Resultado Alcançado:", type: "text"}, {id: "context", label: "Contexto do Cliente/Solução:", type: "textarea"}] },
+                { service: 'gemini', action: 'simulate-client-question', title: "Simular Pergunta de Cliente", description: "Simula questionamento de cliente para treinamento.", icon: "fa-user-graduate", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'gemini', action: 'simplify-text', title: "Reescrever Texto Simplificado", description: "Torna texto complexo mais fácil e direto.", icon: "fa-magic", inputFields: [{id: "text", label: "Texto Complexo:", type: "textarea"}] },
+                { service: 'gemini', action: 'daily-task', title: "Sugestão de Tarefa do Dia", description: "Sugere tarefa relevante para SDR/gestor executar no dia.", icon: "fa-star", inputFields: [{id: "userRole", label: "Seu Cargo:", type: "text"}, {id: "context", label: "Contexto/Prioridades:", type: "text"}] },
+                { service: 'gemini', action: 'generate-quiz', title: "Geração de Quiz Comercial", description: "Cria perguntas de quiz para treinamento comercial.", icon: "fa-vial", inputFields: [{id: "topic", label: "Tópico do Quiz:", type: "text"}, {id: "difficulty", label: "Dificuldade (fácil, médio, difícil):", type: "text"}] },
+                { service: 'gemini', action: 'review-script', title: "Revisão de Script", description: "Analisa e sugere melhorias em script de abordagem.", icon: "fa-clipboard-check", inputFields: [{id: "script", label: "Script para Revisão:", type: "textarea"}] },
+                { service: 'gemini', action: 'banner-text', title: "Gerar Texto para Banner", description: "Cria texto curto para banner de campanha digital.", icon: "fa-image", inputFields: [{id: "context", label: "Contexto do Banner:", type: "text"}, {id: "goal", label: "Objetivo do Banner:", type: "text"}] },
+                { service: 'gemini', action: 'campaign-name', title: "Sugerir Nome para Campanha", description: "Sugere nome marcante para campanha comercial/marketing.", icon: "fa-lightbulb", inputFields: [{id: "context", label: "Contexto da Campanha:", type: "textarea"}] },
+                { service: 'gemini', action: 'hashtags', title: "Gerar Lista de Hashtags", description: "Sugere hashtags ideais para post no LinkedIn/Instagram.", icon: "fa-hashtag", inputFields: [{id: "context", label: "Contexto do Post:", type: "text"}, {id: "platform", label: "Plataforma (LinkedIn/Instagram):", type: "text"}] },
+                { service: 'gemini', action: 'auto-email-reply', title: "Auto-Responder para E-mail", description: "Sugere resposta automática a e-mails recebidos.", icon: "fa-robot", inputFields: [{id: "email", label: "E-mail Recebido:", type: "textarea"}, {id: "context", label: "Seu Contexto (fora do escritório, etc):", type: "text"}] },
+                { service: 'gemini', action: 'text-diagnosis', title: "Diagnóstico de Texto", description: "Analisa e aponta pontos de melhoria em texto (clareza, persuasão, etc.).", icon: "fa-stethoscope", inputFields: [{id: "text", label: "Texto para Diagnóstico:", type: "textarea"}, {id: "goal", label: "Objetivo do Texto:", type: "text"}] },
+
+                // --- 2. Ferramentas OpenAI (50) ---
+                { service: 'openai', action: 'classify-link', title: "Classificar Tipo de Link", description: "Classifica se o link é artigo, vídeo, produto, etc.", icon: "fa-link", inputFields: [{id: "url", label: "URL para Classificar:", type: "text"}] },
+                { service: 'openai', action: 'suggest-link-title', title: "Sugerir Título para Link", description: "Sugere título atrativo para novo link, otimizado para SEO.", icon: "fa-heading", inputFields: [{id: "url", label: "URL:", type: "text"}, {id: "context", label: "Contexto/Palavras-chave:", type: "text"}] },
+                { service: 'openai', action: 'optimize-bio-seo', title: "Otimizar Bio para SEO", description: "Otimiza a bio do usuário para mecanismos de busca.", icon: "fa-search-dollar", inputFields: [{id: "bio", label: "Bio Atual:", type: "textarea"}] },
+                { service: 'openai', action: 'translate-bio', title: "Traduzir Bio", description: "Traduz a bio para o idioma solicitado.", icon: "fa-language", inputFields: [{id: "bio", label: "Bio para Traduzir:", type: "textarea"}, {id: "targetLang", label: "Idioma de Destino:", type: "text"}] },
+                { service: 'openai', action: 'auto-keywords', title: "Sugerir Palavras-chave", description: "Gera palavras-chave estratégicas para perfil ou link.", icon: "fa-key", inputFields: [{id: "profile", label: "Perfil/Link (texto):", type: "textarea"}] },
+                { service: 'openai', action: 'classify-intent', title: "Classificar Intenção de Texto", description: "Detecta se o texto é informativo, persuasivo, etc.", icon: "fa-comment-dots", inputFields: [{id: "text", label: "Texto para Análise:", type: "textarea"}] },
+                { service: 'openai', action: 'summarize', title: "Resumir Texto Longo", description: "Cria resumo objetivo de texto longo.", icon: "fa-align-left", inputFields: [{id: "text", label: "Texto Longo:", type: "textarea"}] },
+                { service: 'openai', action: 'email-analyze', title: "Analisar Texto de E-mail", description: "Aponta tom, clareza e sugestões para e-mail.", icon: "fa-envelope-circle-check", inputFields: [{id: "emailText", label: "Texto do E-mail:", type: "textarea"}] },
+                { service: 'openai', action: 'auto-reply', title: "Gerar Resposta Automática", description: "Sugere resposta automática pronta, com tom definido.", icon: "fa-reply-all", inputFields: [{id: "message", label: "Mensagem Recebida:", type: "text"}, {id: "context", label: "Contexto/Tom:", type: "text"}] },
+                { service: 'openai', action: 'blog-content', title: "Criar Conteúdo para Blog", description: "Gera conteúdo de blog a partir de briefing ou tema.", icon: "fa-blog", inputFields: [{id: "topic", label: "Tópico:", type: "text"}, {id: "length", label: "Tamanho (palavras):", type: "number"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'openai', action: 'brainstorm', title: "Brainstorm de Ideias", description: "Gera lista de ideias sobre tema.", icon: "fa-brain", inputFields: [{id: "topic", label: "Tópico:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'cta-suggestion', title: "Sugerir CTA Personalizado", description: "Sugere uma chamada para ação ideal para o contexto.", icon: "fa-bullseye", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'linkedin-optimizer', title: "Otimizar Texto para LinkedIn", description: "Reescreve texto para engajamento no LinkedIn.", icon: "fa-brands fa-linkedin-in", inputFields: [{id: "text", label: "Texto para Otimizar:", type: "textarea"}] },
+                { service: 'openai', action: 'followup-email', title: "Gerar E-mail de Seguimento", description: "Cria e-mail de follow-up personalizado a partir de histórico.", icon: "fa-forward", inputFields: [{id: "context", label: "Contexto:", type: "text"}, {id: "previous", label: "Interação Anterior:", type: "textarea"}] },
+                { service: 'openai', action: 'call-questions', title: "Sugestão de Perguntas para Call", description: "Sugere perguntas para SDRs em calls de venda.", icon: "fa-headset", inputFields: [{id: "context", label: "Contexto da Call:", type: "textarea"}] },
+                { service: 'openai', action: 'competitor-compare', title: "Análise de Concorrentes", description: "Analisa pontos fortes/fracos entre produto e concorrente.", icon: "fa-balance-scale-right", inputFields: [{id: "competitor", label: "Concorrente:", type: "text"}, {id: "product", label: "Seu Produto:", type: "text"}] },
+                { service: 'openai', action: 'sentiment', title: "Classificar Sentimento", description: "Classifica sentimento do texto (positivo, negativo, neutro).", icon: "fa-smile", inputFields: [{id: "text", label: "Texto:", type: "textarea"}] },
+                { service: 'openai', action: 'generate-faq', title: "Geração de FAQ", description: "Cria perguntas e respostas frequentes sobre produto ou processo.", icon: "fa-question", inputFields: [{id: "context", label: "Produto/Processo:", type: "text"}] },
+                { service: 'openai', action: 'optimize-copy', title: "Reescrever Copy para Conversão", description: "Reescreve texto com foco em aumentar conversão.", icon: "fa-pen-fancy", inputFields: [{id: "copy", label: "Copy Atual:", type: "textarea"}] },
+                { service: 'openai', action: 'email-title', title: "Sugerir Título de E-mail", description: "Sugere assunto de e-mail para maior taxa de abertura.", icon: "fa-i-cursor", inputFields: [{id: "context", label: "Contexto do E-mail:", type: "textarea"}] },
+                { service: 'openai', action: 'features-roadmap', title: "Geração de Roadmap de Features", description: "Gera roadmap de features para novo produto/projeto.", icon: "fa-road", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "goal", label: "Objetivo:", type: "text"}] },
+                { service: 'openai', action: 'simulate-customer-question', title: "Simular Pergunta de Cliente", description: "Simula dúvida de cliente para treinamento e suporte.", icon: "fa-user-astronaut", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'quick-chat-reply', title: "Resposta Rápida para Chat", description: "Sugere resposta rápida para chat online.", icon: "fa-comment-sms", inputFields: [{id: "message", label: "Mensagem:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'project-namer', title: "Sugerir Nome de Projeto", description: "Sugere nome criativo para novo projeto.", icon: "fa-lightbulb", inputFields: [{id: "context", label: "Contexto do Projeto:", type: "textarea"}] },
+                { service: 'openai', action: 'banner-text', title: "Gerar Texto para Banner", description: "Cria texto curto para banner digital, campanha ou push.", icon: "fa-file-image", inputFields: [{id: "goal", label: "Objetivo:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'text-diagnosis', title: "Auto-diagnóstico de Texto", description: "Analisa e aponta melhorias de clareza e eficiência do texto.", icon: "fa-file-medical", inputFields: [{id: "text", label: "Texto:", type: "textarea"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'openai', action: 'whatsapp-rewrite', title: "Reescrever Mensagem de WhatsApp", description: "Ajusta mensagem para tom e formato do WhatsApp.", icon: "fa-brands fa-whatsapp-square", inputFields: [{id: "message", label: "Mensagem:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'training-quiz', title: "Criar Quiz para Treinamento", description: "Gera perguntas para quiz de treinamento.", icon: "fa-graduation-cap", inputFields: [{id: "topic", label: "Tópico:", type: "text"}, {id: "difficulty", label: "Dificuldade:", type: "text"}] },
+                { service: 'openai', action: 'sales-argument', title: "Gerar Argumento de Venda", description: "Sugere argumento persuasivo para abordagem de venda.", icon: "fa-gavel", inputFields: [{id: "context", label: "Contexto:", type: "textarea"}] },
+                { service: 'openai', action: 'team-feedback', title: "Geração de Feedback para Time", description: "Gera feedback construtivo para squads ou colaboradores.", icon: "fa-users", inputFields: [{id: "goal", label: "Objetivo:", type: "text"}, {id: "context", label: "Contexto:", type: "textarea"}] },
+                { service: 'openai', action: 'product-description', title: "Sugerir Descrição para Produto", description: "Gera descrição comercial para produto/serviço.", icon: "fa-align-center", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'openai', action: 'quick-guide', title: "Criar Manual Rápido", description: "Gera manual ou tutorial resumido para treinamento.", icon: "fa-book", inputFields: [{id: "topic", label: "Tópico:", type: "text"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'openai', action: 'suggest-links', title: "Sugerir Links Relacionados", description: "Sugere links complementares ao contexto do perfil.", icon: "fa-external-link-alt", inputFields: [{id: "url", label: "URL Principal:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'engagement-analysis', title: "Análise de Engajamento", description: "Analisa engajamento de perfil e sugere melhorias.", icon: "fa-chart-line", inputFields: [{id: "profile", label: "Perfil:", type: "text"}, {id: "posts", label: "Posts (texto):", type: "textarea"}] },
+                { service: 'openai', action: 'slogan-generator', title: "Criar Slogan", description: "Sugere slogan criativo para empresa, produto ou evento.", icon: "fa-rocket", inputFields: [{id: "company", label: "Empresa:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'operational-checklist', title: "Geração de Checklists Operacionais", description: "Gera checklist operacional para processos internos.", icon: "fa-list-check", inputFields: [{id: "process", label: "Processo:", type: "text"}] },
+                { service: 'openai', action: 'special-offer', title: "Sugerir Ofertas Especiais", description: "Cria texto de oferta especial para campanhas rápidas.", icon: "fa-percent", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "target", label: "Público Alvo:", type: "text"}] },
+                { service: 'openai', action: 'tech-answer-opt', title: "Otimizar Resposta Técnica", description: "Ajusta resposta técnica para clareza e objetividade.", icon: "fa-cogs", inputFields: [{id: "answer", label: "Resposta Técnica:", type: "textarea"}, {id: "product", label: "Produto:", type: "text"}] },
+                { service: 'openai', action: 'negotiation-argument', title: "Criar Argumento para Negociação", description: "Sugere argumento de negociação para SDR/gestor.", icon: "fa-handshake", inputFields: [{id: "context", label: "Contexto:", type: "textarea"}] },
+                { service: 'openai', action: 'commercial-proposal', title: "Geração de Proposta Comercial", description: "Cria proposta comercial simplificada para envio rápido.", icon: "fa-file-signature", inputFields: [{id: "client", label: "Cliente:", type: "text"}, {id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto:", type: "textarea"}] },
+                { service: 'openai', action: 'meeting-date', title: "Sugerir Data para Reunião", description: "Sugere melhores datas e horários para reunião.", icon: "fa-calendar-day", inputFields: [{id: "agenda", label: "Agenda:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'instagram-optimizer', title: "Otimizar Post para Instagram", description: "Ajusta texto para engajamento no Instagram.", icon: "fa-brands fa-instagram", inputFields: [{id: "text", label: "Texto do Post:", type: "textarea"}] },
+                { service: 'openai', action: 'report-summary', title: "Gerar Resumo de Relatório", description: "Resume relatórios extensos em tópicos principais.", icon: "fa-book-reader", inputFields: [{id: "reportText", label: "Texto do Relatório:", type: "textarea"}] },
+                { service: 'openai', action: 'profile-diagnosis', title: "Diagnóstico de Perfil", description: "Analisa perfil e sugere melhorias estratégicas.", icon: "fa-user-doctor", inputFields: [{id: "profileData", label: "Dados do Perfil:", type: "textarea"}] },
+                { service: 'openai', action: 'onboarding-message', title: "Geração de Mensagem de Onboarding", description: "Cria mensagem personalizada para onboarding de novo usuário.", icon: "fa-door-open", inputFields: [{id: "userName", label: "Nome do Usuário:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'suggest-hashtags', title: "Sugerir Hashtags", description: "Sugere hashtags para aumentar alcance e engajamento.", icon: "fa-hashtag", inputFields: [{id: "context", label: "Contexto:", type: "text"}, {id: "platform", label: "Plataforma:", type: "text"}] },
+                { service: 'openai', action: 'thank-you-note', title: "Criar Mensagem de Agradecimento", description: "Cria mensagem personalizada de agradecimento.", icon: "fa-hand-holding-heart", inputFields: [{id: "userName", label: "Nome:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'openai', action: 'tech-copy-rewrite', title: "Reescrever Copy Técnica", description: "Ajusta texto técnico para maior clareza e impacto.", icon: "fa-atom", inputFields: [{id: "copy", label: "Copy Técnica:", type: "textarea"}] },
+                { service: 'openai', action: 'proposal-template', title: "Geração de Template de Proposta", description: "Gera template editável de proposta comercial.", icon: "fa-file-alt", inputFields: [{id: "client", label: "Cliente:", type: "text"}, {id: "product", label: "Produto:", type: "text"}, {id: "context", label: "Contexto:", type: "textarea"}] },
+                { service: 'openai', action: 'skill-analysis', title: "Autoanálise de Competência", description: "Analisa competências e sugere plano de evolução de skills.", icon: "fa-tasks-alt", inputFields: [{id: "profile", label: "Perfil:", type: "text"}, {id: "goal", label: "Objetivo:", type: "text"}] },
+
+                 // --- 3. Ferramentas Slack (50) ---
+                { service: 'slack', action: 'notify-new-user', title: "Notificar Novo Usuário", description: "Envia notificação sobre novo cadastro.", icon: "fa-user-plus", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "email", label: "Email:", type: "email"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'notify-goal-achieved', title: "Notificar Meta Atingida", description: "Notifica time sobre meta batida.", icon: "fa-trophy", inputFields: [{id: "user", label: "Usuário:", type: "text"}, {id: "goal", label: "Meta:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'alert-inactive-profile', title: "Alertar Perfil Inativo", description: "Alerta time sobre usuário inativo.", icon: "fa-user-clock", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'send-daily-summary', title: "Enviar Resumo Diário", description: "Dispara resumo diário de atividades.", icon: "fa-calendar-week", inputFields: [{id: "summaryText", label: "Texto do Resumo:", type: "textarea"}, {id: "date", label: "Data:", type: "text", placeholder:"Ex: " + new Date().toLocaleDateString('pt-BR')}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'feedback-received', title: "Avisar Feedback Recebido", description: "Envia feedback de cliente ao canal responsável.", icon: "fa-comment-alt", inputFields: [{id: "user", label: "Usuário:", type: "text"}, {id: "feedback", label: "Feedback:", type: "textarea"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'notify-new-lead', title: "Notificar Novo Lead", description: "Notifica time comercial sobre novo lead.", icon: "fa-handshake", inputFields: [{id: "leadName", label: "Nome do Lead:", type: "text"}, {id: "company", label: "Empresa:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'notify-bug', title: "Alertar Sobre Bug", description: "Dispara alerta sobre bug reportado.", icon: "fa-bug", inputFields: [{id: "user", label: "Reportado por:", type: "text"}, {id: "description", label: "Descrição do Bug:", type: "textarea"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'meeting-scheduled', title: "Aviso de Reunião Agendada", description: "Notifica canal de reunião agendada.", icon: "fa-calendar-check", inputFields: [{id: "date", label: "Data:", type: "datetime-local"}, {id: "participants", label: "Participantes (separados por vírgula):", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'welcome-message', title: "Mensagem de Boas-vindas", description: "Envia mensagem de boas-vindas automática.", icon: "fa-door-open", inputFields: [{id: "userName", label: "Nome do Usuário:", type: "text"}, {id: "channel", label: "Canal:", type: "text"}] },
+                { service: 'slack', action: 'send-motivation', title: "Mensagem Motivacional", description: "Dispara mensagem de motivação e reconhecimento.", icon: "fa-fist-raised", inputFields: [{id: "message", label: "Mensagem:", type: "textarea"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'alert-integration-failure', title: "Alerta de Falha em Integração", description: "Notifica erro em integração externa.", icon: "fa-plug-circle-xmark", inputFields: [{id: "integration", label: "Integração:", type: "text"}, {id: "error", label: "Erro:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'task-assigned', title: "Aviso de Tarefa Atribuída", description: "Notifica usuário ao receber nova tarefa.", icon: "fa-thumbtack", inputFields: [{id: "taskId", label: "ID da Tarefa:", type: "text"}, {id: "assignedTo", label: "Atribuído a:", type: "text"}, {id: "dueDate", label: "Prazo:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'send-nps', title: "Envio de Pesquisa de Satisfação", description: "Dispara convite para responder pesquisa NPS.", icon: "fa-star-half-alt", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "surveyLink", label: "Link da Pesquisa:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'alert-sla-breach', title: "Alerta de SLA Estourado", description: "Notifica sobre ticket que ultrapassou SLA.", icon: "fa-business-time", inputFields: [{id: "ticketId", label: "ID do Ticket:", type: "text"}, {id: "owner", label: "Responsável:", type: "text"}, {id: "slaTime", label: "Tempo de SLA (ex: 4h):", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'pipeline-update', title: "Aviso de Atualização em Pipeline", description: "Notifica mudanças no pipeline de vendas.", icon: "fa-chart-pie", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "stage", label: "Novo Estágio:", type: "text"}, {id: "owner", label: "Responsável:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'reminder-followup', title: "Lembrete de Follow-up", description: "Lembra usuário de realizar follow-up importante.", icon: "fa-bell", inputFields: [{id: "userId", label: "ID do Usuário a ser lembrado:", type: "text"}, {id: "contact", label: "Contato para Follow-up:", type: "text"}, {id: "date", label: "Data do Lembrete:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'notify-proposal-approved', title: "Notificar Aprovação de Proposta", description: "Notifica time sobre proposta aprovada.", icon: "fa-file-signature", inputFields: [{id: "proposalId", label: "ID da Proposta:", type: "text"}, {id: "client", label: "Cliente:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'notify-comment', title: "Aviso de Comentário Recebido", description: "Notifica comentário em tarefa, deal ou lead.", icon: "fa-comments", inputFields: [{id: "targetId", label: "ID do Item Comentado:", type: "text"}, {id: "comment", label: "Comentário:", type: "text"}, {id: "user", label: "Autor do Comentário:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'alert-churn', title: "Alertar Sobre Churn Detectado", description: "Alerta CS sobre possível churn.", icon: "fa-user-slash", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "reason", label: "Motivo Suspeito:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'birthday-congrats', title: "Mensagem de Aniversário", description: "Envia mensagem personalizada de aniversário.", icon: "fa-birthday-cake", inputFields: [{id: "userName", label: "Nome do Aniversariante:", type: "text"}, {id: "date", label: "Data:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'share-training', title: "Compartilhar Material de Treinamento", description: "Compartilha material de treinamento no canal.", icon: "fa-graduation-cap", inputFields: [{id: "link", label: "Link do Material:", type: "text"}, {id: "title", label: "Título:", type: "text"}, {id: "audience", label: "Público:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'good-week-message', title: "Mensagem de Boa Semana", description: "Envia mensagem positiva toda segunda-feira.", icon: "fa-calendar-plus", inputFields: [{id: "channel", label: "Canal:", type: "text"}] },
+                { service: 'slack', action: 'deploy-failure', title: "Alerta de Falha no Deploy", description: "Notifica time de engenharia de falha em deploy.", icon: "fa-server", inputFields: [{id: "service", label: "Serviço:", type: "text"}, {id: "error", label: "Erro:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'vacation-approved', title: "Notificar Aprovação de Férias", description: "Notifica sobre aprovação de férias.", icon: "fa-plane-departure", inputFields: [{id: "user", label: "Usuário:", type: "text"}, {id: "period", label: "Período:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'remind-meeting', title: "Lembrete de Reunião", description: "Lembra usuário ou grupo de reunião marcada.", icon: "fa-clock", inputFields: [{id: "userId", label: "ID do Usuário/Grupo:", type: "text"}, {id: "date", label: "Data:", type: "datetime-local"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'new-file', title: "Avisar Novo Arquivo Disponível", description: "Notifica canal sobre novo arquivo relevante.", icon: "fa-file-medical-alt", inputFields: [{id: "fileName", label: "Nome do Arquivo:", type: "text"}, {id: "uploader", label: "Enviado por:", type: "text"}, {id: "link", label: "Link:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'project-risk', title: "Alerta de Risco em Projeto", description: "Notifica time sobre risco relevante em projeto.", icon: "fa-exclamation-triangle", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}, {id: "risk", label: "Risco:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'deal-closed', title: "Mensagem de Fechamento de Deal", description: "Comemora e compartilha fechamento de negócio.", icon: "fa-handshake", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "owner", label: "Responsável:", type: "text"}, {id: "value", label: "Valor:", type: "number"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'policy-update', title: "Aviso de Mudança de Política", description: "Informa canal sobre atualização de políticas.", icon: "fa-gavel", inputFields: [{id: "policy", label: "Política:", type: "text"}, {id: "link", label: "Link:", type: "text"}, {id: "summary", label: "Resumo:", type: "textarea"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'weekly-insights', title: "Compartilhar Insights Semanais", description: "Compartilha highlights da semana.", icon: "fa-chart-bar", inputFields: [{id: "insights", label: "Insights:", type: "textarea"}, {id: "week", label: "Semana:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'auto-away', title: "Mensagem Automática de Ausência", description: "Dispara mensagem automática de ausência.", icon: "fa-user-alt-slash", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "date", label: "Data:", type: "date"}, {id: "reason", label: "Motivo:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'integration-issue', title: "Aviso de Problema em Integração", description: "Notifica responsável sobre erro em integração.", icon: "fa-exclamation-circle", inputFields: [{id: "integration", label: "Integração:", type: "text"}, {id: "error", label: "Erro:", type: "text"}, {id: "owner", label: "Responsável:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'crm-update-reminder', title: "Lembrete de Atualizar CRM", description: "Lembra equipe de atualizar dados no CRM.", icon: "fa-database", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "deadline", label: "Prazo:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'alert-important-lead', title: "Alerta de Lead Importante", description: "Notifica canal sobre lead estratégico.", icon: "fa-star", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "reason", label: "Motivo:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'welcome-new-hire', title: "Mensagem de Boas-vindas a Novato", description: "Dá as boas-vindas ao novo colaborador.", icon: "fa-hands-helping", inputFields: [{id: "userName", label: "Nome:", type: "text"}, {id: "role", label: "Cargo:", type: "text"}, {id: "startDate", label: "Data de Início:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'payment-failure', title: "Aviso de Falha de Pagamento", description: "Alerta sobre falha em cobrança de cliente.", icon: "fa-credit-card", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "amount", label: "Valor:", type: "number"}, {id: "reason", label: "Motivo:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'monthly-results', title: "Compartilhar Resultados do Mês", description: "Compartilha resultados comerciais/operacionais.", icon: "fa-poll", inputFields: [{id: "summary", label: "Resumo:", type: "textarea"}, {id: "month", label: "Mês:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'product-update-reminder', title: "Lembrete de Atualização em Produto", description: "Lembra time de comunicar atualização.", icon: "fa-sync-alt", inputFields: [{id: "product", label: "Produto:", type: "text"}, {id: "link", label: "Link:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'auto-closing-message', title: "Mensagem Automática de Encerramento", description: "Dispara mensagem final ao encerrar campanha.", icon: "fa-flag-checkered", inputFields: [{id: "channel", label: "Canal:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}] },
+                { service: 'slack', action: 'training-scheduled', title: "Aviso de Treinamento Agendado", description: "Notifica sobre novo treinamento agendado.", icon: "fa-chalkboard", inputFields: [{id: "training", label: "Treinamento:", type: "text"}, {id: "date", label: "Data:", type: "datetime-local"}, {id: "audience", label: "Público:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'change-owner', title: "Notificar Mudança de Responsável", description: "Notifica equipe sobre troca de responsável.", icon: "fa-exchange-alt", inputFields: [{id: "itemId", label: "ID do Item:", type: "text"}, {id: "newOwner", label: "Novo Responsável:", type: "text"}, {id: "oldOwner", label: "Antigo Responsável:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'poll-notification', title: "Aviso de Enquete no Canal", description: "Compartilha nova enquete/discussão.", icon: "fa-vote-yea", inputFields: [{id: "pollTitle", label: "Título da Enquete:", type: "text"}, {id: "link", label: "Link:", type: "text"}, {id: "deadline", label: "Prazo:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'doc-sign-reminder', title: "Lembrete de Assinatura de Documento", description: "Lembra time sobre documento pendente.", icon: "fa-file-contract", inputFields: [{id: "docId", label: "ID do Documento:", type: "text"}, {id: "signer", label: "Signatário:", type: "text"}, {id: "dueDate", label: "Prazo:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'reactivated-lead', title: "Alerta de Lead Reativado", description: "Notifica time sobre lead inativo que voltou.", icon: "fa-user-check", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "reactivationDate", label: "Data de Reativação:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'partnership-message', title: "Mensagem Automática de Parceria", description: "Compartilha notícia de nova parceria.", icon: "fa-handshake", inputFields: [{id: "partner", label: "Parceiro:", type: "text"}, {id: "context", label: "Contexto:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'sla-update', title: "Notificar Atualização de SLA", description: "Informa sobre mudança em acordo de SLA.", icon: "fa-file-alt", inputFields: [{id: "slaId", label: "ID do SLA:", type: "text"}, {id: "newTime", label: "Novo Tempo:", type: "text"}, {id: "owner", label: "Responsável:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'new-leads-arrival', title: "Aviso de Chegada de Novos Leads", description: "Alerta time sobre chegada em lote de leads.", icon: "fa-users", inputFields: [{id: "quantity", label: "Quantidade:", type: "number"}, {id: "source", label: "Fonte:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'share-productivity-tip', title: "Compartilhar Dica de Produtividade", description: "Compartilha dica de produtividade.", icon: "fa-lightbulb", inputFields: [{id: "tip", label: "Dica:", type: "text"}, {id: "author", label: "Autor:", type: "text"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'contract-anniversary', title: "Mensagem de Aniversário de Contrato", description: "Celebra aniversário de contrato com cliente.", icon: "fa-gift", inputFields: [{id: "client", label: "Cliente:", type: "text"}, {id: "date", label: "Data:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+                { service: 'slack', action: 'task-finished', title: "Notificar Task Finalizada", description: "Notifica conclusão de tarefa importante.", icon: "fa-check-double", inputFields: [{id: "taskId", label: "ID da Tarefa:", type: "text"}, {id: "user", label: "Usuário:", type: "text"}, {id: "date", label: "Data:", type: "date"}, {id: "channel", label: "Canal (Opcional):", type: "text"}] },
+
+                // --- 4. Ferramentas Jira (50) ---
+                { service: 'jira', action: 'create-bug', title: "Criar Bug", description: "Cria novo bug no Jira.", icon: "fa-bug", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "description", label: "Descrição:", type: "textarea"}, {id: "reporter", label: "Reportado por:", type: "text"}] },
+                { service: 'jira', action: 'create-story', title: "Criar Story", description: "Cria nova user story no projeto.", icon: "fa-book-open", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "description", label: "Descrição:", type: "textarea"}, {id: "assignee", label: "Responsável:", type: "text"}] },
+                { service: 'jira', action: 'create-task', title: "Criar Task", description: "Cria tarefa padrão no backlog.", icon: "fa-check-square", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "description", label: "Descrição:", type: "textarea"}, {id: "assignee", label: "Responsável:", type: "text"}] },
+                { service: 'jira', action: 'add-comment', title: "Adicionar Comentário", description: "Adiciona comentário em issue do Jira.", icon: "fa-comment", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "comment", label: "Comentário:", type: "textarea"}, {id: "author", label: "Autor:", type: "text"}] },
+                { service: 'jira', action: 'move-issue', title: "Mover Issue", description: "Move issue para outro status/coluna.", icon: "fa-arrow-right", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "targetStatus", label: "Status de Destino:", type: "text"}] },
+                { service: 'jira', action: 'close-issue', title: "Fechar Issue", description: "Fecha issue/bug/task especificada.", icon: "fa-check-circle", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "closer", label: "Fechado por:", type: "text"}] },
+                { service: 'jira', action: 'reopen-issue', title: "Reabrir Issue", description: "Reabre issue fechada.", icon: "fa-undo", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "user", label: "Usuário:", type: "text"}] },
+                { service: 'jira', action: 'change-priority', title: "Alterar Prioridade", description: "Atualiza prioridade de issue/tarefa.", icon: "fa-exclamation", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "priority", label: "Prioridade:", type: "text"}] },
+                { service: 'jira', action: 'assign-user', title: "Designar Responsável", description: "Designa usuário para issue/tarefa.", icon: "fa-user-tag", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "assignee", label: "Responsável:", type: "text"}] },
+                { service: 'jira', action: 'create-epic', title: "Criar Epic", description: "Cria nova Epic (macro-fase/projeto).", icon: "fa-bolt", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "description", label: "Descrição:", type: "textarea"}] },
+                { service: 'jira', action: 'link-epic', title: "Vincular Issue a Epic", description: "Liga issue/story/task a Epic.", icon: "fa-link", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "epicId", label: "ID da Epic:", type: "text"}] },
+                { service: 'jira', action: 'update-description', title: "Atualizar Descrição", description: "Atualiza descrição de issue.", icon: "fa-edit", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "description", label: "Nova Descrição:", type: "textarea"}] },
+                { service: 'jira', action: 'issues-by-status', title: "Buscar Issues por Status", description: "Lista issues pelo status.", icon: "fa-search", inputFields: [{id: "status", label: "Status:", type: "text"}] },
+                { service: 'jira', action: 'issues-by-assignee', title: "Buscar Issues por Responsável", description: "Lista issues atribuídas ao usuário.", icon: "fa-user-check", inputFields: [{id: "assignee", label: "Responsável:", type: "text"}] },
+                { service: 'jira', action: 'issues-by-epic', title: "Buscar Issues por Epic", description: "Lista issues vinculadas à Epic.", icon: "fa-sitemap", inputFields: [{id: "epicId", label: "ID da Epic:", type: "text"}] },
+                { service: 'jira', action: 'add-watcher', title: "Adicionar Watcher", description: "Adiciona usuário para acompanhar issue.", icon: "fa-eye", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "watcher", label: "Watcher:", type: "text"}] },
+                { service: 'jira', action: 'list-comments', title: "Listar Comentários", description: "Lista comentários de uma issue.", icon: "fa-comments", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}] },
+                { service: 'jira', action: 'edit-comment', title: "Editar Comentário", description: "Edita comentário existente.", icon: "fa-comment-dots", inputFields: [{id: "commentId", label: "ID do Comentário:", type: "text"}, {id: "newText", label: "Novo Texto:", type: "textarea"}] },
+                { service: 'jira', action: 'delete-comment', title: "Excluir Comentário", description: "Remove comentário de issue.", icon: "fa-comment-slash", inputFields: [{id: "commentId", label: "ID do Comentário:", type: "text"}] },
+                { service: 'jira', action: 'log-time', title: "Log de Tempo", description: "Registra tempo trabalhado em issue.", icon: "fa-clock", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "timeSpent", label: "Tempo Gasto (ex: 2h 30m):", type: "text"}, {id: "user", label: "Usuário:", type: "text"}] },
+                { service: 'jira', action: 'report-sprint', title: "Relatório de Issues por Sprint", description: "Gera relatório de issues da sprint.", icon: "fa-chart-pie", inputFields: [{id: "sprintId", label: "ID da Sprint:", type: "text"}] },
+                { service: 'jira', action: 'issues-by-label', title: "Buscar Issues por Label", description: "Lista issues com determinada label.", icon: "fa-tag", inputFields: [{id: "label", label: "Label:", type: "text"}] },
+                { service: 'jira', action: 'update-estimate', title: "Atualizar Estimativa", description: "Atualiza estimativa de esforço.", icon: "fa-stopwatch-20", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "estimate", label: "Estimativa:", type: "text"}] },
+                { service: 'jira', action: 'list-sprints', title: "Listar Sprints do Projeto", description: "Retorna lista de sprints do projeto.", icon: "fa-list-ol", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}] },
+                { service: 'jira', action: 'list-projects', title: "Listar Projetos", description: "Retorna todos os projetos ativos no Jira.", icon: "fa-project-diagram", inputFields: [] },
+                { service: 'jira', action: 'create-subtask', title: "Criar Subtarefa", description: "Cria subtask vinculada a issue/tarefa.", icon: "fa-tasks", inputFields: [{id: "parentIssueId", label: "ID da Issue Pai:", type: "text"}, {id: "summary", label: "Título:", type: "text"}] },
+                { service: 'jira', action: 'update-issue-type', title: "Atualizar Tipo de Issue", description: "Muda tipo de issue (bug, task, story...).", icon: "fa-exchange-alt", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "type", label: "Novo Tipo:", type: "text"}] },
+                { service: 'jira', action: 'update-custom-field', title: "Atualizar Campo Customizado", description: "Atualiza campo customizado em issue/tarefa.", icon: "fa-edit", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "field", label: "Campo:", type: "text"}, {id: "value", label: "Valor:", type: "text"}] },
+                { service: 'jira', action: 'duplicate-issue', title: "Duplicar Issue", description: "Cria cópia de issue para novo item.", icon: "fa-copy", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}] },
+                { service: 'jira', action: 'close-sprint', title: "Fechar Sprint", description: "Fecha sprint ativa no projeto.", icon: "fa-calendar-times", inputFields: [{id: "sprintId", label: "ID da Sprint:", type: "text"}] },
+                { service: 'jira', action: 'late-issues', title: "Buscar Issues Atrasadas", description: "Lista issues com atraso na entrega/prazo.", icon: "fa-calendar-day", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}] },
+                { service: 'jira', action: 'link-issues', title: "Criar Relacionamento entre Issues", description: "Cria vínculo de dependência, bloqueio, etc.", icon: "fa-link", inputFields: [{id: "issueA", label: "Issue A:", type: "text"}, {id: "issueB", label: "Issue B:", type: "text"}, {id: "type", label: "Tipo de Vínculo:", type: "text"}] },
+                { service: 'jira', action: 'issues-by-release', title: "Listar Issues de Release", description: "Lista issues de uma release específica.", icon: "fa-box-open", inputFields: [{id: "releaseId", label: "ID da Release:", type: "text"}] },
+                { service: 'jira', action: 'log-deploy', title: "Registrar Deploy em Issue", description: "Registra informação de deploy em issue.", icon: "fa-cloud-upload-alt", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "version", label: "Versão:", type: "text"}, {id: "deployedBy", label: "Deploy por:", type: "text"}] },
+                { service: 'jira', action: 'issue-by-key', title: "Consultar Issue por Key", description: "Retorna issue por chave (ex: AUTO-123).", icon: "fa-key", inputFields: [{id: "key", label: "Chave da Issue:", type: "text"}] },
+                { service: 'jira', action: 'delete-issue', title: "Excluir Issue", description: "Remove issue do projeto.", icon: "fa-trash-alt", inputFields: [{id: "issueIdOrKey", label: "ID ou Chave da Issue:", type: "text"}] },
+                { service: 'jira', action: 'update-due-date', title: "Atualizar Due Date", description: "Atualiza data de entrega de tarefa.", icon: "fa-calendar-alt", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "dueDate", label: "Nova Data de Entrega:", type: "date"}] },
+                { service: 'jira', action: 'duplicate-sprint', title: "Duplicar Sprint", description: "Copia configuração de sprint anterior.", icon: "fa-clone", inputFields: [{id: "sprintId", label: "ID da Sprint:", type: "text"}] },
+                { service: 'jira', action: 'transfer-issue', title: "Transferir Issue entre Projetos", description: "Move issue para outro projeto.", icon: "fa-random", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "targetProject", label: "Projeto de Destino:", type: "text"}] },
+                { service: 'jira', action: 'update-issue-sprint', title: "Atualizar Sprint de Issue", description: "Troca issue de sprint.", icon: "fa-retweet", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "sprintId", label: "ID da Sprint:", type: "text"}] },
+                { service: 'jira', action: 'search-issues', title: "Buscar Issues por Palavra", description: "Pesquisa issues por palavra-chave.", icon: "fa-search", inputFields: [{id: "query", label: "Palavra-chave:", type: "text"}] },
+                { service: 'jira', action: 'attach-file', title: "Anexar Arquivo à Issue", description: "Anexa arquivo/link a uma issue.", icon: "fa-paperclip", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "fileUrl", label: "URL do Arquivo:", type: "text"}, {id: "uploader", label: "Enviado por:", type: "text"}] },
+                { service: 'jira', action: 'list-time-logs', title: "Listar Logs de Tempo", description: "Lista logs de tempo trabalhados na issue.", icon: "fa-history", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}] },
+                { service: 'jira', action: 'bulk-update-status', title: "Atualizar Status em Lote", description: "Atualiza status de várias issues em lote.", icon: "fa-layer-group", inputFields: [{id: "issueIds", label: "IDs das Issues (separados por vírgula):", type: "text"}, {id: "status", label: "Novo Status:", type: "text"}] },
+                { service: 'jira', action: 'update-reporter', title: "Atualizar Reporter", description: "Altera quem reportou a issue.", icon: "fa-user-edit", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "reporter", label: "Novo Reporter:", type: "text"}] },
+                { service: 'jira', action: 'delay-report', title: "Gerar Relatório de Atraso", description: "Gera relatório de atrasos por sprint/projeto.", icon: "fa-business-time", inputFields: [{id: "sprintId", label: "ID da Sprint:", type: "text"}, {id: "projectId", label: "ID do Projeto:", type: "text"}] },
+                { service: 'jira', action: 'update-labels', title: "Atualizar Labels", description: "Atualiza labels/tags da issue.", icon: "fa-tags", inputFields: [{id: "issueId", label: "ID da Issue:", type: "text"}, {id: "labels", label: "Labels (separados por vírgula):", type: "text"}] },
+                { service: 'jira', action: 'blocked-issues', title: "Listar Issues Bloqueadas", description: "Lista issues bloqueadas no projeto.", icon: "fa-ban", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}] },
+                { service: 'jira', action: 'stats-by-type', title: "Gerar Estatística por Tipo", description: "Estatística de issues por tipo.", icon: "fa-chart-bar", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}] },
+                { service: 'jira', action: 'general-report', title: "Gerar Relatório Geral", description: "Gera relatório de status geral do projeto.", icon: "fa-file-chart-pie", inputFields: [{id: "projectId", label: "ID do Projeto:", type: "text"}] },
+
+                 // --- 5. Ferramentas Google (50) ---
+                { service: 'google', action: 'create-event', title: "Criar Evento na Agenda", description: "Cria evento em agenda Google.", icon: "fa-calendar-plus", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "startDateTime", label: "Início:", type: "datetime-local"}, {id: "endDateTime", label: "Fim:", type: "datetime-local"}, {id: "users", label: "Convidados (emails, vírgula):", type: "text"}] },
+                { service: 'google', action: 'add-contact', title: "Adicionar Contato ao Google", description: "Cria novo contato na conta Google.", icon: "fa-address-book", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "email", label: "Email:", type: "email"}, {id: "phone", label: "Telefone:", type: "tel"}] },
+                { service: 'google', action: 'send-gmail', title: "Enviar E-mail pelo Gmail", description: "Dispara e-mail via Gmail da conta integrada.", icon: "fa-paper-plane", inputFields: [{id: "to", label: "Para:", type: "email"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}] },
+                { service: 'google', action: 'create-gmail-draft', title: "Criar Rascunho de E-mail", description: "Salva rascunho no Gmail.", icon: "fa-file-medical", inputFields: [{id: "to", label: "Para:", type: "email"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}] },
+                { service: 'google', action: 'upload-drive', title: "Upload para Google Drive", description: "Envia arquivo para pasta do Drive.", icon: "fa-upload", inputFields: [{id: "fileUrl", label: "URL do Arquivo:", type: "text"}, {id: "fileName", label: "Nome do Arquivo:", type: "text"}, {id: "folderId", label: "ID da Pasta (Opcional):", type: "text"}] },
+                { service: 'google', action: 'list-drive', title: "Listar Arquivos do Drive", description: "Lista arquivos da pasta do Drive.", icon: "fa-folder-open", inputFields: [{id: "folderId", label: "ID da Pasta:", type: "text"}] },
+                { service: 'google', action: 'share-drive-file', title: "Compartilhar Arquivo Drive", description: "Compartilha arquivo Drive por e-mail.", icon: "fa-share-alt", inputFields: [{id: "fileId", label: "ID do Arquivo:", type: "text"}, {id: "emails", label: "Emails (separados por vírgula):", type: "text"}] },
+                { service: 'google', action: 'create-doc', title: "Criar Documento Google Docs", description: "Cria doc no Google Docs.", icon: "fa-file-word", inputFields: [{id: "title", label: "Título:", type: "text"}, {id: "content", label: "Conteúdo:", type: "textarea"}] },
+                { service: 'google', action: 'update-doc', title: "Atualizar Documento Docs", description: "Atualiza conteúdo de um Google Doc.", icon: "fa-file-signature", inputFields: [{id: "docId", label: "ID do Documento:", type: "text"}, {id: "content", label: "Conteúdo:", type: "textarea"}] },
+                { service: 'google', action: 'list-docs', title: "Listar Documentos do Docs", description: "Lista documentos de pasta específica.", icon: "fa-file-alt", inputFields: [{id: "folderId", label: "ID da Pasta:", type: "text"}] },
+                { service: 'google', action: 'create-sheet', title: "Criar Planilha Google Sheets", description: "Cria planilha no Google Sheets.", icon: "fa-file-excel", inputFields: [{id: "title", label: "Título:", type: "text"}] },
+                { service: 'google', action: 'add-row-sheets', title: "Adicionar Linha ao Sheets", description: "Adiciona linha com dados à planilha.", icon: "fa-table", inputFields: [{id: "sheetId", label: "ID da Planilha:", type: "text"}, {id: "rowData", label: "Dados (JSON):", type: "textarea", placeholder: '[["Valor A1", "Valor B1"]]'}] },
+                { service: 'google', action: 'update-row-sheets', title: "Atualizar Linha do Sheets", description: "Atualiza dados de linha na planilha.", icon: "fa-edit", inputFields: [{id: "sheetId", label: "ID da Planilha:", type: "text"}, {id: "range", label: "Range (ex: Página1!A2):", type: "text"}, {id: "rowData", label: "Dados (JSON):", type: "textarea", placeholder: '[["Novo Valor A2"]]'}] },
+                { service: 'google', action: 'read-sheet', title: "Ler Dados do Sheets", description: "Busca dados da planilha em range.", icon: "fa-eye", inputFields: [{id: "sheetId", label: "ID da Planilha:", type: "text"}, {id: "range", label: "Range (ex: Página1!A1:B10):", type: "text"}] },
+                { service: 'google', action: 'list-sheets', title: "Listar Planilhas Disponíveis", description: "Retorna todas planilhas do usuário.", icon: "fa-list", inputFields: [] },
+                { service: 'google', action: 'create-slides', title: "Criar Apresentação Slides", description: "Cria nova apresentação no Google Slides.", icon: "fa-file-powerpoint", inputFields: [{id: "title", label: "Título:", type: "text"}] },
+                { service: 'google', action: 'add-slide', title: "Adicionar Slide à Apresentação", description: "Adiciona slide à apresentação.", icon: "fa-plus-square", inputFields: [{id: "slidesId", label: "ID da Apresentação:", type: "text"}, {id: "layout", label: "Layout (Opcional):", type: "text"}] },
+                { service: 'google', action: 'update-slide', title: "Atualizar Slide", description: "Atualiza conteúdo de slide.", icon: "fa-edit", inputFields: [{id: "slidesId", label: "ID da Apresentação:", type: "text"}, {id: "slideId", label: "ID do Slide:", type: "text"}, {id: "content", label: "Conteúdo (JSON):", type: "textarea"}] },
+                { service: 'google', action: 'share-slides', title: "Compartilhar Apresentação", description: "Compartilha slides por e-mail.", icon: "fa-share-square", inputFields: [{id: "slidesId", label: "ID da Apresentação:", type: "text"}, {id: "emails", label: "Emails (separados por vírgula):", type: "text"}] },
+                { service: 'google', action: 'list-slides', title: "Listar Apresentações Slides", description: "Lista apresentações de slides.", icon: "fa-list-alt", inputFields: [] },
+                { service: 'google', action: 'sync-calendar-sheet', title: "Sincronizar Agenda com Sheets", description: "Exporta eventos da agenda para planilha.", icon: "fa-sync", inputFields: [{id: "calendarId", label: "ID da Agenda:", type: "text"}, {id: "sheetId", label: "ID da Planilha:", type: "text"}] },
+                { service: 'google', action: 'create-task', title: "Criar Tarefa Google Tasks", description: "Cria tarefa no Google Tasks.", icon: "fa-check-double", inputFields: [{id: "title", label: "Título:", type: "text"}, {id: "dueDate", label: "Prazo:", type: "date"}] },
+                { service: 'google', action: 'update-task', title: "Atualizar Tarefa no Tasks", description: "Atualiza tarefa existente.", icon: "fa-edit", inputFields: [{id: "taskId", label: "ID da Tarefa:", type: "text"}, {id: "title", label: "Título:", type: "text"}, {id: "dueDate", label: "Prazo:", type: "date"}] },
+                { service: 'google', action: 'list-tasks', title: "Listar Tarefas Google Tasks", description: "Lista tarefas da conta.", icon: "fa-tasks", inputFields: [] },
+                { service: 'google', action: 'invite-to-event', title: "Convidar para Evento", description: "Envia convite para evento na agenda.", icon: "fa-user-plus", inputFields: [{id: "eventId", label: "ID do Evento:", type: "text"}, {id: "email", label: "Email do Convidado:", type: "email"}] },
+                { service: 'google', action: 'cancel-event', title: "Cancelar Evento Agenda", description: "Cancela evento do calendário.", icon: "fa-calendar-times", inputFields: [{id: "eventId", label: "ID do Evento:", type: "text"}] },
+                { service: 'google', action: 'export-sheet', title: "Exportar Dados do Sheets", description: "Exporta planilha em formato (csv, xlsx, pdf).", icon: "fa-file-export", inputFields: [{id: "sheetId", label: "ID da Planilha:", type: "text"}, {id: "format", label: "Formato (csv, pdf):", type: "text"}] },
+                { service: 'google', action: 'convert-doc-pdf', title: "Converter Docs em PDF", description: "Converte documento em PDF e retorna link.", icon: "fa-file-pdf", inputFields: [{id: "docId", label: "ID do Documento:", type: "text"}] },
+                { service: 'google', action: 'auto-backup-drive', title: "Backup Automático para Drive", description: "Cria rotina automática de backup para Drive.", icon: "fa-hdd", inputFields: [{id: "folderId", label: "ID da Pasta:", type: "text"}, {id: "frequency", label: "Frequência (ex: daily, weekly):", type: "text"}] },
+                { service: 'google', action: 'daily-agenda', title: "Ler Agenda do Dia", description: "Retorna eventos do dia na agenda.", icon: "fa-calendar-day", inputFields: [{id: "date", label: "Data:", type: "date"}] },
+                { service: 'google', action: 'send-push', title: "Enviar Notificação Push", description: "Dispara push via FCM integrado ao Google.", icon: "fa-bell", inputFields: [{id: "userId", label: "ID do Usuário:", type: "text"}, {id: "message", label: "Mensagem:", type: "text"}] },
+                { service: 'google', action: 'short-link', title: "Compartilhar Link Encurtado", description: "Gera link curto com Google.", icon: "fa-link", inputFields: [{id: "url", label: "URL Longa:", type: "text"}] },
+                { service: 'google', action: 'activity-report', title: "Relatório de Atividade", description: "Relatório de atividades Google do período.", icon: "fa-chart-line", inputFields: [{id: "dateRange", label: "Período (ex: 7d, 30d):", type: "text"}] },
+                { service: 'google', action: 'update-file-permission', title: "Atualizar Permissões de Arquivo", description: "Altera permissão de arquivo no Drive.", icon: "fa-user-shield", inputFields: [{id: "fileId", label: "ID do Arquivo:", type: "text"}, {id: "emails", label: "Emails:", type: "text"}, {id: "permission", label: "Permissão (reader, writer):", type: "text"}] },
+                { service: 'google', action: 'register-lead-form', title: "Registrar Lead via Formulário", description: "Integra dados do Google Forms.", icon: "fa-file-invoice", inputFields: [{id: "formId", label: "ID do Formulário:", type: "text"}, {id: "formData", label: "Dados (JSON):", type: "textarea"}] },
+                { service: 'google', action: 'search-drive-file', title: "Buscar Arquivo por Nome", description: "Busca arquivo pelo nome no Drive.", icon: "fa-search", inputFields: [{id: "name", label: "Nome do Arquivo:", type: "text"}, {id: "folderId", label: "ID da Pasta (Opcional):", type: "text"}] },
+                { service: 'google', action: 'attach-event-file', title: "Anexar Arquivo ao Evento", description: "Anexa arquivo Drive ao evento Agenda.", icon: "fa-paperclip", inputFields: [{id: "eventId", label: "ID do Evento:", type: "text"}, {id: "fileId", label: "ID do Arquivo:", type: "text"}] },
+                { service: 'google', action: 'report-sheet', title: "Gerar Planilha de Relatório", description: "Cria planilha automática de relatório.", icon: "fa-file-csv", inputFields: [{id: "reportData", label: "Dados (JSON):", type: "textarea"}, {id: "sheetTitle", label: "Título da Planilha:", type: "text"}] },
+                { service: 'google', action: 'convert-sheet-pdf', title: "Converter Sheets para PDF", description: "Converte planilha em PDF e retorna link.", icon: "fa-file-pdf", inputFields: [{id: "sheetId", label: "ID da Planilha:", type: "text"}] },
+                { service: 'google', action: 'unread-emails', title: "Ler E-mails Não Lidos", description: "Busca e-mails não lidos com filtro de label.", icon: "fa-envelope-open", inputFields: [{id: "label", label: "Label (Opcional):", type: "text"}] },
+                { service: 'google', action: 'mark-email-read', title: "Marcar E-mail como Lido", description: "Marca mensagem como lida.", icon: "fa-envelope", inputFields: [{id: "emailId", label: "ID do E-mail:", type: "text"}] },
+                { service: 'google', action: 'update-task-status', title: "Atualizar Status de Tarefa", description: "Altera status no Google Tasks.", icon: "fa-check", inputFields: [{id: "taskId", label: "ID da Tarefa:", type: "text"}, {id: "status", label: "Status (completed, needsAction):", type: "text"}] },
+                { service: 'google', action: 'remove-event-participant', title: "Remover Participante de Evento", description: "Remove participante de um evento.", icon: "fa-user-minus", inputFields: [{id: "eventId", label: "ID do Evento:", type: "text"}, {id: "email", label: "Email do Participante:", type: "email"}] },
+                { service: 'google', action: 'share-report', title: "Relatório de Compartilhamento", description: "Gera relatório de acessos de arquivo Drive.", icon: "fa-file-chart-pie", inputFields: [{id: "fileId", label: "ID do Arquivo:", type: "text"}] },
+                { service: 'google', action: 'list-folders', title: "Listar Pastas do Drive", description: "Retorna lista de pastas do Drive.", icon: "fa-folder", inputFields: [] },
+                { service: 'google', action: 'update-event-props', title: "Alterar Propriedades de Evento", description: "Atualiza propriedades de um evento.", icon: "fa-edit", inputFields: [{id: "eventId", label: "ID do Evento:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'google', action: 'copy-drive-file', title: "Copiar Arquivo no Drive", description: "Copia arquivo para outra pasta do Drive.", icon: "fa-copy", inputFields: [{id: "fileId", label: "ID do Arquivo:", type: "text"}, {id: "targetFolder", label: "ID da Pasta de Destino:", type: "text"}] },
+                { service: 'google', action: 'schedule-gmail', title: "Agendar E-mail Gmail", description: "Agenda envio de e-mail.", icon: "fa-clock", inputFields: [{id: "to", label: "Para:", type: "email"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}, {id: "sendAt", label: "Data de Envio:", type: "datetime-local"}] },
+                { service: 'google', action: 'recurring-event', title: "Gerar Agenda Recorrente", description: "Cria evento recorrente no calendário.", icon: "fa-redo", inputFields: [{id: "summary", label: "Título:", type: "text"}, {id: "recurrence", label: "Recorrência (RRULE):", type: "text"}, {id: "users", label: "Convidados:", type: "text"}] },
+                { service: 'google', action: 'export-calendar', title: "Exportar Dados Agenda para Sheets", description: "Exporta eventos para uma planilha.", icon: "fa-file-excel", inputFields: [{id: "calendarId", label: "ID da Agenda:", type: "text"}, {id: "sheetId", label: "ID da Planilha:", type: "text"}] },
+
+                 // --- 6. Ferramentas HubSpot (50) ---
+                { service: 'hubspot', action: 'create-contact', title: "Criar Contato no HubSpot", description: "Cria novo contato no HubSpot CRM.", icon: "fa-user-circle", inputFields: [{id: "firstname", label: "Nome:", type: "text"}, {id: "lastname", label: "Sobrenome:", type: "text"}, {id: "email", label: "Email:", type: "email"}, {id: "phone", label: "Telefone:", type: "tel"}] },
+                { service: 'hubspot', action: 'update-contact', title: "Atualizar Contato", description: "Atualiza dados de um contato.", icon: "fa-user-edit", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea", placeholder: '{"phone": "11999998888"}'}] },
+                { service: 'hubspot', action: 'find-contact', title: "Buscar Contato", description: "Busca contato pelo e-mail.", icon: "fa-search", inputFields: [{id: "email", label: "Email:", type: "email"}] },
+                { service: 'hubspot', action: 'create-deal', title: "Criar Deal no HubSpot", description: "Cria nova oportunidade no pipeline.", icon: "fa-dollar-sign", inputFields: [{id: "dealname", label: "Nome do Deal:", type: "text"}, {id: "amount", label: "Valor:", type: "number"}, {id: "pipeline", label: "ID do Pipeline:", type: "text"}, {id: "dealstage", label: "ID do Estágio:", type: "text"}] },
+                { service: 'hubspot', action: 'update-deal', title: "Atualizar Deal", description: "Atualiza dados da oportunidade.", icon: "fa-edit", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea", placeholder: '{"amount": 5000}'}] },
+                { service: 'hubspot', action: 'move-deal-stage', title: "Mover Deal de Estágio", description: "Move a oportunidade para outro estágio.", icon: "fa-exchange-alt", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "stage", label: "Novo Estágio:", type: "text"}] },
+                { service: 'hubspot', action: 'register-activity', title: "Registrar Atividade", description: "Loga atividade em contato.", icon: "fa-walking", inputFields: [{id: "objectType", label: "Tipo (contacts/deals):", type: "text"}, {id: "objectId", label: "ID do Objeto:", type: "text"}, {id: "noteBody", label: "Nota da Atividade:", type: "textarea"}] },
+                { service: 'hubspot', action: 'schedule-meeting', title: "Agendar Reunião", description: "Agenda reunião via HubSpot.", icon: "fa-calendar-check", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "date", label: "Data:", type: "datetime-local"}, {id: "topic", label: "Tópico:", type: "text"}] },
+                { service: 'hubspot', action: 'add-note', title: "Registrar Nota no Deal", description: "Adiciona nota interna à oportunidade.", icon: "fa-sticky-note", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "note", label: "Nota:", type: "textarea"}] },
+                { service: 'hubspot', action: 'create-task', title: "Criar Tarefa para SDR", description: "Cria tarefa para membro do time.", icon: "fa-tasks", inputFields: [{id: "owner", label: "Responsável:", type: "text"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "dueDate", label: "Prazo:", type: "date"}] },
+                { service: 'hubspot', action: 'update-task', title: "Atualizar Tarefa", description: "Atualiza status/dados da tarefa.", icon: "fa-edit", inputFields: [{id: "taskId", label: "ID da Tarefa:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea", placeholder: '{"hs_task_status": "COMPLETED"}'}] },
+                { service: 'hubspot', action: 'tasks-by-user', title: "Buscar Tasks por Usuário", description: "Lista tarefas atribuídas a um SDR.", icon: "fa-user-cog", inputFields: [{id: "owner", label: "Responsável:", type: "text"}] },
+                { service: 'hubspot', action: 'create-ticket', title: "Criar Ticket de Suporte", description: "Cria ticket de suporte no HubSpot.", icon: "fa-ticket-alt", inputFields: [{id: "subject", label: "Assunto:", type: "text"}, {id: "description", label: "Descrição:", type: "textarea"}, {id: "contactId", label: "ID do Contato:", type: "text"}] },
+                { service: 'hubspot', action: 'update-ticket', title: "Atualizar Status do Ticket", description: "Atualiza status de ticket.", icon: "fa-edit", inputFields: [{id: "ticketId", label: "ID do Ticket:", type: "text"}, {id: "status", label: "Novo Status:", type: "text"}] },
+                { service: 'hubspot', action: 'client-feedback', title: "Registrar Feedback de Cliente", description: "Loga feedback no histórico do contato.", icon: "fa-comment-dots", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "feedback", label: "Feedback:", type: "textarea"}] },
+                { service: 'hubspot', action: 'send-auto-email', title: "Enviar E-mail Automático", description: "Dispara e-mail automatizado.", icon: "fa-envelope-open", inputFields: [{id: "to", label: "Para:", type: "email"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}] },
+                { service: 'hubspot', action: 'enroll-in-sequence', title: "Matricular em Sequência", description: "Matricula contato em sequência.", icon: "fa-stream", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "sequenceId", label: "ID da Sequência:", type: "text"}] },
+                { service: 'hubspot', action: 'cancel-sequence', title: "Cancelar Matrícula de Sequência", description: "Cancela inscrição da sequência.", icon: "fa-times-circle", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "sequenceId", label: "ID da Sequência:", type: "text"}] },
+                { service: 'hubspot', action: 'log-meeting', title: "Registrar Reunião Realizada", description: "Loga reunião como concluída e adiciona notas.", icon: "fa-calendar-check", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "meetingId", label: "ID da Reunião:", type: "text"}, {id: "notes", label: "Notas:", type: "textarea"}] },
+                { service: 'hubspot', action: 'update-custom-fields', title: "Atualizar Propriedades Customizadas", description: "Atualiza campos customizados.", icon: "fa-edit", inputFields: [{id: "objectId", label: "ID do Objeto:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'export-contacts', title: "Exportar Lista de Contatos", description: "Exporta lista segmentada para Excel/CSV.", icon: "fa-file-csv", inputFields: [{id: "filter", label: "Filtro (JSON):", type: "textarea"}, {id: "format", label: "Formato (csv, xlsx):", type: "text"}] },
+                { service: 'hubspot', action: 'export-deals', title: "Exportar Deals", description: "Exporta oportunidades do pipeline.", icon: "fa-file-excel", inputFields: [{id: "filter", label: "Filtro (JSON):", type: "textarea"}, {id: "format", label: "Formato (csv, xlsx):", type: "text"}] },
+                { service: 'hubspot', action: 'export-activities', title: "Exportar Atividades", description: "Exporta log de atividades para planilha.", icon: "fa-file-alt", inputFields: [{id: "filter", label: "Filtro (JSON):", type: "textarea"}, {id: "format", label: "Formato (csv, xlsx):", type: "text"}] },
+                { service: 'hubspot', action: 'import-contacts', title: "Importar Contatos em Massa", description: "Importa lista de contatos em lote.", icon: "fa-file-import", inputFields: [{id: "contacts", label: "Contatos (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'import-deals', title: "Importar Deals em Massa", description: "Importa lista de oportunidades em lote.", icon: "fa-file-import", inputFields: [{id: "deals", label: "Deals (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'update-company', title: "Atualizar Propriedades de Empresa", description: "Altera dados de empresa cadastrada.", icon: "fa-building", inputFields: [{id: "companyId", label: "ID da Empresa:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'create-company', title: "Criar Empresa", description: "Registra nova empresa no HubSpot.", icon: "fa-building", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "domain", label: "Domínio:", type: "text"}] },
+                { service: 'hubspot', action: 'associate-company', title: "Associar Empresa a Contato", description: "Liga contato a empresa no CRM.", icon: "fa-link", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "companyId", label: "ID da Empresa:", type: "text"}] },
+                { service: 'hubspot', action: 'update-deal-owner', title: "Atualizar Dono de Deal", description: "Altera SDR responsável pela oportunidade.", icon: "fa-user-edit", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "owner", label: "Novo Dono:", type: "text"}] },
+                { service: 'hubspot', action: 'log-communication', title: "Log de Comunicação", description: "Loga call, e-mail, reunião no histórico.", icon: "fa-history", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "type", label: "Tipo (call, email):", type: "text"}, {id: "details", label: "Detalhes:", type: "textarea"}] },
+                { service: 'hubspot', action: 'timeline', title: "Consultar Linha do Tempo", description: "Consulta todas interações do contato.", icon: "fa-stream", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}] },
+                { service: 'hubspot', action: 'find-leads', title: "Buscar Leads por Segmento", description: "Retorna leads do segmento/ICP.", icon: "fa-search", inputFields: [{id: "segment", label: "Segmento:", type: "text"}] },
+                { service: 'hubspot', action: 'find-deals', title: "Buscar Deals por Pipeline", description: "Lista oportunidades do pipeline.", icon: "fa-search-dollar", inputFields: [{id: "pipeline", label: "Pipeline:", type: "text"}] },
+                { service: 'hubspot', action: 'find-companies', title: "Buscar Empresas por Setor", description: "Lista empresas do setor.", icon: "fa-industry", inputFields: [{id: "sector", label: "Setor:", type: "text"}] },
+                { service: 'hubspot', action: 'create-workflow', title: "Criar Workflow Automático", description: "Gera novo workflow automatizado.", icon: "fa-sitemap", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "actions", label: "Ações (JSON):", type: "textarea"}, {id: "triggers", label: "Gatilhos (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'toggle-workflow', title: "Ativar/Desativar Workflow", description: "Ativa/desativa workflow criado.", icon: "fa-toggle-on", inputFields: [{id: "workflowId", label: "ID do Workflow:", type: "text"}, {id: "active", label: "Ativo (true/false):", type: "text"}] },
+                { service: 'hubspot', action: 'pipeline-report', title: "Relatório de Pipeline", description: "Relatório de desempenho de pipeline.", icon: "fa-chart-pie", inputFields: [{id: "pipeline", label: "Pipeline:", type: "text"}, {id: "dateRange", label: "Período:", type: "text"}] },
+                { service: 'hubspot', action: 'conversion-report', title: "Relatório de Conversão", description: "Relatório de taxas de conversão.", icon: "fa-chart-line", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "segment", label: "Segmento:", type: "text"}] },
+                { service: 'hubspot', action: 'update-lead-stage', title: "Atualizar Etapa de Lead", description: "Atualiza estágio do lead no funil.", icon: "fa-level-up-alt", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "stage", label: "Novo Estágio:", type: "text"}] },
+                { service: 'hubspot', action: 'find-tasks', title: "Buscar Tarefas por Status", description: "Lista tarefas filtradas por status.", icon: "fa-tasks", inputFields: [{id: "status", label: "Status:", type: "text"}] },
+                { service: 'hubspot', action: 'update-contact-owner', title: "Atualizar Owner de Contato", description: "Altera responsável pelo contato.", icon: "fa-user-edit", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "owner", label: "Novo Dono:", type: "text"}] },
+                { service: 'hubspot', action: 'add-contact-note', title: "Adicionar Observação em Contato", description: "Adiciona nota interna ao contato.", icon: "fa-sticky-note", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "note", label: "Nota:", type: "textarea"}] },
+                { service: 'hubspot', action: 'update-ticket-fields', title: "Atualizar Propriedades de Ticket", description: "Atualiza campos customizados do ticket.", icon: "fa-edit", inputFields: [{id: "ticketId", label: "ID do Ticket:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'hubspot', action: 'list-workflows', title: "Listar Workflows Existentes", description: "Retorna todos os workflows configurados.", icon: "fa-list-ul", inputFields: [] },
+                { service: 'hubspot', action: 'list-sequences', title: "Listar Sequências Existentes", description: "Retorna todas as sequências de automação.", icon: "fa-list-ol", inputFields: [] },
+                { service: 'hubspot', action: 'register-proposal', title: "Registrar Proposta Comercial", description: "Adiciona proposta ao histórico da oportunidade.", icon: "fa-file-signature", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "proposalLink", label: "Link da Proposta:", type: "text"}] },
+                { service: 'hubspot', action: 'close-deal', title: "Marcar Deal como Ganhou/Perdeu", description: "Marca oportunidade como ganha, perdida, etc.", icon: "fa-flag-checkered", inputFields: [{id: "dealId", label: "ID do Deal:", type: "text"}, {id: "status", label: "Status (won, lost):", type: "text"}] },
+                { service: 'hubspot', action: 'send-lead-email', title: "Enviar E-mail Individual para Lead", description: "Dispara e-mail individual para lead.", icon: "fa-envelope", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}] },
+                { service: 'hubspot', action: 'tickets-report', title: "Relatório de Tickets", description: "Relatório de tickets de suporte/atendimento.", icon: "fa-chart-bar", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "status", label: "Status:", type: "text"}] },
+                { service: 'hubspot', action: 'general-funnel-report', title: "Relatório Geral do Funil", description: "Relatório geral do funil comercial/marketing.", icon: "fa-filter", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "segment", label: "Segmento:", type: "text"}] },
+
+                // --- 7. Ferramentas Apollo (50) ---
+                { service: 'apollo', action: 'enrich-lead', title: "Enriquecer Lead com Apollo", description: "Consulta dados públicos, sociais e firmográficos para lead.", icon: "fa-binoculars", inputFields: [{id: "email", label: "Email do Lead:", type: "email"}, {id: "name", label: "Nome (Opcional):", type: "text"}] },
+                { service: 'apollo', action: 'search-companies', title: "Buscar Empresas no Apollo", description: "Busca empresas no Apollo para prospecção.", icon: "fa-building", inputFields: [{id: "q_organization_domains", label: "Domínios (separados por vírgula):", type: "text"}] },
+                { service: 'apollo', action: 'search-leads', title: "Buscar Leads no Apollo", description: "Busca leads filtrados para campanhas.", icon: "fa-users", inputFields: [{id: "q_keywords", label: "Cargo/Nome do Lead:", type: "text"}] },
+                { service: 'apollo', action: 'list-contacts', title: "Listar Contatos de Empresa", description: "Lista todos contatos de uma empresa no Apollo.", icon: "fa-address-card", inputFields: [{id: "companyId", label: "ID da Empresa:", type: "text"}] },
+                { service: 'apollo', action: 'add-to-sequence', title: "Adicionar Lead à Sequência Apollo", description: "Adiciona lead a sequência de e-mails/calls.", icon: "fa-sitemap", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "sequenceId", label: "ID da Sequência:", type: "text"}] },
+                { service: 'apollo', action: 'remove-from-sequence', title: "Remover Lead de Sequência", description: "Remove lead de sequência ativa.", icon: "fa-unlink", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "sequenceId", label: "ID da Sequência:", type: "text"}] },
+                { service: 'apollo', action: 'update-lead-status', title: "Atualizar Status do Lead", description: "Atualiza status do lead (ativo, cliente, etc).", icon: "fa-user-tag", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "status", label: "Novo Status:", type: "text"}] },
+                { service: 'apollo', action: 'verify-email', title: "Verificar E-mail", description: "Verifica validade e histórico de e-mail.", icon: "fa-check-circle", inputFields: [{id: "email", label: "Email:", type: "email"}] },
+                { service: 'apollo', action: 'send-personal-email', title: "Enviar E-mail Personalizado", description: "Dispara e-mail direto via Apollo.", icon: "fa-envelope", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "subject", label: "Assunto:", type: "text"}, {id: "body", label: "Corpo:", type: "textarea"}] },
+                { service: 'apollo', action: 'log-call', title: "Registrar Ligação Efetuada", description: "Loga ligação feita para lead.", icon: "fa-phone", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "callData", label: "Dados da Ligação (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'update-lead', title: "Atualizar Dados do Lead", description: "Atualiza dados cadastrais e histórico.", icon: "fa-user-edit", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'create-company', title: "Criar Nova Empresa", description: "Cria empresa nova no Apollo.", icon: "fa-building", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "website", label: "Website:", type: "text"}, {id: "industry", label: "Indústria:", type: "text"}] },
+                { service: 'apollo', action: 'associate-lead-company', title: "Associar Lead a Empresa", description: "Relaciona lead a empresa existente.", icon: "fa-link", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "companyId", label: "ID da Empresa:", type: "text"}] },
+                { service: 'apollo', action: 'icp-leads', title: "Gerar Lista de Leads por ICP", description: "Busca leads qualificados por perfil ICP.", icon: "fa-filter", inputFields: [{id: "icpFilters", label: "Filtros ICP (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'find-opportunities', title: "Buscar Oportunidades por Pipeline", description: "Lista oportunidades no pipeline do Apollo.", icon: "fa-search-dollar", inputFields: [{id: "pipeline", label: "Pipeline:", type: "text"}, {id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'log-custom-activity', title: "Registrar Atividade Customizada", description: "Loga atividade customizada (call, visita, demo).", icon: "fa-calendar-alt", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "type", label: "Tipo de Atividade:", type: "text"}, {id: "details", label: "Detalhes:", type: "textarea"}] },
+                { service: 'apollo', action: 'activity-report', title: "Gerar Relatório de Atividades", description: "Relatório de atividades do lead.", icon: "fa-chart-bar", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "dateRange", label: "Período:", type: "text"}] },
+                { service: 'apollo', action: 'update-lead-owner', title: "Atualizar Responsável de Lead", description: "Troca SDR responsável pelo lead.", icon: "fa-user-edit", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "ownerId", label: "ID do Novo Dono:", type: "text"}] },
+                { service: 'apollo', action: 'add-lead-note', title: "Registrar Anotação no Lead", description: "Adiciona anotação ao lead.", icon: "fa-sticky-note", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "note", label: "Nota:", type: "textarea"}] },
+                { service: 'apollo', action: 'lead-engagement', title: "Buscar Engajamento de Lead", description: "Busca métricas de engajamento do lead.", icon: "fa-mouse-pointer", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}] },
+                { service: 'apollo', action: 'generate-smart-list', title: "Geração de Lista Inteligente", description: "Gera lista dinâmica de leads.", icon: "fa-list-alt", inputFields: [{id: "filters", label: "Filtros (JSON):", type: "textarea"}, {id: "sort", label: "Ordenação:", type: "text"}] },
+                { service: 'apollo', action: 'import-leads', title: "Importar Leads em Massa", description: "Importa base de leads externa.", icon: "fa-file-import", inputFields: [{id: "leads", label: "Leads (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'export-leads', title: "Exportar Leads", description: "Exporta lista de leads filtrada.", icon: "fa-file-export", inputFields: [{id: "filters", label: "Filtros (JSON):", type: "textarea"}, {id: "format", label: "Formato:", type: "text"}] },
+                { service: 'apollo', action: 'conversion-report', title: "Gerar Relatório de Conversão", description: "Relatório de conversão de leads/opps.", icon: "fa-chart-line", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'create-opportunity', title: "Criar Nova Oportunidade", description: "Cria oportunidade para lead existente.", icon: "fa-plus-circle", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "dealData", label: "Dados do Deal (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'update-opportunity-status', title: "Atualizar Status de Oportunidade", description: "Atualiza status da oportunidade.", icon: "fa-edit", inputFields: [{id: "opportunityId", label: "ID da Oportunidade:", type: "text"}, {id: "status", label: "Novo Status:", type: "text"}] },
+                { service: 'apollo', action: 'opportunity-history', title: "Buscar Histórico de Oportunidade", description: "Lista histórico completo de uma oportunidade.", icon: "fa-history", inputFields: [{id: "opportunityId", label: "ID da Oportunidade:", type: "text"}] },
+                { service: 'apollo', action: 'pipeline-report', title: "Gerar Relatório de Pipeline", description: "Relatório de desempenho do pipeline de vendas.", icon: "fa-chart-pie", inputFields: [{id: "pipeline", label: "Pipeline:", type: "text"}, {id: "dateRange", label: "Período:", type: "text"}] },
+                { service: 'apollo', action: 'contacts-by-role', title: "Buscar Contatos por Cargo", description: "Busca contatos em empresas com cargo definido.", icon: "fa-user-tie", inputFields: [{id: "role", label: "Cargo:", type: "text"}, {id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'update-company', title: "Atualizar Dados de Empresa", description: "Atualiza campos da empresa cadastrada.", icon: "fa-edit", inputFields: [{id: "companyId", label: "ID da Empresa:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'add-lead-favorite', title: "Adicionar Lead a Favoritos", description: "Marca lead como favorito/destaque.", icon: "fa-star", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}] },
+                { service: 'apollo', action: 'remove-lead-favorite', title: "Remover Lead dos Favoritos", description: "Remove lead dos favoritos.", icon: "fa-star-o", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}] },
+                { service: 'apollo', action: 'leads-by-source', title: "Buscar Leads por Origem", description: "Lista leads pelo canal de aquisição.", icon: "fa-share-square", inputFields: [{id: "source", label: "Origem:", type: "text"}] },
+                { service: 'apollo', action: 'update-contact', title: "Atualizar Dados de Contato", description: "Atualiza campos do contato.", icon: "fa-edit", inputFields: [{id: "contactId", label: "ID do Contato:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'create-sequence', title: "Criar Nova Sequência de E-mails", description: "Cria nova sequência personalizada.", icon: "fa-stream", inputFields: [{id: "name", label: "Nome:", type: "text"}, {id: "steps", label: "Passos (JSON):", type: "textarea"}, {id: "owner", label: "Dono:", type: "text"}] },
+                { service: 'apollo', action: 'update-sequence', title: "Atualizar Sequência de E-mails", description: "Edita etapas ou dados da sequência.", icon: "fa-edit", inputFields: [{id: "sequenceId", label: "ID da Sequência:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'recently-engaged-leads', title: "Buscar Leads com Interação Recente", description: "Retorna leads com interação recente.", icon: "fa-history", inputFields: [{id: "days", label: "Dias:", type: "number"}] },
+                { service: 'apollo', action: 'engagement-report', title: "Gerar Relatório de Engajamento", description: "Relatório de engajamento do time e leads.", icon: "fa-chart-area", inputFields: [{id: "filters", label: "Filtros (JSON):", type: "textarea"}, {id: "dateRange", label: "Período:", type: "text"}] },
+                { service: 'apollo', action: 'add-company-note', title: "Adicionar Observação em Empresa", description: "Registra nota na empresa.", icon: "fa-sticky-note", inputFields: [{id: "companyId", label: "ID da Empresa:", type: "text"}, {id: "note", label: "Nota:", type: "textarea"}] },
+                { service: 'apollo', action: 'remove-lead-opportunity', title: "Remover Lead de Oportunidade", description: "Remove lead de determinada oportunidade.", icon: "fa-user-minus", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "opportunityId", label: "ID da Oportunidade:", type: "text"}] },
+                { service: 'apollo', action: 'update-custom-fields', title: "Atualizar Propriedades Customizadas", description: "Atualiza campos customizados em qualquer entidade.", icon: "fa-edit", inputFields: [{id: "objectId", label: "ID do Objeto:", type: "text"}, {id: "updates", label: "Atualizações (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'opportunities-by-status', title: "Buscar Oportunidades por Status", description: "Lista oportunidades filtradas por status.", icon: "fa-filter", inputFields: [{id: "status", label: "Status:", type: "text"}] },
+                { service: 'apollo', action: 'schedule-activity-reminder', title: "Agendar Lembrete de Atividade", description: "Agenda lembrete para ação futura no lead.", icon: "fa-bell", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "date", label: "Data:", type: "datetime-local"}, {id: "activity", label: "Atividade:", type: "text"}] },
+                { service: 'apollo', action: 'lost-report', title: "Geração de Relatório de Perdas", description: "Relatório de motivos de perda/opps.", icon: "fa-chart-line", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'send-template-email', title: "Enviar Template de E-mail", description: "Dispara e-mail por template com parâmetros.", icon: "fa-envelope-square", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "templateId", label: "ID do Template:", type: "text"}, {id: "params", label: "Parâmetros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'update-lead-score', title: "Atualizar Score de Lead", description: "Atualiza pontuação do lead.", icon: "fa-star-half-alt", inputFields: [{id: "leadId", label: "ID do Lead:", type: "text"}, {id: "score", label: "Score:", type: "number"}] },
+                { service: 'apollo', action: 'leads-by-funnel', title: "Buscar Leads por Funil", description: "Lista leads por etapa do funil.", icon: "fa-filter", inputFields: [{id: "funnel", label: "Funil:", type: "text"}, {id: "stage", label: "Estágio:", type: "text"}] },
+                { service: 'apollo', action: 'segmented-company-list', title: "Gerar Lista Segmentada de Empresas", description: "Gera lista de empresas segmentada.", icon: "fa-list-alt", inputFields: [{id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+                { service: 'apollo', action: 'export-opportunities', title: "Exportar Oportunidades", description: "Exporta oportunidades para Excel/CSV.", icon: "fa-file-export", inputFields: [{id: "filters", label: "Filtros (JSON):", type: "textarea"}, {id: "format", label: "Formato:", type: "text"}] },
+                { service: 'apollo', action: 'general-report', title: "Gerar Relatório Geral", description: "Relatório geral de vendas/atividades.", icon: "fa-file-chart-line", inputFields: [{id: "dateRange", label: "Período:", type: "text"}, {id: "filters", label: "Filtros (JSON):", type: "textarea"}] },
+            ];
+            // ============================================================================================
+            // FIM DA BASE DE DADOS COMPLETA DE FERRAMENTAS
+            // ============================================================================================
+
+            const serviceGroups = [
+                { key: 'gemini', name: 'Google Gemini', icon: 'fa-gem', description: 'Inteligência artificial generativa do Google para criação de textos, respostas e ideias.' },
+                { key: 'openai', name: 'OpenAI', icon: 'fa-brain', description: 'Modelos de linguagem avançados para classificação, resumo e otimização de conteúdo.' },
+                { key: 'jira', name: 'Jira', icon: 'fa-brands fa-jira', description: 'Automações para gerenciamento de projetos, criação de tarefas, bugs e stories.' },
+                { key: 'slack', name: 'Slack', icon: 'fa-brands fa-slack', description: 'Envie notificações, alertas e resumos para seus canais do Slack.' },
+                { key: 'google', name: 'Google Workspace', icon: 'fa-brands fa-google', description: 'Integrações com Agenda, Gmail, Drive, Sheets para automatizar seu fluxo de trabalho.' },
+                { key: 'hubspot', name: 'HubSpot', icon: 'fa-brands fa-hubspot', description: 'Gerencie seu CRM, crie contatos, deals e automatize seu pipeline de vendas.' },
+                { key: 'apollo', name: 'Apollo.io', icon: 'fa-rocket', description: 'Ferramentas de prospecção para enriquecer leads, buscar empresas e contatos.' },
+            ];
+
+            function openAiToolInteraction(toolData) {
+                currentAiToolData = toolData;
+                currentRoleplayConversation = []; // Reseta a conversa
+                aiToolTitleEl.textContent = toolData.title;
+                aiToolDescriptionEl.innerHTML = `<i class="fas ${toolData.icon} mr-2" data-service-icon="${toolData.service}"></i> ${toolData.description}`;
+                aiToolInputFieldsContainerEl.innerHTML = '';
+
+                toolData.inputFields.forEach(field => {
+                    const label = document.createElement('label');
+                    label.className = 'input-field-label';
+                    label.htmlFor = `aiToolInput_${field.id}`;
+                    label.textContent = field.label;
+
+                    let inputElement;
+                    if (field.type === 'textarea') {
+                        inputElement = document.createElement('textarea');
+                        inputElement.rows = 3;
+                    } else {
+                        inputElement = document.createElement('input');
+                        inputElement.type = field.type;
+                    }
+                    inputElement.className = 'input-field';
+                    inputElement.id = `aiToolInput_${field.id}`;
+                    inputElement.name = field.id;
+                    inputElement.placeholder = field.placeholder || '';
+                    if (field.value) inputElement.value = field.value;
+
+                    aiToolInputFieldsContainerEl.appendChild(label);
+                    aiToolInputFieldsContainerEl.appendChild(inputElement);
+                });
+                
+                // Configuração dos Botões
+                buttonsContainer.innerHTML = `
+                    <button id="aiToolSaveBtn" class="btn-iniciar btn-ai-action bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fas fa-save mr-2"></i>Salvar
+                    </button>
+                `;
+                
+                if (toolData.isRoleplayTool) {
+                    roleplayLogContainer.classList.remove('hidden');
+                    roleplayLogEl.innerHTML = '';
+                    buttonsContainer.insertAdjacentHTML('afterbegin', `
+                        <button id="aiToolRoleplaySendBtn" class="btn-iniciar btn-ai-action"><i class="fas fa-paper-plane mr-2"></i>Enviar Fala</button>
+                        <button id="aiToolRoleplayEvaluateBtn" class="btn-iniciar btn-ai-action bg-arremaq-orange hover:bg-arremaq-orange-darker"><i class="fas fa-award mr-2"></i>Finalizar e Avaliar</button>
+                    `);
+                    document.getElementById('aiToolRoleplaySendBtn').addEventListener('click', handleRoleplaySend);
+                    document.getElementById('aiToolRoleplayEvaluateBtn').addEventListener('click', handleRoleplayEvaluate);
+                } else {
+                    roleplayLogContainer.classList.add('hidden');
+                    buttonsContainer.insertAdjacentHTML('afterbegin', `
+                        <button id="aiToolGenerateBtn" class="btn-iniciar btn-ai-action"><i class="fas fa-magic-wand-sparkles mr-2"></i>Gerar com IA</button>
+                    `);
+                    document.getElementById('aiToolGenerateBtn').addEventListener('click', handleStandardGenerate);
+                }
+                
+                document.getElementById('aiToolSaveBtn').addEventListener('click', handleSaveGeneration);
+
+
+                aiToolOutputEl.textContent = 'Aguardando sua solicitação...';
+                saveFeedbackMessageEl.textContent = '';
+                showTargetSection(aiToolInteractionSection);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            async function handleStandardGenerate(event) {
+                if (!currentAiToolData) return;
+                saveFeedbackMessageEl.textContent = '';
+                const payload = buildPayloadFromInputs();
+                if (!payload) return; // Se campos obrigatórios não foram preenchidos
+
+                const result = await callApi(currentAiToolData.service, currentAiToolData.action, payload, event.currentTarget);
+                if (result) renderResult(result);
+            }
+
+            async function handleRoleplaySend(event) {
+                if (!currentAiToolData) return;
+                const utteranceInput = document.getElementById('aiToolInput_userUtterance');
+                const userUtterance = utteranceInput.value.trim();
+                if (!userUtterance) {
+                    aiToolOutputEl.textContent = "Por favor, digite sua fala para o roleplay.";
+                    return;
+                }
+                currentRoleplayConversation.push({ speaker: "user", text: userUtterance });
+                updateRoleplayLog();
+                utteranceInput.value = ''; // Limpa o campo
+
+                const scenario = document.getElementById('aiToolInput_roleplayScenario').value;
+                let promptContext = `Cenário do Roleplay: ${scenario}\n\nHistórico da Conversa (lembre-se de agir como o cliente respondendo ao vendedor):\n`;
+                currentRoleplayConversation.forEach(turn => {
+                     promptContext += `${turn.speaker === 'user' ? 'Vendedor' : 'Cliente (IA)'}: ${turn.text}\n`;
+                });
+                const promptForApi = promptContext + `Cliente (IA):`;
+                
+                const result = await callApi('gemini', 'roleplay', { prompt: promptForApi }, event.currentTarget); // Ação genérica para roleplay
+                if (result && result.text) {
+                    currentRoleplayConversation.push({ speaker: "ai", text: result.text });
+                    updateRoleplayLog();
+                    aiToolOutputEl.textContent = result.text;
+                } else {
+                     aiToolOutputEl.textContent = "Não foi possível obter uma resposta da IA para o roleplay.";
+                }
+            }
+            
+            async function handleRoleplayEvaluate(event) {
+                if (currentRoleplayConversation.length === 0) {
+                    aiToolOutputEl.textContent = "Nenhuma conversa para avaliar."; return;
+                }
+                let conversationText = "Log da Conversa de Roleplay para Avaliação:\n\n";
+                currentRoleplayConversation.forEach(turn => {
+                    conversationText += `${turn.speaker === 'user' ? 'Vendedor' : 'Cliente (IA)'}: ${turn.text}\n`;
+                });
+                const evaluationPrompt = `Como um coach de vendas experiente, por favor, avalie a performance do 'Vendedor' na seguinte conversa. Forneça feedback construtivo (pontos fortes e áreas de melhoria) e uma pontuação geral de 0 a 10.\n\n${conversationText}`;
+                
+                const result = await callApi('gemini', 'roleplay', { prompt: evaluationPrompt }, event.currentTarget);
+                if (result && result.text) {
+                    aiToolOutputEl.innerHTML = `--- AVALIAÇÃO DA IA ---<br><br>${result.text.replace(/\n/g, '<br>')}`;
+                } else {
+                     aiToolOutputEl.textContent = "Não foi possível gerar a avaliação.";
+                }
+            }
+
+            function updateRoleplayLog() {
+                roleplayLogEl.innerHTML = '';
+                currentRoleplayConversation.forEach(turn => {
+                    const turnDiv = document.createElement('div');
+                    turnDiv.classList.add(turn.speaker === 'user' ? 'user-message' : 'ai-message');
+                    turnDiv.textContent = `${turn.speaker === 'user' ? 'Você (Vendedor)' : 'Cliente (IA)'}: ${turn.text}`;
+                    roleplayLogEl.appendChild(turnDiv);
+                });
+                roleplayLogEl.scrollTop = roleplayLogEl.scrollHeight;
+            }
+
+            function buildPayloadFromInputs() {
+                const payload = {};
+                let allFieldsFilled = true;
+                currentAiToolData.inputFields.forEach(field => {
+                    const inputElement = document.getElementById(`aiToolInput_${field.id}`);
+                    if (inputElement) {
+                        const isOptional = (inputElement.placeholder || '').toLowerCase().includes('opcional');
+                        if(inputElement.value.trim() === '' && !isOptional){
+                            allFieldsFilled = false;
+                        }
+                        if(inputElement.value.trim() !== '') {
+                           payload[field.id] = inputElement.value.trim();
+                        }
+                    }
+                });
+                 if (!allFieldsFilled) {
+                    aiToolOutputEl.textContent = "Por favor, preencha todos os campos obrigatórios.";
+                    return null;
+                }
+                return payload;
+            }
+            
+            function renderResult(result) {
+                let outputHtml = '';
+                const { success, ...displayResult } = result;
+                for (const key in displayResult) {
+                    const value = displayResult[key];
+                    const keyFormatted = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+
+                    if (Array.isArray(value)) {
+                        outputHtml += `<b>${keyFormatted}:</b>\n<ul class="list-disc list-inside pl-4 mt-1"><li>${value.join('</li><li>')}</li></ul>\n\n`;
+                    } else if (typeof value === 'object' && value !== null) {
+                        outputHtml += `<b>${keyFormatted}:</b>\n<pre class="bg-gray-100 dark:bg-gray-800 p-2 rounded mt-1">${JSON.stringify(value, null, 2)}</pre>\n\n`;
+                    } else if (String(value).startsWith('http')) {
+                         outputHtml += `<b>${keyFormatted}:</b> <a href="${value}" target="_blank" class="text-blue-500 hover:underline">${value}</a>\n`;
+                    } else {
+                        outputHtml += `<b>${keyFormatted}:</b> ${value}\n`;
+                    }
+                }
+                aiToolOutputEl.innerHTML = outputHtml.replace(/\n/g, '<br>');
+            }
+
+            async function handleSaveGeneration() {
+                const saveBtn = document.getElementById('aiToolSaveBtn');
+                if (!currentAiToolData || !window.getCurrentUserId() || saveBtn.disabled) return;
+                
+                const generatedOutput = aiToolOutputEl.textContent;
+                const inputsToSave = buildPayloadFromInputs() || {};
+                
+                const generationToSave = {
+                    userId: window.getCurrentUserId(),
+                    toolId: `${currentAiToolData.service}/${currentAiToolData.action}`,
+                    toolTitle: currentAiToolData.title,
+                    inputs: inputsToSave,
+                    output: generatedOutput,
+                    savedAt: window.firebaseServerTimestamp()
+                };
+
+                if (currentAiToolData.isRoleplayTool) {
+                    generationToSave.inputs.roleplayConversationLog = currentRoleplayConversation;
+                }
+
+                try {
+                    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                    await window.firebaseAddDoc(window.firebaseCollection(window.db, `artifacts/${appId}/users/${window.getCurrentUserId()}/ai_generations`), generationToSave);
+                    showSaveFeedback("Geração salva com sucesso!", true);
+                } catch (e) {
+                    console.error("Erro ao salvar geração: ", e);
+                    showSaveFeedback(`Falha ao salvar: ${e.message}`, false);
+                }
+            }
+            
+            function populateServiceToolCards(serviceKey) {
+                const servicePage = document.getElementById(`${serviceKey}-tools-section`);
+                if (!servicePage) return;
+                
+                const container = servicePage.querySelector('.tools-grid-container');
+                container.innerHTML = ''; // Limpa o container
+
+                const toolsForService = allAiTools.filter(tool => tool.service === serviceKey);
+
+                toolsForService.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'training-card p-6 flex flex-col';
+                    card.setAttribute('data-aos', 'fade-up');
+                    card.setAttribute('data-aos-delay', ((index % 4) * 50));
+                    card.addEventListener('click', () => openAiToolInteraction(item));
+
+                    card.innerHTML = `
+                        <div class="card-icon-wrapper">
+                            <i class="fas ${item.icon || 'fa-star'}" data-service-icon="${item.service}"></i>
+                        </div>
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-description">${item.description}</p>
+                        <span class="card-button mt-auto pt-2">
+                            Abrir Ferramenta <i class="fas fa-arrow-right"></i>
+                        </span>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            function showServicePage(serviceKey) {
+                const targetSection = document.getElementById(`${serviceKey}-tools-section`);
+                if (targetSection) {
+                    populateServiceToolCards(serviceKey);
+                    showTargetSection(targetSection);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            function createServicePages() {
+                serviceGroups.forEach(group => {
+                    const section = document.createElement('section');
+                    section.id = `${group.key}-tools-section`;
+                    section.className = 'service-tools-section hidden py-8 md:py-10';
+                    section.setAttribute('data-aos', 'fade-in');
+                    section.innerHTML = `
+                        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                            <button class="btn-back back-to-training-center mb-6">
+                                <i class="fas fa-arrow-left"></i> Voltar para Todos os Serviços
+                            </button>
+                            <h2 class="section-title-main text-center service-title-${group.key}">
+                                <i class="fas ${group.icon}"></i> Ferramentas de ${group.name}
+                            </h2>
+                            <div class="tools-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
+                                <!-- Cards de ferramentas para este serviço serão populados aqui -->
+                            </div>
+                        </div>
+                    `;
+                    serviceToolsPagesContainer.appendChild(section);
+                });
+            }
+
+            function populateTrainingCenterIndex() {
+                trainingCenterIndexContainer.innerHTML = ''; // Limpa o container
+                serviceGroups.forEach((group, index) => {
+                     const card = document.createElement('div');
+                     card.className = 'service-card';
+                     card.setAttribute('data-aos', 'fade-up');
+                     card.setAttribute('data-aos-delay', ((index % 4) * 100));
+                     card.addEventListener('click', () => showServicePage(group.key));
+                     card.innerHTML = `
+                        <i class="service-card-icon fas ${group.icon}" data-service-icon="${group.key}"></i>
+                        <h2 class="service-card-title">${group.name}</h2>
+                        <p class="service-card-description">${group.description}</p>
+                     `;
+                     trainingCenterIndexContainer.appendChild(card);
+                });
+            }
+
+            function showSaveFeedback(message, isSuccess) {
+                saveFeedbackMessageEl.textContent = message;
+                saveFeedbackMessageEl.className = `mt-2 text-sm h-5 ${isSuccess ? 'feedback-success' : 'feedback-error'}`;
+                setTimeout(() => { saveFeedbackMessageEl.textContent = ''; }, 4000);
+            }
+
+            // Inicialização da página
+            createServicePages();
+            showTargetSection(portalCardsSection);
+        });
+    </script>
+</body>
+</html>

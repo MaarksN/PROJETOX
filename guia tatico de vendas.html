@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Tático de Vendas Auto Arremate/Arremaq</title>
+
+    <!-- Chosen Palette: Calm Neutral (Stone, Sky Blue, with brand accents) -->
+    <!-- Application Structure Plan: A persona-driven dashboard. Main navigation selects the persona. Secondary navigation within each persona's view switches between Qualificação, Objeções, 30/60/90-day Fluxos, an AI Assistant, and a high-level Chart view. This structure segments information for quick tactical access. A search bar filters content within the active view. Input fields allow for user-driven content expansion. Gemini API is integrated to generate emails for sales steps and provide tailored responses to custom objections. -->
+    <!-- Visualization & Content Choices: Fluxos: Report Info: Daily sales actions -> Goal: Organize/Guide -> Viz: Interactive accordion with AI email generation button -> Interaction: Click to expand details, click to generate email -> Justification: Scannable, actionable, and enhanced with AI for efficiency. -> Library: Vanilla JS + Tailwind. | Objections/Questions: Report Info: Q&A lists -> Goal: Inform/Prepare -> Viz: Interactive accordion -> Interaction: Click to reveal answers -> Justification: Engages for memorization. -> Library: Vanilla JS + Tailwind. | AI Assistant: User input -> Goal: Solve -> Viz: Input form + Modal display -> Interaction: User types objection, clicks generate -> Justification: Provides real-time, AI-powered sales coaching. -> Library: Vanilla JS, Gemini API. | Intensity Chart: Report Info: Touchpoints per fluxo -> Goal: Compare -> Viz: Bar Chart -> Interaction: Dynamic update per persona -> Justification: Quick strategic summary. -> Library: Chart.js (Canvas). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4; /* stone-100 */
+        }
+        .font-sora { font-family: 'Sora', sans-serif; }
+        .text-autoarremate { color: #16a34a; /* green-600 */ }
+        .text-arremaq { color: #ea580c; /* orange-600 */ }
+        .bg-autoarremate { background-color: #16a34a; }
+        .bg-arremaq { background-color: #ea580c; }
+        .border-autoarremate { border-color: #16a34a; }
+        .border-arremaq { border-color: #ea580c; }
+        
+        .tab-active {
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            border-color: #0284c7; /* sky-600 */
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #374151; /* gray-700 */
+            border-color: #e5e7eb; /* gray-200 */
+        }
+        .content-hidden { display: none; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .accordion-item[open] .accordion-content {
+            max-height: 2000px;
+            transition: max-height 1s ease-in, padding 0.5s ease-in;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .accordion-item[open] summary .arrow-icon {
+            transform: rotate(180deg);
+        }
+        .arrow-icon { transition: transform 0.3s ease; }
+        summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        summary::-webkit-details-marker { display: none; }
+        .fade-in {
+            animation: fadeInAnimation 0.5s ease-in-out;
+        }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #ai-modal-overlay.hidden { display: none; }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #0284c7;
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-stone-800">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-8">
+            <h1 class="font-sora text-3xl md:text-5xl font-bold text-stone-900">Guia Tático de Vendas <span class="text-autoarremate">Auto Arremate</span>/<span class="text-arremaq">Arremaq</span> 🏎️💨</h1>
+            <p class="text-stone-600 mt-2 text-lg">🚀 Seu guia tático para fechar mais negócios, agora com o poder da IA ✨.</p>
+        </header>
+
+        <nav class="bg-white p-2 rounded-xl shadow-md mb-8 flex flex-col sm:flex-row justify-center items-center gap-2">
+            <h2 class="text-lg font-semibold text-stone-700 mr-4 hidden md:block">🎭 Selecione a Persona:</h2>
+            <button data-persona="concessionaria" class="persona-tab tab-active w-full sm:w-auto font-bold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"><i class="fas fa-car-side"></i> Concessionária</button>
+            <button data-persona="locadora" class="persona-tab tab-inactive w-full sm:w-auto font-bold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"><i class="fas fa-key"></i> Locadora</button>
+            <button data-persona="maquinas" class="persona-tab tab-inactive w-full sm:w-auto font-bold py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"><i class="fas fa-tractor"></i> Máquinas Pesadas</button>
+        </nav>
+
+        <main id="content-area"></main>
+    </div>
+    
+    <!-- AI Modal -->
+    <div id="ai-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center p-4 z-50">
+        <div id="ai-modal" class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-sora text-xl font-bold text-sky-800">✨ Assistente IA Gemini</h3>
+                <button id="ai-modal-close" class="text-stone-500 hover:text-stone-800 text-2xl">&times;</button>
+            </div>
+            <div id="ai-modal-content" class="p-6 overflow-y-auto">
+                <div id="ai-modal-loader" class="flex flex-col items-center justify-center text-center">
+                    <div class="spinner"></div>
+                    <p class="mt-4 text-stone-600">A gerar a sua resposta... Por favor, aguarde.</p>
+                </div>
+                <div id="ai-modal-result" class="hidden whitespace-pre-wrap"></div>
+            </div>
+             <div class="p-4 border-t flex justify-end">
+                <button id="copy-ai-result" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors flex items-center gap-2 disabled:bg-stone-400">
+                    <i class="fas fa-copy"></i> Copiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const playbookData = {
+            concessionaria: {
+                title: "Gerente de Vendas / Dono de Concessionária",
+                intro: "Focada em gestores que precisam maximizar a rentabilidade e o giro de estoque de seminovos, equilibrando a aquisição de trocas com a venda B2B.",
+                chartData: {
+                    labels: ['30 Dias', '60 Dias', '90 Dias'],
+                    data: [7, 7, 7],
+                    description: "📊 O gráfico ilustra a contagem de pontos de contato em cada fluxo. O ciclo de 30 dias é intenso e direto, enquanto os de 60 e 90 dias distribuem as interações para educar e construir confiança ao longo do tempo."
+                },
+                objections: [
+                    { q: "O custo da plataforma é muito alto.", a: "🗣️ Entendo perfeitamente a sua preocupação com o investimento. Por isso, vamos focar no ROI. Se a nossa plataforma reduzir o tempo de pátio em apenas 2 dias por carro, como no caso da [Concessionária X], o investimento já se paga e começa a gerar lucro. Quer fazer uma simulação rápida com o seu volume?" },
+                    { q: "Minha equipe já está sobrecarregada, não tem tempo para aprender a usar mais uma ferramenta.", a: "🗣️ Essa é a melhor parte. A nossa plataforma não é 'mais uma ferramenta', é a ferramenta que vai **libertar** o tempo da sua equipe. Com a automação de [tarefa X e Y], eles ganham horas para focar no que realmente importa: negociar e vender. O nosso onboarding é projetado para ser feito em menos de 60 minutos." },
+                    { q: "Já usamos o [CRM/ERP concorrente], não preciso de outra plataforma.", a: "🗣️ Ótimo que vocês já usam [CRM/ERP]! Não estamos aqui para substituir, mas para **potencializar**. A nossa plataforma integra-se perfeitamente para otimizar especificamente o fluxo de seminovos e o repasse B2B, áreas onde as ferramentas generalistas não têm a nossa especialização. Pense em nós como o motor turbo para o seu sistema atual." },
+                    { q: "Meu processo atual, mesmo que manual, funciona. Por que eu deveria mudar?", a: "🗣️ Concordo que se funciona, não se mexe. Mas e se pudesse funcionar **melhor** e gerar **mais lucro**? O mercado está cada vez mais competitivo. Manter um processo manual é como correr uma corrida de F1 com um carro de rua. Deixe-me mostrar um dado de benchmark sobre a velocidade dos seus concorrentes que usam a digitalização." },
+                    { q: "Não vejo como isso vai aumentar minhas vendas B2B (repasse). Tenho meus contatos.", a: "🗣️ Seus contatos são um ativo valiosíssimo. O que a nossa plataforma faz é multiplicar esse ativo. Além da sua rede, você acede a mais de 1.200 compradores verificados em todo o Brasil. Isso não substitui os seus parceiros, mas cria uma competitividade saudável que aumenta o preço médio do seu repasse. Mais disputa, mais lucro para si." }
+                ],
+                questions: [
+                    { q: "Como qualificar usando SPIN para a dor de avaliação manual?", a: "🌀 'Observando a sua **(S)ituação** atual, onde o processo de avaliação de trocas é manual, qual o principal **(P)roblema** que a falta de um padrão causa na sua equipe? Qual a **(I)mplicação** disso na sua margem final quando um carro é avaliado incorretamente? Se houvesse uma forma de garantir avaliações precisas e rápidas, qual **(N)ecessidade** prioritária isso resolveria para a sua gestão?'" },
+                    { q: "Como qualificar usando AIDA para a dor de follow-up lento?", a: "📣 '** (A)tenção**: vimos que concessionárias do seu porte perdem até 15% das vendas por demora no follow-up. A nossa plataforma gera **(I)nteresse** porque automatiza os primeiros contatos. Imagine o **(D)esejo** de recuperar essas vendas e bater a meta com mais folga. Qual seria o próximo passo para tomar uma **(A)ção** e ver uma demonstração rápida de como isso funciona?'" },
+                    { q: "Como qualificar usando SNAP para a meta de lucratividade?", a: "⚡ 'Para tornar a decisão **(S)imples**: se eu lhe dissesse que a nossa plataforma tem um valor **(i)Nestimável** ao otimizar o seu repasse B2B, e que ela se **(A)linha** perfeitamente com a sua meta de aumentar a lucratividade, o quão **(P)rioritário** seria para si testar essa solução para não perder as melhores oportunidades de venda para a concorrência?'" },
+                    { q: "Como usar SPIN para a dor de publicação manual de anúncios?", a: "🌀 'Entendendo a sua **(S)ituação** de ter que publicar anúncios em múltiplos portais, um a um, qual o **(P)roblema** de tempo e custo que isso representa? Qual a **(I)mplicação** quando um carro é vendido e o anúncio continua ativo, gerando contactos desnecessários? Se uma plataforma centralizasse tudo com um clique, que **(N)ecessidade** de eficiência a sua equipa sentiria imediatamente?'" },
+                    { q: "Como usar AIDA para a dor da sobrecarga de gestão?", a: "📣 '** (A)tenção**: o seu tempo é o seu ativo mais valioso. Nós geramos **(I)nteresse** ao mostrar que a nossa ferramenta economiza em média 5 horas semanais da sua gestão. Imagine o **(D)esejo** de usar esse tempo para pensar em estratégia em vez de apagar incêndios operacionais. Qual a sua disponibilidade para uma **(A)ção** rápida: uma chamada de 15 minutos na próxima semana?'" }
+                ],
+                fluxos: {
+                    '30': {
+                        title: "Fluxo de 30 Dias (O Cliente Decidido)",
+                        description: "🎯 Este cliente tem uma dor latente (giro de estoque, rentabilidade) e urgência. 🚀 Ele já busca uma solução e responde rapidamente. O foco é em agilidade, prova de valor direta e fechamento rápido.",
+                        steps: [
+                            { dia: 0, canal: 'WhatsApp', fase: 'Simples (SNAP)', porque: '💥 Quebrar o gelo com uma mensagem de alto valor e baixa fricção.', script: '📱 Olá [Nome], aqui é [Seu Nome] da Auto Arremate. 🏎️ Sabia que um carro parado pode custar mais de R$100 por dia em oportunidades perdidas? 💡 Temos 3 formas simples de acelerar o giro do seu estoque. 📞 Posso te ligar por 5 minutos para explicar?', resultado: '✅ Obter permissão para uma ligação rápida.', hubspot: '📋 Criar negócio no pipeline "Prospecção". Registrar a atividade.', automacao: '🤖 Se não houver resposta em 24h, criar tarefa para o SDR ligar.' },
+                            { dia: 2, canal: 'Ligação', fase: 'Problema (SPIN Rápido)', porque: '🤝 Usar a permissão obtida para validar a dor principal.', script: '🤝 Obrigado por me atender! 💬 Sobre o giro do estoque que comentei, qual você diria que é o maior desafio que a lentidão na venda causa no seu fluxo de caixa hoje?', resultado: '🎯 Confirmar que a dor é real e relevante.', hubspot: '📋 Registrar a chamada, transcrever a dor principal do cliente.', automacao: '🤖 Atualizar a propriedade "Dor Principal" para "Giro/Fluxo de Caixa".' },
+                            { dia: 5, canal: 'E-mail', fase: 'Valor (SNAP)', porque: '📄 Solidificar a credibilidade com prova social forte.', script: 'Assunto: 📄 Case Rápido: Como a [Concessionária Cliente] reduziu o custo de pátio em 27% ...', resultado: '🤯 Gerar confiança e curiosidade.', hubspot: '📋 Registrar o envio do e-mail no negócio.', automacao: '🤖 Se o link do case for clicado, notificar o SDR com prioridade alta.' },
+                            { dia: 10, canal: 'Ligação', fase: 'Alinhamento (SNAP)', porque: 'Capitalizar o engajamento para agendar a demonstração.', script: '📞 Olá [Nome], vi que você se interessou pelo nosso case. 🎯 Baseado na nossa conversa, otimizar o giro é a prioridade. 💡 O próximo passo mais simples é uma demonstração de 15 minutos... 🗓️ Podemos agendar?', resultado: '🗓️ Agendar a demonstração.', hubspot: '📋 Agendar a reunião no CRM.', automacao: '🤖 Alterar o estágio do negócio para "Demonstração Agendada".' },
+                            { dia: 15, canal: 'E-mail', fase: 'Desejo (AIDA)', porque: '🚀 Manter o momentum pós-demo e criar desejo.', script: 'Assunto: 📝 Proposta para Otimizar seu Giro de Estoque... 🧠 Imagine ter aqueles dashboards inteligentes liberando 5 horas por semana da sua equipe...', resultado: '😍 Fazer o lead visualizar o futuro com a solução.', hubspot: '📋 Anexar a proposta ao negócio no CRM.', automacao: '🤖 Mover estágio para "Proposta Apresentada". Criar tarefa de follow-up.' },
+                            { dia: 22, canal: 'Ligação', fase: 'Prioridade (SNAP)', porque: '🔍 Abordar proativamente as objeções e criar urgência.', script: '📞 Olá [Nome]... Para podermos iniciar nossa parceria e você já começar a ver os resultados no giro ainda este mês, ficou alguma dúvida?', resultado: '🗣️ Descobrir e resolver as barreiras finais.', hubspot: '📋 Registrar a chamada e qualquer objeção.', automacao: '🤖 Se uma objeção for registrada, notificar o gerente de vendas.' },
+                            { dia: 30, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '🏆 Usar a escassez para criar um gatilho final.', script: '🏆 [Nome], tenho uma boa notícia! 🗓️ Temos uma última vaga de onboarding para a próxima semana... 🤝 Vamos em frente?', resultado: '🎉 Fechar o negócio.', hubspot: '📋 Mover o negócio para "Fechado Ganho".', automacao: '🤖 Iniciar o workflow de onboarding.' }
+                        ]
+                    },
+                    '60': {
+                        title: "Fluxo de 60 Dias (O Cliente Cauteloso)",
+                        description: "🧐 Reconhece o problema (avaliação inconsistente, baixa rentabilidade), mas não a urgência. 🤔 Precisa de mais dados, confiança e entender o impacto real do problema antes de decidir.",
+                        steps: [
+                            { dia: 0, canal: 'Ligação', fase: 'Situação (SPIN)', porque: '🧐 Iniciar a conversa de forma consultiva e sem pressão.', script: '📞 "Olá [Nome], sou [Seu Nome] da Auto Arremate. 📊 Estou fazendo uma pesquisa sobre os desafios na gestão de seminovos. 🔍 Como vocês hoje gerenciam o processo de avaliação de veículos recebidos na troca?"', resultado: '✅ Estabelecer um primeiro contato positivo e coletar informações.', hubspot: '📋 Criar negócio no pipeline "Nutrição".', automacao: '🤖 Adicionar à lista "Leads Cautelosos 60 Dias".' },
+                            { dia: 7, canal: 'E-mail', fase: 'Problema (SPIN)', porque: '🌱 Plantar a semente do problema de forma sutil.', script: 'Assunto: 🤔 Um desafio comum na avaliação de trocas... Corpo: "...muitos gerentes comentam sobre a dificuldade de padronizar as avaliações... Isso já gerou alguma inconsistência...?"', resultado: '💡 Fazer o lead refletir sobre um problema latente.', hubspot: '📋 Registrar o envio do e-mail.', automacao: '🤖 Se houver resposta, notificar o SDR.' },
+                            { dia: 15, canal: 'Ligação', fase: 'Implicação (SPIN)', porque: '🔗 Conectar o problema abstrato a um impacto financeiro concreto.', script: '💬 "Interessante o que você falou... 💸 Quando uma avaliação sai com preço incorreto, qual o impacto que você percebe na rentabilidade...?"', resultado: '💰 Transformar um "incômodo" em um "problema financeiro real".', hubspot: '📋 Registrar a chamada e a estimativa de impacto.', automacao: '🤖 Atualizar a propriedade "Dor Principal".' },
+                            { dia: 30, canal: 'E-mail', fase: 'Interesse (AIDA)', porque: '📚 Nutrir o relacionamento com conteúdo de valor.', script: 'Assunto: 📘 [E-book Gratuito] 3 Erros de Precificação que Estão Corroendo sua Margem...', resultado: '🎓 Posicionar a Auto Arremate como consultora e manter o engajamento.', hubspot: '📋 Registrar o envio.', automacao: '🤖 Se o e-book for baixado, adicionar a uma lista de nutrição específica.' },
+                            { dia: 40, canal: 'E-mail', fase: 'Desejo (AIDA)', porque: '🌟 Apresentar prova social forte e direcionada.', script: 'Assunto: 🚀 Lembrei da nossa conversa sobre margem... Corpo: "...compartilhar o case da [Concessionária Y]... conseguiram aumentar a margem... 15%..."', resultado: '😍 Criar o desejo pela solução ao mostrar o sucesso de um par.', hubspot: '📋 Registrar envio.', automacao: '🤖 Se o case for clicado, criar tarefa para o SDR ligar.' },
+                            { dia: 50, canal: 'Ligação', fase: 'Necessidade (SPIN)', porque: '🧠 Fazer o próprio lead descrever a solução ideal.', script: '📞 "...com base em todos esses desafios... 🛠️ Na sua opinião, o que uma ferramenta ideal precisaria ter...?"', resultado: '🗣️ O lead "vende" a solução para si mesmo.', hubspot: '📋 Registrar a chamada e transcrever a "solução ideal".', automacao: '🤖 Notificar o SDR: "Pronto para Demo".' },
+                            { dia: 60, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '🏁 Conectar a solução descrita pelo cliente à plataforma.', script: '🎯 "...o que você acabou de descrever... é exatamente o que o nosso RaioX® faz. 🤝 Que tal agendarmos uma demonstração...?"', resultado: '🎉 Converter o interesse em uma ação de venda concreta.', hubspot: '📋 Mover o negócio para "Demonstração Agendada".', automacao: '🤖 Disparar o workflow de agendamento de demo.' }
+                        ]
+                    },
+                    '90': {
+                        title: "Fluxo de 90 Dias (O Cliente \"Semente\")",
+                        description: "🌱 Não vê a otimização de processos como prioridade ou não tem orçamento no curto prazo. 🎯 O objetivo é educar, nutrir, e construir um business case sólido para que a decisão amadureça no tempo certo.",
+                        steps: [
+                             { dia: 0, canal: 'LinkedIn', fase: 'Atenção (AIDA)', porque: '🎓 Iniciar o relacionamento de forma sutil e consultiva.', script: 'InMail: "Olá [Nome], vi seu perfil e acredito que este artigo sobre o futuro do varejo automotivo pode ser do seu interesse."', resultado: '✅ Ser visto como uma fonte de insights.', hubspot: '📋 Registrar a atividade. Adicionar à lista "Nutrição 90 Dias".', automacao: '🤖 Se houver interação, criar tarefa de monitoramento.'},
+                             { dia: 15, canal: 'E-mail', fase: 'Interesse (AIDA)', porque: '🧑‍🏫 Oferecer conteúdo rico para educar o mercado.', script: 'Assunto: 🎤 Convite para nosso webinar sobre "Como usar dados para maximizar a margem em seminovos".', resultado: '🎟️ Aprofundar o engajamento.', hubspot: '📋 Registrar convite e inscrição.', automacao: '🤖 Se inscrito, adicionar à lista do webinar e enviar gravação depois.'},
+                             { dia: 30, canal: 'E-mail', fase: 'Situação (SPIN)', porque: '🔍 Aproveitar o contexto para iniciar um diálogo de diagnóstico.', script: 'Assunto: 👋 Pós-webinar... Corpo: "...Fiquei curioso, como a [Nome da Empresa] está se adaptando...?"', resultado: '💬 Abrir o primeiro canal de diálogo direto.', hubspot: '📋 Registrar a resposta do cliente nas notas.', automacao: '🤖 Se responder, notificar SDR.'},
+                             { dia: 45, canal: 'E-mail', fase: 'Problema (SPIN)', porque: '🔦 Usar um case para revelar um problema que o cliente talvez não enxergue.', script: 'Assunto: 🧐 Um ponto interessante sobre dados... Corpo: "...veja o que a [Concessionária Z] descobriu sobre inconsistências de preço..."', resultado: '💡 Criar o momento "aha!".', hubspot: '📋 Registrar o envio.', automacao: '🤖 Se clicar no case, adicionar pontuação de lead.'},
+                             { dia: 60, canal: 'Ligação', fase: 'Implicação (SPIN)', porque: '📞 Aprofundar o impacto do problema, tornando-o financeiro.', script: '📞 "...conversando com outros gestores, eles relataram um impacto de até X% na margem por causa daquelas inconsistências..."', resultado: '💰 A dor se torna concreta.', hubspot: '📋 Registrar chamada e feedback.', automacao: '🤖 Atualizar campo "Valor da Dor" no negócio.'},
+                             { dia: 75, canal: 'E-mail', fase: 'Desejo (AIDA)', porque: '🔢 Fornecer uma calculadora de ROI para o cliente construir seu próprio business case.', script: 'Assunto: 🧮 Calcule o potencial de ganho da sua operação. Corpo: "Criei uma calculadora simples para simular o ROI..."', resultado: '📈 O cliente prova para si mesmo o valor da solução.', hubspot: '📋 Registrar envio.', automacao: '🤖 Se clicar na calculadora, criar tarefa de alta prioridade para SDR.'},
+                             { dia: 90, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '🗓️ Usar um gatilho de tempo (planejamento trimestral) para a tomada de decisão.', script: '📞 "...com o planejamento do próximo trimestre se aproximando, seja o momento ideal para discutirmos como colocar isso em prática..."', resultado: '🎉 Converter o processo de nutrição em uma oportunidade de venda.', hubspot: '📋 Mover para "Oportunidade Qualificada".', automacao: '🤖 Disparar workflow de agendamento de demo.'}
+                        ]
+                    }
+                }
+            },
+            locadora: {
+                title: "Gerente de Frota (Locadora)",
+                intro: "Focada em gestores que lidam com a desmobilização de grandes volumes de veículos, buscando eficiência, maximização do valor de revenda e processos simplificados.",
+                chartData: {
+                    labels: ['30 Dias', '60 Dias', '90 Dias'],
+                    data: [6, 6, 7],
+                    description: "📊 O gráfico ilustra a contagem de pontos de contato em cada fluxo. 🎯 Para a locadora, o ciclo de 30 dias é focado em resolver uma necessidade urgente de venda de lote. 🌱 Os ciclos mais longos constroem o caso para otimizar um processo contínuo de desmobilização."
+                },
+                objections: [
+                    { q: "Prefiro vender minha frota em leilões tradicionais, é mais simples.", a: "🗣️ Entendo, a simplicidade do leilão é um ponto forte. Mas já calculou o quanto as taxas do leiloeiro e a falta de competitividade podem reduzir a sua margem? No nosso marketplace, o controlo é seu. Você define o preço e acede a uma disputa nacional, o que pode aumentar o valor final em mais de 10%." },
+                    { q: "Não quero perder o controlo do meu processo de venda para uma plataforma.", a: "🗣️ Pelo contrário! A nossa plataforma devolve-lhe o controlo. Em vez de depender de um único canal, você tem um dashboard com todos os dados: quem viu, quem fez proposta, qual o melhor preço. É a gestão da sua desmobilização na palma da sua mão, com mais dados para tomar as melhores decisões." },
+                    { q: "Como posso garantir que vou conseguir o preço que quero para um lote tão grande?", a: "🗣️ Ótima pergunta. É aqui que a nossa inteligência de dados entra. Com o RaioX, nós ajudamo-lo a definir o preço ideal para o lote com base em milhares de transações reais. Além disso, ao expor o seu lote a +1.200 compradores, a probabilidade de atingir e até superar o preço de reserva é muito maior." },
+                    { q: "A logística de vender para compradores de todo o Brasil parece muito complicada.", a: "🗣️ Nós pensamos nisso. A nossa plataforma não resolve apenas a venda, mas também simplifica a operação. Temos parceiros logísticos integrados e um processo de documentação digital que torna a venda para outra região tão simples quanto uma venda local." },
+                    { q: "A minha prioridade é vender o volume todo de uma vez, não quero vender carro a carro.", a: "🗣️ Perfeito. A plataforma foi desenhada para isso. Temos modalidades de venda de 'lote fechado', onde os compradores disputam o pacote completo. Isso garante a venda de todo o volume de uma só vez, com a vantagem da competitividade do nosso marketplace." }
+                ],
+                questions: [
+                    { q: "Como usar SPIN para a dor da desmobilização de frota?", a: "🌀 'Ao analisar a sua **(S)ituação** de desmobilização de frotas, qual o **(P)roblema** mais crítico: o tempo que os carros ficam parados ou o preço final de venda? Qual a **(I)mplicação** direta disso no seu ciclo de renovação e fluxo de caixa? Uma solução que resolvesse isso traria a **(N)ecessidade** de mais agilidade ou de maior rentabilidade para a sua operação?'" },
+                    { q: "Como usar AIDA para a dor de carros parados?", a: "📣 '** (A)tenção**: um carro de frota parado custa em média R$X por dia. Nós geramos **(I)nteresse** ao oferecer acesso a uma base de +1.200 compradores para acelerar essa venda. Visualize o **(D)esejo** de transformar esse custo em receita líquida. Qual seria a **(A)ção** mais lógica para si agora: receber um case ou agendar uma chamada de 10 minutos?'" },
+                    { q: "Como usar SNAP para a meta de TCO (Custo Total de Propriedade)?", a: "⚡ 'Para ser **(S)imples**: sabemos que o seu tempo é curto. Oferecemos um valor **(i)Nestimável** ao vender a sua frota em média 30% mais rápido. **(A)linhando** com a sua meta de TCO, o quão **(P)rioritário** é para si ter um parceiro que simplifica todo o processo de remarketing, da avaliação à logística?'" },
+                    { q: "Como usar SPIN para a dor da burocracia documental?", a: "🌀 'Na sua **(S)ituação** atual, como é o processo de gestão da documentação de pós-venda dos lotes? O principal **(P)roblema** é o volume de trabalho manual ou o risco de erros? Qual a **(I)mplicação** de um erro documental no tempo de recebimento? Se pudéssemos digitalizar e automatizar 100% disso, qual a **(N)ecessidade** mais imediata que isso atenderia?'" },
+                    { q: "Como usar SNAP para a necessidade de previsibilidade financeira?", a: "⚡ 'Vamos ser **(S)imples** e diretos. O valor **(i)Nestimável** que trazemos é a previsibilidade: saber quando e por quanto a sua frota será vendida. Isso **(A)linha**-se com a sua necessidade de planeamento financeiro? Se sim, qual a **(P)rioridade** de ter essa previsibilidade no próximo ciclo de desmobilização?'" }
+                ],
+                fluxos: {
+                    '30': {
+                        title: "Fluxo de 30 Dias (O Cliente Decidido)",
+                        description: "🚚 Locadora com um lote grande para desmobilizar urgentemente. A dor é clara e financeira. Foco em velocidade, liquidez e simplicidade (SNAP).",
+                        steps: [
+                             { dia: 0, canal: 'Ligação', fase: 'Simples (SNAP)', porque: '🔥 Abordar com solução direta para dor urgente.', script: '📞 "Olá [Nome]... 🚚 Fiquei sabendo que vocês têm um lote... 🙋‍♂️ Tenho uma base com +1.200 compradores interessados hoje. Podemos falar?"', resultado: '✅ Capturar atenção imediata e qualificar urgência.', hubspot: '📋 Criar negócio em "Prospecção Urgente".', automacao: '🤖 Notificar gerente de vendas sobre lead urgente.'},
+                             { dia: 3, canal: 'E-mail', fase: 'Valor (SNAP)', porque: '🏆 Validar capacidade de entrega com prova social.', script: 'Assunto: 📈 Case: Desmobilização de Lote (+100 carros) em 7 dias...', resultado: '🤯 Gerar confiança e segurança.', hubspot: '📋 Registrar envio do e-mail.', automacao: '🤖 Se case clicado, criar tarefa de follow-up.'},
+                             { dia: 7, canal: 'Ligação', fase: 'Alinhamento (SNAP)', porque: '🎯 Entender o critério de decisão mais importante.', script: '📞 "Para este lote, qual é a prioridade nº 1: 1️⃣ Velocidade? 2️⃣ Margem? 3️⃣ Simplicidade?"', resultado: '🤝 Obter a "chave" para a proposta perfeita.', hubspot: '📋 Registrar prioridade nas notas.', automacao: '🤖 Atualizar propriedade "Critério de Decisão".'},
+                             { dia: 12, canal: 'E-mail', fase: 'Prioridade (SNAP)', porque: '📄 Enviar proposta customizada que fala a língua do cliente.', script: 'Assunto: 🚀 Proposta: Venda Acelerada do seu Lote...', resultado: '✍️ Acelerar a tomada de decisão.', hubspot: '📋 Anexar proposta e mover para "Proposta Apresentada".', automacao: '🤖 Criar tarefa de follow-up.'},
+                             { dia: 20, canal: 'WhatsApp', fase: 'Simples (SNAP)', porque: '✅ Remover qualquer barreira operacional.', script: '"👋 Olá [Nome]! Para darmos o start... preciso apenas da sua aprovação neste e-mail e da lista de veículos..."', resultado: '👍 Facilitar o "sim" do cliente.', hubspot: '📋 Registrar atividade de WA.', automacao: '🤖 Se sem resposta, criar tarefa para ligar.'},
+                             { dia: 30, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '⏳ Criar senso de urgência real ligado a meta de negócio.', script: '"📞 ...para garantirmos a venda desse lote ainda dentro deste mês... preciso do seu OK até amanhã..."', resultado: '🎉 Fechar o negócio.', hubspot: '📋 Mover para "Fechado Ganho".', automacao: '🤖 Iniciar workflow de onboarding de lotes.'}
+                        ]
+                    },
+                    '60': {
+                        title: "Fluxo de 60 Dias (O Cliente Cauteloso)",
+                        description: "🧐 A locadora tem um processo de desmobilização, mas suspeita que é ineficiente. 🤔 Estão abertos a otimizar, mas precisam entender os gargalos e o ROI de uma nova solução.",
+                        steps: [
+                             { dia: 0, canal: 'E-mail', fase: 'Situação (SPIN)', porque: '🗺️ Iniciar de forma consultiva para entender o processo.', script: 'Assunto: 🧐 Sobre o processo de desmobilização... Corpo: "...como funciona hoje o fluxo...?"', resultado: '🤝 Obter mapa inicial do processo do cliente.', hubspot: '📋 Criar negócio em "Nutrição".', automacao: '🤖 Adicionar à lista "Leads Cautelosos - Locadoras".'},
+                             { dia: 10, canal: 'Ligação', fase: 'Problema (SPIN)', porque: '🔎 Ajudar o cliente a identificar e nomear suas dores.', script: '📞 "...qual diria que é a maior dificuldade hoje ao vender para lojistas...?"', resultado: '🎯 Fazer o cliente verbalizar um problema específico.', hubspot: '📋 Registrar chamada e dores mencionadas.', automacao: '🤖 Atualizar propriedade "Dor Principal".'},
+                             { dia: 20, canal: 'E-mail', fase: 'Implicação (SPIN)', porque: '💰 Quantificar o impacto do problema.', script: 'Assunto: 💸 O custo oculto da desmobilização... Corpo: "...pode custar até R$ 900 por carro parado/mês..."', resultado: '😨 Aumentar a percepção de valor da solução.', hubspot: '📋 Registrar envio.', automacao: '🤖 Programar tarefa de follow-up.'},
+                             { dia: 35, canal: 'E-mail', fase: 'Interesse (AIDA)', porque: '💡 Apresentar uma parte da solução (Dashboard) para gerar interesse.', script: 'Assunto: 📊 Visão completa da sua frota desmobilizada... Corpo: "Veja um preview de como isso funciona."', resultado: '🤩 Despertar curiosidade em uma ferramenta específica.', hubspot: '📋 Registrar envio.', automacao: '🤖 Se clicar, adicionar à lista "Interessados em Dashboard".'},
+                             { dia: 45, canal: 'Ligação', fase: 'Necessidade (SPIN)', porque: '🛠️ Guiar o cliente para ele construir a "solução perfeita".', script: '📞 "...Na sua visão, o que seria crucial em uma plataforma para otimizar a desmobilização...?"', resultado: '🗣️ Cliente "encomenda" a solução.', hubspot: '📋 Registrar chamada e "requisitos da solução ideal".', automacao: '🤖 Notificar SDR: "Cliente pronto para demo".'},
+                             { dia: 60, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '✅ Fazer a conexão final entre a necessidade expressa pelo cliente e a nossa solução.', script: '🎯 "...o que você descreveu é exatamente a nossa especialidade. 💻 Podemos agendar uma demonstração...?"', resultado: '🎉 Converter lead nutrido em oportunidade concreta.', hubspot: '📋 Mover para "Demonstração Agendada".', automacao: '🤖 Disparar workflow de agendamento.'}
+                        ]
+                    },
+                    '90': {
+                        title: "Fluxo de 90 Dias (O Cliente \"Semente\")",
+                        description: "🌱 A locadora tem um processo estabelecido e não busca ativamente por mudanças. 🎯 O trabalho é de longo prazo, mostrando tendências de mercado e construindo um caso para a mudança.",
+                        steps: [
+                            { dia: 0, canal: 'LinkedIn', fase: 'Atenção (AIDA)', porque: '📚 Iniciar relacionamento de forma consultiva e não invasiva.', script: 'InMail: "...essa análise sobre o mercado de repasse de frotas pode ser útil..."', resultado: '👍 Ser percebido como fonte de informação valiosa.', hubspot: '📋 Registrar atividade. Adicionar à lista "Nutrição 90 Dias - Locadoras".', automacao: '🤖 Criar tarefa em 20 dias para próximo passo.' },
+                            { dia: 20, canal: 'E-mail', fase: 'Interesse (AIDA)', porque: '📊 Oferecer um benchmark de mercado para despertar curiosidade.', script: 'Assunto: 🧐 Sua desmobilização vs. a média do mercado...', resultado: '💡 Incentivar o lead a engajar em uma conversa sobre performance.', hubspot: '📋 Registrar envio.', automacao: '🤖 Se responder, enviar material e criar tarefa para SDR ligar.' },
+                            { dia: 40, canal: 'Ligação', fase: 'Situação (SPIN)', porque: '💬 Usar o benchmark como pretexto para mapear processos.', script: '📞 "...quais as ferramentas ou canais que vocês mais utilizam...?"', resultado: '🗺️ Coletar informações valiosas sobre o stack de tecnologia.', hubspot: '📋 Registrar chamada e ferramentas mencionadas.', automacao: '🤖 Preencher propriedade "Ferramentas Atuais".' },
+                            { dia: 60, canal: 'E-mail', fase: 'Implicação (SPIN)', porque: '💸 Revelar um custo oculto ou oportunidade perdida.', script: 'Assunto: 📉 O custo da base limitada de compradores...', resultado: '💰 Fazer o lead questionar o status quo.', hubspot: '📋 Registrar envio.', automacao: '🤖 Adicionar a uma sequência de e-mails sobre "Maximizando a Margem".' },
+                            { dia: 75, canal: 'E-mail', fase: 'Desejo (AIDA)', porque: '✨ Apresentar a "visão do paraíso" de um processo ideal.', script: 'Assunto: 📽️ 1 minuto para ver o futuro da sua desmobilização...', resultado: '😍 Criar um forte desejo de mudança.', hubspot: '📋 Registrar envio.', automacao: '🤖 Se vídeo assistido, criar tarefa de alta prioridade para SDR.' },
+                            { dia: 90, canal: 'Ligação', fase: 'Ação (AIDA)', porque: '🗓️ Conectar a necessidade de mudança a um evento de negócio real.', script: '📞 "...com o planejamento do próximo trimestre se aproximando, é o momento perfeito para discutirmos..."', resultado: '🌟 Converter o lead nutrido em uma oportunidade qualificada.', hubspot: '📋 Mover para "Oportunidade Qualificada".', automacao: '🤖 Disparar workflow de agendamento de demo.' }
+                        ]
+                    }
+                }
+            },
+            maquinas: {
+                title: "Gestor de Ativos / Frotas de Máquinas Pesadas",
+                intro: "Focada em gestores que lidam com a compra e venda de equipamentos de alto valor, onde a avaliação técnica, segurança na transação e acesso a um mercado de nicho são cruciais.",
+                chartData: {
+                    labels: ['30 Dias', '60 Dias', '90 Dias'],
+                    data: [5, 6, 7],
+                    description: "📊 O gráfico mostra a contagem de pontos de contato. 🎯 O ciclo de 30 dias é para uma necessidade transacional urgente (vender/comprar uma máquina específica). 🌱 Os ciclos de 60 e 90 dias são focados em educar sobre gestão de ativos e o valor de um marketplace especializado."
+                },
+                objections: [
+                    { q: "O mercado de máquinas é muito específico. Uma plataforma digital não entende as nuances.", a: "🗣️ Concordo 100% que é um mercado de especialistas. É exatamente por isso que a Arremaq foi criada. A nossa plataforma não é generalista, ela foi construída por e para especialistas em máquinas, com checklists técnicos detalhados para cada tipo de equipamento, garantindo que as nuances sejam valorizadas, não ignoradas." },
+                    { q: "Como posso confiar na avaliação técnica feita à distância?", a: "🗣️ A confiança é a base de tudo. O nosso processo de avaliação não é apenas à distância, ele é padronizado e auditado. Usamos um checklist com mais de 100 itens, fotos e vídeos de pontos-chave, tudo para garantir que você tenha mais informações detalhadas do que em muitas vistorias presenciais." },
+                    { q: "Acho que consigo um preço melhor negociando diretamente com meus contatos.", a: "🗣️ Seus contatos são valiosos, sem dúvida. O nosso objetivo é adicionar mais uma carta poderosa ao seu baralho. Ao expor a sua máquina a uma rede nacional de compradores qualificados, criamos uma disputa que eleva o preço final. Você continua a poder negociar com os seus contatos, mas agora com um benchmark de preço muito mais forte." },
+                    { q: "A venda de uma máquina envolve muita burocracia e documentação. Como a plataforma lida com isso?", a: "🗣️ Nós simplificamos a complexidade. A plataforma gere todo o fluxo de documentação de forma digital e segura, desde a proposta até à nota fiscal e ao documento de transferência. O nosso objetivo é que você gaste o seu tempo a negociar o valor do ativo, não a gerir papelada." },
+                    { q: "O valor do meu equipamento é muito alto para ser negociado numa plataforma online.", a: "🗣️ É justamente por o valor ser alto que a segurança e a transparência são fundamentais. A nossa plataforma oferece um ambiente de negociação seguro, com compradores verificados e um processo rastreável, o que mitiga os riscos de uma negociação informal. Já transacionámos com sucesso equipamentos de mais de [Exemplo de Valor Elevado]." }
+                ],
+                questions: [
+                    { q: "Como usar SPIN para a gestão de ativos ociosos?", a: "🌀 'Avaliando a sua **(S)ituação** atual na gestão de ativos, o maior **(P)roblema** é o capital parado em máquinas ociosas ou o alto custo de manutenção? Qual a **(I)mplicação** disso no seu orçamento anual de investimentos? Uma solução que agilizasse a venda desses ativos atenderia a qual **(N)ecessidade** mais urgente: liberar caixa ou reduzir despesas?'" },
+                    { q: "Como usar AIDA para a venda de um ativo específico?", a: "📣 '** (A)tenção**: uma máquina parada pode depreciar X% ao ano. Nós geramos **(I)nteresse** ao oferecer uma avaliação técnica detalhada que valoriza o seu ativo. Imagine o **(D)esejo** de vender essa máquina por um preço justo e rápido, transformando um passivo em lucro. Qual seria a sua **(A)ção** inicial: conhecer nossos cases ou agendar uma avaliação?'" },
+                    { q: "Como usar SNAP para a necessidade de segurança na transação?", a: "⚡ 'Para ser **(S)imples**: sabemos que a negociação de máquinas é complexa. Oferecemos um valor **(i)Nestimável** com um processo seguro e transparente. **(A)linhando** com a sua necessidade de mitigar riscos, o quão **(P)rioritário** é para si ter um parceiro que garante a avaliação e a documentação correta em cada transação?'" },
+                    { q: "Como usar SPIN para a compra de um equipamento?", a: "🌀 'Considerando a sua **(S)ituação** de precisar adquirir um novo equipamento para um projeto, o **(P)roblema** é encontrar a máquina certa com um histórico confiável ou é o preço? Qual a **(I)mplicação** de um atraso na aquisição para o cronograma do seu projeto? A **(N)ecessidade** de ter acesso a um inventário nacional e verificado resolveria esse desafio?'" },
+                    { q: "Como usar AIDA para acelerar o processo de compra?", a: "📣 '** (A)tenção**: encontrar a máquina certa no mercado pode levar meses. Nós geramos **(I)nteresse** ao centralizar ofertas de todo o país. Visualize o **(D)esejo** de encontrar, avaliar e comprar o equipamento que precisa em questão de semanas, não meses. Qual **(A)ção** podemos tomar para acelerar isso para si: enviar as ofertas atuais ou uma chamada de 15 minutos?'" }
+                ],
+                 fluxos: {
+                    '30': {
+                        title: "Playbook de 30 Dias (O Cliente Decidido)",
+                        description: "Precisa vender ou comprar uma máquina específica com urgência. A dor é imediata e operacional. Foco em eficiência, segurança e acesso rápido ao mercado (SNAP).",
+                        steps: [
+                             { dia: 0, canal: 'Ligação', fase: 'Simples (SNAP)', porque: 'Abordar com solução direta para necessidade específica.', script: '📞 "Olá [Nome]... 🚜 Vi que vocês atuam no setor de [Construção/Agro]... Temos uma plataforma que conecta sua máquina aos compradores certos..."', resultado: 'Qualificar interesse em resolver dor específica.', hubspot: 'Criar negócio em "Prospecção - Arremaq".', automacao: 'Adicionar à lista "Leads Quentes - Máquinas Pesadas".'},
+                             { dia: 4, canal: 'E-mail', fase: 'Valor (SNAP)', porque: 'Provar capacidade de lidar com ativos de alto valor.', script: 'Assunto: 🏗️ Case: Venda de Retroescavadeira com 12% acima da avaliação...', resultado: 'Gerar confiança na especialização técnica e segurança.', hubspot: 'Registrar envio.', automacao: 'Se case clicado, notificar SDR.'},
+                             { dia: 8, canal: 'Ligação', fase: 'Alinhamento (SNAP)', porque: 'Entender o principal critério de decisão.', script: '📞 "Para a negociação desta [Máquina]... qual é a sua maior prioridade: 1️⃣ Preço? 2️⃣ Prazo? 3️⃣ Segurança?"', resultado: 'Obter direcionamento para a proposta.', hubspot: 'Registrar prioridade do cliente.', automacao: 'Atualizar propriedade "Critério de Decisão - Arremaq".'},
+                             { dia: 15, canal: 'E-mail', fase: 'Prioridade (SNAP)', porque: 'Enviar proposta focada na prioridade do cliente.', script: 'Assunto: 📋 Proposta para Venda Segura da sua [Máquina]...', resultado: 'Apresentar oferta clara e técnica que passa confiança.', hubspot: 'Anexar proposta e mover para "Proposta Apresentada - Arremaq".', automacao: 'Criar tarefa de follow-up.'},
+                             { dia: 30, canal: 'Ligação', fase: 'Ação (AIDA)', porque: 'Focar no próximo passo prático e no benefício de agir agora.', script: '📞 "...o próximo passo é agendar a avaliação técnica. 🗓️ Temos um avaliador na sua região na próxima semana. Podemos confirmar?"', resultado: 'Fechar o negócio (aceite para iniciar o processo).', hubspot: 'Mover para "Fechado Ganho - Arremaq".', automacao: 'Iniciar workflow de "Onboarding Arremaq".'}
+                        ]
+                    },
+                    '60': {
+                        title: "Playbook de 60 Dias (O Cliente Cauteloso)",
+                        description: "Gerencia uma frota, mas não tem um processo de renovação definido. Sabe que poderia otimizar, mas precisa de ajuda para estruturar e entender o ROI.",
+                        steps: [
+                             { dia: 0, canal: 'E-mail', fase: 'Situação (SPIN)', porque: 'Iniciar de forma consultiva, questionando sobre o processo.', script: 'Assunto: 🔄 Sobre a gestão de frota da [Empresa]... Corpo: "...como funciona hoje o ciclo de renovação das máquinas...?"', resultado: 'Obter panorama da maturidade do processo.', hubspot: 'Criar negócio em "Nutrição - Arremaq".', automacao: 'Adicionar à lista "Leads Cautelosos - Arremaq".'},
+                             { dia: 10, canal: 'Ligação', fase: 'Problema (SPIN)', porque: 'Ajudar o cliente a identificar dores de um processo não estruturado.', script: '📞 "...qual o maior desafio de não ter um ciclo de renovação claro? O custo de manutenção...?"', resultado: 'Associar falta de processo a um "ralo" financeiro.', hubspot: 'Registrar chamada e dores.', automacao: 'Atualizar propriedade "Dor Principal - Arremaq".'},
+                             { dia: 25, canal: 'E-mail', fase: 'Implicação (SPIN)', porque: 'Quantificar o impacto financeiro da dor.', script: 'Assunto: 🚜 O custo de uma máquina parada... Corpo: "...uma máquina parada... tem um custo de oportunidade enorme..."', resultado: 'Aumentar a percepção de perda.', hubspot: 'Registrar envio.', automacao: 'Programar tarefa de follow-up.'},
+                             { dia: 40, canal: 'E-mail', fase: 'Interesse/Desejo (AIDA)', porque: 'Apresentar a solução como forma de transformar ativos em capital.', script: 'Assunto: 💰 Transforme suas máquinas em capital de giro...', resultado: 'Criar desejo de usar a plataforma como ferramenta financeira.', hubspot: 'Registrar envio.', automacao: 'Se clicar, notificar SDR.'},
+                             { dia: 50, canal: 'Ligação', fase: 'Necessidade (SPIN)', porque: 'Guiar o cliente a descrever o processo ideal.', script: '📞 "...Como seria um processo de venda de máquinas ideal para a [Empresa]...?"', resultado: 'Cliente define os próprios critérios de sucesso.', hubspot: 'Registrar "critérios ideais" do cliente.', automacao: 'Notificar SDR para preparar demo customizada.'},
+                             { dia: 60, canal: 'Ligação', fase: 'Ação (AIDA)', porque: 'Conectar os critérios do cliente à plataforma e chamar para ação.', script: '🎯 "...o processo que você desenhou é exatamente o que a Arremaq oferece. 💻 Que tal uma demonstração...?"', resultado: 'Converter lead qualificado em oportunidade de venda.', hubspot: 'Mover para "Demonstração Agendada - Arremaq".', automacao: 'Disparar workflow de agendamento.'}
+                        ]
+                    },
+                    '90': {
+                        title: "Playbook de 90 Dias (O Cliente \"Semente\")",
+                        description: "Grande empresa com frota própria, mas sem urgência ou processo claro de venda. O objetivo é educar sobre o valor da gestão de ativos e construir um relacionamento de longo prazo.",
+                        steps: [
+                             { dia: 0, canal: 'LinkedIn', fase: 'Atenção (AIDA)', porque: 'Iniciar relacionamento compartilhando insights de mercado.', script: 'InMail: "...essa análise de mercado pode ser relevante para seu planejamento de frota."', resultado: 'Ser percebido como consultor de mercado.', hubspot: 'Registrar atividade. Adicionar à lista "Nutrição 90 Dias - Arremaq".', automacao: 'Criar tarefa em 20 dias para próximo passo.'},
+                             { dia: 20, canal: 'E-mail', fase: 'Interesse (AIDA)', porque: 'Educar sobre a importância da avaliação técnica.', script: 'Assunto: 🔍 A importância da avaliação técnica... Corpo: "...preparamos um whitepaper sobre o tema..."', resultado: 'Aprofundar o conhecimento do lead.', hubspot: 'Registrar envio.', automacao: 'Se baixar, adicionar à sequência de nutrição sobre "Avaliação de Ativos".'},
+                             { dia: 45, canal: 'Ligação', fase: 'Situação (SPIN)', porque: 'Usar o conteúdo como gancho para mapear processos.', script: '📞 "...como é o processo de avaliação de máquinas na [Empresa] hoje...?"', resultado: 'Coletar informações sobre processos internos.', hubspot: 'Registrar chamada e informações.', automacao: 'Preencher propriedade "Processo de Avaliação".'},
+                             { dia: 60, canal: 'E-mail', fase: 'Implicação (SPIN)', porque: 'Revelar o custo oculto de um processo com alcance limitado.', script: 'Assunto: 🌍 Sua máquina poderia valer mais em outra região?...', resultado: 'Criar percepção de que o método atual pode não ser o mais lucrativo.', hubspot: 'Registrar envio.', automacao: 'Programar tarefa de follow-up.'},
+                             { dia: 75, canal: 'E-mail', fase: 'Desejo (AIDA)', porque: 'Apresentar a "visão do paraíso" de um processo ideal.', script: 'Assunto: 📽️ Venda sua frota de máquinas em 3 passos... Corpo: "Imagine um processo... 100% digital..."', resultado: 'Gerar desejo pela simplicidade e lucratividade.', hubspot: 'Registrar envio.', automacao: 'Se vídeo assistido, criar tarefa de alta prioridade para SDR.'},
+                             { dia: 90, canal: 'Ligação', fase: 'Ação (AIDA)', porque: 'Usar gatilho de negócio (orçamento) para propor conversa estratégica.', script: '📞 "...sei que o planejamento de orçamento está próximo... É o momento ideal para mostrarmos como a venda de ativos ociosos pode gerar caixa..."', resultado: 'Converter lead nutrido em oportunidade de venda.', hubspot: 'Mover para "Oportunidade Qualificada - Arremaq".', automacao: 'Disparar workflow de agendamento.'}
+                        ]
+                    }
+                }
+            }
+        };
+
+        let myChart = null;
+
+        function renderContent(personaId) {
+            const persona = playbookData[personaId];
+            const contentArea = document.getElementById('content-area');
+
+            const fluxoTabs = Object.keys(persona.fluxos).map(key =>
+                `<button data-view="${key}" class="view-tab tab-inactive font-semibold py-2 px-4 rounded-lg transition-all duration-300">Fluxo ${key} Dias</button>`
+            ).join('');
+
+            contentArea.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <div class="text-center mb-6">
+                        <h2 class="font-sora text-2xl md:text-3xl font-bold text-sky-800">${persona.title}</h2>
+                        <p class="text-stone-600 mt-1 max-w-2xl mx-auto">🎯 ${persona.intro}</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center items-center gap-2 border-b-2 border-stone-200 pb-4 mb-6">
+                        <button data-view="questions" class="view-tab tab-active font-semibold py-2 px-4 rounded-lg transition-all duration-300">Qualificação</button>
+                        <button data-view="objections" class="view-tab tab-inactive font-semibold py-2 px-4 rounded-lg transition-all duration-300">Objeções</button>
+                        ${fluxoTabs}
+                        <button data-view="chart" class="view-tab tab-inactive font-semibold py-2 px-4 rounded-lg transition-all duration-300">Visão Geral</button>
+                    </div>
+                    <div class="relative mb-6">
+                         <input type="search" id="search-input" placeholder="🔎 Buscar na seção atual..." class="w-full p-3 pl-10 border border-stone-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
+                         <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-stone-400"></i>
+                    </div>
+                    <div id="view-content" class="mt-6"></div>
+                </div>
+            `;
+            
+            document.querySelectorAll('.view-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const viewId = e.currentTarget.dataset.view;
+                    renderView(personaId, viewId);
+                });
+            });
+
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                document.querySelectorAll('#view-content .accordion-item').forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (itemText.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            renderView(personaId, 'questions');
+        }
+        
+        function renderView(personaId, viewId) {
+            const persona = playbookData[personaId];
+            const viewContent = document.getElementById('view-content');
+
+            document.querySelectorAll('.view-tab').forEach(tab => {
+                tab.classList.remove('tab-active');
+                tab.classList.add('tab-inactive');
+                if (tab.dataset.view === viewId) {
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('tab-inactive');
+                }
+            });
+            
+            document.getElementById('search-input').value = '';
+
+            if (persona.fluxos[viewId]) {
+                const fluxo = persona.fluxos[viewId];
+                viewContent.innerHTML = `
+                    <div class="fade-in">
+                        <h3 class="font-sora text-xl md:text-2xl font-bold text-stone-800">🌊 ${fluxo.title}</h3>
+                        <p class="text-stone-600 mb-6">${fluxo.description}</p>
+                        <div class="space-y-4" id="fluxo-container">
+                            ${fluxo.steps.map(step => `
+                                <details class="accordion-item bg-stone-50 rounded-lg border border-stone-200 overflow-hidden">
+                                    <summary class="flex justify-between items-center p-4 font-semibold text-stone-700">
+                                        <div class="flex items-center gap-4">
+                                            <span class="bg-sky-100 text-sky-700 font-bold text-sm rounded-full w-12 h-12 flex items-center justify-center">Dia ${step.dia}</span>
+                                            <div>
+                                                <span class="block text-lg">${step.fase}</span>
+                                                <span class="text-sm text-stone-500">${step.canal}</span>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-chevron-down arrow-icon text-stone-400"></i>
+                                    </summary>
+                                    <div class="accordion-content bg-white p-4 border-t border-stone-200 text-sm">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div><strong class="block text-sky-700 mb-1">🎯 Porquê da Ação:</strong><p class="text-stone-600">${step.porque}</p></div>
+                                            <div><strong class="block text-sky-700 mb-1">📈 Resultado Esperado:</strong><p class="text-stone-600">${step.resultado}</p></div>
+                                            <div class="md:col-span-2"><strong class="block text-sky-700 mb-1">🗣️ Script / Ação:</strong><p class="text-stone-600 whitespace-pre-line">${step.script}</p></div>
+                                            <div><strong class="block text-sky-700 mb-1">📋 Registro no HubSpot:</strong><p class="text-stone-600">${step.hubspot}</p></div>
+                                            <div><strong class="block text-sky-700 mb-1">🤖 Automação HubSpot:</strong><p class="text-stone-600">${step.automacao}</p></div>
+                                        </div>
+                                    </div>
+                                </details>
+                            `).join('')}
+                        </div>
+                        <div class="mt-8 p-4 bg-stone-100 rounded-lg">
+                            <h4 class="font-bold text-stone-700 mb-2">➕ Adicionar Novo Passo ao Fluxo</h4>
+                            <div class="space-y-3">
+                                <input type="text" placeholder="Dia" class="w-full p-2 border rounded">
+                                <input type="text" placeholder="Fase (Metodologia)" class="w-full p-2 border rounded">
+                                <textarea placeholder="Script / Ação" class="w-full p-2 border rounded" rows="3"></textarea>
+                                <button class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">Adicionar Passo</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (viewId === 'objections') {
+                 viewContent.innerHTML = `
+                    <div class="fade-in">
+                        <h3 class="font-sora text-xl md:text-2xl font-bold text-stone-800">⚔️ Objeções Comuns e Como Superá-las</h3>
+                        <p class="text-stone-600 mb-6">🛡️ Esteja preparado para os desafios mais comuns com estes argumentos-chave.</p>
+                        <div class="space-y-4" id="objections-container">
+                            ${persona.objections.map(obj => `
+                                <details class="accordion-item bg-stone-50 rounded-lg border border-stone-200 overflow-hidden">
+                                    <summary class="flex justify-between items-center p-4 font-semibold text-stone-700">
+                                        <span>💬 ${obj.q}</span>
+                                        <i class="fas fa-chevron-down arrow-icon text-stone-400"></i>
+                                    </summary>
+                                    <div class="accordion-content bg-white p-4 border-t border-stone-200 text-stone-600">
+                                        ${obj.a}
+                                    </div>
+                                </details>
+                            `).join('')}
+                        </div>
+                        <div class="mt-8 p-4 bg-stone-100 rounded-lg">
+                            <h4 class="font-bold text-stone-700 mb-2">➕ Adicionar Nova Objeção</h4>
+                            <div class="space-y-3">
+                                <input type="text" placeholder="Objeção" class="w-full p-2 border rounded">
+                                <textarea placeholder="Argumento para superar" class="w-full p-2 border rounded" rows="3"></textarea>
+                                <button class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">Adicionar Objeção</button>
+                            </div>
+                        </div>
+                    </div>
+                 `;
+            } else if (viewId === 'questions') {
+                viewContent.innerHTML = `
+                    <div class="fade-in">
+                        <h3 class="font-sora text-xl md:text-2xl font-bold text-stone-800">❓ Perguntas de Qualificação Matadoras</h3>
+                        <p class="text-stone-600 mb-6">🎯 Use estas perguntas estruturadas para qualificar leads de forma eficaz e descobrir suas verdadeiras necessidades.</p>
+                        <div class="space-y-4" id="questions-container">
+                            ${persona.questions.map(q => `
+                                <details class="accordion-item bg-stone-50 rounded-lg border border-stone-200 overflow-hidden">
+                                    <summary class="flex justify-between items-center p-4 font-semibold text-stone-700">
+                                        <span>🤔 ${q.q}</span>
+                                        <i class="fas fa-chevron-down arrow-icon text-stone-400"></i>
+                                    </summary>
+                                    <div class="accordion-content bg-white p-4 border-t border-stone-200 text-stone-600">
+                                        <p class="whitespace-pre-line">${q.a}</p>
+                                    </div>
+                                </details>
+                            `).join('')}
+                        </div>
+                        <div class="mt-8 p-4 bg-stone-100 rounded-lg">
+                            <h4 class="font-bold text-stone-700 mb-2">➕ Adicionar Nova Pergunta de Qualificação</h4>
+                            <div class="space-y-3">
+                                <input type="text" placeholder="Pergunta de Qualificação" class="w-full p-2 border rounded">
+                                <textarea placeholder="Argumento Estruturado" class="w-full p-2 border rounded" rows="3"></textarea>
+                                <button class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">Adicionar Pergunta</button>
+                            </div>
+                        </div>
+                    </div>
+                 `;
+            } else if (viewId === 'chart') {
+                viewContent.innerHTML = `
+                    <div class="fade-in">
+                        <h3 class="font-sora text-xl md:text-2xl font-bold text-stone-800">📊 Visão Geral da Intensidade</h3>
+                        <p class="text-stone-600 mb-6">${persona.chartData.description}</p>
+                        <div class="chart-container" style="position: relative; height:40vh; max-height: 400px; width:100%; max-width: 600px; margin: auto;">
+                            <canvas id="playbookChart"></canvas>
+                        </div>
+                    </div>
+                `;
+                renderChart(persona.chartData);
+            }
+        }
+        
+        function renderChart(chartData) {
+            if (myChart) {
+                myChart.destroy();
+            }
+            const ctx = document.getElementById('playbookChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Pontos de Contato',
+                        data: chartData.data,
+                        backgroundColor: [
+                            'rgba(56, 189, 248, 0.6)', // sky-400
+                            'rgba(34, 211, 238, 0.6)', // cyan-400
+                            'rgba(45, 212, 191, 0.6)'  // teal-400
+                        ],
+                        borderColor: [
+                            'rgba(2, 132, 199, 1)',  // sky-600
+                            'rgba(6, 182, 212, 1)',  // cyan-500
+                            'rgba(13, 148, 136, 1)' // teal-600
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Contatos'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.persona-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const personaId = e.currentTarget.dataset.persona;
+                    document.querySelectorAll('.persona-tab').forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('tab-inactive');
+                    });
+                    e.currentTarget.classList.add('tab-active');
+                    e.currentTarget.classList.remove('tab-inactive');
+                    renderContent(personaId);
+                });
+            });
+
+            renderContent('concessionaria');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Auto Arremate® / Arremaq 3.0</title>
+    <!-- Fontes Google para títulos e corpo do texto -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS (Animate On Scroll) para animações de rolagem -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS para utilitários de estilo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Variáveis de Cores e Fontes (Consolidadas e Ajustadas) */
+        :root {
+            --aa-green: #16B097; /* Verde principal da Auto Arremate */
+            --aa-dark-blue: #1C2E42; /* Azul escuro principal */
+            --aa-light-gray: #AEB0B2; /* Cinza claro */
+            --aa-medium-gray: #6c7a89; /* Cinza médio */
+            --aa-white: #FFFFFF; /* Branco */
+            --aa-black: #000000; /* Preto */
+            --aa-green-darker: #0F8A7E; /* Verde mais escuro */
+            --aa-green-text-dark-theme: #2DD4BF; /* Verde para texto no tema escuro */
+            --aa-green-lighter: #D2F3EC; /* Verde mais claro */
+            --aa-green-pastel: #f0fdfa; /* Verde pastel */
+            --aa-dark-blue-lighter: #2C4A6B; /* Azul escuro mais claro */
+
+            --arremaq-orange: #FF8C00; /* Laranja principal da Arremaq */
+            --arremaq-orange-darker: #D97706; /* Laranja mais escuro */
+            --arremaq-orange-text-dark-theme: #FDBA74; /* Laranja para texto no tema escuro */
+            --arremaq-orange-lighter: #FFD073; /* Laranja mais claro */
+            --arremaq-orange-pastel: #fffbeb; /* Laranja pastel */
+            --arremaq-orange-darkest: #6b3e00; /* Laranja mais escuro */
+            
+            --aa-green-darkest: #17575c; /* Verde mais escuro */
+            --aa-shiny-gray-light: #E5E7EB; /* Cinza brilhante claro */
+            --aa-shiny-gray-dark: #374151; /* Cinza brilhante escuro */
+
+            /* Fontes */
+            --font-headings-cover: 'Manrope', sans-serif; /* Fonte para títulos da capa */
+            --font-body-cover: 'Manrope', sans-serif;    /* Fonte para corpo da capa */
+            --font-primary-portal: 'Manrope', sans-serif; /* Fonte primária do portal */
+            --font-headings-portal: 'Sora', sans-serif; /* Fonte para títulos do portal */
+
+            /* Fundos */
+            --bg-main-light: var(--aa-green-pastel); /* Fundo principal tema claro */
+            --bg-main-dark: #0a121c; /* Fundo principal tema escuro */
+            --bg-content-light-portal: var(--aa-white); /* Fundo de conteúdo tema claro */
+            --bg-content-dark-portal: #1e293b; /* Fundo de conteúdo tema escuro */
+            --bg-cards-section-light: #f0f4f8; /* Fundo para seção de cards tema claro */
+            --bg-cards-section-dark: #111827; /* Fundo para seção de cards tema escuro */
+
+            /* Textos */
+            --text-headings-light-portal: var(--aa-dark-blue); /* Cor dos títulos tema claro */
+            --text-headings-dark-portal: var(--aa-green-lighter); /* Cor dos títulos tema escuro */
+            --text-body-light-portal: #334155; /* Cor do corpo do texto tema claro */
+            --text-body-dark-portal: #cbd5e1; /* Cor do corpo do texto tema escuro */
+            --text-muted-light-portal: #616161; /* Cor do texto mudo tema claro */
+            --text-muted-dark-portal: #94a3b8; /* Cor do texto mudo tema escuro */
+            
+            /* Bordas */
+            --border-color-light-portal: #e2e8f0; /* Cor da borda tema claro */
+            --border-color-dark-portal: #334155; /* Cor da borda tema escuro */
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Raios de Borda */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --radius-card-portal: 1.25rem;
+            --radius-button-portal: 0.75rem;
+            --radius-round: 9999px; /* Adicionado para botões arredondados */
+
+            --transition-main: .25s cubic-bezier(.4,0,.2,1); /* Transição principal */
+        }
+
+        /* Ajustes específicos para tema escuro, se necessário além das variáveis já definidas */
+        html[data-theme='dark'] :root { }
+
+        /* Estilos base do HTML e Body */
+        html { 
+            scroll-behavior: smooth; /* Rolagem suave */
+            font-family: var(--font-body-cover); /* Fonte padrão para todo o documento */
+            font-size: 91%; /* FONTE BASE REDUZIDA EM 30% (130% * 0.7 = 91%) */
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover); 
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            overflow-x: hidden; /* Evita rolagem horizontal */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.7; /* Espaçamento entre linhas */
+        }
+        /* Estilos do body para tema escuro */
+        html[data-theme='dark'] body {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+
+        /* Estilos da Seção de Capa */
+        .capa-section { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: clamp(1.2rem, 4.8vw, 2.4rem) clamp(0.8rem, 4vw, 1.6rem); 
+            text-align: center; 
+            position: relative; 
+            /* Gradiente de fundo animado */
+            background: linear-gradient(60deg, var(--arremaq-orange-pastel) 0%, var(--arremaq-orange-lighter) 15%, var(--aa-shiny-gray-light) 35%, var(--aa-green-lighter) 55%, var(--aa-shiny-gray-light) 75%, var(--aa-green-pastel) 90%, var(--arremaq-orange-pastel) 100%); 
+            background-size: 300% 300%; 
+            animation: backgroundGradientAnimation 20s ease infinite; 
+            overflow: hidden; 
+        }
+        /* Gradiente de fundo para tema escuro */
+        html[data-theme='dark'] .capa-section { 
+            background: linear-gradient(60deg, var(--arremaq-orange-darkest) 0%, var(--arremaq-orange-darker) 15%, var(--aa-shiny-gray-dark) 35%, var(--aa-dark-blue) 55%, var(--aa-shiny-gray-dark) 75%, var(--aa-green-darkest) 90%, var(--arremaq-orange-darkest) 100%); 
+            background-size: 300% 300%; 
+            animation: backgroundGradientAnimation 20s ease infinite; 
+        }
+        /* Animação do gradiente de fundo */
+        @keyframes backgroundGradientAnimation { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        /* Contêiner de logotipos */
+        .logos-container { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; } 
+        /* Estilos dos logotipos */
+        .playbook-logo { 
+            width: 192px; 
+            max-width: 45%; 
+            height: auto; 
+            display: block; 
+            filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.1)); 
+            animation: logo-float 3s ease-in-out infinite alternate, logo-blink 2s linear infinite; 
+        }
+        /* Sombra do logotipo para tema escuro */
+        html[data-theme='dark'] .playbook-logo { filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.3)); }
+        /* Animação de flutuação do logotipo */
+        @keyframes logo-float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } } 
+        /* Animação de piscar do logotipo */
+        @keyframes logo-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
+        /* Título da capa */
+        .capa-title { 
+            font-family: var(--font-headings-cover); 
+            font-weight: 800; 
+            text-align: center; 
+            margin-top: 0.4em; 
+            margin-bottom: 0.6em; 
+            font-size: clamp(1rem, 2.2vw, 1.35rem); /* Ajustado para 4 linhas e fonte base menor */
+            line-height: 1.5; /* Ajustado para 4 linhas */
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            color: var(--aa-dark-blue); 
+        }
+        /* Cor do título da capa para tema escuro */
+        html[data-theme='dark'] .capa-title { 
+            color: var(--aa-green-lighter); 
+        }
+        /* Linhas do título da capa */
+        .capa-title .capa-title-line {
+            display: block; 
+            margin-bottom: 0.15em; /* Espaço menor entre as linhas do título */
+        }
+        .capa-title .capa-title-line:last-child {
+            margin-bottom: 0;
+        }
+        /* Efeito de brilho para o título */
+        .capa-title.fun-title-effect { animation: fun-title-glow-animation 4s ease-in-out infinite alternate; position: relative; }
+        /* Animação de brilho para o título */
+        @keyframes fun-title-glow-animation { 0% { text-shadow: 0 0 5px rgba(22, 176, 151, 0.4), 0 0 10px rgba(255, 140, 0, 0.3); } 50% { text-shadow: 0 0 15px rgba(22, 176, 151, 0.8), 0 0 20px rgba(255, 140, 0, 0.7); } 100% { text-shadow: 0 0 5px rgba(22, 176, 151, 0.4), 0 0 10px rgba(255, 140, 0, 0.3); } }
+        
+        /* Cor original dos emojis */
+        .emoji-original-color { -webkit-text-fill-color: initial; text-fill-color: initial; background: none; display: inline-block; text-shadow: none; }
+        
+        /* Cores específicas para texto */
+        .text-aa-green-darker { color: var(--aa-green-darker) !important; -webkit-text-fill-color: var(--aa-green-darker) !important; text-fill-color: var(--aa-green-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; -webkit-text-fill-color: var(--aa-green-text-dark-theme) !important; text-fill-color: var(--aa-green-text-dark-theme) !important; }
+        .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; -webkit-text-fill-color: var(--arremaq-orange-darker) !important; text-fill-color: var(--arremaq-orange-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; -webkit-text-fill-color: var(--arremaq-orange-text-dark-theme) !important; text-fill-color: var(--arremaq-orange-text-dark-theme) !important; }
+        
+        /* Frases de destaque */
+        .frase-destaque { 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% em relação ao anterior (0.65rem * 1.3 = 0.845rem) */
+            font-size: clamp(0.845rem, 1.69vw, 1.17rem); 
+            font-weight: 700; 
+            background: transparent; 
+            border-radius: var(--radius-lg); 
+            padding: 0.3em 0.6em; 
+            margin-bottom: 0.8rem; 
+            margin-top: 0.6em; 
+            display: block; 
+            max-width: 90%; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+            transition: all var(--transition-main); 
+        }
+        /* Sombra da frase de destaque para tema escuro */
+        html[data-theme='dark'] .frase-destaque { text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        /* Cores específicas para frases de destaque */
+        .frase-destaque-verde { color: var(--aa-green-darker); }
+        html[data-theme='dark'] .frase-destaque-verde { color: var(--aa-green-text-dark-theme); }
+        .frase-destaque-laranja { color: var(--arremaq-orange-darker); }
+        html[data-theme='dark'] .frase-destaque-laranja { color: var(--arremaq-orange-text-dark-theme); }
+        /* Estilo dos emojis nas frases de destaque */
+        .frase-destaque .emoji { margin: 0 0.25em; font-size: 1em; /* Ajustado para nova base */ vertical-align: middle; -webkit-text-fill-color: initial; text-fill-color: initial; background: none; text-shadow: none; }
+        /* Animação de pulsar para frases de destaque */
+        @keyframes fun-frase-pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.02); opacity: 1; } }
+        .frase-destaque.fun-frase-effect { animation: fun-frase-pulse 3s ease-in-out infinite; }
+        
+        /* Texto "Criado por" */
+        .capa-criado { 
+            font-family: var(--font-body-cover); 
+            /* font-size aumentado em 30% (0.6rem * 1.3 = 0.78rem) */
+            font-size: 0.78rem; 
+            color: var(--aa-dark-blue); 
+            opacity: 0.95; 
+            margin-top: 1rem; 
+            margin-bottom: 1rem; 
+            font-weight: 500; 
+            animation: created-by-pulse 5s infinite alternate; 
+            text-align: center; 
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1); 
+        }
+        /* Estilo "Criado por" para tema escuro */
+        html[data-theme='dark'] .capa-criado { color: #E2E8F0; opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+        /* Animação para "Criado por" */
+        @keyframes created-by-pulse { 0% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } 50% { text-shadow: 0 0 7px rgba(22, 176, 151, 0.4), 0 0 4px rgba(255, 140, 0, 0.3); transform: scale(1.03); } 100% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } }
+        /* Estilo dos emojis em "Criado por" */
+        .capa-criado .emoji { font-size: 1em; /* Ajustado para nova base */ vertical-align: baseline; margin: 0 0.15em; }
+        /* Nome do criador */
+        .capa-criado .creator-name { 
+            font-weight: 700; 
+            background: linear-gradient(45deg, var(--aa-green-darker) 20%, var(--aa-green) 50%, var(--arremaq-orange) 80%); 
+            -webkit-background-clip: text; 
+            -moz-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent; 
+            text-fill-color: transparent; 
+            padding: 0 0.2em; 
+            display: inline-block; 
+        }
+        /* Nome do criador para tema escuro */
+        html[data-theme='dark'] .capa-criado .creator-name { 
+            background: linear-gradient(45deg, var(--aa-green-lighter) 20%, var(--aa-green) 50%, var(--arremaq-orange-lighter) 80%); 
+            -webkit-background-clip: text; 
+            -moz-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent; 
+            text-fill-color: transparent; 
+        }
+        
+        /* Botão "Iniciar" */
+        .btn-iniciar { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.6em; 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% (0.75rem * 1.3 = 0.975rem) */
+            font-size: 0.975rem; 
+            font-weight: bold; 
+            padding: 0.6em 1.5em; 
+            background-image: linear-gradient(45deg, var(--aa-green-darker) 0%, var(--aa-green) 50%, var(--aa-green-darker) 100%); 
+            background-size: 200% auto; 
+            color: var(--aa-white); 
+            border: none; 
+            border-radius: var(--radius-round); 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(22, 176, 151, 0.3), 0 1.5px 3px -1.5px var(--aa-green-darker) inset; 
+            transition: all 0.4s ease-out; 
+            outline: none; 
+            margin-top: 1.2em; 
+            margin-bottom: 1.2em; 
+            text-transform: uppercase; 
+            letter-spacing: 0.07em; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        /* Efeito hover do botão Iniciar */
+        .btn-iniciar:hover { background-position: right center; transform: scale(1.08) translateY(-3px); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset, 0 0 12px var(--aa-green-lighter); }
+        /* Botão Iniciar para tema escuro */
+        html[data-theme='dark'] .btn-iniciar { background-image: linear-gradient(45deg, var(--aa-green) 0%, var(--aa-green-lighter) 50%, var(--aa-green) 100%); color: var(--aa-dark-blue); box-shadow: 0 4px 12px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset; }
+        html[data-theme='dark'] .btn-iniciar:hover { color: var(--aa-dark-blue); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.5), 0 1.5px 3px -1.5px var(--aa-green-darker) inset, 0 0 16px var(--aa-green); }
+        /* Ícone do botão Iniciar */
+        .btn-iniciar svg { width: 1.2em; height: 1.2em; transition: transform 0.4s ease; }
+        /* Efeito hover do ícone do botão Iniciar */
+        .btn-iniciar:hover svg { transform: rotate(15deg) scale(1.15) translateX(2.5px); } 
+        
+        /* Links sociais da capa */
+        .capa-social-links { margin-top: 1.2rem; display: flex; gap: 1.2rem; justify-content: center; align-items: center; } 
+        .capa-social-links a { color: var(--aa-dark-blue); font-size: 1.3rem; transition: color var(--transition-main), transform var(--transition-main); }
+        /* Efeito hover dos links sociais */
+        .capa-social-links a:hover { color: var(--aa-green); transform: scale(1.2) rotate(-5deg); }
+        /* Links sociais para tema escuro */
+        html[data-theme='dark'] .capa-social-links a { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .capa-social-links a:hover { color: var(--aa-white); }
+
+        /* Estilos da Nova Seção de Cards (Menu Principal) */
+        .menu-principal-section { min-height: 100vh; padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); text-align: center; background-color: var(--bg-cards-section-light); }
+        html[data-theme='dark'] .menu-principal-section { background-color: var(--bg-cards-section-dark); }
+        /* Título do menu principal */
+        .menu-principal-title { font-family: var(--font-headings-cover); font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--text-headings-light-portal); margin-bottom: 2.5rem; line-height: 1.3; text-transform: uppercase; }
+        html[data-theme='dark'] .menu-principal-title { color: var(--text-headings-dark-portal); }
+        /* Cards do menu */
+        .menu-card { 
+            background-color: var(--bg-content-light-portal); 
+            border-radius: var(--radius-xl); 
+            padding: 2rem 1.5rem; 
+            box-shadow: var(--shadow-lg); 
+            transition: all var(--transition-main); 
+            border: 1px solid var(--border-color-light-portal); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            cursor: pointer; 
+            height: 100%; 
+            min-height: 280px; 
+            justify-content: center; 
+        }
+        /* Efeito hover dos cards do menu */
+        .menu-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: var(--shadow-xl); border-color: var(--aa-green); }
+        /* Cards do menu para tema escuro */
+        html[data-theme='dark'] .menu-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .menu-card:hover { border-color: var(--aa-green-lighter); }
+        /* Ícone do card do menu */
+        .menu-card-icon { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1; }
+        /* Título do card do menu */
+        .menu-card-title { font-family: var(--font-headings-cover); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.4; }
+        html[data-theme='dark'] .menu-card-title { color: var(--text-headings-dark-portal); }
+        /* Cores específicas para texto do título do card */
+        .menu-card-title .text-aa-green-darker { color: var(--aa-green-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; }
+        .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; }
+
+        /* Estilos da Seção de Detalhes do Manual do Pit Stop (Guia Estratégico) */
+        .manual-pitstop-detalhes-section { background-color: var(--bg-main-light); color: var(--text-body-light-portal); padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); min-height: 100vh; }
+        html[data-theme='dark'] .manual-pitstop-detalhes-section { background-color: var(--bg-main-dark); color: var(--text-body-dark-portal); }
+        /* Título principal do manual */
+        .manual-pitstop-main-title { font-family: var(--font-headings-portal); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-headings-light-portal); text-align: center; margin-bottom: 2rem; text-transform: uppercase; }
+        html[data-theme='dark'] .manual-pitstop-main-title { color: var(--text-headings-dark-portal); }
+        /* Cards do índice do playbook */
+        #playbookIndexContainer .index-item-card { 
+            background-color: var(--bg-content-light-portal); 
+            border: 2px solid var(--border-color-light-portal); 
+            border-left: 5px solid var(--aa-green); 
+            border-radius: var(--radius-lg); 
+            padding: 1.5rem; 
+            box-shadow: var(--shadow-md); 
+            transition: all var(--transition-main); 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            min-height: 220px; 
+            justify-content: flex-start; 
+        }
+        /* Efeito hover dos cards do índice */
+        #playbookIndexContainer .index-item-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-xl); border-left-color: var(--arremaq-orange); border-color: var(--arremaq-orange); }
+        /* Cards do índice para tema escuro */
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); border-left-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card:hover { border-left-color: var(--arremaq-orange-lighter); border-color: var(--arremaq-orange-lighter); }
+        /* Emoji do item do índice */
+        #playbookIndexContainer .index-item-emoji { font-size: 2.2rem; margin-bottom: 1rem; color: var(--arremaq-orange); line-height: 1; }
+        html[data-theme='dark'] .index-item-emoji { color: var(--arremaq-orange-lighter); }
+        /* Cores específicas para emojis de Auto Arremate e Arremaq */
+        .emoji-autoarremate-color { color: var(--aa-green-darker) !important; } 
+        html[data-theme='dark'] .emoji-autoarremate-color { color: var(--aa-green-text-dark-theme) !important; }
+        .emoji-arremaq-color { color: var(--arremaq-orange-darker) !important; } 
+        html[data-theme='dark'] .emoji-arremaq-color { color: var(--arremaq-orange-text-dark-theme) !important; }
+        /* Título do item do índice */
+        #playbookIndexContainer .index-item-title { font-family: var(--font-headings-portal); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.3; }
+        #playbookIndexContainer .index-item-title strong { text-transform: uppercase; font-weight: 800; display: block; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-title { color: var(--text-headings-dark-portal); }
+        /* Subtítulo do item do índice */
+        #playbookIndexContainer .index-item-sub { font-family: var(--font-primary-portal); font-size: 0.7rem; color: var(--text-muted-light-portal); line-height: 1.5; margin-top: auto; padding-top: 0.5rem; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub { color: var(--text-muted-dark-portal); }
+        /* Emoji na frase do subtítulo */
+        #playbookIndexContainer .index-item-sub .sentence-emoji { margin-right: 0.3em; color: var(--aa-green); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub .sentence-emoji { color: var(--aa-green-lighter); }
+        
+        /* Subseções do playbook */
+        .playbook-sub-section { padding-top: 2rem; padding-bottom: 2rem; background-color: var(--bg-main-light); min-height: 100vh; }
+        html[data-theme='dark'] .playbook-sub-section { background-color: var(--bg-main-dark); }
+        /* Título do conteúdo da subseção */
+        .playbook-content-title { font-family: var(--font-headings-portal); font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; color: var(--text-headings-light-portal); margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;}
+        html[data-theme='dark'] .playbook-content-title { color: var(--text-headings-dark-portal); }
+        /* Emoji do título do conteúdo da subseção */
+        .playbook-content-title .emoji { font-size: 1.1em; margin-right: 0.6rem; color: var(--aa-green); }
+        html[data-theme='dark'] .playbook-content-title .emoji { color: var(--aa-green-lighter); }
+        /* Parágrafos da subseção */
+        .playbook-sub-section p { margin-bottom: 1rem; line-height: 1.8; font-size: 0.85rem; color: var(--text-body-light-portal); }
+        html[data-theme='dark'] .playbook-sub-section p { color: var(--text-body-dark-portal); }
+        /* Botões de navegação */
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 3rem; }
+        .btn-nav { padding: 0.7rem 1.5rem; border-radius: var(--radius-lg); font-weight: 700; transition: all var(--transition-main); border: 2px solid transparent; text-transform: uppercase; box-shadow: var(--shadow-sm); font-size: 0.8rem; }
+        .btn-nav:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        /* Botão Anterior */
+        .btn-nav.prev { background-color: var(--text-muted-light-portal); color: var(--aa-white); border-color: var(--aa-dark-blue); }
+        .btn-nav.prev:hover { background-color: var(--aa-dark-blue); }
+        html[data-theme='dark'] .btn-nav.prev { background-color: var(--text-muted-dark-portal); color: var(--bg-main-dark); border-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-nav.prev:hover { background-color: var(--aa-green-lighter); color: var(--aa-dark-blue); }
+        /* Botão Próximo */
+        .btn-nav.next { background-color: var(--aa-green); color: var(--aa-white); border-color: var(--aa-green-darker); }
+        .btn-nav.next:hover { background-color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-nav.next { background-color: var(--arremaq-orange-lighter); color: var(--aa-dark-blue); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] .btn-nav.next:hover { background-color: var(--arremaq-orange); color: var(--aa-white); }
+        /* Botão Desabilitado */
+        .btn-nav.disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; opacity: 0.7; border-color: #cbd5e1; }
+        html[data-theme='dark'] .btn-nav.disabled { background-color: #334155; color: #64748b; border-color: #475569; }
+        
+        /* Botão "Voltar para seção" */
+        .btn-voltar-secao { 
+            display: inline-flex; 
+            align-items: center; 
+            font-family: var(--font-headings-cover); 
+            font-weight: 600; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: var(--radius-button-portal); 
+            text-decoration: none; 
+            transition: all var(--transition-main); 
+            border: 2px solid var(--aa-green); 
+            background-color: transparent; 
+            color: var(--aa-green-darker); 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            margin-bottom: 2rem; 
+        }
+        /* Efeito hover do botão Voltar */
+        .btn-voltar-secao:hover { background-color: var(--aa-green-lighter); border-color: var(--aa-green-darker); transform: translateY(-2px); color: var(--aa-green-darker); }
+        /* Botão Voltar para tema escuro */
+        html[data-theme='dark'] .btn-voltar-secao { border-color: var(--aa-green-lighter); color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-voltar-secao:hover { background-color: var(--aa-green-darker); border-color: var(--aa-green-lighter); color: var(--aa-white); }
+        /* Ícone do botão Voltar */
+        .btn-voltar-secao i { margin-right: 0.5rem; }
+
+        /* Botão de alternar tema */
+        .theme-toggle-button { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background-color: var(--bg-content-light-portal); 
+            color: var(--text-headings-light-portal); 
+            border: 1px solid var(--border-color-light-portal); 
+            border-radius: 50%; 
+            width: 50px; 
+            height: 50px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow-lg); 
+            z-index: 1000; 
+            transition: all var(--transition-main); 
+        }
+        .theme-toggle-button:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .theme-toggle-button { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .theme-toggle-button:hover { color: var(--aa-green-lighter); }
+
+        /* Controles de acessibilidade */
+        .accessibility-controls { 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            z-index: 1001; 
+        }
+        .accessibility-btn { 
+            background-color: var(--bg-content-light-portal); 
+            color: var(--text-headings-light-portal); 
+            border: 1px solid var(--border-color-light-portal); 
+            border-radius: 50%; 
+            width: 44px; 
+            height: 44px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow-md); 
+            transition: all var(--transition-main); 
+        }
+        .accessibility-btn:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .accessibility-btn { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .accessibility-btn:hover { color: var(--aa-green-lighter); }
+
+        /* Classe para esconder elementos */
+        .hidden { display: none !important; }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 1024px) { /* Tablets */
+            .menu-principal-section .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer.grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 768px) { /* Smartphones grandes e tablets pequenos */
+            html { font-size: 84%; } 
+            .capa-title { font-size: clamp(1.0rem, 2.2vw, 1.3rem); } 
+            .frase-destaque { font-size: clamp(0.6rem, 1.3vw, 0.8rem); max-width: 95%;}
+            .playbook-logo { width: 148px; } 
+            .accessibility-controls { top: 10px; right: 10px; gap: 8px;}
+            .accessibility-btn { width: 40px; height: 40px; font-size: 1.1rem;}
+            .menu-principal-title { font-size: clamp(1.1rem, 2.8vw, 1.7rem); }
+            .menu-card { padding: 1.5rem 1rem; min-height: 240px; }
+            .menu-card-icon { font-size: 2.2rem; }
+            .menu-card-title { font-size: 0.8rem; }
+            .manual-pitstop-main-title { font-size: clamp(1.2rem, 2.8vw, 1.7rem); }
+            .playbook-content-title { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+            #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer .index-item-card { min-height: 180px; }
+            #playbookIndexContainer .index-item-emoji { font-size: 1.8rem; }
+            #playbookIndexContainer .index-item-title { font-size: 0.7rem; }
+            #playbookIndexContainer .index-item-sub { font-size: 0.55rem; }
+            .playbook-sub-section p { font-size: 0.7rem; }
+
+        }
+        @media (max-width: 640px) { /* Smartphones */
+             .menu-principal-section .grid-cols-4, .menu-principal-section .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+             #playbookIndexContainer.grid-cols-4, #playbookIndexContainer.grid-cols-2, #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        }
+        @media (max-width: 480px) { /* Smartphones pequenos */
+            html { font-size: 77%; } 
+            .playbook-logo { width: 116px; } 
+            .btn-iniciar { font-size: 0.7rem; padding: 0.5em 1.1em; }
+            .capa-title { font-size: clamp(0.9rem, 2.5vw, 1.2rem); line-height: 1.5;} 
+            .frase-destaque { font-size: clamp(0.6rem, 1.2vw, 0.75rem); }
+            .menu-principal-title { font-size: clamp(1rem, 2.8vw, 1.5rem); }
+            .manual-pitstop-main-title { font-size: clamp(1.1rem, 2.8vw, 1.5rem); }
+             .menu-card { min-height: 200px; }
+            .menu-card-title { font-size: 0.75rem; }
+            .playbook-sub-section p { font-size: 0.65rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Controles de Acessibilidade (Tamanho da Fonte e Leitura de Página) -->
+    <div class="accessibility-controls">
+        <button id="increaseFontBtn" class="accessibility-btn" aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+            <i class="fas fa-search-plus"></i>
+        </button>
+        <button id="decreaseFontBtn" class="accessibility-btn" aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+            <i class="fas fa-search-minus"></i>
+        </button>
+        <button id="readPageBtn" class="accessibility-btn" aria-label="Ler página em voz alta" title="Ler Página">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Container principal de todo o portal -->
+    <main id="main-portal-completo">
+        <!-- Seção de Capa -->
+        <section id="capa-section" class="capa-section" data-aos="fade-in" data-aos-duration="1000">
+            <div class="logos-container">
+                <!-- Logotipo Auto Arremate com fallback -->
+                <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logotipo da Auto Arremate" class="playbook-logo" data-aos="zoom-in" data-aos-delay="200" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/16B097?text=Auto+Arremate&font=manrope'; this.alt='Logotipo Auto Arremate Indisponível';">
+                <!-- Logotipo Arremaq com fallback -->
+                <img src="https://www.arremaq.com.br/wp-content/uploads/2021/01/Logotipo-Arremaqsuperbid.png" alt="Logotipo da Arremaq" class="playbook-logo" data-aos="zoom-in" data-aos-delay="300" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/FF8C00?text=Arremaq&font=manrope'; this.alt='Logotipo Arremaq Indisponível';">
+            </div>
+            <h1 class="capa-title fun-title-effect" data-aos="fade-up" data-aos-delay="400">
+                <span class="capa-title-line"><span class="emoji-original-color">🏎️</span> ACELERA SUCESSO 2025<span class="emoji-original-color">💨</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">⚡</span> SEU GUIA RELÂMPAGO <span class="emoji-original-color">💡</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🎯</span> PARA UMA PERFORMANCE CAMPEÃ <span class="emoji-original-color">🏁</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🏆</span> NA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> <span class="emoji-original-color">🏅</span></span>
+            </h1>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="600">
+                <span class="emoji">🚀</span> SÓ OS FORTES ACELERAM, MAS APENAS OS SÁBIOS DOMINAM A ARTE DE FREAR! <span class="emoji">🛑</span>
+            </p>
+            <p class="frase-destaque frase-destaque-laranja" data-aos="fade-up" data-aos-delay="700">
+                <span class="emoji">⚡</span> <strong>A VIDA É UMA CORRIDA; ACELERE COM CORAGEM!</strong> <span class="emoji">💨</span>
+            </p>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="800">
+                <span class="emoji">🛣️</span> <strong>CADA CURVA É UMA OPORTUNIDADE, NÃO UM OBSTÁCULO. VAMOS NESSA!</strong> <span class="emoji">🚀</span>
+            </p>
+            <p class="capa-criado" data-aos="fade-up" data-aos-delay="900"> <span class="emoji">✨</span> Criado pelo <span class="emoji">👨‍💻</span> Analista de Operações - <strong class="creator-name">Marcelo do Nascimento</strong> <span class="emoji">🚀</span>
+            </p>
+            <button id="btnIniciarCapa" class="btn-iniciar" data-aos="fade-up" data-aos-delay="1000"> EMBARCAR NESSA CORRIDA ÉPICA!
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 1.2em; height: 1.2em;"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <div class="capa-social-links" data-aos="fade-up" data-aos-delay="1100"> 
+                <a href="https://facebook.com/auto-arremate" target="_blank" aria-label="Facebook Auto Arremate"><i class="fab fa-facebook-f"></i></a> 
+                <a href="https://www.autoarremate.com.br/podcast-dirigindo-vendas/" target="_blank" aria-label="Podcast Dirigindo Vendas" title="Podcast Dirigindo Vendas"><i class="fas fa-podcast"></i></a> 
+                <a href="https://www.instagram.com/autoarremate/" target="_blank" aria-label="Instagram Auto Arremate"><i class="fab fa-instagram"></i></a> 
+                <a href="https://www.linkedin.com/company/autoarremate/" target="_blank" aria-label="LinkedIn Auto Arremate"><i class="fab fa-linkedin-in"></i></a> 
+                <a href="https://wa.me/5511940366065" target="_blank" aria-label="WhatsApp Auto Arremate"><i class="fab fa-whatsapp"></i></a> 
+                <a href="tel:01640421197" aria-label="Telefone Auto Arremate"><i class="fas fa-phone"></i></a>
+            </div>
+        </section>
+
+        <!-- Seção do Menu Principal -->
+        <section id="menu-principal-section" class="menu-principal-section hidden" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="menu-principal-title" data-aos="fade-down">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️</span><span class="emoji-original-color">🗺️</span><span class="emoji-original-color">🎨</span><span class="emoji-original-color">⛽</span>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-12">
+                    <!-- Card: Manual do Pit Stop -->
+                    <div id="openManualPitStopBtn" class="menu-card" data-aos="fade-up" data-aos-delay="100">
+                        <span class="menu-card-icon"><i class="fas fa-tools text-gray-600 dark:text-gray-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🛠️</span> MANUAL DO PIT STOP <span class="text-aa-green-darker">AAR</span>: ESTRATÉGIAS PARA VENCER CADA CORRIDA! <span class="emoji-original-color">🏁🏆</span>
+                        </h3>
+                    </div>
+                    <!-- Card: Rota 66 -->
+                    <div id="openRota66Btn" class="menu-card" data-aos="fade-up" data-aos-delay="200">
+                         <span class="menu-card-icon"><i class="fas fa-route text-blue-500 dark:text-blue-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🗺️</span> ROTA 66 DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span>: GUIANDO NOSSOS CLIENTES AO PÓDIO! <span class="emoji-original-color">🚗💨🏆</span>
+                        </h3>
+                    </div>
+                    <!-- Card: Box da Identidade -->
+                    <div id="openBoxIdentidadeBtn" class="menu-card" data-aos="fade-up" data-aos-delay="300">
+                        <span class="menu-card-icon"><i class="fas fa-palette text-purple-500 dark:text-purple-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span>: AS CORES E O DNA DA NOSSA ESCUDERIA VENCEDORA! <span class="emoji-original-color">🏁✨</span>
+                        </h3>
+                    </div>
+                    <!-- Card: Academia de Repassadores -->
+                    <div id="openAcademiaRepassadoresBtn" class="menu-card" data-aos="fade-up" data-aos-delay="400">
+                        <span class="menu-card-icon"><i class="fas fa-graduation-cap text-red-500 dark:text-red-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0: TURBINE SEU TALENTO PARA A VITÓRIA! <span class="emoji-original-color">🏎️</span>
+                        </h3>
+                    </div>
+                </div>
+                <!-- Botão Voltar para a Capa -->
+                <button id="backToCoverBtnMenu" class="btn-voltar-secao mt-12 mx-auto">
+                    <i class="fas fa-arrow-left"></i> VOLTAR À CAPA
+                </button>
+            </div>
+        </section>
+
+        <!-- Seção de Detalhes do Manual do Pit Stop (índice) -->
+        <section id="manual-pitstop-detalhes-section" class="manual-pitstop-detalhes-section hidden" data-aos="fade-in">
+            <div class="container mx-auto">
+                <!-- Botão Voltar para o Menu Principal -->
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL
+                </button>
+                <h2 class="manual-pitstop-main-title">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️🗺️🎨⛽</span>
+                </h2>
+                <!-- Container para os cards do índice do playbook (preenchido via JS) -->
+                <div id="playbookIndexContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 py-6">
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSEÇÕES DE CONTEÚDO DO MANUAL DO PIT STOP -->
+        <!-- Exemplo de Subseção (Nossa Pista de Decolagem) -->
+        <section id="playbook-sec-0-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🚀</span><strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Bem-vindo à <span class="text-aa-green-darker">Auto Arremate</span> e <span class="text-arremaq-orange-darker">Arremaq</span>! Nossa jornada começou com a visão de revolucionar o mercado de repasse de veículos e máquinas. Acreditamos que com paixão, inovação e um time dedicado, podemos alcançar resultados extraordinários. Nossos valores são o combustível que nos move: integridade em cada negociação, excelência no atendimento, agilidade nos processos e um compromisso inabalável com o sucesso dos nossos clientes e parceiros. Juntos, somos uma equipe imbatível, pronta para acelerar rumo ao futuro!</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev disabled" disabled>❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-1-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Auto Arremate -->
+        <section id="playbook-sec-1-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-autoarremate-color">🚗</span><strong><span class="text-aa-green-darker">AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong></h2> 
+                <p>Na <span class="text-aa-green-darker">Auto Arremate</span>, somos especialistas em veículos leves. Nossa plataforma oferece um ecossistema completo para a gestão e comercialização eficiente de carros de passeio, SUVs, picapes e utilitários. Desde a avaliação precisa, passando pela preparação e documentação, até a venda estratégica em nossos canais, garantimos a melhor performance e liquidez para os ativos dos nossos parceiros. Nossos diferenciais incluem tecnologia de ponta, uma vasta rede de compradores e um time focado em resultados.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-0-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Arremaq -->
+        <section id="playbook-sec-arremaq-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-arremaq-color">🚜</span><strong><span class="text-arremaq-orange-darker">ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong></h2> 
+                <p>A <span class="text-arremaq-orange-darker">Arremaq</span> é a divisão de peso pesado, especializada no repasse de máquinas agrícolas, equipamentos de construção e caminhões. Entendemos as particularidades deste segmento e oferecemos soluções robustas para otimizar a liquidação desses ativos. Com uma avaliação técnica criteriosa, logística eficiente e canais de venda direcionados, conectamos vendedores a compradores qualificados, maximizando o valor de tratores, colheitadeiras, escavadeiras e outros gigantes do campo e da obra.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-1-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-2-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Clientes Ideais -->
+        <section id="playbook-sec-2-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🎯</span><strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> (ICPS & PERSONAS)!</strong></h2> 
+                <p>Para vencer no mercado, é crucial conhecer quem são nossos clientes. Definimos Perfis de Cliente Ideal (ICPs) para cada segmento: concessionárias, locadoras, frotistas (B2B), consumidores finais (B2C) e o setor do agronegócio. A partir dos ICPs, criamos personas detalhadas como o "Carlos da Concessionária", a "Fernanda Frotista" e o "Roberto Agricultor", entendendo suas necessidades, dores, motivações e canais de comunicação preferidos. Isso nos permite personalizar nossa abordagem e oferecer soluções que realmente fazem a diferença.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-persona-animation-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Animação da Jornada do Cliente -->
+        <section id="playbook-persona-animation-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">📊</span><strong>A JORNADA DO CLIENTE VENCEDOR <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong></h2> 
+                <p>[Placeholder para Animação da Jornada do Cliente - Esta seção pode conter um vídeo incorporado, um carrossel de imagens ou uma animação SVG interativa mostrando as etapas: Descoberta > Consideração > Decisão > Compra > Pós-Venda, com os pontos de contato da <span class="text-aa-green-darker">Auto Arremate</span>/<span class="text-arremaq-orange-darker">Arremaq</span> em cada fase.]</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-2-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-3-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Qualificação de Alta Performance -->
+        <section id="playbook-sec-3-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🧠</span><strong>PIT STOP DA SABEDORIA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong></h2> 
+                <p>Qualificar um lead é como ajustar o motor para a corrida: essencial para a performance. Utilizamos metodologias consagradas: <strong>SPIN Selling</strong> (Situação, Problema, Implicação, Necessidade de Solução) para entender profundamente o contexto do cliente; <strong>SNAP Selling</strong> (Simples, iNestimável, Alinhado, Prioridade) para nos comunicarmos de forma clara e relevante; e <strong>AIDA</strong> (Atenção, Interesse, Desejo, Ação) para guiar o cliente pelo funil. Essas ferramentas nos ajudam a identificar os leads com maior potencial e a focar nossos esforços onde eles trarão mais resultados.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-persona-animation-section">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-4-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Blindagem Anti-Objeção -->
+        <section id="playbook-sec-4-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🛡️</span><strong>BLINDAGEM ANTI-OBJEÇÃO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong></h2> 
+                <p>Objeções são curvas desafiadoras, mas com a estratégia certa, viram ultrapassagens. Mapeamos as objeções mais comuns (preço, concorrência, prazo, necessidade) e preparamos respostas e contra-argumentos eficazes. A técnica do "Sentir, Sentiu, Descobriu" (Eu entendo como você se sente, outros clientes se sentiram assim, mas descobriram que...) é uma ferramenta poderosa. O segredo é ouvir atentamente, validar a preocupação do cliente e apresentar soluções que reforcem o valor da nossa proposta.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-3-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-5-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Fluxos de Prospecção -->
+        <section id="playbook-sec-5-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🗺️</span><strong>ROTAS DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong></h2> 
+                <p>Nossa prospecção é multicanal. Para <strong>Outbound</strong>, utilizamos cold calling estratégico, e-mails personalizados e LinkedIn Sales Navigator, seguindo cadências de contato bem definidas (ex: 7 toques em 15 dias). Para <strong>Inbound</strong>, investimos em SEO, marketing de conteúdo relevante (blog, webinars) e mídias sociais para atrair leads qualificados. Ferramentas de CRM são essenciais para gerenciar os fluxos, registrar interações e garantir que nenhum lead seja perdido no caminho.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-4-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-6-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Validação B2B -->
+        <section id="playbook-sec-6-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">🤝</span><strong>ALIANÇAS DE AÇO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong></h2> 
+                <p>No universo B2B, a confiança é a base de grandes parcerias. Realizamos uma validação criteriosa de CNPJs, analisando a saúde financeira, histórico de mercado e reputação de potenciais parceiros. Utilizamos ferramentas de consulta e due diligence para mitigar riscos e garantir transações seguras. Nosso objetivo é construir relações de longo prazo, baseadas na transparência e no benefício mútuo, fortalecendo todo o ecossistema de repasse.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-5-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-7-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Comunicação Estratégica -->
+        <section id="playbook-sec-7-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">✍️</span><strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong></h2> 
+                <p>A comunicação é a chave para abrir portas e fechar negócios. Desenvolvemos modelos de e-mails, scripts de ligação e apresentações que são testados e otimizados para conversão. Utilizamos gatilhos mentais (escassez, prova social, autoridade), storytelling para conectar emocionalmente e uma linguagem clara e persuasiva. Cada interação é uma oportunidade de reforçar nossa marca e demonstrar nosso profissionalismo. [Exemplos de templates podem ser anexados ou linkados aqui].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-6-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-8-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Dicionário dos Mestres -->
+        <section id="playbook-sec-8-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📖</span><strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Para falar a língua dos campeões, é preciso conhecer os termos. Este glossário reúne os principais jargões e conceitos técnicos do mercado de veículos, máquinas, leilões e repasse. De "Lance Mínimo" a "Vistoria Cautelar", de "ROPS/FOPS" a "Tabela FIPE/Molicar", você encontrará aqui as definições para se comunicar com clareza e confiança. [O glossário pode ser uma lista A-Z ou categorizado].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-7-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-9-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Evolução Contínua -->
+        <section id="playbook-sec-9-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📈</span><strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong></h2> 
+                <p>O mercado está sempre em movimento, e nosso playbook também! Esta é uma ferramenta viva, que será atualizada regularmente com novas estratégias, aprendizados do campo de batalha e feedbacks da equipe. Encorajamos todos a contribuir com sugestões e insights para que este guia se torne cada vez mais poderoso e eficaz. A busca pela excelência é uma corrida sem linha de chegada!</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-8-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-10-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Canais de Contato e Suporte -->
+        <section id="playbook-sec-10-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">📞</span><strong>CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong></h2> 
+                <p>Sua comunicação direta com a liderança e áreas de apoio. Para dúvidas sobre o playbook, sugestões ou necessidade de suporte em negociações complexas, utilize os seguintes canais: E-mail: liderancacomercial@autoarremate.com.br | Ramal: XXXX | Grupo de WhatsApp "Estrategistas AAR". Nosso compromisso é com respostas rápidas e soluções eficazes para manter você na liderança.</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-9-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-13-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Engenharia Interna -->
+        <section id="playbook-sec-13-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange);">⚙️</span><strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> 
+                <p>Conheça os bastidores da nossa operação: <strong>Marketing</strong> (geração de leads, branding), <strong>Operações</strong> (logística, pátios, vistorias), <strong>Financeiro</strong> (crédito, pagamentos), <strong>Jurídico</strong> (contratos, compliance) e <strong>Tecnologia</strong> (plataforma, CRM). Entender como cada setor contribui para o sucesso do cliente e do vendedor fortalece a colaboração e otimiza os resultados. [Pode incluir um organograma simplificado ou contatos chave de cada área].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-10-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-material-comercial-content-main">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- NOVA SEÇÃO: Material Comercial -->
+        <section id="playbook-sec-material-comercial-content-main" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL
+                </button>
+                <h2 class="playbook-content-title text-center">
+                    <span class="emoji-original-color">📚</span><strong>NOSSO ARSENAL DE VENDAS: MATERIAIS COMERCIAIS PARA UMA COMUNICAÇÃO DE ALTO IMPACTO!</strong>
+                </h2>
+                <p>Aqui você encontrará todos os materiais de apoio necessários para suas atividades comerciais na <span class="text-aa-green-darker">Auto Arremate</span> e <span class="text-arremaq-orange-darker">Arremaq</span>. Estes recursos foram desenvolvidos para garantir uma comunicação profissional, persuasiva e alinhada com nossa identidade visual e estratégias de vendas. Utilize-os para apresentar nossos serviços, educar clientes e fortalecer sua atuação no mercado.</p>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Apresentações e Propostas:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">Deck Institucional:</span> Uma visão geral completa das empresas, nossos valores e diferenciais. Ideal para primeiras reuniões.</li>
+                    <li><span class="font-semibold">Modelos de Propostas Personalizadas:</span> Para Auto Arremate (veículos leves) e Arremaq (máquinas pesadas), adaptáveis às necessidades de cada cliente.</li>
+                    <li><span class="font-semibold">Cases de Sucesso:</span> Exemplos práticos de como ajudamos nossos clientes a alcançar seus objetivos.</li>
+                </ul>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Flyers e Folhetos Digitais:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">Serviços da Auto Arremate:</span> Destaques dos benefícios do repasse de veículos leves.</li>
+                    <li><span class="font-semibold">Serviços da Arremaq:</span> Foco nos diferenciais para máquinas agrícolas e de construção.</li>
+                    <li><span class="font-semibold">Guia Rápido do Vendedor/Comprador:</span> Informações essenciais para novos parceiros.</li>
+                </ul>
+                <h3 class="font-headings-portal text-xl font-bold text-aa-dark-blue dark:text-aa-green-lighter mt-8 mb-4">Templates de E-mail e Scripts de Ligação:</h3>
+                <ul class="list-disc list-inside ml-4 text-text-body-light-portal dark:text-text-body-dark-portal">
+                    <li><span class="font-semibold">E-mails de Prospecção (Cold Outreach):</span> Modelos testados para iniciar contato.</li>
+                    <li><span class="font-semibold">E-mails de Follow-up:</span> Para manter o engajamento após reuniões ou propostas.</li>
+                    <li><span class="font-semibold">Scripts para Qualificação (SPIN/SNAP):</span> Guias para suas ligações de prospecção e qualificação.</li>
+                </ul>
+                <p class="mt-8 text-center font-bold text-lg text-aa-dark-blue dark:text-aa-green-lighter">
+                    <span class="emoji-original-color">🌟</span> Acesse a pasta compartilhada no Google Drive para download de todos os materiais: <br>
+                    <a href="https://drive.google.com/drive/folders/SEU_LINK_AQUI" target="_blank" class="text-aa-green hover:underline">Link para a Pasta de Materiais Comerciais</a>
+                </p>
+                <div class="navigation-buttons">
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-13-content-main">❮ VOLTAR</button>
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-autocards-content-main">AVANÇAR ❯</button>
+                </div>
+            </div>
+        </section>
+        <!-- Subseção AutoCards -->
+        <section id="playbook-autocards-content-main" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🃏</span><strong>AUTOCARDS™ <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong></h2> 
+                <p>Os AutoCards™ são uma ferramenta exclusiva de gamificação para impulsionar a prospecção. Cada card representa um desafio, uma meta ou uma tática de vendas. Ao completar os objetivos, você ganha pontos, desbloqueia novas cartas e avança no ranking dos campeões. Uma forma divertida e eficaz de motivar a equipe e transformar a prospecção em um jogo viciante! [Pode incluir link para plataforma dos AutoCards ou manual de uso].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-material-comercial-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Quiz Gamificado -->
+        <section id="playbook-quiz-gamificado-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">🏆</span><strong>DESAFIO DOS CAMPEÕES <span class="text-aa-green-darker">AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong></h2> 
+                <p>Chegou a hora de testar seus conhecimentos! Este quiz gamificado aborda os principais conceitos do playbook, estratégias de vendas e informações sobre nossos produtos e mercado. Responda corretamente, acumule pontos e mostre que você está pronto para acelerar rumo ao sucesso! [Pode ser um link para um formulário Google, Typeform, ou uma ferramenta de quiz interna].</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-autocards-content-main">❮ VOLTAR</button> 
+                    <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-corrida-svg-section">AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+        <!-- Subseção Jogo de Corrida SVG 2D -->
+        <section id="playbook-corrida-svg-section" class="hidden playbook-sub-section"> 
+            <div class="container mx-auto"> 
+                <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> 
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange-darker);">🏎️💨</span><strong>GRANDE PRÊMIO <span class="text-aa-green-darker">AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong></h2> 
+                <p>[Placeholder para Jogo de Corrida SVG 2D - Esta seção pode conter um jogo interativo simples, onde o usuário controla um carro, desvia de obstáculos (objeções) e coleta itens (vendas fechadas). Pode ser um projeto futuro mais elaborado.]</p> 
+                <div class="navigation-buttons"> 
+                    <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">❮ VOLTAR</button> 
+                    <button class="btn-nav next disabled" disabled>AVANÇAR ❯</button> 
+                </div> 
+            </div> 
+        </section>
+
+        <!-- SEÇÕES DE CONTEÚDO FUTURO (placeholders) -->
+        <section id="rota-66-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🗺️</span> ROTA 66 DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre a Rota 66 da Conquista em breve!</p>
+            </div>
+        </section>
+        <section id="box-identidade-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre o Box da Identidade <span class="text-aa-green-darker">Auto Arremate</span> em breve!</p>
+            </div>
+        </section>
+        <section id="academia-repassadores-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0</h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre a Academia de Repassadores 3.0 em breve!</p>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Botão flutuante para alternar tema -->
+    <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Alternar tema" title="Alternar Tema">
+        <i class="fas fa-moon"></i> 
+    </button>
+
+    <!-- Script AOS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicializa AOS
+            AOS.init({ duration: 700, once: true, offset: 50 });
+
+            // Referências aos elementos das seções
+            const capaSection = document.getElementById('capa-section');
+            const menuPrincipalSection = document.getElementById('menu-principal-section');
+            const manualPitstopDetalhesSection = document.getElementById('manual-pitstop-detalhes-section');
+            const rota66ContentSection = document.getElementById('rota-66-content-section');
+            const boxIdentidadeContentSection = document.getElementById('box-identidade-content-section');
+            const academiaRepassadoresContentSection = document.getElementById('academia-repassadores-content-section');
+            // Adicione a nova seção à lista de todas as subseções do playbook
+            const allPlaybookSubSections = document.querySelectorAll('.playbook-sub-section'); 
+            
+            // Referências aos botões de navegação
+            const btnIniciarCapa = document.getElementById('btnIniciarCapa');
+            const backToCoverBtnMenu = document.getElementById('backToCoverBtnMenu');
+            const openManualPitStopBtn = document.getElementById('openManualPitStopBtn');
+            const openRota66Btn = document.getElementById('openRota66Btn');
+            const openBoxIdentidadeBtn = document.getElementById('openBoxIdentidadeBtn');
+            const openAcademiaRepassadoresBtn = document.getElementById('openAcademiaRepassadoresBtn');
+            const backToMenuPrincipalBtns = document.querySelectorAll('.backToMenuPrincipalBtn'); // Botões "Voltar ao Menu Principal"
+            const backToManualPitStopDetalhesBtns = document.querySelectorAll('.backToManualPitStopDetalhesBtn'); // Botões "Voltar ao Manual"
+
+            /**
+             * Exibe uma seção específica e esconde as outras.
+             * @param {HTMLElement} sectionToShow A seção a ser exibida.
+             */
+            function showSection(sectionToShow) {
+                // Esconde todas as seções principais
+                [capaSection, menuPrincipalSection, manualPitstopDetalhesSection, rota66ContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection].forEach(s => {
+                    if (s) s.classList.add('hidden');
+                });
+                // Esconde todas as subseções do playbook, exceto a que será mostrada
+                allPlaybookSubSections.forEach(s => {
+                    if (s && s !== sectionToShow) s.classList.add('hidden');
+                });
+                // Exibe a seção desejada e rola para o topo
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    AOS.refreshHard(); // Atualiza AOS para novas seções
+                }
+            }
+
+            // Event Listeners para navegação entre seções principais
+            if (btnIniciarCapa) { 
+                btnIniciarCapa.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(menuPrincipalSection); 
+                }); 
+            }
+            if (backToCoverBtnMenu) { 
+                backToCoverBtnMenu.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(capaSection); 
+                }); 
+            }
+            if (openManualPitStopBtn) { 
+                openManualPitStopBtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(manualPitstopDetalhesSection); 
+                    renderPlaybookIndex(); // Renderiza o índice do playbook
+                }); 
+            }
+            if (openRota66Btn) { 
+                openRota66Btn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(rota66ContentSection); 
+                }); 
+            }
+            if (openBoxIdentidadeBtn) { 
+                openBoxIdentidadeBtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(boxIdentidadeContentSection); 
+                }); 
+            }
+            if (openAcademiaRepassadoresBtn) { 
+                openAcademiaRepassadoresBtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(academiaRepassadoresContentSection); 
+                }); 
+            }
+            // Adiciona event listeners para todos os botões "Voltar ao Menu Principal"
+            backToMenuPrincipalBtns.forEach(button => { 
+                button.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(menuPrincipalSection); 
+                }); 
+            });
+            // Adiciona event listeners para todos os botões "Voltar ao Manual"
+            backToManualPitStopDetalhesBtns.forEach(button => { 
+                button.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    showSection(manualPitstopDetalhesSection); 
+                }); 
+            });
+
+            // Dados do índice do Playbook
+            const indexDataPlaybook = [
+                { emoji: "🚀", title: "<strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", targetSectionId: "playbook-sec-0-content-main", sentenceEmoji: "📜" },
+                { emoji: "<span class='emoji-autoarremate-color'>🚗</span>", title: "<strong><span class='text-aa-green-darker'>AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong>", sub: "Descubra como nossa plataforma acelera a gestão e venda de veículos leves, da captação à comercialização.", targetSectionId: "playbook-sec-1-content-main", sentenceEmoji: "🏆" },
+                { emoji: "<span class='emoji-arremaq-color'>🚜</span>", title: "<strong><span class='text-arremaq-orange-darker'>ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong>", sub: "Soluções de peso e estratégias robustas para o repasse eficiente de máquinas agrícolas e de construção.", targetSectionId: "playbook-sec-arremaq-content-main", sentenceEmoji: "⚙️" },
+                { emoji: "🎯", title: "<strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> (ICPS & PERSONAS)!</strong>", sub: "Identifique os perfis de clientes com maior potencial e as personas chave para uma abordagem estratégica.", targetSectionId: "playbook-sec-2-content-main", sentenceEmoji: "🌟" },
+                { emoji: "📊", title: "<strong>A JORNADA DO CLIENTE VENCEDOR <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong>", sub: "Visualize a transformação do cliente, da necessidade à solução, através de nossa animação dinâmica.", targetSectionId: "playbook-persona-animation-section", sentenceEmoji: "🎬" },
+                { emoji: "🧠", title: "<strong>PIT STOP DA SABEDORIA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong>", sub: "Domine as técnicas de qualificação (SPIN, SNAP, AIDA) para abastecer seu funil com leads de qualidade.", targetSectionId: "playbook-sec-3-content-main", sentenceEmoji: "💡" },
+                { emoji: "🛡️", title: "<strong>BLINDAGEM ANTI-OBJEÇÃO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong>", sub: "Estratégias e contra-argumentos para transformar objeções em oportunidades de fechar negócio.", targetSectionId: "playbook-sec-4-content-main", sentenceEmoji: "⚔️" },
+                { emoji: "🗺️", title: "<strong>ROTAS DA CONQUISTA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong>", sub: "Roteiros, cadências e modelos de abordagem para prospecção Inbound e Outbound que geram resultados.", targetSectionId: "playbook-sec-5-content-main", sentenceEmoji: "🧭" },
+                { emoji: "🤝", title: "<strong>ALIANÇAS DE AÇO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong>", sub: "Critérios e ferramentas para validar parceiros CNPJ e construir relações comerciais sólidas e seguras.", targetSectionId: "playbook-sec-6-content-main", sentenceEmoji: "🔗" },
+                { emoji: "✍️", title: "<strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong>", sub: "Termos de impacto, orientações e exemplos práticos para uma comunicação persuasiva e eficaz.", targetSectionId: "playbook-sec-7-content-main", sentenceEmoji: "🗣️" },
+                { emoji: "📖", title: "<strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Decifre os termos técnicos e jargões do mercado automotivo e de máquinas para dominar a linguagem do setor.", targetSectionId: "playbook-sec-8-content-main", sentenceEmoji: "📚" },
+                { emoji: "📈", title: "<strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong>", sub: "Os próximos passos para o desenvolvimento do playbook e o crescimento contínuo da nossa equipe.", targetSectionId: "playbook-sec-9-content-main", sentenceEmoji: "🌌" },
+                { emoji: "📞", title: "<strong>CENTRAL DE COMANDO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong>", sub: "Acesse nossos canais de suporte dedicados e encontre ajuda rápida para suas dúvidas e desafios.", targetSectionId: "playbook-sec-10-content-main", sentenceEmoji: "🛠️" },
+                { emoji: "⚙️", title: "<strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Descubra a sinergia e o papel de cada setor na construção do nosso sucesso e no suporte à sua performance.", targetSectionId: "playbook-sec-13-content-main", sentenceEmoji: "🏛️" },
+                // NOVA ENTRADA DO ÍNDICE: MATERIAL COMERCIAL
+                { emoji: "📚", title: "<strong>NOSSO ARSENAL DE VENDAS: MATERIAIS COMERCIAIS PARA UMA COMUNICAÇÃO DE ALTO IMPACTO!</strong>", sub: "Ferramentas essenciais para a equipe comercial, desde apresentações a modelos de proposta.", targetSectionId: "playbook-sec-material-comercial-content-main", sentenceEmoji: "📝" },
+                { emoji: "🃏", title: "<strong>AUTOCARDS™ <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong>", sub: "Utilize nossos cartões estratégicos para transformar sua equipe em uma força de prospecção imbatível.", targetSectionId: "playbook-autocards-content-main", sentenceEmoji: "✨" },
+                { emoji: "🏆", title: "<strong>DESAFIO DOS CAMPEÕES <span class='text-aa-green-darker'>AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong>", sub: "Teste sua sabedoria e astúcia em nosso quiz gamificado sobre o playbook e o universo do repasse!", targetSectionId: "playbook-quiz-gamificado-section", sentenceEmoji: "🏅" },
+                { emoji: "🏎️💨", title: "<strong>GRANDE PRÊMIO <span class='text-aa-green-darker'>AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong>", sub: "Desafie seus limites e rivais em nosso jogo 2D de alta octanagem e torne-se uma lenda da pista digital!", targetSectionId: "playbook-corrida-svg-section", sentenceEmoji: "🏁" }
+            ];
+
+            const playbookIndexContainer = document.getElementById('playbookIndexContainer');
+
+            /**
+             * Renderiza os cards do índice do playbook na seção de detalhes do manual.
+             */
+            function renderPlaybookIndex() {
+                if (!playbookIndexContainer) return;
+                playbookIndexContainer.innerHTML = ''; // Limpa o container antes de renderizar
+                indexDataPlaybook.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'index-item-card'; // Classe CSS para o estilo do card
+                    card.setAttribute('data-target', item.targetSectionId); // Adiciona o ID da seção alvo
+
+                    let emojiHtml = item.emoji;
+                    // Verifica se o emoji já é um span com classe, caso contrário, envolve-o
+                    if (item.emoji.includes("emoji-autoarremate-color") || item.emoji.includes("emoji-arremaq-color")) {
+                        // Já é um span com classe, não precisa envolver
+                    } else { 
+                         emojiHtml = `<span class="emoji-original-color">${item.emoji}</span>`;
+                    }
+
+                    card.innerHTML = `
+                        <span class="index-item-emoji">${emojiHtml}</span>
+                        <h3 class="index-item-title">${item.title}</h3>
+                        <p class="index-item-sub">
+                            ${item.sentenceEmoji ? `<span class="sentence-emoji emoji-original-color">${item.sentenceEmoji}</span>` : ''}
+                            ${item.sub}
+                        </p>`;
+                    card.addEventListener('click', () => {
+                        showSection(document.getElementById(item.targetSectionId)); // Ao clicar, mostra a seção alvo
+                    });
+                    playbookIndexContainer.appendChild(card); // Adiciona o card ao container
+                });
+            }
+            
+            // Adiciona event listeners para os botões de navegação "Próximo" e "Voltar" dentro das subseções
+            document.querySelectorAll('.navigateToPlaybookSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    if (targetId) {
+                        showSection(document.getElementById(targetId));
+                    }
+                });
+            });
+
+            // --- Funcionalidade de Alternar Tema (Claro/Escuro) ---
+            const htmlEl = document.documentElement; // Elemento raiz HTML
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
+
+            /**
+             * Aplica o tema especificado ao documento e atualiza o ícone do botão.
+             * @param {string} theme O tema a ser aplicado ('light' ou 'dark').
+             */
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                if (themeToggleBtn) { 
+                    themeToggleBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+                }
+            }
+            
+            // Carrega o tema salvo no localStorage ou usa a preferência do sistema
+            let storedTheme = null;
+            try { storedTheme = localStorage.getItem('theme'); } catch (e) { console.warn("LocalStorage não disponível para persistência do tema.");}
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(storedTheme || preferredTheme); 
+
+            // Adiciona event listener para o botão de alternar tema
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; 
+                    applyTheme(newTheme); 
+                    try { localStorage.setItem('theme', newTheme); } catch (e) { console.warn("LocalStorage não está disponível para persistência do tema."); }
+                });
+            }
+
+            // --- Controles de Acessibilidade de Fonte ---
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const FONT_STEP_PERCENT = 10; // Incremento/decremento do tamanho da fonte em porcentagem
+            const MIN_HTML_FONT_PERCENT = 60; // Tamanho mínimo da fonte em porcentagem
+            const MAX_HTML_FONT_PERCENT = 140; // Tamanho máximo da fonte em porcentagem
+
+            /**
+             * Obtém o tamanho da fonte atual do elemento HTML em porcentagem.
+             * @returns {number} O tamanho da fonte atual em porcentagem.
+             */
+            function getCurrentHtmlFontSizePercent() {
+                const currentSizePx = parseFloat(window.getComputedStyle(htmlEl).fontSize);
+                const browserBaseSizePx = 16; // Tamanho de fonte base do navegador (geralmente 16px)
+                return (currentSizePx / browserBaseSizePx) * 100;
+            }
+
+            // Adiciona event listener para o botão de aumentar fonte
+            if (increaseFontBtn) {
+                increaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent + FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.min(newPercent, MAX_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+            // Adiciona event listener para o botão de diminuir fonte
+            if (decreaseFontBtn) {
+                decreaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent - FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.max(newPercent, MIN_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+
+            // --- Leitura de Voz (Text-to-Speech) ---
+            const readPageBtn = document.getElementById('readPageBtn');
+            const synth = window.speechSynthesis; // API de síntese de voz
+            let isReading = false; // Flag para controlar se a leitura está ativa
+            let utterance = null; // Objeto SpeechSynthesisUtterance
+
+            if (readPageBtn && synth) {
+                readPageBtn.addEventListener('click', () => {
+                    // Se já estiver falando, cancela a leitura
+                    if (synth.speaking) { 
+                        synth.cancel(); 
+                        return; 
+                    }
+
+                    let activeSection = null;
+                    // Identifica a seção atualmente visível para leitura
+                    if (capaSection && !capaSection.classList.contains('hidden')) activeSection = capaSection;
+                    else if (menuPrincipalSection && !menuPrincipalSection.classList.contains('hidden')) activeSection = menuPrincipalSection;
+                    else if (manualPitstopDetalhesSection && !manualPitstopDetalhesSection.classList.contains('hidden')) activeSection = manualPitstopDetalhesSection;
+                    else if (rota66ContentSection && !rota66ContentSection.classList.contains('hidden')) activeSection = rota66ContentSection;
+                    else if (boxIdentidadeContentSection && !boxIdentidadeContentSection.classList.contains('hidden')) activeSection = boxIdentidadeContentSection;
+                    else if (academiaRepassadoresContentSection && !academiaRepassadoresContentSection.classList.contains('hidden')) activeSection = academiaRepassadoresContentSection;
+                    else { 
+                        allPlaybookSubSections.forEach(subSec => { 
+                            if (subSec && !subSec.classList.contains('hidden')) activeSection = subSec; 
+                        }); 
+                    }
+
+                    if (!activeSection) { 
+                        alert("Nenhuma seção ativa encontrada para leitura."); 
+                        return; 
+                    }
+
+                    let textToRead = "";
+                    // Coleta o texto de elementos de cabeçalho e parágrafo na seção ativa
+                    activeSection.querySelectorAll('h1, h2, h3, h4, p, .menu-card-title, .index-item-title, .index-item-sub, .frase-destaque, .capa-criado').forEach(el => { 
+                        // Evita ler tags script e style
+                        if (el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') { 
+                            textToRead += el.textContent.replace(/<br>/gi, ' ').trim() + ". "; 
+                        } 
+                    });
+
+                    if (textToRead.trim() === "") { 
+                        alert("Nenhum texto principal encontrado para leitura na seção atual."); 
+                        return; 
+                    }
+
+                    // Cria um novo objeto SpeechSynthesisUtterance com o texto a ser lido
+                    utterance = new SpeechSynthesisUtterance(textToRead.replace(/\s+/g, ' ').trim());
+                    utterance.lang = 'pt-BR'; // Define o idioma para português do Brasil
+
+                    // Eventos para controlar o estado da leitura e o ícone do botão
+                    utterance.onstart = () => { 
+                        isReading = true; 
+                        readPageBtn.innerHTML = '<i class="fas fa-stop-circle"></i>'; 
+                        readPageBtn.setAttribute('aria-label', 'Parar leitura'); 
+                        readPageBtn.title = 'Parar Leitura'; 
+                    };
+                    utterance.onend = () => { 
+                        isReading = false; 
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; 
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); 
+                        readPageBtn.title = 'Ler Página'; 
+                        utterance = null; 
+                    };
+                    utterance.onerror = (event) => { 
+                        console.error('Erro na síntese de voz:', event.error); 
+                        isReading = false; 
+                        readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; 
+                        readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); 
+                        readPageBtn.title = 'Ler Página'; 
+                        alert('Erro ao tentar ler a página.'); // Usar um modal personalizado em vez de alert
+                        utterance = null; 
+                    };
+                    synth.speak(utterance); // Inicia a leitura
+                });
+            } else if (readPageBtn) {
+                // Se a API de voz não for suportada, esconde o botão
+                readPageBtn.style.display = 'none'; 
+                console.warn("Web Speech API (SpeechSynthesis) não é suportada neste navegador.");
+            }
+        });
+    </script>
+</body>
+</html>

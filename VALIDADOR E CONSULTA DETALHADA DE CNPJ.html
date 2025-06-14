@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Playbook Comercial Auto Arremate® 2025 - Validador de CNPJ Detalhado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@700;900&family=Parisienne&family=Permanent+Marker&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_GA_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // ATENÇÃO: Substitua 'G-YOUR_GA_ID' pelo seu ID de acompanhamento real do Google Analytics
+      gtag('config', 'G-YOUR_GA_ID');
+    </script>
+    <style>
+        :root {
+            --main-bg-light: #f3f4f6; --main-bg-dark: #0f171e;
+            --main-text-light: #1f2937; --main-text-dark: #e5e7eb;
+            --accent: #10a78d; --accent-darker: #0d8c74; --accent-lighter: #e0f8f0;
+            --secondary: #224f18; 
+            --tertiary-action-bg: #007bff; /* Azul para CNPJá */
+            --tertiary-action-hover-bg: #0056b3;
+            --gemini-feature-bg: #4a5568; /* Cor para botões Gemini */
+            --gemini-feature-hover-bg: #2d3748;
+            --radius: 1.25rem; --radius-small: 0.8rem; --transition: .3s cubic-bezier(.25,.8,.25,1);
+            --shadow-color-light: rgba(21, 175, 151, 0.12); --shadow-color-dark: rgba(0, 0, 0, 0.25);
+            --text-content-light: #374151; --text-content-dark: #d1d5db;
+            --border-color-light: #d1d5db; --border-color-dark: #4b5563;
+            --interactive-bg-light: #f9fafb; --interactive-bg-dark: #1a242d;
+            --highlight-bg-light: #e6fffa; --highlight-border-light: var(--accent);
+            --highlight-bg-dark: rgba(16, 167, 141, 0.1); --highlight-border-dark: var(--accent);
+            --modal-overlay-bg: rgba(0, 0, 0, 0.6); --modal-bg-light: #ffffff; --modal-bg-dark: #1f2937;
+            --success-color: #28a745; --error-color: #dc3545; --info-color: #17a2b8; 
+            --warning-color: #856404; --warning-bg-color: #fff3cd; 
+        }
+        html, body { min-height: 100vh; padding: 0; margin: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; background: var(--main-bg-light); color: var(--main-text-light); transition: background var(--transition), color var(--transition); scroll-behavior: smooth; line-height: 1.65; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        html[data-theme='dark'] { background: var(--main-bg-dark); color: var(--main-text-dark); }
+        html[data-theme='dark'] body { background: var(--main-bg-dark); color: var(--main-text-dark); }
+        .page-section { min-height: 100vh; max-width: 700px; margin: 2.5rem auto; padding: 48px 32px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: var(--radius); transition: background var(--transition), box-shadow var(--transition); text-align: center; position: relative; }
+        html[data-theme='light'] .page-section { background-color: #ffffff; box-shadow: 0 10px 30px -5px var(--shadow-color-light); }
+        html[data-theme='dark'] .page-section { background-color: #1a242d; box-shadow: 0 10px 30px -5px var(--shadow-color-dark); }
+        .dark-toggle { position: fixed; top: 24px; right: 24px; z-index: 1000; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); padding: .7em .9em; border-radius: 50%; border: 1px solid rgba(21, 175, 151, 0.25); cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; transition: background var(--transition), filter var(--transition), border-color var(--transition), transform .2s ease-out; }
+        .dark-toggle:hover { transform: scale(1.1); border-color: rgba(21, 175, 151, 0.4); }
+        [data-theme='dark'] .dark-toggle { background: rgba(26, 41, 48, 0.7); border: 1px solid rgba(21, 175, 151, 0.4); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        [data-theme='dark'] .dark-toggle:hover { border-color: rgba(21, 175, 151, 0.6); }
+        .dark-toggle svg { width: 1.8rem; height: 1.8rem; transition: transform 0.5s ease-in-out; }
+        .sentence-emoji { margin-right: 0.4em; font-size: 1.1em; color: var(--accent); display: inline-block; }
+        .content-page-title .emoji { font-size: 1.2em; color: inherit; filter: none; }
+        .content-page { justify-content: flex-start; padding-top: 56px; padding-bottom: 56px; }
+        .content-page-title { font-family: 'Poppins', sans-serif; font-size: 2rem; color: var(--accent); font-weight: 900; margin-bottom: 16px; letter-spacing: .005em; text-shadow: 0 1px 6px rgba(16, 167, 141, 0.25); display: flex; align-items: center; text-align: center; justify-content: center; gap: 0.5em; }
+        [data-theme='dark'] .content-page-title { text-shadow: 0 1px 8px rgba(16, 167, 141, 0.35); }
+        .info-text { font-size: 0.85rem; color: var(--text-content-light); margin-bottom: 24px; max-width: 550px; text-align: center; }
+        [data-theme='dark'] .info-text { color: var(--text-content-dark); }
+        .text-content-container { width: 100%; max-width: 620px; text-align: left; color: var(--text-content-light); }
+        [data-theme='dark'] .text-content-container { color: var(--text-content-dark); }
+        .text-content-container h3, .text-content-container h4, .text-content-container h5 { font-family: 'Poppins', sans-serif; color: var(--accent-darker); font-weight: 700; margin-top: 2.2em; margin-bottom: 0.8em; display: flex; align-items: center; gap: 0.4em; border-bottom: 2px solid rgba(21, 175, 151, 0.2); padding-bottom: 0.4em; }
+        .text-content-container h3:first-of-type, .text-content-container h4:first-of-type, .text-content-container h5:first-of-type { margin-top: 0; }
+        .text-content-container h3 { font-size: 1.45rem; }
+        .text-content-container h4 { font-size: 1.25rem; margin-top: 2em; margin-bottom: 0.8em; border-bottom-style: dashed;}
+        .text-content-container h5 { font-size: 1.1rem; margin-top: 1.8em; margin-bottom: 0.7em; border-bottom-style: dotted; color: var(--secondary)}
+        .text-content-container h5 ins { color: var(--accent-darker); text-decoration: none; font-weight: bold;}
+        [data-theme='dark'] .text-content-container h3, [data-theme='dark'] .text-content-container h4, [data-theme='dark'] .text-content-container h5 { color: var(--accent); border-bottom-color: rgba(21, 175, 151, 0.3); }
+        [data-theme='dark'] .text-content-container h5 { color: #a8e0b3; }
+        [data-theme='dark'] .text-content-container h5 ins { color: var(--accent-lighter); }
+        .text-content-container h3 .emoji, .text-content-container h4 .emoji, .text-content-container h5 .emoji { font-size: 1em; color: inherit; }
+        .text-content-container p { font-size: 1rem; line-height: 1.7; margin-bottom: 1.1em; text-align: justify; position: relative; padding-left: 1.8em; }
+        .text-content-container p.no-left-padding { padding-left: 0 !important; }
+        .text-content-container p.no-left-padding > .sentence-emoji:first-child { position: static; width: auto; margin-right: 0.4em; }
+        .text-content-container p > .sentence-emoji:first-child { position: absolute; left: 0; top: 0.15em; width: 1.5em; text-align: center; }
+        .text-content-container p strong { color: var(--secondary); font-weight: 700; }
+        [data-theme='dark'] .text-content-container p strong { color: #c3e6cb; }
+        .text-content-container ul, .text-content-container ol { list-style: none; padding-left: 0; margin-bottom: 1.1em; }
+        .text-content-container ul li, .text-content-container ol li { padding-left: 1.8em; position: relative; margin-bottom: 0.5em; font-size: 1rem; line-height: 1.6; text-align: justify; }
+        .text-content-container ul li > .sentence-emoji:first-child, .text-content-container ol li > .sentence-emoji:first-child { position: absolute; left: 0; top: 0.15em; width: 1.5em; text-align: center; }
+        .text-content-container ol li::before { content: attr(data-emoji); position: absolute; left: 0; color: var(--accent); font-size: 1em; top: 0.1em; }
+        .text-content-container ol li:has(> .sentence-emoji:first-child)::before { content: none !important; }
+        .text-content-container label { display: block; margin: 1rem 0 0.5rem; font-weight: 600; color: var(--text-content-light); }
+        [data-theme='dark'] .text-content-container label { color: var(--text-content-dark); }
+        .text-content-container input[type="text"], .text-content-container input[type="password"] { padding: 0.8rem 1rem; width: 100%; border: 1px solid var(--border-color-light); border-radius: var(--radius-small); font-size: 1em; box-sizing: border-box; margin-bottom: 1rem; font-family: 'Nunito', sans-serif; background-color: var(--interactive-bg-light); color: var(--text-content-light); }
+        [data-theme='dark'] .text-content-container input[type="text"], [data-theme='dark'] .text-content-container input[type="password"] { background-color: var(--interactive-bg-dark); color: var(--text-content-dark); border-color: var(--border-color-dark); }
+        .text-content-container input[type="text"]:focus, .text-content-container input[type="password"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(16, 167, 141, 0.25); }
+        .text-content-container button { padding: 0.8rem 1.5rem; margin-top: 0.5rem; cursor: pointer; background-color: var(--accent); color: #fff; border: none; border-radius: var(--radius-small); font-weight: 700; font-size: 1em; transition: background-color 0.3s ease, transform 0.2s ease; display: block; width: 100%; margin-bottom: 1rem; }
+        .text-content-container button:hover { background-color: var(--accent-darker); transform: translateY(-2px); }
+        .text-content-container button.tertiary-action { background-color: var(--tertiary-action-bg); color: #fff; } 
+        .text-content-container button.tertiary-action:hover { background-color: var(--tertiary-action-hover-bg); }
+        .text-content-container button.gemini-button { background-color: var(--gemini-feature-bg); color: #fff; margin-top: 0.25rem; margin-bottom: 0.25rem; }
+        .text-content-container button.gemini-button:hover { background-color: var(--gemini-feature-hover-bg); }
+        .text-content-container .result-cnpj { margin-top: 1.5rem; padding: 1.5em; border: 1px solid var(--border-color-light); border-radius: var(--radius-small); background-color: var(--interactive-bg-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        [data-theme='dark'] .text-content-container .result-cnpj { background-color: var(--interactive-bg-dark); border-color: var(--border-color-dark); }
+        .text-content-container .result-cnpj h4 { font-size: 1.3em; color: var(--accent-darker); margin-top: 0; margin-bottom: 0.8em; text-align: left; border-bottom: none; text-transform: none; }
+        [data-theme='dark'] .text-content-container .result-cnpj h4 { color: var(--accent); }
+        .text-content-container .result-cnpj p { padding-left: 0; margin-bottom: 0.5em; font-size: 1em; line-height: 1.7; text-align: left; color: var(--text-content-light); }
+        [data-theme='dark'] .text-content-container .result-cnpj p { color: var(--text-content-dark); }
+        .text-content-container .result-cnpj p strong { color: var(--text-content-light); font-weight: 600; }
+        [data-theme='dark'] .text-content-container .result-cnpj p strong { color: var(--text-content-dark); }
+        .text-content-container .result-cnpj .error { color: var(--error-color); font-weight: bold; padding: 10px; background-color: rgba(220, 53, 69, 0.05); border: 1px solid rgba(220, 53, 69, 0.4); border-radius: var(--radius-small); }
+        .text-content-container .result-cnpj .success { color: var(--success-color); font-weight: bold; padding: 10px; background-color: rgba(40, 167, 69, 0.05); border: 1px solid rgba(40, 167, 69, 0.4); border-radius: var(--radius-small); }
+        .text-content-container .result-cnpj .warning { color: var(--warning-color); background-color: var(--warning-bg-color); border: 1px solid #ffeeba; padding: 10px; border-radius: var(--radius-small); font-weight: normal; text-align: left; }
+        [data-theme='dark'] .text-content-container .result-cnpj .warning { color: #ffeeba; background-color: var(--warning-color); border-color: #856404;}
+        .text-content-container .result-cnpj .warning a { color: var(--accent-darker); text-decoration: underline;}
+        [data-theme='dark'] .text-content-container .result-cnpj .warning a { color: var(--accent-lighter); }
+        .text-content-container .result-cnpj .info-matriz { background-color: var(--highlight-bg-light); border-left: 4px solid var(--highlight-border-light); padding: 0.8em 1em; margin-top: 0.8em; border-radius: var(--radius-small); font-size: 0.9em; }
+        [data-theme='dark'] .text-content-container .result-cnpj .info-matriz { background-color: var(--highlight-bg-dark); border-left-color: var(--highlight-border-dark); }
+        .text-content-container .result-cnpj .info-matriz button { font-size: 0.9em; padding: 0.3em 0.6em; margin-left: 0.5em; background-color: var(--accent); color: white; border: none; border-radius: var(--radius-small); cursor: pointer; width: auto; display: inline-block; margin-bottom: 0; }
+        .text-content-container .result-cnpj .info-matriz button:hover { background-color: var(--accent-darker); }
+        .gemini-results-container { margin-top: 1.5rem; padding: 1.5em; border: 1px solid var(--border-color-light); border-radius: var(--radius-small); background-color: var(--interactive-bg-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        [data-theme='dark'] .gemini-results-container { background-color: var(--interactive-bg-dark); border-color: var(--border-color-dark); }
+        .gemini-results-container h4 { font-size: 1.2em; color: var(--accent-darker); margin-top: 0; margin-bottom: 0.7em; text-align: left; border-bottom: 1px dashed var(--accent-lighter); padding-bottom: 0.3em; }
+        [data-theme='dark'] .gemini-results-container h4 { color: var(--accent); border-bottom-color: var(--accent-darker); }
+        .gemini-results-container p { font-size: 0.95em; line-height: 1.6; text-align: left; color: var(--text-content-light); padding-left:0; margin-bottom: 0.5em; }
+        [data-theme='dark'] .gemini-results-container p { color: var(--text-content-dark); }
+        .gemini-results-container pre { white-space: pre-wrap; word-wrap: break-word; background-color: var(--main-bg-light); padding: 1em; border-radius: var(--radius-small); font-size: 0.9em; color: var(--text-content-light); border: 1px solid var(--border-color-light); max-height: 300px; overflow-y: auto;}
+        [data-theme='dark'] .gemini-results-container pre { background-color: var(--main-bg-dark); color: var(--text-content-dark); border-color: var(--border-color-dark); }
+        .loading-indicator { display: none; text-align: center; padding: 1em; font-style: italic; color: var(--accent); }
+        .loading-indicator.active { display: block; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--modal-overlay-bg); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--modal-bg-light); padding: 25px 30px; border-radius: var(--radius); box-shadow: 0 5px 20px rgba(0,0,0,0.2); width: 90%; max-width: 550px; text-align: left; transform: scale(0.9); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto;}
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        [data-theme='dark'] .modal-content { background-color: var(--modal-bg-dark); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color-light); padding-bottom: 10px; margin-bottom: 15px; }
+        [data-theme='dark'] .modal-header { border-bottom-color: var(--border-color-dark); }
+        .modal-title { font-family: 'Poppins', sans-serif; font-size: 1.6rem; color: var(--accent); font-weight: 700; }
+        [data-theme='dark'] .modal-title { color: var(--accent-lighter); }
+        .modal-close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-content-light); padding: 5px; line-height: 1; }
+        [data-theme='dark'] .modal-close-btn { color: var(--text-content-dark); }
+        .modal-close-btn:hover { color: var(--accent); }
+        [data-theme='dark'] .modal-close-btn:hover { color: var(--accent-lighter); }
+        .modal-body p { font-size: 1rem; line-height: 1.6; margin-bottom: 0.8em; color: var(--text-content-light); }
+        [data-theme='dark'] .modal-body p { color: var(--text-content-dark); }
+        .modal-body strong { font-weight: 700; }
+        .modal-status { font-size: 1.3rem; font-weight: bold; margin-bottom: 1em; display: flex; align-items: center; }
+        .modal-status.approved { color: var(--success-color); }
+        .modal-status.rejected { color: var(--error-color); }
+        .modal-status .status-icon { font-size: 1.5em; margin-right: 0.5em; }
+        .modal-body ul { list-style-type: disc; padding-left: 20px; margin-top: 0.5em; }
+        .modal-body ul li { margin-bottom: 0.3em; }
+        .navigation-buttons { display: flex; justify-content: space-between; width: 100%; margin-top: 3rem; padding: 0 1rem; box-sizing: border-box; }
+        .btn-nav { padding: 0.75em 1.5em; border: 1px solid var(--accent); background-color: transparent; color: var(--accent); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; transition: background-color 0.3s, color 0.3s; }
+        .btn-nav:hover { background-color: var(--accent); color: #fff; }
+        [data-theme='dark'] .btn-nav { border-color: var(--accent-lighter); color: var(--accent-lighter); }
+        [data-theme='dark'] .btn-nav:hover { background-color: var(--accent-lighter); color: var(--main-bg-dark); }
+        @media (max-width: 768px) { .page-section { margin-left: 1rem; margin-right: 1rem; width: auto; padding: 40px 24px; } .content-page { padding-top: 40px; padding-bottom: 40px; } .content-page-title { font-size: 1.8rem; } .info-text { font-size: 0.8rem; } .text-content-container h3 { font-size: 1.4rem; } .text-content-container h4 { font-size: 1.25rem; } .text-content-container h5 { font-size: 1.1rem; } .text-content-container ol li { font-size: 1rem; } .text-content-container ol li::before { font-size: 1em; } .modal-title { font-size: 1.4rem; } .navigation-buttons { flex-direction: column; gap: 1rem; align-items: center; } .btn-nav { width: 80%; text-align: center;} }
+        @media (max-width: 600px){ .page-section { margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 32px 18px; min-height: unset; } .dark-toggle { top: 18px; right: 18px; padding: .6em .8em;} .dark-toggle svg { width: 1.6rem; height: 1.6rem;} .content-page-title { font-size: 1.6rem; margin-bottom: 12px; } .info-text { font-size: 0.75rem; margin-bottom: 20px;} .text-content-container h3 { font-size: 1.3rem; margin-top: 2em; margin-bottom: 0.8em; } .text-content-container h4 { font-size: 1.15rem; } .text-content-container h5 { font-size: 1.05rem; } .text-content-container p, .text-content-container ul li, .text-content-container ol li { font-size: 0.95rem; line-height: 1.7; } .text-content-container ol li::before { font-size: 0.95em; } .modal-content { padding: 20px; max-width: 95%;} .modal-title { font-size: 1.3rem; } .modal-status { font-size: 1.1rem; } }
+    </style>
+</head>
+<body>
+    <div class="dark-toggle" id="darkToggleGlobal" title="Alternar tema">
+        <svg class="sun-icon" fill="none" id="sunIconGlobal" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--accent);" viewbox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" fill="none" id="moonIconGlobal" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="color: var(--accent-lighter); display:none;" viewbox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </div>
+
+    <main>
+        <section class="page-section content-page" data-aos="fade-up" id="sec-6">
+            <h2 class="content-page-title"><span class="emoji">💡</span> VALIDADOR E CONSULTA DETALHADA DE CNPJ</h2>
+            <p class="info-text">
+                Utilize o campo abaixo para consultar informações de uma empresa.
+                <br><strong>Consulta principal via BrasilAPI. Consulta alternativa via API Pública CNPJá.</strong>
+            </p>
+            <div class="text-content-container">
+
+                <h3><span class="emoji">🏢</span> CONSULTAR CNPJ</h3>
+                
+                <label for="cnpjInputGlobal">CNPJ Completo (14 dígitos, somente números):</label>
+                <input aria-label="Campo para digitar o CNPJ completo" id="cnpjInputGlobal" placeholder="Ex: 00000000000191" type="text"/>
+                
+                <button aria-label="Consultar CNPJ via BrasilAPI" id="btnConsultarCnpjBrasilApi">Consultar Detalhes (BrasilAPI)</button>
+                <button aria-label="Consultar CNPJ via API Pública CNPJá" id="btnConsultarCnpjJaPublica" class="tertiary-action">Consultar Detalhes (CNPJá Pública)</button>
+                
+                <div aria-live="polite" class="result-cnpj" id="resultadoCnpjGlobal">
+                    </div>
+                
+                <div id="geminiFeaturesContainer" style="display: none; margin-top: 1.5rem;">
+                    <h4><span class="emoji">✨</span> Insights com Gemini API</h4>
+                    <button id="btnGerarResumoEmpresa" class="gemini-button">✨ Gerar Resumo da Empresa</button>
+                    <button id="btnSugerirPontosAtencao" class="gemini-button">✨ Sugerir Pontos de Atenção (Comercial)</button>
+                    <div class="loading-indicator" id="geminiLoadingIndicator">Consultando Gemini API...</div>
+                    <div id="geminiResponseArea" class="gemini-results-container" style="display: none;">
+                        <pre id="geminiResponseText"></pre>
+                    </div>
+                </div>
+
+
+                <h3 style="margin-top: 2.5em;"><span class="emoji">📜</span> CNAES PERMITIDOS (EXCLUSIVO PARA COMPRADORES B2B)</h3>
+                <p><span class="sentence-emoji">⭐</span> Para garantir a qualidade e o foco da nossa plataforma B2B, o cadastro de compradores é restrito a empresas com CNAEs específicos relacionados ao comércio e locação de veículos.</p>
+                <ul class="cnae-list">
+                    <li><span class="sentence-emoji">🚗</span> 45.11-1-01 - Comércio a varejo de automóveis, camionetas e utilitários novos.</li>
+                    <li><span class="sentence-emoji">🚙</span> 45.11-1-02 - Comércio a varejo de automóveis, camionetas e utilitários usados.</li>
+                    <li><span class="sentence-emoji">🚚</span> 45.11-1-03 - Comércio por atacado de automóveis, camionetas e utilitários novos e usados.</li>
+                    <li><span class="sentence-emoji">🚛</span> 45.11-1-04 - Comércio por atacado de caminhões novos e usados.</li>
+                    <li><span class="sentence-emoji">🚌</span> 45.11-1-05 - Comércio por atacado de reboques e semi-reboques novos e usados.</li>
+                    <li><span class="sentence-emoji">🚐</span> 45.11-1-06 - Comércio por atacado de ônibus e microônibus novos e usados.</li>
+                    <li><span class="sentence-emoji">🤝</span> 45.12-9-01 - Representantes comerciais e agentes do comércio de veículos automotores.</li>
+                    <li><span class="sentence-emoji">🔄</span> 45.12-9-02 - Comércio sob consignação de veículos automotores.</li>
+                    <li><span class="sentence-emoji">🏍️</span> 45.41-2-01 - Comércio por atacado de motocicletas e motonetas.</li>
+                    <li><span class="sentence-emoji">🛵</span> 45.41-2-03 - Comércio a varejo de motocicletas e motonetas novas.</li>
+                    <li><span class="sentence-emoji">🔧</span> 45.41-2-04 - Comércio a varejo de motocicletas e motonetas usadas.</li>
+                    <li><span class="sentence-emoji">🔑</span> 77.11-0-00 - Locação de automóveis sem condutor.</li>
+                    <li style="list-style-type: none; margin-bottom: 1.1em; padding-left: 0;">
+                        <h4><span class="emoji">📌</span> NOTA IMPORTANTE SOBRE MEI:</h4>
+                        <p class="no-left-padding"><span class="sentence-emoji" style="position: static; margin-right: 0.4em;">📄</span>Microempreendedores Individuais (MEI) que desejam atuar na compra e venda ou locação de veículos podem precisar ajustar seu cadastro no Portal do Empreendedor para incluir um CNAE compatível, como o <strong>77.19-5-99</strong> (Locação de outros meios de transporte não especificados anteriormente, sem condutor), caso o CNAE principal não seja elegível. Oriente o MEI a consultar um contador para regularizar a situação, se necessário.</p>
+                    </li>
+                    <li><span class="sentence-emoji">➕</span> 77.19-5-99 - Locação de outros meios de transporte não especificados anteriormente, sem condutor</li>
+                </ul>
+                <p><span class="sentence-emoji">🎯</span> <strong>Obs:</strong> Nossa base de prospecção é continuamente qualificada, priorizando empresas com CNAE principal 45.11.</p>
+            </div>
+
+            <div class="navigation-buttons">
+                <a aria-label="Voltar para Seção Anterior (Exemplo)" class="btn-nav prev" href="#">❮ Seção Anterior</a>
+                <a aria-label="Próxima Seção (Exemplo)" class="btn-nav next" href="#">Próxima Seção ❯</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="validationModalGlobal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitleGlobal">Resultado da Validação</h3>
+                <button aria-label="Fechar modal" class="modal-close-btn" id="modalCloseBtnGlobal">×</button>
+            </div>
+            <div class="modal-body" id="modalBodyContentGlobal">
+                </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, easing: 'ease-in-out', once: true, mirror: false });
+
+        const darkToggleGlobal = document.getElementById('darkToggleGlobal');
+        const htmlElementGlobal = document.documentElement;
+        const sunIconGlobal = document.getElementById('sunIconGlobal');
+        const moonIconGlobal = document.getElementById('moonIconGlobal');
+        let isDarkModeGlobal = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        function applyThemeGlobal(darkMode) {
+            htmlElementGlobal.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+            if (sunIconGlobal && moonIconGlobal) {
+                sunIconGlobal.style.display = darkMode ? 'none' : 'block';
+                moonIconGlobal.style.display = darkMode ? 'block' : 'none';
+            }
+            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        }
+        applyThemeGlobal(isDarkModeGlobal);
+        if (darkToggleGlobal) {
+            darkToggleGlobal.addEventListener('click', () => {
+                isDarkModeGlobal = !isDarkModeGlobal;
+                applyThemeGlobal(isDarkModeGlobal);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const emojiMasterList = ['💡', '🏢', '📜', '⭐', '🚗', '🚙', '🚚', '🚛', '🚌', '🚐', '🤝', '🔄', '🏍️', '🛵', '🔧', '🔑', '📌', '📄', '➕', '🎯', '🔍', '✨', '🚀', '🔹', '🔸', '✔️', '📈', '📊', '💬', '🎉', '▶️', '✍️', '⚙️', '🛡️', '📞', '✉️', '📖', '📚', '💻', '🎓', '🔗', '🗺️', '🧭', '💖', '⏳', '⚠️', 'ℹ️', '💰', '🌍', '🥇', '🏆'];
+            let usedEmojis = new Set();
+            let emojiCycleIndex = 0;
+
+            function getUniqueEmoji() {
+                if (usedEmojis.size >= emojiMasterList.length) { usedEmojis.clear(); emojiCycleIndex = 0; }
+                let emoji; let attempts = 0;
+                do {
+                    emoji = emojiMasterList[emojiCycleIndex];
+                    emojiCycleIndex = (emojiCycleIndex + 1) % emojiMasterList.length;
+                    attempts++;
+                } while (usedEmojis.has(emoji) && usedEmojis.size < emojiMasterList.length && attempts < emojiMasterList.length * 2);
+                usedEmojis.add(emoji); return emoji;
+            }
+
+            document.querySelectorAll('.content-page-title span.emoji, .text-content-container h3 span.emoji, .text-content-container h4 span.emoji, .text-content-container h5 span.emoji').forEach(span => {
+                if (span.textContent.trim() === '') { span.textContent = getUniqueEmoji(); }
+            });
+            document.querySelectorAll('.text-content-container ul.cnae-list li > .sentence-emoji:first-child, .text-content-container p > .sentence-emoji:first-child').forEach(span => {
+                 span.textContent = getUniqueEmoji();
+            });
+
+            const cnpjInputElGlobal = document.getElementById('cnpjInputGlobal');
+            const btnConsultarCnpjBrasilApiEl = document.getElementById('btnConsultarCnpjBrasilApi');
+            const btnConsultarCnpjJaPublicaEl = document.getElementById('btnConsultarCnpjJaPublica');
+            
+            const resultadoCnpjDivElGlobal = document.getElementById('resultadoCnpjGlobal');
+            const validationModalElGlobal = document.getElementById('validationModalGlobal');
+            const modalTitleElGlobal = document.getElementById('modalTitleGlobal');
+            const modalBodyContentElGlobal = document.getElementById('modalBodyContentGlobal');
+            const modalCloseBtnElGlobal = document.getElementById('modalCloseBtnGlobal');
+
+            // Elementos para funcionalidades Gemini
+            const geminiFeaturesContainerEl = document.getElementById('geminiFeaturesContainer');
+            const btnGerarResumoEmpresaEl = document.getElementById('btnGerarResumoEmpresa');
+            const btnSugerirPontosAtencaoEl = document.getElementById('btnSugerirPontosAtencao');
+            const geminiLoadingIndicatorEl = document.getElementById('geminiLoadingIndicator');
+            const geminiResponseAreaEl = document.getElementById('geminiResponseArea');
+            const geminiResponseTextEl = document.getElementById('geminiResponseText');
+            
+            // Variável para armazenar os dados da última consulta bem-sucedida
+            let currentEmpresaData = null; 
+            let currentApiSource = null;
+
+
+            const CNAES_PERMITIDOS_GLOBAL = ["4511101", "4511102", "4511103", "4511104", "4511105", "4511106", "4512901", "4512902", "4541201", "4541203", "4541204", "7711000", "7719599"];
+            
+            function formatCnpjDisplay(cnpj) {
+                if (!cnpj) return 'N/A';
+                const cnpjLimpo = String(cnpj).replace(/\D/g, '');
+                if (cnpjLimpo.length !== 14) return cnpj; 
+                return cnpjLimpo.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+            }
+
+            function formatPhoneNumber(area, number) { 
+                if (area && number) return `(${area}) ${number}`;
+                return 'N/A';
+            }
+            
+            function formatAddressDetails(data, apiSource) {
+                if (!data) return 'N/A';
+                let addressParts = [];
+                if (apiSource === 'brasilAPI') {
+                    if (data.logradouro) addressParts.push(data.logradouro);
+                    if (data.numero) addressParts.push(data.numero);
+                    if (data.complemento) addressParts.push(data.complemento);
+                    if (data.bairro) addressParts.push(data.bairro);
+                    if (data.cep) addressParts.push(`CEP: ${String(data.cep).replace(/\D/g, '').replace(/^(\d{5})(\d{3})$/, '$1-$2')}`);
+                    if (data.municipio) addressParts.push(data.municipio);
+                    if (data.uf) addressParts.push(data.uf);
+                } else if (apiSource === 'cnpjAPublica') { 
+                    const addr = data.address;
+                    if (!addr) return 'N/A';
+                    if (addr.street) addressParts.push(addr.street);
+                    if (addr.number) addressParts.push(addr.number);
+                    if (addr.details) addressParts.push(addr.details); 
+                    if (addr.district) addressParts.push(addr.district); 
+                    if (addr.zip) addressParts.push(`CEP: ${String(addr.zip).replace(/\D/g, '').replace(/^(\d{5})(\d{3})$/, '$1-$2')}`);
+                    if (addr.city) addressParts.push(addr.city); 
+                    if (addr.state) addressParts.push(addr.state); 
+                }
+                return addressParts.length > 0 ? addressParts.join(', ') : 'N/A';
+            }
+
+            function gerarPDF(data, statusValidacaoB2B, apiSource) {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const accentColor = '#10a78d', errorColor = '#dc3545', textColor = '#374151', lightGrayColor = '#f3f4f6';
+                let yPos = 20;
+                const lineHeight = 7, sectionSpacing = 8, leftMargin = 15, contentWidth = doc.internal.pageSize.getWidth() - (leftMargin * 2);
+
+                doc.setFontSize(20); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                doc.text(`Relatório CNPJ (Fonte: ${apiSource === 'brasilAPI' ? 'BrasilAPI' : 'CNPJá Pública'})`, doc.internal.pageSize.getWidth() / 2, yPos, { align: "center" });
+                yPos += lineHeight * 1.5; doc.setDrawColor(accentColor);
+                doc.line(leftMargin, yPos - 5, doc.internal.pageSize.getWidth() - leftMargin, yPos - 5);
+                yPos += sectionSpacing;
+
+                function addText(label, value) {
+                    doc.setFont("helvetica", "bold"); doc.setTextColor(textColor); doc.text(label, leftMargin, yPos);
+                    doc.setFont("helvetica", "normal");
+                    const splitValue = doc.splitTextToSize(String(value || 'N/A'), contentWidth - (leftMargin + 30));
+                    doc.text(splitValue, leftMargin + 45, yPos);
+                    yPos += (splitValue.length * lineHeight) + (lineHeight / 3);
+                    if (yPos > doc.internal.pageSize.getHeight() - 25) { doc.addPage(); yPos = 20; doc.setFontSize(10); }
+                }
+                
+                doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                doc.text("Dados da Empresa", leftMargin, yPos); yPos += lineHeight * 1.5; doc.setFontSize(10);
+
+                if (apiSource === 'brasilAPI') {
+                    addText("CNPJ Consultado:", formatCnpjDisplay(data.cnpj));
+                    addText("Razão Social:", data.razao_social);
+                    addText("Nome Fantasia:", data.nome_fantasia);
+                    addText("Situação Cadastral:", data.descricao_situacao_cadastral);
+                    addText("Tipo:", data.descricao_identificador_matriz_filial);
+                     if (data.descricao_identificador_matriz_filial === "FILIAL" && data.cnpj) {
+                        const raiz = String(data.cnpj).replace(/\D/g,'').substring(0,8);
+                        addText("CNPJ Raiz (Matriz):", `${raiz} (Consulte ${raiz}0001XX para detalhes da matriz)`);
+                    }
+                    addText("Data Abertura:", data.data_inicio_atividade);
+                    addText("Porte:", data.descricao_porte || data.porte);
+                    addText("Natureza Jurídica:", data.natureza_juridica);
+                    addText("Capital Social:", data.capital_social ? parseFloat(data.capital_social).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'N/A');
+                } else if (apiSource === 'cnpjAPublica') { 
+                    addText("CNPJ Consultado:", formatCnpjDisplay(data.taxId));
+                    addText("Razão Social:", data.company?.name);
+                    addText("Nome Fantasia:", data.alias);
+                    addText("Situação Cadastral:", data.status?.text);
+                    addText("Tipo:", data.head ? "Matriz" : "Filial");
+                    if (!data.head && data.company?.id) { 
+                        addText("CNPJ Raiz (Matriz):", `${data.company.id} (Consulte ${data.company.id}0001XX para detalhes)`);
+                    }
+                    addText("Data Abertura:", data.founded);
+                    addText("Porte:", data.company?.size?.text);
+                    addText("Natureza Jurídica:", data.company?.nature?.text);
+                    addText("Capital Social:", data.company?.equity ? parseFloat(data.company.equity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'N/A');
+                }
+                yPos += sectionSpacing / 2;
+
+                doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                doc.text("Endereço e Contato", leftMargin, yPos); yPos += lineHeight * 1.5; doc.setFontSize(10);
+                addText("Endereço:", formatAddressDetails(data, apiSource));
+                if (apiSource === 'brasilAPI') {
+                    addText("Telefone Principal:", formatPhoneNumber(data.ddd_telefone_1, data.telefone_1));
+                    if (data.ddd_telefone_2 && data.telefone_2) addText("Telefone Secundário:", formatPhoneNumber(data.ddd_telefone_2, data.telefone_2));
+                    addText("Email:", data.email);
+                } else if (apiSource === 'cnpjAPublica') {
+                    const phone = data.phones && data.phones.length > 0 ? data.phones[0] : null;
+                    addText("Telefone Principal:", formatPhoneNumber(phone?.area, phone?.number));
+                    addText("Email:", data.emails && data.emails.length > 0 ? data.emails[0].address : 'N/A');
+                }
+                yPos += sectionSpacing / 2;
+
+                doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                doc.text("Atividades Econômicas (CNAE)", leftMargin, yPos); yPos += lineHeight * 1.5; doc.setFontSize(10);
+                
+                doc.setFont("helvetica", "bold"); doc.setTextColor(textColor); doc.text("CNAE Principal:", leftMargin, yPos);
+                doc.setFont("helvetica", "normal");
+                let cnaePrincipalText = 'N/A';
+                if (apiSource === 'brasilAPI') {
+                    cnaePrincipalText = data.cnae_fiscal ? `${data.cnae_fiscal} - ${data.cnae_fiscal_descricao}` : 'N/A';
+                } else if (apiSource === 'cnpjAPublica') { 
+                    cnaePrincipalText = data.mainActivity ? `${String(data.mainActivity.id).padStart(7, '0')} - ${data.mainActivity.text}` : 'N/A';
+                }
+                const splitCnaePrincipal = doc.splitTextToSize(cnaePrincipalText, contentWidth - 45);
+                doc.text(splitCnaePrincipal, leftMargin + 45, yPos); yPos += (splitCnaePrincipal.length * lineHeight) + lineHeight / 2;
+
+                const cnaesSecundarios = apiSource === 'brasilAPI' ? data.cnaes_secundarios : (data.sideActivities || []);
+                if (cnaesSecundarios && cnaesSecundarios.length > 0) {
+                    doc.setFont("helvetica", "bold"); doc.setTextColor(textColor); doc.text("CNAEs Secundários:", leftMargin, yPos);
+                    yPos += lineHeight; doc.setFont("helvetica", "normal");
+                    cnaesSecundarios.forEach(cnae => {
+                        if (yPos > doc.internal.pageSize.getHeight() - 25) { doc.addPage(); yPos = 20; doc.setFontSize(10); }
+                        const cnaeId = apiSource === 'brasilAPI' ? cnae.codigo : String(cnae.id).padStart(7, '0');
+                        const cnaeDesc = apiSource === 'brasilAPI' ? cnae.descricao : cnae.text;
+                        const cnaeSecText = `${cnaeId} - ${cnaeDesc}`;
+                        const splitCnaeSec = doc.splitTextToSize(cnaeSecText, contentWidth - 10);
+                        doc.text("• " + splitCnaeSec.join("\n  "), leftMargin + 5, yPos);
+                        yPos += (splitCnaeSec.length * lineHeight) + (lineHeight / 3);
+                    });
+                }
+                yPos += sectionSpacing;
+
+                doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                doc.text("Validação para Compradores B2B", leftMargin, yPos); yPos += lineHeight * 1.5;
+                doc.setFillColor(lightGrayColor);
+                let statusRectHeight = lineHeight * (statusValidacaoB2B.aprovado ? 2 : 2 + (statusValidacaoB2B.motivos ? statusValidacaoB2B.motivos.length * 1.2 : 0) + 0.5);
+                doc.rect(leftMargin - 2, yPos - lineHeight, contentWidth + 4, statusRectHeight, 'F'); doc.setFontSize(10);
+                if (statusValidacaoB2B.aprovado) {
+                    doc.setTextColor(34, 139, 34); doc.text("APROVADO para B2B", leftMargin, yPos + lineHeight/2 );
+                } else {
+                    doc.setTextColor(errorColor); doc.text("REPROVADO para B2B", leftMargin, yPos + lineHeight/2);
+                    if (statusValidacaoB2B.motivos && statusValidacaoB2B.motivos.length > 0) {
+                        yPos += lineHeight; doc.setFont("helvetica", "bold"); doc.setTextColor(textColor);
+                        doc.text("Motivo(s):", leftMargin, yPos + lineHeight/2); yPos += lineHeight/2;
+                        doc.setFont("helvetica", "normal");
+                        statusValidacaoB2B.motivos.forEach(motivo => {
+                            if (yPos > doc.internal.pageSize.getHeight() - 25) { doc.addPage(); yPos = 20; doc.setFontSize(10); }
+                            const splitMotivo = doc.splitTextToSize(motivo, contentWidth - 10);
+                            doc.text(splitMotivo, leftMargin + 5, yPos + lineHeight/2);
+                            yPos += (splitMotivo.length * lineHeight/1.5);
+                        });
+                    }
+                }
+                yPos += statusRectHeight; yPos += sectionSpacing;
+                
+                if (apiSource === 'cnpjAPublica' && data.company?.members && data.company.members.length > 0) { 
+                    if (yPos > doc.internal.pageSize.getHeight() - 40) { doc.addPage(); yPos = 20; }
+                    doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.setTextColor(accentColor);
+                    doc.text("Quadro Societário (Simplificado - CNPJá)", leftMargin, yPos); yPos += lineHeight * 1.5; doc.setFontSize(9);
+                    data.company.members.slice(0, 3).forEach(member => {
+                        if (yPos > doc.internal.pageSize.getHeight() - 25) { doc.addPage(); yPos = 20; doc.setFontSize(9); }
+                        addText("Sócio/Adm:", `${member.person?.name || 'N/A'} (${member.person?.type || 'N/A'})`);
+                        addText("Qualificação:", member.role?.text || 'N/A');
+                        yPos += lineHeight/2;
+                    });
+                     if(data.company.members.length > 3) {
+                        doc.setFont("helvetica", "italic").text("Mais membros existem, consulte a fonte original para a lista completa.", leftMargin, yPos);
+                        yPos += lineHeight;
+                    }
+                }
+
+                const dataHoraConsulta = new Date().toLocaleString('pt-BR');
+                doc.setFontSize(8); doc.setTextColor(128, 128, 128);
+                doc.text(`Consulta realizada em: ${dataHoraConsulta} | Fonte: ${apiSource === 'brasilAPI' ? 'BrasilAPI' : 'CNPJá Pública'}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, { align: "center" });
+                
+                let nomeArquivo = 'Relatorio_CNPJ_';
+                if (apiSource === 'brasilAPI') {
+                    nomeArquivo += (data.cnpj || 'consulta').replace(/\D/g, '');
+                } else if (apiSource === 'cnpjAPublica') {
+                    nomeArquivo += (data.taxId || 'consulta').replace(/\D/g, '');
+                }
+                doc.save(`${nomeArquivo}.pdf`);
+            }
+
+            function showModalGlobal(title, content) {
+                if (modalTitleElGlobal) modalTitleElGlobal.textContent = title;
+                if (modalBodyContentElGlobal) modalBodyContentElGlobal.innerHTML = content;
+                if (validationModalElGlobal) validationModalElGlobal.classList.add('active');
+            }
+            function closeModalGlobal() {
+                if (validationModalElGlobal) validationModalElGlobal.classList.remove('active');
+            }
+            if (modalCloseBtnElGlobal) modalCloseBtnElGlobal.addEventListener('click', closeModalGlobal);
+            if (validationModalElGlobal) {
+                validationModalElGlobal.addEventListener('click', (event) => {
+                    if (event.target === validationModalElGlobal) closeModalGlobal();
+                });
+            }
+
+            async function consultarCnpjDetalhado(apiSource) {
+                const cnpjOriginal = cnpjInputElGlobal.value;
+                const cnpjLimpo = cnpjOriginal.replace(/\D/g, '');
+                resultadoCnpjDivElGlobal.innerHTML = '';
+                geminiFeaturesContainerEl.style.display = 'none'; // Esconde funcionalidades Gemini ao iniciar nova consulta
+                geminiResponseAreaEl.style.display = 'none';
+                geminiResponseTextEl.textContent = '';
+
+
+                if (cnpjLimpo.length !== 14) {
+                    const msg = '<p class="error">CNPJ inválido. Deve conter 14 números.</p>';
+                    resultadoCnpjDivElGlobal.innerHTML = msg; showModalGlobal("Erro de Validação", msg); return;
+                }
+
+                const apiName = apiSource === 'brasilAPI' ? 'BrasilAPI' : 'CNPJá Pública';
+                const loadingMsg = `<p>Consultando CNPJ na ${apiName}...</p>`;
+                resultadoCnpjDivElGlobal.innerHTML = loadingMsg; showModalGlobal("Consultando...", loadingMsg);
+
+                let statusValidacaoB2B = { aprovado: false, motivos: [] };
+                let url = '';
+                const headers = {}; 
+
+                if (apiSource === 'brasilAPI') {
+                    url = `https://brasilapi.com.br/api/cnpj/v1/${cnpjLimpo}`;
+                } else { // cnpjAPublica
+                    url = `https://open.cnpja.com/office/${cnpjLimpo}`;
+                }
+
+                try {
+                    const response = await fetch(url, { headers });
+                    if (response.status === 429 && apiSource === 'cnpjAPublica') {
+                        throw new Error(`Muitas requisições para a API ${apiName}. Por favor, aguarde um minuto e tente novamente (limite de 5 consultas/minuto para CNPJá Pública).`);
+                    }
+                    if (!response.ok) {
+                        let errMsg = `Erro ao consultar CNPJ na ${apiName}: ${response.status}`;
+                        try { 
+                            const errData = await response.json(); 
+                            errMsg = errData.message || errData.error || errData.detail || errData.title || `CNPJ ${cnpjLimpo} não encontrado ou erro na ${apiName}.`; 
+                        } 
+                        catch (e) { errMsg = `Erro ${response.status}: ${response.statusText}. O CNPJ pode não existir ou a ${apiName} está indisponível.`;}
+                        throw new Error(errMsg);
+                    }
+                    const data = await response.json();
+                    
+                    currentEmpresaData = data; // Armazena os dados para uso pelas funções Gemini
+                    currentApiSource = apiSource; // Armazena a fonte para uso pelas funções Gemini
+
+                    let displayData = {};
+                    let cnaePrincipalId = '', cnaePrincipalDesc = '', situacaoCadastral = '';
+
+                    if (apiSource === 'brasilAPI') {
+                        displayData = {...data}; 
+                        cnaePrincipalId = data.cnae_fiscal;
+                        cnaePrincipalDesc = data.cnae_fiscal_descricao;
+                        situacaoCadastral = data.descricao_situacao_cadastral;
+                    } else { // cnpjAPublica
+                        displayData = { 
+                            cnpj: data.taxId, 
+                            razao_social: data.company?.name,
+                            nome_fantasia: data.alias,
+                            descricao_situacao_cadastral: data.status?.text,
+                            descricao_identificador_matriz_filial: data.head ? "Matriz" : "Filial",
+                            cnpj_raiz: String(data.company?.id), 
+                            data_inicio_atividade: data.founded,
+                            descricao_porte: data.company?.size?.text,
+                            natureza_juridica: data.company?.nature?.text,
+                            capital_social: data.company?.equity,
+                            logradouro: data.address?.street,
+                            numero: data.address?.number,
+                            complemento: data.address?.details,
+                            bairro: data.address?.district,
+                            cep: data.address?.zip,
+                            municipio: data.address?.city,
+                            uf: data.address?.state,
+                            ddd_telefone_1: data.phones && data.phones.length > 0 ? data.phones[0].area : null,
+                            telefone_1: data.phones && data.phones.length > 0 ? data.phones[0].number : null,
+                            email: data.emails && data.emails.length > 0 ? data.emails[0].address : null,
+                            cnae_fiscal: String(data.mainActivity?.id).padStart(7,'0'),
+                            cnae_fiscal_descricao: data.mainActivity?.text,
+                            cnaes_secundarios: data.sideActivities?.map(c => ({codigo: String(c.id).padStart(7,'0'), descricao: c.text})) || []
+                        };
+                        cnaePrincipalId = displayData.cnae_fiscal;
+                        cnaePrincipalDesc = displayData.cnae_fiscal_descricao;
+                        situacaoCadastral = displayData.descricao_situacao_cadastral;
+                    }
+                    
+                    let resHtml = `<h4>Resultado para: ${formatCnpjDisplay(displayData.cnpj)} (Fonte: ${apiName})</h4>
+                                <p><strong>Razão Social:</strong> ${displayData.razao_social||'N/A'}</p>
+                                <p><strong>Nome Fantasia:</strong> ${displayData.nome_fantasia||'N/A'}</p>
+                                <p><strong>Situação Cadastral:</strong> <strong style="color:${situacaoCadastral?.toLowerCase() === 'ativa' ? 'var(--success-color)':'var(--error-color)'};">${situacaoCadastral||'N/A'}</strong></p>
+                                <p><strong>Tipo:</strong> ${displayData.descricao_identificador_matriz_filial || 'N/A'}</p>`;
+                    if (displayData.descricao_identificador_matriz_filial === "FILIAL" && displayData.cnpj) {
+                        const raiz = displayData.cnpj_raiz || String(displayData.cnpj).replace(/\D/g,'').substring(0,8); 
+                        resHtml += `<div class="info-matriz"><strong>CNPJ Raiz (Matriz):</strong> ${raiz} 
+                                     <button onclick="consultarCnpjMatriz('${raiz}')">Consultar Matriz (Raiz + 0001)</button>
+                                     <p style="font-size:0.8em; margin-top:0.3em;">Nota: O DV da matriz precisa ser verificado. Esta consulta tentará com '0001' e o DV da filial.</p>
+                                     </div>`;
+                    }
+                    resHtml += `<p><strong>Endereço:</strong> ${formatAddressDetails(data, apiSource)}</p> 
+                                <p><strong>Telefone Principal:</strong> ${formatPhoneNumber(displayData.ddd_telefone_1, displayData.telefone_1)}</p>`;
+                    if (displayData.ddd_telefone_2 && displayData.telefone_2) resHtml += `<p><strong>Telefone Secundário:</strong> ${formatPhoneNumber(displayData.ddd_telefone_2, displayData.telefone_2)}</p>`;
+                    resHtml += `<p><strong>Email:</strong> ${displayData.email || 'N/A'}</p>
+                                <p><strong>Data Abertura:</strong> ${displayData.data_inicio_atividade || 'N/A'}</p>
+                                <p><strong>Porte:</strong> ${displayData.descricao_porte || 'N/A'}</p>
+                                <p><strong>Natureza Jurídica:</strong> ${displayData.natureza_juridica || 'N/A'}</p>
+                                <p><strong>Capital Social:</strong> ${displayData.capital_social ? parseFloat(displayData.capital_social).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'N/A'}</p>
+                                <p><strong>CNAE Principal:</strong> ${cnaePrincipalId||'N/A'} - ${cnaePrincipalDesc||'N/A'}</p>`;
+
+                    if(displayData.cnaes_secundarios && displayData.cnaes_secundarios.length > 0){
+                        resHtml += "<p><strong>CNAEs Secundários:</strong></p><ul>";
+                        displayData.cnaes_secundarios.forEach(c => resHtml += `<li>${c.codigo ||'N/A'} - ${c.descricao||'N/A'}</li>`);
+                        resHtml += "</ul>";
+                    }
+                    resultadoCnpjDivElGlobal.innerHTML = resHtml;
+                    geminiFeaturesContainerEl.style.display = 'block'; // Mostra funcionalidades Gemini
+
+                    let modalMsg = `<p><strong>Razão Social:</strong> ${displayData.razao_social||'N/A'}</p>
+                                    <p><strong>Situação Cadastral (Empresa):</strong> <strong style="color:${situacaoCadastral?.toLowerCase() === 'ativa' ? 'var(--success-color)':'var(--error-color)'};">${situacaoCadastral||'N/A'}</strong></p>`;
+                    let isCnaeOkB2B = false;
+                    let cnaesPermitidosEncontradosB2B = [];
+                    const cnaePrincipalLimpo = String(cnaePrincipalId).replace(/\D/g, '');
+
+                    if (CNAES_PERMITIDOS_GLOBAL.includes(cnaePrincipalLimpo)) {
+                        isCnaeOkB2B = true;
+                        cnaesPermitidosEncontradosB2B.push(`${cnaePrincipalId} (Principal)`);
+                    }
+                    modalMsg += `<p><strong>CNAE Principal:</strong> ${cnaePrincipalId||'N/A'} - ${cnaePrincipalDesc||'N/A'} ${CNAES_PERMITIDOS_GLOBAL.includes(cnaePrincipalLimpo) ? "<strong style='color:var(--success-color);'>(Permitido B2B)</strong>" : "<strong style='color:var(--error-color);'>(Não Permitido B2B)</strong>"}</p>`;
+
+                    if(displayData.cnaes_secundarios && displayData.cnaes_secundarios.length > 0) {
+                        modalMsg += `<p><strong>CNAEs Secundários:</strong></p><ul>`;
+                        displayData.cnaes_secundarios.forEach(c => {
+                            const cnaeSecLimpo = String(c.codigo).replace(/\D/g, '');
+                            const permitido = CNAES_PERMITIDOS_GLOBAL.includes(cnaeSecLimpo);
+                            if (permitido) { isCnaeOkB2B = true; if (!cnaesPermitidosEncontradosB2B.includes(`${c.codigo} (Principal)`)) { cnaesPermitidosEncontradosB2B.push(`${c.codigo} (Secundário)`);}}
+                            modalMsg += `<li>${c.codigo||'N/A'} - ${c.descricao||'N/A'} ${permitido ? "<strong style='color:var(--success-color);'>(Permitido B2B)</strong>" : "<strong style='color:var(--error-color);'>(Não Permitido B2B)</strong>"}</li>`;
+                        });
+                        modalMsg += `</ul>`;
+                    } else { modalMsg += `<p><strong>CNAEs Secundários:</strong> Nenhum informado.</p>`; }
+
+                    const isAtivo = situacaoCadastral?.toLowerCase() === 'ativa';
+                    if (isAtivo && isCnaeOkB2B) {
+                        statusValidacaoB2B.aprovado = true; 
+                        showModalGlobal("Validação B2B: Aprovado", `<p class="modal-status approved"><span class="status-icon">✅</span> CNPJ Aprovado para B2B!</p>${modalMsg}<p><strong>CNAEs Permitidos B2B Encontrados:</strong> ${cnaesPermitidosEncontradosB2B.join(', ') || 'Nenhum'}</p>`);
+                    } else {
+                        statusValidacaoB2B.aprovado = false; 
+                        if (!isAtivo) statusValidacaoB2B.motivos.push(`Situação cadastral da empresa: ${situacaoCadastral || 'N/A'}.`);
+                        if (!isCnaeOkB2B) statusValidacaoB2B.motivos.push("Nenhum CNAE (principal ou secundário) permitido para B2B foi encontrado.");
+                        showModalGlobal("Validação B2B: Reprovado", `<p class="modal-status rejected"><span class="status-icon">❌</span> CNPJ Reprovado para B2B!</p>${modalMsg}<p><strong>Motivo(s) Reprovação B2B:</strong> ${statusValidacaoB2B.motivos.join(' ')}</p>`);
+                    }
+                    gerarPDF(data, statusValidacaoB2B, apiSource); 
+
+                } catch (error) {
+                    const errorDisplay = `<p class="error">${error.message || 'Falha ao consultar. Verifique o CNPJ e tente novamente.'}</p>`;
+                    resultadoCnpjDivElGlobal.innerHTML = errorDisplay; showModalGlobal(`Erro na Consulta (${apiName})`, errorDisplay);
+                    geminiFeaturesContainerEl.style.display = 'none'; // Esconde funcionalidades Gemini em caso de erro
+                    const errorDataForPdf = apiSource === 'brasilAPI' ? { cnpj: cnpjOriginal, razao_social: "Erro na Consulta" } : { taxId: cnpjOriginal, company: { name: "Erro na Consulta"} }; 
+                    if(statusValidacaoB2B.motivos.length === 0) statusValidacaoB2B.motivos.push(error.message || 'Falha ao consultar.');
+                    statusValidacaoB2B.aprovado = false;
+                    gerarPDF(errorDataForPdf, statusValidacaoB2B, apiSource);
+                }
+            }
+            
+            if (btnConsultarCnpjBrasilApiEl) {
+                btnConsultarCnpjBrasilApiEl.addEventListener('click', () => consultarCnpjDetalhado('brasilAPI'));
+            }
+            if (btnConsultarCnpjJaPublicaEl) { 
+                btnConsultarCnpjJaPublicaEl.addEventListener('click', () => consultarCnpjDetalhado('cnpjAPublica'));
+            }
+            
+            window.consultarCnpjMatriz = function(cnpjRaiz) {
+                if (cnpjInputElGlobal && cnpjRaiz) {
+                    const cnpjFilialAtual = cnpjInputElGlobal.value.replace(/\D/g, '');
+                    let dv = 'XX'; 
+                    if (cnpjFilialAtual.length === 14) {
+                        dv = cnpjFilialAtual.substring(12,14); 
+                    }
+                    const cnpjMatrizEstimado = `${cnpjRaiz}0001${dv}`;
+                    cnpjInputElGlobal.value = cnpjMatrizEstimado; 
+                    alert(`CNPJ da Matriz (estimado: ${formatCnpjDisplay(cnpjMatrizEstimado)}) preenchido. Verifique e ajuste o DV se necessário, depois clique em um dos botões de consulta.`);
+                }
+                closeModalGlobal(); 
+            }
+            
+            // --- Funções Gemini API ---
+            async function callGeminiAPI(prompt) {
+                geminiLoadingIndicatorEl.classList.add('active');
+                geminiResponseAreaEl.style.display = 'none';
+                geminiResponseTextEl.textContent = '';
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Deixe vazio para o Canvas injetar
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error("Erro da API Gemini:", errorData);
+                        throw new Error(`Erro da API Gemini: ${response.status} ${response.statusText}. Detalhes: ${errorData?.error?.message || 'Sem detalhes adicionais.'}`);
+                    }
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        geminiResponseTextEl.textContent = text;
+                        geminiResponseAreaEl.style.display = 'block';
+                    } else {
+                        console.error("Resposta inesperada da API Gemini:", result);
+                        geminiResponseTextEl.textContent = "Não foi possível obter uma resposta da Gemini API ou a resposta está vazia.";
+                        geminiResponseAreaEl.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error("Erro ao chamar a API Gemini:", error);
+                    geminiResponseTextEl.textContent = `Erro ao processar sua solicitação com a Gemini API: ${error.message}`;
+                    geminiResponseAreaEl.style.display = 'block';
+                } finally {
+                    geminiLoadingIndicatorEl.classList.remove('active');
+                }
+            }
+
+            if (btnGerarResumoEmpresaEl) {
+                btnGerarResumoEmpresaEl.addEventListener('click', () => {
+                    if (!currentEmpresaData) {
+                        alert("Por favor, consulte um CNPJ primeiro.");
+                        return;
+                    }
+                    let razaoSocial, nomeFantasia, cnaeDesc, situacao, cidade, uf;
+
+                    if (currentApiSource === 'brasilAPI') {
+                        razaoSocial = currentEmpresaData.razao_social;
+                        nomeFantasia = currentEmpresaData.nome_fantasia;
+                        cnaeDesc = currentEmpresaData.cnae_fiscal_descricao;
+                        situacao = currentEmpresaData.descricao_situacao_cadastral;
+                        cidade = currentEmpresaData.municipio;
+                        uf = currentEmpresaData.uf;
+                    } else { // cnpjAPublica
+                        razaoSocial = currentEmpresaData.company?.name;
+                        nomeFantasia = currentEmpresaData.alias;
+                        cnaeDesc = currentEmpresaData.mainActivity?.text;
+                        situacao = currentEmpresaData.status?.text;
+                        cidade = currentEmpresaData.address?.city;
+                        uf = currentEmpresaData.address?.state;
+                    }
+
+                    const prompt = `Crie um resumo conciso e profissional sobre a empresa "${razaoSocial || 'N/A'}" (nome fantasia: "${nomeFantasia || 'N/A'}"). Atividade principal: "${cnaeDesc || 'N/A'}". Localização: ${cidade || 'N/A'} - ${uf || 'N/A'}. Situação cadastral: "${situacao || 'N/A'}". Destaque os pontos chave para uma análise comercial rápida.`;
+                    callGeminiAPI(prompt);
+                });
+            }
+
+            if (btnSugerirPontosAtencaoEl) {
+                btnSugerirPontosAtencaoEl.addEventListener('click', () => {
+                    if (!currentEmpresaData) {
+                        alert("Por favor, consulte um CNPJ primeiro.");
+                        return;
+                    }
+                    let situacao, cnaeDesc, cnaeId, porte, dataAbertura;
+
+                    if (currentApiSource === 'brasilAPI') {
+                        situacao = currentEmpresaData.descricao_situacao_cadastral;
+                        cnaeId = String(currentEmpresaData.cnae_fiscal).replace(/\D/g, '');
+                        cnaeDesc = currentEmpresaData.cnae_fiscal_descricao;
+                        porte = currentEmpresaData.descricao_porte || currentEmpresaData.porte;
+                        dataAbertura = currentEmpresaData.data_inicio_atividade;
+                    } else { // cnpjAPublica
+                        situacao = currentEmpresaData.status?.text;
+                        cnaeId = String(currentEmpresaData.mainActivity?.id).replace(/\D/g, '');
+                        cnaeDesc = currentEmpresaData.mainActivity?.text;
+                        porte = currentEmpresaData.company?.size?.text;
+                        dataAbertura = currentEmpresaData.founded;
+                    }
+                    const cnaePermitido = CNAES_PERMITIDOS_GLOBAL.includes(cnaeId) ? "Sim" : "Não";
+
+                    const prompt = `Para uma empresa com os seguintes dados:
+                    - Situação Cadastral: "${situacao || 'N/A'}"
+                    - CNAE Principal: "${cnaeId || 'N/A'} - ${cnaeDesc || 'N/A'}" (Permitido para B2B Auto Arremate: ${cnaePermitido})
+                    - Porte: "${porte || 'N/A'}"
+                    - Data de Abertura: "${dataAbertura || 'N/A'}"
+                    Sugira 3 a 5 pontos de atenção e possíveis ganchos comerciais para uma prospecção B2B, considerando o Playbook Comercial Auto Arremate® 2025. Se a situação não for 'ATIVA', destaque isso como um ponto crítico. Se o CNAE não for permitido, mencione isso como um fator importante.`;
+                    callGeminiAPI(prompt);
+                });
+            }
+
+
+            const currentYearSpanGlobal = document.getElementById('currentYearGlobal');
+            if (currentYearSpanGlobal) currentYearSpanGlobal.textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

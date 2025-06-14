@@ -1,0 +1,64 @@
+<!-- partials/suporte.html -->
+<section id="playbook-sec-10-content-main" class="playbook-sub-section" data-aos="fade-up">
+    <div class="container mx-auto">
+        <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm">
+            <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO GUIA ESTRATÉGICO
+        </button>
+        <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">📞</span><strong>CENTRAL DE COMANDO (CONTATO E SUPORTE): SEU RÁDIO DIRETO COM A EQUIPE!</strong></h2>
+        <div class="text-content-container playbook-text space-y-10 mt-8">
+            <section id="intro-contato-suporte" data-aos="fade-up">
+                <h3 class="playbook-section-title !text-center" style="text-transform: uppercase;">
+                    <span class="emoji">🤝</span> <strong>PIT STOP DE AJUDA: CONECTE-SE COM NOSSA EQUIPE DE CAMPEÕES!</strong>
+                </h3>
+                <p><span class="sentence-emoji">👨‍🔧</span>Mesmo os pilotos mais experientes da Copa Pistão, como o Relâmpago McQueen, às vezes precisam de um aliado no box ou de um sábio conselheiro como o Doc Hudson. <span class="sentence-emoji">🛠️</span>Nesta seção, você encontrará os canais diretos para contatar as equipes de suporte da Auto Arremate® e Arremaq® – seus mecânicos e engenheiros dedicados! – além de informações úteis sobre nossa plataforma e como obter ajuda quando precisar de um ajuste rápido ou de uma estratégia para a próxima volta.</p>
+                <p><span class="sentence-emoji">🆘</span>Não hesite em chamar sua equipe de box! Estamos aqui para garantir que seu carro esteja sempre pronto para acelerar e que você tenha todas as ferramentas para cruzar a linha de chegada em primeiro lugar!</p>
+            </section>
+
+            <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+            
+            <section id="assistente-suporte-ia" class="gemini-interaction-box bg-blue-50 dark:bg-blue-900/30 p-6 rounded-lg shadow-lg" data-aos="fade-up">
+                <h3 class="playbook-section-title !text-center gemini-feature-title" style="font-size: 1.5rem; color: var(--accent-tertiary); text-transform: uppercase;">
+                    <span class="gemini-sparkle" style="font-size: 1.5em;">✨</span> O CO-PILOTO DE MENSAGENS (IA): REDIGINDO SEU PEDIDO DE SUPORTE!
+                </h3>
+                <p class="gemini-feature-description"><span class="sentence-emoji">📝</span>Descreva seu problema ou dúvida abaixo. <span class="sentence-emoji">✍️</span>A IA vai te ajudar a redigir uma mensagem clara e concisa para a nossa equipe de suporte. <span class="sentence-emoji">⚙️</span>É como ter um engenheiro de comunicação ao seu lado!</p>
+                <textarea id="communicationDraftInput" class="gemini-input w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md dark:bg-slate-700 dark:text-slate-200" rows="4" placeholder="Ex: Não consigo encontrar o relatório de vendas do mês passado na plataforma. ou Tenho uma dúvida sobre como funciona a integração com o CRM X."></textarea>
+                <button class="btn-gemini-action btn-nav next bg-accent-tertiary hover:bg-opacity-80 text-text-on-accent">
+                    <span class="gemini-sparkle">✨</span> Redigir Pedido de Suporte
+                </button>
+                <div id="communicationRefinementLoading" class="gemini-loading" style="display: none; margin-top: 1rem;">A refinar a sua mensagem... <span class="spinner"></span></div>
+                <div id="communicationRefinementOutputArea" class="gemini-output-area" style="margin-top: 1rem; padding: 1rem; border: 1px solid var(--border-color-light); border-radius: var(--radius-md); background-color: var(--bg-content-light); dark:bg-bg-content-dark;">
+                    </div>
+                <div id="communicationRefinementErrorArea" class="gemini-error-area" style="display: none; margin-top: 1rem; color: var(--accent-danger);"></div>
+            </section>
+
+            <hr class="my-10 border-t-2 border-gray-200 dark:border-gray-700">
+
+            <section id="canais-contato-direto" data-aos="fade-up">
+                <h3 class="playbook-section-title !text-center" style="text-transform: uppercase;">
+                    <span class="emoji">📡</span> <strong>SEUS CANAIS DIRETOS COM A EQUIPE DE BOX!</strong>
+                </h3>
+                <p class="mb-4"><span class="sentence-emoji">🎙️</span> Para garantir que você esteja sempre conectado com a nossa equipe de suporte e liderança, utilize os seguintes canais. Lembre-se, cada canal tem sua especialidade, como um mecânico diferente para cada parte do carro!</p>
+                <ul class="playbook-list grid md:grid-cols-2 gap-4">
+                    <li data-emoji="📧" class="icp-list-item"><strong>E-mail (Para Dúvidas Estratégicas e Sugestões):</strong> <a href="mailto:liderancacomercial@autoarremate.com.br" class="text-aa-green-darker hover:underline">liderancacomercial@autoarremate.com.br</a><br><span class="text-xs text-gray-500 dark:text-gray-400">Ideal para questões que precisam de uma análise mais profunda ou sugestões de melhoria para o Guia.</span></li>
+                    <li data-emoji="📞" class="icp-list-item"><strong>Telefone (Para Suporte Urgente em Campo):</strong> <a href="tel:01640421197" class="text-aa-green-darker hover:underline">016 4042-1197</a> (Ramal: XXXX)<br><span class="text-xs text-gray-500 dark:text-gray-400">Para situações que exigem resposta rápida durante uma negociação ou problema crítico.</span></li>
+                    <li data-emoji="💬" class="icp-list-item"><strong>Grupo de WhatsApp "Estrategistas AAR" (Para Troca Rápida de Pneus):</strong> <span class="text-aa-green-darker">Acesse via convite do seu gestor.</span><br><span class="text-xs text-gray-500 dark:text-gray-400">Para comunicação ágil com a equipe, compartilhamento de insights e dúvidas rápidas.</span></li>
+                    <li data-emoji="💻" class="icp-list-item"><strong>Plataforma de Suporte (Para Ajustes no Motor da Plataforma):</strong> <span class="text-aa-green-darker">Disponível dentro da plataforma Auto Arremate/Arremaq.</span><br><span class="text-xs text-gray-500 dark:text-gray-400">Para dúvidas técnicas, bugs ou problemas de usabilidade da plataforma.</span></li>
+                </ul>
+                <p class="mt-4 text-center italic text-gray-600 dark:text-gray-400">
+                    <span class="sentence-emoji">🏆</span> Nosso compromisso é com respostas rápidas e soluções eficazes para manter você sempre na liderança da pista!
+                </p>
+            </section>
+
+            <div class="highlight bg-blue-50 dark:bg-blue-900/60 border-l-8 border-blue-500 dark:border-blue-400 rounded-r-xl p-8 shadow-2xl text-left md:text-justify leading-relaxed mt-10" data-aos="fade-up">
+                <p class="text-lg md:text-xl text-blue-900 dark:text-blue-100">
+                    <strong class="block text-2xl md:text-3xl mb-4 font-bold text-center tracking-wider"><span class="emoji">🏁</span> CONECTADO É MAIS RÁPIDO!</strong>
+                    <span class="sentence-emoji">🚀</span>Nunca hesite em usar seus canais de comunicação, campeão! <span class="sentence-emoji">🤝</span>Sua equipe de box está sempre pronta para dar o suporte necessário, seja para um ajuste fino no motor ou para uma estratégia de última hora. <span class="sentence-emoji">🏆</span>Juntos, cruzaremos a linha de chegada! Katchau!
+                </p>
+            </div>
+        </div>
+        <div class="navigation-buttons">
+            <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-9-content-main">❮ EVOLUÇÃO CONTÍNUA</button>
+            <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-13-content-main">ENGENHARIA INTERNA ❯</button>
+        </div>
+    </div>
+</section>

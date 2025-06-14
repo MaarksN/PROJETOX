@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Auto Arremate® / Arremaq 3.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Variáveis de Cores e Fontes (Consolidadas e Ajustadas) */
+        :root {
+            --aa-green: #16B097;
+            --aa-dark-blue: #1C2E42;
+            --aa-light-gray: #AEB0B2; 
+            --aa-medium-gray: #6c7a89; 
+            --aa-white: #FFFFFF;
+            --aa-black: #000000;
+            --aa-green-darker: #0F8A7E; 
+            --aa-green-text-dark-theme: #2DD4BF; 
+            --aa-green-lighter: #D2F3EC;
+            --aa-green-pastel: #f0fdfa; 
+            --aa-dark-blue-lighter: #2C4A6B;
+
+            --arremaq-orange: #FF8C00;
+            --arremaq-orange-darker: #D97706; 
+            --arremaq-orange-text-dark-theme: #FDBA74; 
+            --arremaq-orange-lighter: #FFD073;
+            --arremaq-orange-pastel: #fffbeb;
+            --arremaq-orange-darkest: #6b3e00; 
+            
+            --aa-green-darkest: #17575c; 
+            --aa-shiny-gray-light: #E5E7EB; 
+            --aa-shiny-gray-dark: #374151;  
+
+            /* Fontes */
+            --font-headings-cover: 'Manrope', sans-serif; 
+            --font-body-cover: 'Manrope', sans-serif;    
+            --font-primary-portal: 'Manrope', sans-serif;
+            --font-headings-portal: 'Sora', sans-serif;
+
+            /* Fundos */
+            --bg-main-light: var(--aa-green-pastel); 
+            --bg-main-dark: #0a121c; 
+            --bg-content-light-portal: var(--aa-white);
+            --bg-content-dark-portal: #1e293b; 
+            --bg-cards-section-light: #f0f4f8; 
+            --bg-cards-section-dark: #111827;  
+
+
+            /* Textos */
+            --text-headings-light-portal: var(--aa-dark-blue);
+            --text-headings-dark-portal: var(--aa-green-lighter);
+            --text-body-light-portal: #334155; 
+            --text-body-dark-portal: #cbd5e1; 
+            --text-muted-light-portal: #616161; 
+            --text-muted-dark-portal: #94a3b8; 
+            
+            /* Bordas */
+            --border-color-light-portal: #e2e8f0; 
+            --border-color-dark-portal: #334155; 
+
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Raios de Borda */
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --radius-card-portal: 1.25rem;
+            --radius-button-portal: 0.75rem;
+
+            --transition-main: .25s cubic-bezier(.4,0,.2,1);
+        }
+
+        html[data-theme='dark'] :root {
+            /* Ajustes específicos para tema escuro, se necessário além das variáveis já definidas */
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+            font-family: var(--font-body-cover); 
+            font-size: 91%; /* FONTE BASE REDUZIDA EM 30% (130% * 0.7 = 91%) */
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-body-cover); 
+            background-color: var(--bg-main-light);
+            color: var(--text-body-light-portal);
+            overflow-x: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        html[data-theme='dark'] body {
+            background-color: var(--bg-main-dark);
+            color: var(--text-body-dark-portal);
+        }
+
+        /* Estilos da Seção de Capa */
+        .capa-section { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: clamp(1.2rem, 4.8vw, 2.4rem) clamp(0.8rem, 4vw, 1.6rem); text-align: center; position: relative; background: linear-gradient(60deg, var(--arremaq-orange-pastel) 0%, var(--arremaq-orange-lighter) 15%, var(--aa-shiny-gray-light) 35%, var(--aa-green-lighter) 55%, var(--aa-shiny-gray-light) 75%, var(--aa-green-pastel) 90%, var(--arremaq-orange-pastel) 100%); background-size: 300% 300%; animation: backgroundGradientAnimation 20s ease infinite; overflow: hidden; }
+        html[data-theme='dark'] .capa-section { background: linear-gradient(60deg, var(--arremaq-orange-darkest) 0%, var(--arremaq-orange-darker) 15%, var(--aa-shiny-gray-dark) 35%, var(--aa-dark-blue) 55%, var(--aa-shiny-gray-dark) 75%, var(--aa-green-darkest) 90%, var(--arremaq-orange-darkest) 100%); background-size: 300% 300%; animation: backgroundGradientAnimation 20s ease infinite; }
+        @keyframes backgroundGradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .logos-container { display: flex; justify-content: center; align-items: center; gap: 1.2rem; margin-bottom: 1.2rem; } 
+        .playbook-logo { width: 192px; max-width: 45%; height: auto; display: block; filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.1)); animation: logo-float 3s ease-in-out infinite alternate, logo-blink 2s linear infinite; }
+        html[data-theme='dark'] .playbook-logo { filter: drop-shadow(0 0.4rem 0.8rem rgba(0,0,0,0.3)); }
+        @keyframes logo-float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } } 
+        @keyframes logo-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        
+        .capa-title { 
+            font-family: var(--font-headings-cover); 
+            font-weight: 800; 
+            text-align: center; 
+            margin-top: 0.4em; 
+            margin-bottom: 0.6em; 
+            font-size: clamp(1rem, 2.2vw, 1.35rem); /* Ajustado para 4 linhas e fonte base menor */
+            line-height: 1.5; /* Ajustado para 4 linhas */
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            color: var(--aa-dark-blue); 
+        }
+        html[data-theme='dark'] .capa-title { 
+            color: var(--aa-green-lighter); 
+        }
+        .capa-title .capa-title-line {
+            display: block; 
+            margin-bottom: 0.15em; /* Espaço menor entre as linhas do título */
+        }
+        .capa-title .capa-title-line:last-child {
+            margin-bottom: 0;
+        }
+        .capa-title.fun-title-effect { animation: fun-title-glow-animation 4s ease-in-out infinite alternate; position: relative; }
+        
+        .emoji-original-color { -webkit-text-fill-color: initial; text-fill-color: initial; background: none; display: inline-block; text-shadow: none; }
+        
+        .text-aa-green-darker { color: var(--aa-green-darker) !important; -webkit-text-fill-color: var(--aa-green-darker) !important; text-fill-color: var(--aa-green-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; -webkit-text-fill-color: var(--aa-green-text-dark-theme) !important; text-fill-color: var(--aa-green-text-dark-theme) !important; }
+        .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; -webkit-text-fill-color: var(--arremaq-orange-darker) !important; text-fill-color: var(--arremaq-orange-darker) !important; background: none !important; }
+        html[data-theme='dark'] .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; -webkit-text-fill-color: var(--arremaq-orange-text-dark-theme) !important; text-fill-color: var(--arremaq-orange-text-dark-theme) !important; }
+        
+        .frase-destaque { 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% em relação ao anterior (0.65rem * 1.3 = 0.845rem) */
+            font-size: clamp(0.845rem, 1.69vw, 1.17rem); 
+            font-weight: 700; 
+            background: transparent; 
+            border-radius: var(--radius-lg); 
+            padding: 0.3em 0.6em; 
+            margin-bottom: 0.8rem; 
+            margin-top: 0.6em; 
+            display: block; 
+            max-width: 90%; 
+            margin-left: auto; 
+            margin-right: auto; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); 
+            transition: all var(--transition-main); 
+        }
+        html[data-theme='dark'] .frase-destaque { text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+        .frase-destaque-verde { color: var(--aa-green-darker); }
+        html[data-theme='dark'] .frase-destaque-verde { color: var(--aa-green-text-dark-theme); }
+        .frase-destaque-laranja { color: var(--arremaq-orange-darker); }
+        html[data-theme='dark'] .frase-destaque-laranja { color: var(--arremaq-orange-text-dark-theme); }
+        .frase-destaque .emoji { margin: 0 0.25em; font-size: 1em; /* Ajustado para nova base */ vertical-align: middle; -webkit-text-fill-color: initial; text-fill-color: initial; background: none; text-shadow: none; }
+        @keyframes fun-frase-pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.02); opacity: 1; } }
+        .frase-destaque.fun-frase-effect { animation: fun-frase-pulse 3s ease-in-out infinite; }
+        
+        .capa-criado { 
+            font-family: var(--font-body-cover); 
+            /* font-size aumentado em 30% (0.6rem * 1.3 = 0.78rem) */
+            font-size: 0.78rem; 
+            color: var(--aa-dark-blue); 
+            opacity: 0.95; 
+            margin-top: 1rem; 
+            margin-bottom: 1rem; 
+            font-weight: 500; 
+            animation: created-by-pulse 5s infinite alternate; 
+            text-align: center; 
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1); 
+        }
+        html[data-theme='dark'] .capa-criado { color: #E2E8F0; opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+        @keyframes created-by-pulse { 0% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } 50% { text-shadow: 0 0 7px rgba(22, 176, 151, 0.4), 0 0 4px rgba(255, 140, 0, 0.3); transform: scale(1.03); } 100% { text-shadow: 0 0 3px rgba(22, 176, 151, 0.2), 0 0 1px rgba(255, 140, 0, 0.1); transform: scale(1); } }
+        .capa-criado .emoji { font-size: 1em; /* Ajustado para nova base */ vertical-align: baseline; margin: 0 0.15em; }
+        .capa-criado .creator-name { font-weight: 700; background: linear-gradient(45deg, var(--aa-green-darker) 20%, var(--aa-green) 50%, var(--arremaq-orange) 80%); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent; text-fill-color: transparent; padding: 0 0.2em; display: inline-block; }
+        html[data-theme='dark'] .capa-criado .creator-name { background: linear-gradient(45deg, var(--aa-green-lighter) 20%, var(--aa-green) 50%, var(--arremaq-orange-lighter) 80%); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -moz-text-fill-color: transparent; text-fill-color: transparent; }
+        
+        .btn-iniciar { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.6em; 
+            font-family: var(--font-headings-cover); 
+            /* font-size aumentado em 30% (0.75rem * 1.3 = 0.975rem) */
+            font-size: 0.975rem; 
+            font-weight: bold; 
+            padding: 0.6em 1.5em; 
+            background-image: linear-gradient(45deg, var(--aa-green-darker) 0%, var(--aa-green) 50%, var(--aa-green-darker) 100%); 
+            background-size: 200% auto; 
+            color: var(--aa-white); 
+            border: none; 
+            border-radius: var(--radius-round); 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(22, 176, 151, 0.3), 0 1.5px 3px -1.5px var(--aa-green-darker) inset; 
+            transition: all 0.4s ease-out; 
+            outline: none; 
+            margin-top: 1.2em; 
+            margin-bottom: 1.2em; 
+            text-transform: uppercase; 
+            letter-spacing: 0.07em; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .btn-iniciar:hover { background-position: right center; transform: scale(1.08) translateY(-3px); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset, 0 0 12px var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-iniciar { background-image: linear-gradient(45deg, var(--aa-green) 0%, var(--aa-green-lighter) 50%, var(--aa-green) 100%); color: var(--aa-dark-blue); box-shadow: 0 4px 12px rgba(22, 176, 151, 0.4), 0 1.5px 3px -1.5px var(--aa-green) inset; }
+        html[data-theme='dark'] .btn-iniciar:hover { color: var(--aa-dark-blue); box-shadow: 0 6px 16px rgba(22, 176, 151, 0.5), 0 1.5px 3px -1.5px var(--aa-green-darker) inset, 0 0 16px var(--aa-green); }
+        .btn-iniciar svg { width: 1.2em; height: 1.2em; transition: transform 0.4s ease; }
+        .btn-iniciar:hover svg { transform: rotate(15deg) scale(1.15) translateX(2.5px); } 
+        
+        .capa-social-links { margin-top: 1.2rem; display: flex; gap: 1.2rem; justify-content: center; align-items: center; } 
+        .capa-social-links a { color: var(--aa-dark-blue); font-size: 1.3rem; transition: color var(--transition-main), transform var(--transition-main); }
+        .capa-social-links a:hover { color: var(--aa-green); transform: scale(1.2) rotate(-5deg); }
+        html[data-theme='dark'] .capa-social-links a { color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .capa-social-links a:hover { color: var(--aa-white); }
+
+        /* Estilos da Nova Seção de Cards (Menu Principal) */
+        .menu-principal-section { min-height: 100vh; padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); text-align: center; background-color: var(--bg-cards-section-light); }
+        html[data-theme='dark'] .menu-principal-section { background-color: var(--bg-cards-section-dark); }
+        .menu-principal-title { font-family: var(--font-headings-cover); font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: var(--text-headings-light-portal); margin-bottom: 2.5rem; line-height: 1.3; text-transform: uppercase; }
+        html[data-theme='dark'] .menu-principal-title { color: var(--text-headings-dark-portal); }
+        .menu-card { background-color: var(--bg-content-light-portal); border-radius: var(--radius-xl); padding: 2rem 1.5rem; box-shadow: var(--shadow-lg); transition: all var(--transition-main); border: 1px solid var(--border-color-light-portal); display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; height: 100%; min-height: 280px; justify-content: center; }
+        .menu-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: var(--shadow-xl); border-color: var(--aa-green); }
+        html[data-theme='dark'] .menu-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .menu-card:hover { border-color: var(--aa-green-lighter); }
+        .menu-card-icon { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1; }
+        .menu-card-title { font-family: var(--font-headings-cover); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.4; }
+        html[data-theme='dark'] .menu-card-title { color: var(--text-headings-dark-portal); }
+        .menu-card-title .text-aa-green-darker { color: var(--aa-green-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-aa-green-darker { color: var(--aa-green-text-dark-theme) !important; }
+        .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-darker) !important; }
+        html[data-theme='dark'] .menu-card-title .text-arremaq-orange-darker { color: var(--arremaq-orange-text-dark-theme) !important; }
+
+        /* Estilos da Seção de Detalhes do Manual do Pit Stop (Guia Estratégico) */
+        .manual-pitstop-detalhes-section { background-color: var(--bg-main-light); color: var(--text-body-light-portal); padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem); min-height: 100vh; }
+        html[data-theme='dark'] .manual-pitstop-detalhes-section { background-color: var(--bg-main-dark); color: var(--text-body-dark-portal); }
+        .manual-pitstop-main-title { font-family: var(--font-headings-portal); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: var(--text-headings-light-portal); text-align: center; margin-bottom: 2rem; text-transform: uppercase; }
+        html[data-theme='dark'] .manual-pitstop-main-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-card { background-color: var(--bg-content-light-portal); border: 2px solid var(--border-color-light-portal); border-left: 5px solid var(--aa-green); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); transition: all var(--transition-main); cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; min-height: 220px; justify-content: flex-start; }
+        #playbookIndexContainer .index-item-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-xl); border-left-color: var(--arremaq-orange); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card { background-color: var(--bg-content-dark-portal); border-color: var(--border-color-dark-portal); border-left-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-card:hover { border-left-color: var(--arremaq-orange-lighter); border-color: var(--arremaq-orange-lighter); }
+        #playbookIndexContainer .index-item-emoji { font-size: 2.2rem; margin-bottom: 1rem; color: var(--arremaq-orange); line-height: 1; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-emoji { color: var(--arremaq-orange-lighter); }
+        .emoji-autoarremate-color { color: var(--aa-green-darker) !important; } 
+        html[data-theme='dark'] .emoji-autoarremate-color { color: var(--aa-green-text-dark-theme) !important; }
+        .emoji-arremaq-color { color: var(--arremaq-orange-darker) !important; } 
+        html[data-theme='dark'] .emoji-arremaq-color { color: var(--arremaq-orange-text-dark-theme) !important; }
+        #playbookIndexContainer .index-item-title { font-family: var(--font-headings-portal); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-headings-light-portal); line-height: 1.3; }
+        #playbookIndexContainer .index-item-title strong { text-transform: uppercase; font-weight: 800; display: block; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-title { color: var(--text-headings-dark-portal); }
+        #playbookIndexContainer .index-item-sub { font-family: var(--font-primary-portal); font-size: 0.7rem; color: var(--text-muted-light-portal); line-height: 1.5; margin-top: auto; padding-top: 0.5rem; }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub { color: var(--text-muted-dark-portal); }
+        #playbookIndexContainer .index-item-sub .sentence-emoji { margin-right: 0.3em; color: var(--aa-green); }
+        html[data-theme='dark'] #playbookIndexContainer .index-item-sub .sentence-emoji { color: var(--aa-green-lighter); }
+        
+        .playbook-sub-section { padding-top: 2rem; padding-bottom: 2rem; background-color: var(--bg-main-light); min-height: 100vh; }
+        html[data-theme='dark'] .playbook-sub-section { background-color: var(--bg-main-dark); }
+        .playbook-content-title { font-family: var(--font-headings-portal); font-size: clamp(1.5rem, 3.2vw, 2rem); font-weight: 700; color: var(--text-headings-light-portal); margin-bottom: 2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;}
+        html[data-theme='dark'] .playbook-content-title { color: var(--text-headings-dark-portal); }
+        .playbook-content-title .emoji { font-size: 1.1em; margin-right: 0.6rem; color: var(--aa-green); }
+        html[data-theme='dark'] .playbook-content-title .emoji { color: var(--aa-green-lighter); }
+        .playbook-sub-section p { margin-bottom: 1rem; line-height: 1.8; font-size: 0.85rem; color: var(--text-body-light-portal); }
+        html[data-theme='dark'] .playbook-sub-section p { color: var(--text-body-dark-portal); }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 3rem; }
+        .btn-nav { padding: 0.7rem 1.5rem; border-radius: var(--radius-lg); font-weight: 700; transition: all var(--transition-main); border: 2px solid transparent; text-transform: uppercase; box-shadow: var(--shadow-sm); font-size: 0.8rem; }
+        .btn-nav:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .btn-nav.prev { background-color: var(--text-muted-light-portal); color: var(--aa-white); border-color: var(--aa-dark-blue); }
+        .btn-nav.prev:hover { background-color: var(--aa-dark-blue); }
+        html[data-theme='dark'] .btn-nav.prev { background-color: var(--text-muted-dark-portal); color: var(--bg-main-dark); border-color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-nav.prev:hover { background-color: var(--aa-green-lighter); color: var(--aa-dark-blue); }
+        .btn-nav.next { background-color: var(--aa-green); color: var(--aa-white); border-color: var(--aa-green-darker); }
+        .btn-nav.next:hover { background-color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-nav.next { background-color: var(--arremaq-orange-lighter); color: var(--aa-dark-blue); border-color: var(--arremaq-orange); }
+        html[data-theme='dark'] .btn-nav.next:hover { background-color: var(--arremaq-orange); color: var(--aa-white); }
+        .btn-nav.disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; opacity: 0.7; border-color: #cbd5e1; }
+        html[data-theme='dark'] .btn-nav.disabled { background-color: #334155; color: #64748b; border-color: #475569; }
+        
+        .btn-voltar-secao { display: inline-flex; align-items: center; font-family: var(--font-headings-cover); font-weight: 600; padding: 0.6rem 1.2rem; border-radius: var(--radius-button-portal); text-decoration: none; transition: all var(--transition-main); border: 2px solid var(--aa-green); background-color: transparent; color: var(--aa-green-darker); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2rem; }
+        .btn-voltar-secao:hover { background-color: var(--aa-green-lighter); border-color: var(--aa-green-darker); transform: translateY(-2px); color: var(--aa-green-darker); }
+        html[data-theme='dark'] .btn-voltar-secao { border-color: var(--aa-green-lighter); color: var(--aa-green-lighter); }
+        html[data-theme='dark'] .btn-voltar-secao:hover { background-color: var(--aa-green-darker); border-color: var(--aa-green-lighter); color: var(--aa-white); }
+        .btn-voltar-secao i { margin-right: 0.5rem; }
+
+        .theme-toggle-button { position: fixed; bottom: 20px; right: 20px; background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-lg); z-index: 1000; transition: all var(--transition-main); }
+        .theme-toggle-button:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .theme-toggle-button { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .theme-toggle-button:hover { color: var(--aa-green-lighter); }
+        .accessibility-controls { position: fixed; top: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1001; }
+        .accessibility-btn { background-color: var(--bg-content-light-portal); color: var(--text-headings-light-portal); border: 1px solid var(--border-color-light-portal); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow-md); transition: all var(--transition-main); }
+        .accessibility-btn:hover { transform: scale(1.1); color: var(--aa-green); }
+        html[data-theme='dark'] .accessibility-btn { background-color: var(--bg-content-dark-portal); color: var(--text-headings-dark-portal); border-color: var(--border-color-dark-portal); }
+        html[data-theme='dark'] .accessibility-btn:hover { color: var(--aa-green-lighter); }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 1024px) { 
+            .menu-principal-section .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer.grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 84%; } 
+            .capa-title { font-size: clamp(1.0rem, 2.2vw, 1.3rem); } 
+            .frase-destaque { font-size: clamp(0.6rem, 1.3vw, 0.8rem); max-width: 95%;}
+            .playbook-logo { width: 148px; } 
+            .accessibility-controls { top: 10px; right: 10px; gap: 8px;}
+            .accessibility-btn { width: 40px; height: 40px; font-size: 1.1rem;}
+            .menu-principal-title { font-size: clamp(1.1rem, 2.8vw, 1.7rem); }
+            .menu-card { padding: 1.5rem 1rem; min-height: 240px; }
+            .menu-card-icon { font-size: 2.2rem; }
+            .menu-card-title { font-size: 0.8rem; }
+            .manual-pitstop-main-title { font-size: clamp(1.2rem, 2.8vw, 1.7rem); }
+            .playbook-content-title { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+            #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #playbookIndexContainer .index-item-card { min-height: 180px; }
+            #playbookIndexContainer .index-item-emoji { font-size: 1.8rem; }
+            #playbookIndexContainer .index-item-title { font-size: 0.7rem; }
+            #playbookIndexContainer .index-item-sub { font-size: 0.55rem; }
+            .playbook-sub-section p { font-size: 0.7rem; }
+
+        }
+        @media (max-width: 640px) { 
+             .menu-principal-section .grid-cols-4, .menu-principal-section .grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+             #playbookIndexContainer.grid-cols-4, #playbookIndexContainer.grid-cols-2, #playbookIndexContainer.grid-cols-3 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 77%; } 
+            .playbook-logo { width: 116px; } 
+            .btn-iniciar { font-size: 0.7rem; padding: 0.5em 1.1em; }
+            .capa-title { font-size: clamp(0.9rem, 2.5vw, 1.2rem); line-height: 1.5;} 
+            .frase-destaque { font-size: clamp(0.6rem, 1.2vw, 0.75rem); }
+            .menu-principal-title { font-size: clamp(1rem, 2.8vw, 1.5rem); }
+            .manual-pitstop-main-title { font-size: clamp(1.1rem, 2.8vw, 1.5rem); }
+             .menu-card { min-height: 200px; }
+            .menu-card-title { font-size: 0.75rem; }
+            .playbook-sub-section p { font-size: 0.65rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="accessibility-controls">
+        <button id="increaseFontBtn" class="accessibility-btn" aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+            <i class="fas fa-search-plus"></i>
+        </button>
+        <button id="decreaseFontBtn" class="accessibility-btn" aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+            <i class="fas fa-search-minus"></i>
+        </button>
+        <button id="readPageBtn" class="accessibility-btn" aria-label="Ler página em voz alta" title="Ler Página">
+            <i class="fas fa-volume-up"></i>
+        </button>
+    </div>
+
+    <main id="main-portal-completo">
+        <section id="capa-section" class="capa-section" data-aos="fade-in" data-aos-duration="1000">
+            <div class="logos-container">
+                <img src="https://www.autoarremate.com.br/wp-content/uploads/2022/09/logo-horizontal-padrao.svg" alt="Logotipo da Auto Arremate" class="playbook-logo" data-aos="zoom-in" data-aos-delay="200" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/16B097?text=Auto+Arremate&font=manrope'; this.alt='Logotipo Auto Arremate Indisponível';">
+                <img src="https://www.arremaq.com.br/wp-content/uploads/2021/01/Logotipo-Arremaqsuperbid.png" alt="Logotipo da Arremaq" class="playbook-logo" data-aos="zoom-in" data-aos-delay="300" onerror="this.onerror=null; this.src='https://placehold.co/192x54/ffffff/FF8C00?text=Arremaq&font=manrope'; this.alt='Logotipo Arremaq Indisponível';">
+            </div>
+            <h1 class="capa-title fun-title-effect" data-aos="fade-up" data-aos-delay="400">
+                <span class="capa-title-line"><span class="emoji-original-color">🏎️</span> ACELERA SUCESSO 2025<span class="emoji-original-color">💨</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">⚡</span> SEU GUIA RELÂMPAGO <span class="emoji-original-color">💡</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🎯</span> PARA UMA PERFORMANCE CAMPEÃ <span class="emoji-original-color">🏁</span></span>
+                <span class="capa-title-line"><span class="emoji-original-color">🏆</span> NA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> <span class="emoji-original-color">🏅</span></span>
+            </h1>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="600">
+                <span class="emoji">🚀</span> SÓ OS FORTES ACELERAM, MAS APENAS OS SÁBIOS DOMINAM A ARTE DE FREAR! <span class="emoji">🛑</span>
+            </p>
+            <p class="frase-destaque frase-destaque-laranja" data-aos="fade-up" data-aos-delay="700">
+                <span class="emoji">⚡</span> <strong>A VIDA É UMA CORRIDA; ACELERE COM CORAGEM!</strong> <span class="emoji">💨</span>
+            </p>
+            <p class="frase-destaque frase-destaque-verde fun-frase-effect" data-aos="fade-up" data-aos-delay="800">
+                <span class="emoji">🛣️</span> <strong>CADA CURVA É UMA OPORTUNIDADE, NÃO UM OBSTÁCULO. VAMOS NESSA!</strong> <span class="emoji">🚀</span>
+            </p>
+            <p class="capa-criado" data-aos="fade-up" data-aos-delay="900"> <span class="emoji">✨</span> Criado pelo <span class="emoji">👨‍💻</span> Analista de Operações - <strong class="creator-name">Marcelo do Nascimento</strong> <span class="emoji">🚀</span>
+            </p>
+            <button id="btnIniciarCapa" class="btn-iniciar" data-aos="fade-up" data-aos-delay="1000"> EMBARCAR NESSA CORRIDA ÉPICA!
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 1.2em; height: 1.2em;"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+            <div class="capa-social-links" data-aos="fade-up" data-aos-delay="1100"> <a href="https://facebook.com/auto-arremate" target="_blank" aria-label="Facebook Auto Arremate"><i class="fab fa-facebook-f"></i></a> <a href="https://www.autoarremate.com.br/podcast-dirigindo-vendas/" target="_blank" aria-label="Podcast Dirigindo Vendas" title="Podcast Dirigindo Vendas"><i class="fas fa-podcast"></i></a> <a href="https://www.instagram.com/autoarremate/" target="_blank" aria-label="Instagram Auto Arremate"><i class="fab fa-instagram"></i></a> <a href="https://www.linkedin.com/company/autoarremate/" target="_blank" aria-label="LinkedIn Auto Arremate"><i class="fab fa-linkedin-in"></i></a> <a href="https://wa.me/5511940366065" target="_blank" aria-label="WhatsApp Auto Arremate"><i class="fab fa-whatsapp"></i></a> <a href="tel:01640421197" aria-label="Telefone Auto Arremate"><i class="fas fa-phone"></i></a>
+            </div>
+        </section>
+
+        <section id="menu-principal-section" class="menu-principal-section hidden" data-aos="fade-in">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="menu-principal-title" data-aos="fade-down">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️</span><span class="emoji-original-color">🗺️</span><span class="emoji-original-color">🎨</span><span class="emoji-original-color">⛽</span>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-10 md:mt-12">
+                    <div id="openManualPitStopBtn" class="menu-card" data-aos="fade-up" data-aos-delay="100">
+                        <span class="menu-card-icon"><i class="fas fa-tools text-gray-600 dark:text-gray-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🛠️</span> MANUAL DO PIT STOP <span class="text-aa-green-darker">AAR</span>: ESTRATÉGIAS PARA VENCER CADA CORRIDA! <span class="emoji-original-color">🏁🏆</span>
+                        </h3>
+                    </div>
+                    <div id="openRota66Btn" class="menu-card" data-aos="fade-up" data-aos-delay="200">
+                         <span class="menu-card-icon"><i class="fas fa-route text-blue-500 dark:text-blue-400"></i></span>
+                        <h3 class="menu-card-title">
+                            <span class="emoji-original-color">🗺️</span> ROTA 66 DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span>: GUIANDO NOSSOS CLIENTES AO PÓDIO! <span class="emoji-original-color">🚗💨🏆</span>
+                        </h3>
+                    </div>
+                    <div id="openBoxIdentidadeBtn" class="menu-card" data-aos="fade-up" data-aos-delay="300">
+                        <span class="menu-card-icon"><i class="fas fa-palette text-purple-500 dark:text-purple-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span>: AS CORES E O DNA DA NOSSA ESCUDERIA VENCEDORA! <span class="emoji-original-color">🏁✨</span>
+                        </h3>
+                    </div>
+                    <div id="openAcademiaRepassadoresBtn" class="menu-card" data-aos="fade-up" data-aos-delay="400">
+                        <span class="menu-card-icon"><i class="fas fa-graduation-cap text-red-500 dark:text-red-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0: TURBINE SEU TALENTO PARA A VITÓRIA! <span class="emoji-original-color">🏎️</span>
+                        </h3>
+                    </div>
+                    <div id="openCentralTreinamentoBtn" class="menu-card" data-aos="fade-up" data-aos-delay="500">
+                        <span class="menu-card-icon"><i class="fas fa-chalkboard-teacher text-indigo-500 dark:text-indigo-400"></i></span>
+                        <h3 class="menu-card-title">
+                           <span class="emoji-original-color">🎓</span> CENTRAL DE TREINAMENTO <span class="text-aa-green-darker">AUTO ARREMATE</span>
+                        </h3>
+                    </div>
+                </div>
+                <button id="backToCoverBtnMenu" class="btn-voltar-secao mt-12 mx-auto">
+                    <i class="fas fa-arrow-left"></i> VOLTAR À CAPA
+                </button>
+            </div>
+        </section>
+
+        <section id="manual-pitstop-detalhes-section" class="manual-pitstop-detalhes-section hidden" data-aos="fade-in">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL
+                </button>
+                <h2 class="manual-pitstop-main-title">
+                     <span class="emoji-original-color">🚦</span> CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ACESSO TOTAL ÀS ESTRATÉGIAS VENCEDORAS! <span class="emoji-original-color">🛠️🗺️🎨⛽</span>
+                </h2>
+                <div id="playbookIndexContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 py-6">
+                    </div>
+            </div>
+        </section>
+
+        <section id="playbook-sec-0-content-main" class="hidden playbook-sub-section" data-aos="fade-up">
+            <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🚀</span><strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> <p>Bem-vindo à <span class="text-aa-green-darker">Auto Arremate</span> e <span class="text-arremaq-orange-darker">Arremaq</span>! Nossa jornada começou com a visão de revolucionar o mercado de repasse de veículos e máquinas. Acreditamos que com paixão, inovação e um time dedicado, podemos alcançar resultados extraordinários. Nossos valores são o combustível que nos move: integridade em cada negociação, excelência no atendimento, agilidade nos processos e um compromisso inabalável com o sucesso dos nossos clientes e parceiros. Juntos, somos uma equipe imbatível, pronta para acelerar rumo ao futuro!</p> <div class="navigation-buttons"> <button class="btn-nav prev disabled" disabled>❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-1-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-1-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-autoarremate-color">🚗</span><strong><span class="text-aa-green-darker">AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong></h2> <p>Na <span class="text-aa-green-darker">Auto Arremate</span>, somos especialistas em veículos leves. Nossa plataforma oferece um ecossistema completo para a gestão e comercialização eficiente de carros de passeio, SUVs, picapes e utilitários. Desde a avaliação precisa, passando pela preparação e documentação, até a venda estratégica em nossos canais, garantimos a melhor performance e liquidez para os ativos dos nossos parceiros. Nossos diferenciais incluem tecnologia de ponta, uma vasta rede de compradores e um time focado em resultados.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-0-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-arremaq-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color emoji-arremaq-color">🚜</span><strong><span class="text-arremaq-orange-darker">ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong></h2> <p>A <span class="text-arremaq-orange-darker">Arremaq</span> é a divisão de peso pesado, especializada no repasse de máquinas agrícolas, equipamentos de construção e caminhões. Entendemos as particularidades deste segmento e oferecemos soluções robustas para otimizar a liquidação desses ativos. Com uma avaliação técnica criteriosa, logística eficiente e canais de venda direcionados, conectamos vendedores a compradores qualificados, maximizando o valor de tratores, colheitadeiras, escavadeiras e outros gigantes do campo e da obra.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-1-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-2-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-2-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🎯</span><strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> (ICPS & PERSONAS)!</strong></h2> <p>Para vencer no mercado, é crucial conhecer quem são nossos clientes. Definimos Perfis de Cliente Ideal (ICPs) para cada segmento: concessionárias, locadoras, frotistas (B2B), consumidores finais (B2C) e o setor do agronegócio. A partir dos ICPs, criamos personas detalhadas como o "Carlos da Concessionária", a "Fernanda Frotista" e o "Roberto Agricultor", entendendo suas necessidades, dores, motivações e canais de comunicação preferidos. Isso nos permite personalizar nossa abordagem e oferecer soluções que realmente fazem a diferença.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-arremaq-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-persona-animation-section">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-persona-animation-section" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">📊</span><strong>A JORNADA DO CLIENTE VENCEDOR <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong></h2> <p>[Placeholder para Animação da Jornada do Cliente - Esta seção pode conter um vídeo incorporado, um carrossel de imagens ou uma animação SVG interativa mostrando as etapas: Descoberta > Consideração > Decisão > Compra > Pós-Venda, com os pontos de contato da <span class="text-aa-green-darker">Auto Arremate</span>/<span class="text-arremaq-orange-darker">Arremaq</span> em cada fase.]</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-2-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-3-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-3-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🧠</span><strong>PIT STOP DA SABEDORIA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong></h2> <p>Qualificar um lead é como ajustar o motor para a corrida: essencial para a performance. Utilizamos metodologias consagradas: <strong>SPIN Selling</strong> (Situação, Problema, Implicação, Necessidade de Solução) para entender profundamente o contexto do cliente; <strong>SNAP Selling</strong> (Simples, iNestimável, Alinhado, Prioridade) para nos comunicarmos de forma clara e relevante; e <strong>AIDA</strong> (Atenção, Interesse, Desejo, Ação) para guiar o cliente pelo funil. Essas ferramentas nos ajudam a identificar os leads com maior potencial e a focar nossos esforços onde eles trarão mais resultados.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-persona-animation-section">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-4-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-4-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🛡️</span><strong>BLINDAGEM ANTI-OBJEÇÃO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong></h2> <p>Objeções são curvas desafiadoras, mas com a estratégia certa, viram ultrapassagens. Mapeamos as objeções mais comuns (preço, concorrência, prazo, necessidade) e preparamos respostas e contra-argumentos eficazes. A técnica do "Sentir, Sentiu, Descobriu" (Eu entendo como você se sente, outros clientes se sentiram assim, mas descobriram que...) é uma ferramenta poderosa. O segredo é ouvir atentamente, validar a preocupação do cliente e apresentar soluções que reforcem o valor da nossa proposta.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-3-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-5-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-5-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🗺️</span><strong>ROTAS DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong></h2> <p>Nossa prospecção é multicanal. Para <strong>Outbound</strong>, utilizamos cold calling estratégico, e-mails personalizados e LinkedIn Sales Navigator, seguindo cadências de contato bem definidas (ex: 7 toques em 15 dias). Para <strong>Inbound</strong>, investimos em SEO, marketing de conteúdo relevante (blog, webinars) e mídias sociais para atrair leads qualificados. Ferramentas de CRM são essenciais para gerenciar os fluxos, registrar interações e garantir que nenhum lead seja perdido no caminho.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-4-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-6-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-6-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">🤝</span><strong>ALIANÇAS DE AÇO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong></h2> <p>No universo B2B, a confiança é a base de grandes parcerias. Realizamos uma validação criteriosa de CNPJs, analisando a saúde financeira, histórico de mercado e reputação de potenciais parceiros. Utilizamos ferramentas de consulta e due diligence para mitigar riscos e garantir transações seguras. Nosso objetivo é construir relações de longo prazo, baseadas na transparência e no benefício mútuo, fortalecendo todo o ecossistema de repasse.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-5-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-7-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-7-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">✍️</span><strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong></h2> <p>A comunicação é a chave para abrir portas e fechar negócios. Desenvolvemos modelos de e-mails, scripts de ligação e apresentações que são testados e otimizados para conversão. Utilizamos gatilhos mentais (escassez, prova social, autoridade), storytelling para conectar emocionalmente e uma linguagem clara e persuasiva. Cada interação é uma oportunidade de reforçar nossa marca e demonstrar nosso profissionalismo. [Exemplos de templates podem ser anexados ou linkados aqui].</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-6-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-8-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-8-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📖</span><strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> <p>Para falar a língua dos campeões, é preciso conhecer os termos. Este glossário reúne os principais jargões e conceitos técnicos do mercado de veículos, máquinas, leilões e repasse. De "Lance Mínimo" a "Vistoria Cautelar", de "ROPS/FOPS" a "Tabela FIPE/Molicar", você encontrará aqui as definições para se comunicar com clareza e confiança. [O glossário pode ser uma lista A-Z ou categorizado].</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-7-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-9-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-9-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">📈</span><strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong></h2> <p>O mercado está sempre em movimento, e nosso playbook também! Esta é uma ferramenta viva, que será atualizada regularmente com novas estratégias, aprendizados do campo de batalha e feedbacks da equipe. Encorajamos todos a contribuir com sugestões e insights para que este guia se torne cada vez mais poderoso e eficaz. A busca pela excelência é uma corrida sem linha de chegada!</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-8-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-10-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-10-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green);">📞</span><strong>CENTRAL DE COMANDO <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong></h2> <p>Sua comunicação direta com a liderança e áreas de apoio. Para dúvidas sobre o playbook, sugestões ou necessidade de suporte em negociações complexas, utilize os seguintes canais: E-mail: liderancacomercial@autoarremate.com.br | Ramal: XXXX | Grupo de WhatsApp "Estrategistas AAR". Nosso compromisso é com respostas rápidas e soluções eficazes para manter você na liderança.</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-9-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-sec-13-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-sec-13-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange);">⚙️</span><strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>!</strong></h2> <p>Conheça os bastidores da nossa operação: <strong>Marketing</strong> (geração de leads, branding), <strong>Operações</strong> (logística, pátios, vistorias), <strong>Financeiro</strong> (crédito, pagamentos), <strong>Jurídico</strong> (contratos, compliance) e <strong>Tecnologia</strong> (plataforma, CRM). Entender como cada setor contribui para o sucesso do cliente e do vendedor fortalece a colaboração e otimiza os resultados. [Pode incluir um organograma simplificado ou contatos chave de cada área].</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-10-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-autocards-content-main">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-autocards-content-main" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🃏</span><strong>AUTOCARDS™ <span class="text-aa-green-darker">AUTO ARREMATE</span> & <span class="text-arremaq-orange-darker">ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong></h2> <p>Os AutoCards™ são uma ferramenta exclusiva de gamificação para impulsionar a prospecção. Cada card representa um desafio, uma meta ou uma tática de vendas. Ao completar os objetivos, você ganha pontos, desbloqueia novas cartas e avança no ranking dos campeões. Uma forma divertida e eficaz de motivar a equipe e transformar a prospecção em um jogo viciante! [Pode incluir link para plataforma dos AutoCards ou manual de uso].</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-sec-13-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-quiz-gamificado-section" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--aa-green-darker);">🏆</span><strong>DESAFIO DOS CAMPEÕES <span class="text-aa-green-darker">AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong></h2> <p>Chegou a hora de testar seus conhecimentos! Este quiz gamificado aborda os principais conceitos do playbook, estratégias de vendas e informações sobre nossos produtos e mercado. Responda corretamente, acumule pontos e mostre que você está pronto para acelerar rumo ao sucesso! [Pode ser um link para um formulário Google, Typeform, ou uma ferramenta de quiz interna].</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-autocards-content-main">❮ VOLTAR</button> <button class="btn-nav next navigateToPlaybookSection" data-target="playbook-corrida-svg-section">AVANÇAR ❯</button> </div> </div> </section>
+        <section id="playbook-corrida-svg-section" class="hidden playbook-sub-section"> <div class="container mx-auto"> <button class="btn-voltar-secao backToManualPitStopDetalhesBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MANUAL </button> <h2 class="playbook-content-title text-center"><span class="emoji-original-color" style="color: var(--arremaq-orange-darker);">🏎️💨</span><strong>GRANDE PRÊMIO <span class="text-aa-green-darker">AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong></h2> <p>[Placeholder para Jogo de Corrida SVG 2D - Esta seção pode conter um jogo interativo simples, onde o usuário controla um carro, desvia de obstáculos (objeções) e coleta itens (vendas fechadas). Pode ser um projeto futuro mais elaborado.]</p> <div class="navigation-buttons"> <button class="btn-nav prev navigateToPlaybookSection" data-target="playbook-quiz-gamificado-section">❮ VOLTAR</button> <button class="btn-nav next disabled" disabled>AVANÇAR ❯</button> </div> </div> </section>
+
+        <section id="rota-66-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🗺️</span> ROTA 66 DA CONQUISTA <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre a Rota 66 da Conquista em breve!</p>
+            </div>
+        </section>
+        <section id="box-identidade-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="text-aa-green-darker">🎨</span> BOX DA IDENTIDADE <span class="text-aa-green-darker">AUTO ARREMATE</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre o Box da Identidade <span class="text-aa-green-darker">Auto Arremate</span> em breve!</p>
+            </div>
+        </section>
+        <section id="academia-repassadores-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">⛽</span> ACADEMIA DE REPASSADORES <span class="text-aa-green-darker">AUTO ARREMATE</span> E <span class="text-arremaq-orange-darker">ARREMAQ</span> 3.0</h2>
+                <pre class="text-xs whitespace-pre-wrap mt-4" id="academiaApiCalls">
+
+🔹 Grupo: Gemini (IA Google)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Gerar Bio Profissional	POST	/api/v1/gemini/generate-bio	{ name, role }	Gera uma bio profissional curta para uso em perfil/link-in-bio.
+2	Gerar E-mail de Prospecção	POST	/api/v1/gemini/generate-sales-email	{ leadName, context }	Cria um e-mail de prospecção personalizado para o lead.
+3	Respostas a Objeções	POST	/api/v1/gemini/generate-objection-responses	{ objection, context }	Sugere respostas comerciais para uma objeção recebida.
+4	Resumir Perfil de Lead	POST	/api/v1/gemini/auto-summary-profile	{ profile }	Gera um resumo do perfil do lead com base em dados textuais.
+5	Post LinkedIn Automático	POST	/api/v1/gemini/linkedin-post	{ linkTitle, userName }	Gera texto para post de LinkedIn sobre novo link ou conquista.
+6	Pitch de Produto	POST	/api/v1/gemini/generate-product-pitch	{ product, target }	Cria um pitch rápido do produto para um perfil alvo.
+7	FAQ Automático	POST	/api/v1/gemini/faq-answer	{ question }	Sugere resposta automatizada para perguntas frequentes.
+8	Script de Ligação SDR	POST	/api/v1/gemini/ai-script-call	{ context }	Cria roteiro de ligação com IA, adaptado ao contexto.
+9	Resumo de Reunião	POST	/api/v1/gemini/meeting-recap	{ transcript }	Resume os pontos principais de uma reunião a partir da transcrição.
+10	Detectar Estágio do Lead	POST	/api/v1/gemini/auto-detect-lead-stage	{ history }	Analisa o histórico e classifica o estágio do lead automaticamente.
+11	Sugerir Próximo Passo	POST	/api/v1/gemini/next-step	{ leadData }	Sugere próxima ação na jornada do lead.
+12	Geração de Perguntas SPIN	POST	/api/v1/gemini/spin-questions	{ context }	Sugere perguntas de SPIN Selling para qualificação.
+13	Mini-manual Personalizado	POST	/api/v1/gemini/mini-guide	{ topic, target }	Gera um mini-manual de boas práticas sobre determinado tema.
+14	Análise de Sentimento	POST	/api/v1/gemini/sentiment-analysis	{ text }	Analisa sentimento (positivo, neutro, negativo) de texto enviado.
+15	Sugerir Título para Post	POST	/api/v1/gemini/suggest-title	{ text }	Sugere título atrativo para post, artigo ou link.
+16	Geração de Agenda	POST	/api/v1/gemini/agenda-suggestion	{ meetingContext }	Gera uma agenda sugerida para reuniões comerciais.
+17	Resposta Automática Chat	POST	/api/v1/gemini/auto-reply-chat	{ message, context }	Sugere resposta pronta para mensagem recebida via chat.
+18	Criação de Slogan	POST	/api/v1/gemini/generate-slogan	{ company, product }	Gera slogan criativo para produto ou marca.
+19	Resumir Blog ou Artigo	POST	/api/v1/gemini/summarize-article	{ url, articleText }	Resume conteúdo de artigo para facilitar leitura rápida.
+20	Revisar Texto Comercial	POST	/api/v1/gemini/review-copy	{ text }	Analisa e sugere melhorias em copy de vendas.
+21	Geração de CTA	POST	/api/v1/gemini/generate-cta	{ product, context }	Sugere chamada para ação eficiente para conversão.
+22	Texto de Agradecimento	POST	/api/v1/gemini/thank-you-note	{ userName, context }	Gera mensagem de agradecimento profissional para envio pós-venda.
+23	Sugerir Nome de Produto	POST	/api/v1/gemini/suggest-product-name	{ segment, context }	Sugere nomes para novos produtos ou serviços.
+24	Criar Mensagem WhatsApp	POST	/api/v1/gemini/whatsapp-message	{ context }	Gera mensagem curta para envio via WhatsApp.
+25	Mensagem de Follow-up	POST	/api/v1/gemini/followup-message	{ context, lastInteraction }	Sugere mensagem de follow-up baseada em interação anterior.
+26	Lista de Dúvidas Frequentes	POST	/api/v1/gemini/list-faq	{ product }	Gera lista de perguntas frequentes para o produto.
+27	Resposta Técnica Produto	POST	/api/v1/gemini/tech-answer	{ question, product }	Responde tecnicamente dúvidas sobre produto.
+28	Geração de Checklists	POST	/api/v1/gemini/generate-checklist	{ process }	Cria checklist operacional para processo comercial ou técnico.
+29	Simulação de Roleplay	POST	/api/v1/gemini/roleplay	{ scenario, role }	Gera simulação de diálogo entre SDR e cliente.
+30	Geração de Objetivos	POST	/api/v1/gemini/generate-goals	{ context }	Sugere objetivos claros para time comercial.
+31	Sugerir Assunto de E-mail	POST	/api/v1/gemini/email-subject	{ context }	Sugere linha de assunto para maximizar abertura de e-mail.
+32	Roteiro de Vídeo Pitch	POST	/api/v1/gemini/video-script	{ context, duration }	Cria roteiro sucinto para vídeo institucional ou comercial.
+33	Sugerir Perguntas para Cliente	POST	/api/v1/gemini/client-questions	{ context }	Sugere perguntas para mapear dores e oportunidades com cliente.
+34	Geração de Mensagem de Boas-vindas	POST	/api/v1/gemini/welcome-message	{ userName }	Gera mensagem personalizada para onboarding de usuário.
+35	Mensagem Motivacional	POST	/api/v1/gemini/motivation	{ context, userName }	Sugere mensagem motivacional para o time.
+36	Sugestão de Oferta Especial	POST	/api/v1/gemini/special-offer	{ product, target }	Cria texto de oferta especial para campanha.
+37	Argumento para Negociação	POST	/api/v1/gemini/negotiation-argument	{ context }	Sugere argumento de negociação para SDR/CS.
+38	Análise de Concorrente	POST	/api/v1/gemini/competitor-analysis	{ competitor, context }	Resume pontos fortes e fracos de concorrente informado.
+39	Sugestão de Tema para Webinar	POST	/api/v1/gemini/webinar-topic	{ context }	Sugere temas para webinars de vendas ou treinamento.
+40	Escrever Mini-Case	POST	/api/v1/gemini/write-case	{ result, context }	Gera case de sucesso rápido para compartilhar no time.
+41	Simular Pergunta de Cliente	POST	/api/v1/gemini/simulate-client-question	{ product, context }	Simula questionamento de cliente para treinamento.
+42	Reescrever Texto Simplificado	POST	/api/v1/gemini/simplify-text	{ text }	Torna texto complexo mais fácil e direto.
+43	Sugestão de Tarefa do Dia	POST	/api/v1/gemini/daily-task	{ userRole, context }	Sugere tarefa relevante para SDR/gestor executar no dia.
+44	Geração de Quiz Comercial	POST	/api/v1/gemini/generate-quiz	{ topic, difficulty }	Cria perguntas de quiz para treinamento comercial.
+45	Revisão de Script	POST	/api/v1/gemini/review-script	{ script }	Analisa e sugere melhorias em script de abordagem.
+46	Gerar Texto para Banner	POST	/api/v1/gemini/banner-text	{ context, goal }	Cria texto curto para banner de campanha digital.
+47	Sugerir Nome para Campanha	POST	/api/v1/gemini/campaign-name	{ context }	Sugere nome marcante para campanha comercial/marketing.
+48	Gerar Lista de Hashtags	POST	/api/v1/gemini/hashtags	{ context, platform }	Sugere hashtags ideais para post no LinkedIn/Instagram.
+49	Auto-Responder para E-mail	POST	/api/v1/gemini/auto-email-reply	{ email, context }	Sugere resposta automática a e-mails recebidos.
+50	Diagnóstico de Texto	POST	/api/v1/gemini/text-diagnosis	{ text, goal }	Analisa e aponta pontos de melhoria em texto (clareza, persuasão, etc.).
+Grupo: OpenAI (IA OpenAI, GPT, embeddings, classificação)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Classificar Tipo de Link	POST	/api/v1/openai/classify-link	{ url }	Classifica se o link é artigo, vídeo, produto, etc., usando IA.
+2	Sugerir Título para Link	POST	/api/v1/openai/suggest-link-title	{ url, context }	Sugere título atrativo e amigável para novo link, otimizado para SEO.
+3	Otimizar Bio para SEO	POST	/api/v1/openai/optimize-bio-seo	{ bio }	Otimiza a bio do usuário para mecanismos de busca.
+4	Traduzir Bio	POST	/api/v1/openai/translate-bio	{ bio, targetLang }	Traduz a bio para o idioma solicitado.
+5	Sugerir Palavras-chave	POST	/api/v1/openai/auto-keywords	{ profile }	Gera palavras-chave estratégicas para perfil ou link.
+6	Classificar Intenção de Texto	POST	/api/v1/openai/classify-intent	{ text }	Detecta se o texto é informativo, persuasivo, neutro, etc.
+7	Resumir Texto Longo	POST	/api/v1/openai/summarize	{ text }	Cria resumo objetivo de texto longo, para leitura rápida.
+8	Analisar Texto de E-mail	POST	/api/v1/openai/email-analyze	{ emailText }	Aponta tom, clareza e sugestões para e-mail.
+9	Gerar Resposta Automática	POST	/api/v1/openai/auto-reply	{ message, context }	Sugere resposta automática pronta, com tom definido.
+10	Criar Conteúdo para Blog	POST	/api/v1/openai/blog-content	{ topic, length, target }	Gera conteúdo de blog a partir de briefing ou tema.
+11	Brainstorm de Ideias	POST	/api/v1/openai/brainstorm	{ topic, context }	Gera lista de ideias sobre tema (p/ campanhas, conteúdos, features, etc.).
+12	Sugerir CTA Personalizado	POST	/api/v1/openai/cta-suggestion	{ product, context }	Sugere uma chamada para ação ideal para o contexto.
+13	Otimizar Texto para LinkedIn	POST	/api/v1/openai/linkedin-optimizer	{ text }	Reescreve texto para engajamento no LinkedIn.
+14	Gerar E-mail de Seguimento	POST	/api/v1/openai/followup-email	{ context, previous }	Cria e-mail de follow-up personalizado a partir de histórico.
+15	Sugestão de Perguntas para Call	POST	/api/v1/openai/call-questions	{ context }	Sugere perguntas para SDRs em calls de venda.
+16	Análise de Concorrentes	POST	/api/v1/openai/competitor-compare	{ competitor, product }	Analisa pontos fortes/fracos entre produto e concorrente.
+17	Classificar Sentimento	POST	/api/v1/openai/sentiment	{ text }	Classifica sentimento do texto (positivo, negativo, neutro).
+18	Geração de FAQ	POST	/api/v1/openai/generate-faq	{ context }	Cria perguntas e respostas frequentes sobre produto ou processo.
+19	Reescrever Copy para Conversão	POST	/api/v1/openai/optimize-copy	{ copy }	Reescreve texto com foco em aumentar conversão.
+20	Sugerir Título de E-mail	POST	/api/v1/openai/email-title	{ context }	Sugere assunto de e-mail para maior taxa de abertura.
+21	Geração de Roadmap de Features	POST	/api/v1/openai/features-roadmap	{ product, goal }	Gera roadmap de features para novo produto/projeto.
+22	Simular Pergunta de Cliente	POST	/api/v1/openai/simulate-customer-question	{ product, context }	Simula dúvida de cliente para treinamento e suporte.
+23	Resposta Rápida para Chat	POST	/api/v1/openai/quick-chat-reply	{ message, context }	Sugere resposta rápida para chat online.
+24	Sugerir Nome de Projeto	POST	/api/v1/openai/project-namer	{ context }	Sugere nome criativo para novo projeto.
+25	Gerar Texto para Banner	POST	/api/v1/openai/banner-text	{ goal, context }	Cria texto curto para banner digital, campanha ou push.
+26	Auto-diagnóstico de Texto	POST	/api/v1/openai/text-diagnosis	{ text, target }	Analisa e aponta melhorias de clareza e eficiência do texto.
+27	Reescrever Mensagem de WhatsApp	POST	/api/v1/openai/whatsapp-rewrite	{ message, context }	Ajusta mensagem para tom e formato do WhatsApp.
+28	Criar Quiz para Treinamento	POST	/api/v1/openai/training-quiz	{ topic, difficulty }	Gera perguntas para quiz de treinamento.
+29	Gerar Argumento de Venda	POST	/api/v1/openai/sales-argument	{ context }	Sugere argumento persuasivo para abordagem de venda.
+30	Geração de Feedback para Time	POST	/api/v1/openai/team-feedback	{ goal, context }	Gera feedback construtivo para squads ou colaboradores.
+31	Sugerir Descrição para Produto	POST	/api/v1/openai/product-description	{ product, target }	Gera descrição comercial para produto/serviço.
+32	Criar Manual Rápido	POST	/api/v1/openai/quick-guide	{ topic, target }	Gera manual ou tutorial resumido para treinamento.
+33	Sugerir Links Relacionados	POST	/api/v1/openai/suggest-links	{ url, context }	Sugere links complementares ao contexto do perfil.
+34	Análise de Engajamento	POST	/api/v1/openai/engagement-analysis	{ profile, posts }	Analisa engajamento de perfil e sugere melhorias.
+35	Criar Slogan	POST	/api/v1/openai/slogan-generator	{ company, context }	Sugere slogan criativo para empresa, produto ou evento.
+36	Geração de Checklists Operacionais	POST	/api/v1/openai/operational-checklist	{ process }	Gera checklist operacional para processos internos.
+37	Sugerir Ofertas Especiais	POST	/api/v1/openai/special-offer	{ product, target }	Cria texto de oferta especial para campanhas rápidas.
+38	Otimizar Resposta Técnica	POST	/api/v1/openai/tech-answer-opt	{ answer, product }	Ajusta resposta técnica para clareza e objetividade.
+39	Criar Argumento para Negociação	POST	/api/v1/openai/negotiation-argument	{ context }	Sugere argumento de negociação para SDR/gestor.
+40	Geração de Proposta Comercial	POST	/api/v1/openai/commercial-proposal	{ client, product, context }	Cria proposta comercial simplificada para envio rápido.
+41	Sugerir Data para Reunião	POST	/api/v1/openai/meeting-date	{ agenda, context }	Sugere melhores datas e horários para reunião.
+42	Otimizar Post para Instagram	POST	/api/v1/openai/instagram-optimizer	{ text }	Ajusta texto para engajamento no Instagram.
+43	Gerar Resumo de Relatório	POST	/api/v1/openai/report-summary	{ reportText }	Resume relatórios extensos em tópicos principais.
+44	Diagnóstico de Perfil	POST	/api/v1/openai/profile-diagnosis	{ profileData }	Analisa perfil e sugere melhorias estratégicas.
+45	Geração de Mensagem de Onboarding	POST	/api/v1/openai/onboarding-message	{ userName, context }	Cria mensagem personalizada para onboarding de novo usuário.
+46	Sugerir Hashtags	POST	/api/v1/openai/suggest-hashtags	{ context, platform }	Sugere hashtags para aumentar alcance e engajamento.
+47	Criar Mensagem de Agradecimento	POST	/api/v1/openai/thank-you-note	{ userName, context }	Cria mensagem personalizada de agradecimento.
+48	Reescrever Copy Técnica	POST	/api/v1/openai/tech-copy-rewrite	{ copy }	Ajusta texto técnico para maior clareza e impacto.
+49	Geração de Template de Proposta	POST	/api/v1/openai/proposal-template	{ client, product, context }	Gera template editável de proposta comercial.
+50	Autoanálise de Competência	POST	/api/v1/openai/skill-analysis	{ profile, goal }	Analisa competências e sugere plano de evolução de skills.
+
+ Slack
+🔹 Grupo: Slack (Notificações, alertas, integração de workflow)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Notificar Novo Usuário	POST	/api/v1/slack/notify-new-user	{ name, email }	Envia notificação no canal sobre novo cadastro de usuário.
+2	Notificar Meta Atingida	POST	/api/v1/slack/notify-goal-achieved	{ user, goal }	Notifica time sobre meta batida.
+3	Alertar Perfil Inativo	POST	/api/v1/slack/alert-inactive-profile	{ userId }	Alerta time de CS/comercial sobre usuário inativo há X dias.
+4	Enviar Resumo Diário	POST	/api/v1/slack/send-daily-summary	{ date }	Dispara resumo diário de atividades/indicadores para canal.
+5	Avisar Feedback Recebido	POST	/api/v1/slack/feedback-received	{ user, feedback }	Envia feedback de cliente ou usuário ao canal responsável.
+6	Notificar Novo Lead	POST	/api/v1/slack/notify-new-lead	{ leadName, company }	Notifica time comercial sobre novo lead gerado.
+7	Alertar Sobre Bug no Sistema	POST	/api/v1/slack/notify-bug	{ user, description }	Dispara alerta sobre bug reportado.
+8	Aviso de Reunião Agendada	POST	/api/v1/slack/meeting-scheduled	{ date, participants }	Notifica canal de reunião agendada com time.
+9	Mensagem de Boas-vindas	POST	/api/v1/slack/welcome-message	{ userName, channel }	Envia mensagem de boas-vindas automática ao entrar no canal.
+10	Mensagem Motivacional	POST	/api/v1/slack/send-motivation	{ user, context }	Dispara mensagem de motivação e reconhecimento para membro do time.
+11	Alerta de Falha em Integração	POST	/api/v1/slack/alert-integration-failure	{ integration, error }	Notifica erro em integração externa (API, CRM, etc).
+12	Aviso de Tarefa Atribuída	POST	/api/v1/slack/task-assigned	{ taskId, assignedTo, dueDate }	Notifica usuário no Slack ao receber nova tarefa.
+13	Envio de Pesquisa de Satisfação	POST	/api/v1/slack/send-nps	{ userId, surveyLink }	Dispara convite para responder pesquisa de satisfação/NPS.
+14	Alerta de SLA Estourado	POST	/api/v1/slack/alert-sla-breach	{ ticketId, owner, slaTime }	Notifica sobre ticket que ultrapassou SLA.
+15	Aviso de Atualização em Pipeline	POST	/api/v1/slack/pipeline-update	{ dealId, stage, owner }	Notifica mudanças no pipeline de vendas (deal, etapa, responsável).
+16	Lembrete de Follow-up	POST	/api/v1/slack/reminder-followup	{ userId, contact, date }	Lembra usuário de realizar follow-up importante.
+17	Notificar Aprovação de Proposta	POST	/api/v1/slack/notify-proposal-approved	{ proposalId, client }	Notifica time quando proposta comercial for aprovada pelo cliente.
+18	Aviso de Comentário Recebido	POST	/api/v1/slack/notify-comment	{ targetId, comment, user }	Notifica comentário em tarefa, deal ou lead.
+19	Alertar Sobre Churn Detectado	POST	/api/v1/slack/alert-churn	{ userId, reason }	Alerta CS sobre possível churn (cancelamento/baixa adesão).
+20	Mensagem de Parabéns Aniversário	POST	/api/v1/slack/birthday-congrats	{ userName, date }	Envia mensagem personalizada de aniversário.
+21	Compartilhar Material Treinamento	POST	/api/v1/slack/share-training	{ link, title, audience }	Compartilha material de treinamento ou onboarding no canal.
+22	Mensagem de Boa Semana	POST	/api/v1/slack/good-week-message	{ channel }	Envia mensagem positiva toda segunda-feira no canal do time.
+23	Alerta de Falha no Deploy	POST	/api/v1/slack/deploy-failure	{ service, error }	Notifica time de TI/engenharia de falha em deploy.
+24	Notificar Aprovação de Férias	POST	/api/v1/slack/vacation-approved	{ user, period }	Notifica sobre aprovação de solicitação de férias.
+25	Lembrete de Reunião	POST	/api/v1/slack/remind-meeting	{ userId, date, subject }	Lembra usuário ou grupo de reunião marcada.
+26	Avisar Novo Arquivo Disponível	POST	/api/v1/slack/new-file	{ fileName, uploader, link }	Notifica canal sobre novo arquivo relevante adicionado.
+27	Alerta de Risco em Projeto	POST	/api/v1/slack/project-risk	{ projectId, risk, context }	Notifica time sobre risco relevante em projeto.
+28	Mensagem de Fechamento de Deal	POST	/api/v1/slack/deal-closed	{ dealId, owner, value }	Comemora e compartilha fechamento de negócio.
+29	Aviso de Mudança de Política	POST	/api/v1/slack/policy-update	{ policy, link, summary }	Informa canal sobre atualização de políticas internas.
+30	Compartilhar Insights Semanais	POST	/api/v1/slack/weekly-insights	{ insights, week }	Compartilha highlights e aprendizados da semana para o time.
+31	Mensagem Automática de Ausência	POST	/api/v1/slack/auto-away	{ userId, date, reason }	Dispara mensagem automática de ausência (férias, licença, etc).
+32	Aviso de Problema em Integração	POST	/api/v1/slack/integration-issue	{ integration, error, owner }	Notifica responsável sobre erro detectado em integração.
+33	Lembrete de Atualizar CRM	POST	/api/v1/slack/crm-update-reminder	{ userId, deadline }	Lembra equipe de atualizar dados no CRM até prazo.
+34	Alerta de Lead Importante	POST	/api/v1/slack/alert-important-lead	{ leadId, reason }	Notifica canal sobre lead estratégico com movimentação relevante.
+35	Mensagem de Boas-vindas a Novato	POST	/api/v1/slack/welcome-new-hire	{ userName, role, startDate }	Dá as boas-vindas ao novo colaborador no time.
+36	Aviso de Falha de Pagamento	POST	/api/v1/slack/payment-failure	{ userId, amount, reason }	Alerta sobre falha em cobrança/assinatura de cliente.
+37	Compartilhar Resultados do Mês	POST	/api/v1/slack/monthly-results	{ summary, month }	Compartilha resultados comerciais/operacionais do mês.
+38	Lembrete de Atualização em Produto	POST	/api/v1/slack/product-update-reminder	{ product, link }	Lembra time de comunicar atualização relevante em produto.
+39	Mensagem Automática de Encerramento	POST	/api/v1/slack/auto-closing-message	{ channel, context }	Dispara mensagem final automática ao encerrar campanha ou evento.
+40	Aviso de Treinamento Agendado	POST	/api/v1/slack/training-scheduled	{ training, date, audience }	Notifica sobre novo treinamento agendado.
+41	Notificar Mudança de Responsável	POST	/api/v1/slack/change-owner	{ itemId, newOwner, oldOwner }	Notifica equipe sobre troca de responsável por tarefa ou projeto.
+42	Aviso de Enquete no Canal	POST	/api/v1/slack/poll-notification	{ pollTitle, link, deadline }	Compartilha nova enquete/discussão no canal.
+43	Lembrete de Assinatura de Documento	POST	/api/v1/slack/doc-sign-reminder	{ docId, signer, dueDate }	Lembra time sobre documento pendente de assinatura.
+44	Alerta de Lead Reativado	POST	/api/v1/slack/reactivated-lead	{ leadId, reactivationDate }	Notifica time comercial sobre lead inativo que voltou a interagir.
+45	Mensagem Automática de Parceria	POST	/api/v1/slack/partnership-message	{ partner, context }	Compartilha notícia de nova parceria no canal do time.
+46	Notificar Atualização de SLA	POST	/api/v1/slack/sla-update	{ slaId, newTime, owner }	Informa sobre mudança em acordo de SLA.
+47	Aviso de Chegada de Novos Leads	POST	/api/v1/slack/new-leads-arrival	{ quantity, source }	Alerta time comercial sobre chegada em lote de novos leads.
+48	Compartilhar Dica de Produtividade	POST	/api/v1/slack/share-productivity-tip	{ tip, author }	Compartilha dica de produtividade no canal do time.
+49	Mensagem de Aniversário de Contrato	POST	/api/v1/slack/contract-anniversary	{ client, date }	Celebra aniversário de contrato/parceria com cliente.
+50	Notificar Task Finalizada	POST	/api/v1/slack/task-finished	{ taskId, user, date }	Notifica conclusão de tarefa importante pelo time.
+
+Jira (50 APIs)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Criar Bug	POST	/api/v1/jira/create-bug	{ summary, description, reporter }	Cria novo bug no Jira.
+2	Criar Story	POST	/api/v1/jira/create-story	{ summary, description, assignee }	Cria nova user story no projeto.
+3	Criar Task	POST	/api/v1/jira/create-task	{ summary, description, assignee }	Cria tarefa padrão no backlog.
+4	Adicionar Comentário	POST	/api/v1/jira/add-comment	{ issueId, comment, author }	Adiciona comentário em issue do Jira.
+5	Mover Issue	POST	/api/v1/jira/move-issue	{ issueId, targetStatus }	Move issue para outro status/coluna.
+6	Fechar Issue	POST	/api/v1/jira/close-issue	{ issueId, closer }	Fecha issue/bug/task especificada.
+7	Reabrir Issue	POST	/api/v1/jira/reopen-issue	{ issueId, user }	Reabre issue fechada.
+8	Alterar Prioridade	POST	/api/v1/jira/change-priority	{ issueId, priority }	Atualiza prioridade de issue/tarefa.
+9	Designar Responsável	POST	/api/v1/jira/assign-user	{ issueId, assignee }	Designa usuário para issue/tarefa.
+10	Criar Epic	POST	/api/v1/jira/create-epic	{ summary, description }	Cria nova Epic (macro-fase/projeto).
+11	Vincular Issue a Epic	POST	/api/v1/jira/link-epic	{ issueId, epicId }	Liga issue/story/task a Epic.
+12	Atualizar Descrição	POST	/api/v1/jira/update-description	{ issueId, description }	Atualiza descrição de issue.
+13	Buscar Issues por Status	POST	/api/v1/jira/issues-by-status	{ status }	Lista issues pelo status (To Do, In Progress, Done...).
+14	Buscar Issues por Assignee	POST	/api/v1/jira/issues-by-assignee	{ assignee }	Lista issues atribuídas ao usuário.
+15	Buscar Issues por Epic	POST	/api/v1/jira/issues-by-epic	{ epicId }	Lista issues vinculadas à Epic.
+16	Adicionar Watcher	POST	/api/v1/jira/add-watcher	{ issueId, watcher }	Adiciona usuário para acompanhar issue.
+17	Listar Comentários	POST	/api/v1/jira/list-comments	{ issueId }	Lista comentários de uma issue.
+18	Editar Comentário	POST	/api/v1/jira/edit-comment	{ commentId, newText }	Edita comentário existente.
+19	Excluir Comentário	POST	/api/v1/jira/delete-comment	{ commentId }	Remove comentário de issue.
+20	Log de Tempo	POST	/api/v1/jira/log-time	{ issueId, timeSpent, user }	Registra tempo trabalhado em issue.
+21	Relatório de Issues por Sprint	POST	/api/v1/jira/report-sprint	{ sprintId }	Gera relatório de issues da sprint.
+22	Buscar Issues por Label	POST	/api/v1/jira/issues-by-label	{ label }	Lista issues com determinada label.
+23	Atualizar Estimativa	POST	/api/v1/jira/update-estimate	{ issueId, estimate }	Atualiza estimativa de esforço (story points, horas).
+24	Listar Sprints do Projeto	POST	/api/v1/jira/list-sprints	{ projectId }	Retorna lista de sprints do projeto.
+25	Listar Projetos	GET	/api/v1/jira/list-projects	-	Retorna todos os projetos ativos no Jira.
+26	Criar Subtarefa	POST	/api/v1/jira/create-subtask	{ parentIssueId, summary }	Cria subtask vinculada a issue/tarefa.
+27	Atualizar Tipo de Issue	POST	/api/v1/jira/update-issue-type	{ issueId, type }	Muda tipo de issue (bug, task, story...).
+28	Atualizar Campo Customizado	POST	/api/v1/jira/update-custom-field	{ issueId, field, value }	Atualiza campo customizado em issue/tarefa.
+29	Duplicar Issue	POST	/api/v1/jira/duplicate-issue	{ issueId }	Cria cópia de issue para novo item.
+30	Fechar Sprint	POST	/api/v1/jira/close-sprint	{ sprintId }	Fecha sprint ativa no projeto.
+31	Buscar Issues Atrasadas	POST	/api/v1/jira/late-issues	{ projectId }	Lista issues com atraso na entrega/prazo.
+32	Criar Relacionamento entre Issues	POST	/api/v1/jira/link-issues	{ issueA, issueB, type }	Cria vínculo de dependência, bloqueio, etc.
+33	Listar Issues de Release	POST	/api/v1/jira/issues-by-release	{ releaseId }	Lista issues de uma release específica.
+34	Registrar Deploy em Issue	POST	/api/v1/jira/log-deploy	{ issueId, version, deployedBy }	Registra informação de deploy em issue.
+35	Consultar Issue por Key	GET	/api/v1/jira/issue/:key	-	Retorna issue por chave (ex: AUTO-123).
+36	Excluir Issue	DELETE	/api/v1/jira/delete-issue/:issueId	-	Remove issue do projeto.
+37	Atualizar Due Date	POST	/api/v1/jira/update-due-date	{ issueId, dueDate }	Atualiza data de entrega de tarefa.
+38	Duplicar Sprint	POST	/api/v1/jira/duplicate-sprint	{ sprintId }	Copia configuração de sprint anterior.
+39	Transferir Issue entre Projetos	POST	/api/v1/jira/transfer-issue	{ issueId, targetProject }	Move issue para outro projeto.
+40	Atualizar Sprint de Issue	POST	/api/v1/jira/update-issue-sprint	{ issueId, sprintId }	Troca issue de sprint.
+41	Buscar Issues por Palavra	POST	/api/v1/jira/search-issues	{ query }	Pesquisa issues por palavra-chave.
+42	Anexar Arquivo à Issue	POST	/api/v1/jira/attach-file	{ issueId, fileUrl, uploader }	Anexa arquivo/link a uma issue.
+43	Listar Logs de Tempo	POST	/api/v1/jira/list-time-logs	{ issueId }	Lista logs de tempo trabalhados na issue.
+44	Atualizar Status em Lote	POST	/api/v1/jira/bulk-update-status	{ issueIds, status }	Atualiza status de várias issues em lote.
+45	Atualizar Reporter	POST	/api/v1/jira/update-reporter	{ issueId, reporter }	Altera quem reportou a issue.
+46	Gerar Relatório de Atraso	POST	/api/v1/jira/delay-report	{ sprintId, projectId }	Gera relatório de atrasos por sprint/projeto.
+47	Atualizar Labels	POST	/api/v1/jira/update-labels	{ issueId, labels }	Atualiza labels/tags da issue.
+48	Listar Issues Bloqueadas	POST	/api/v1/jira/blocked-issues	{ projectId }	Lista issues bloqueadas no projeto.
+49	Gerar Estatística por Tipo	POST	/api/v1/jira/stats-by-type	{ projectId }	Estatística de issues por tipo (bug, story, etc).
+50	Gerar Relatório Geral	POST	/api/v1/jira/general-report	{ projectId }	Gera relatório de status geral do projeto.
+
+📑 Lote 5/7: Google (50 APIs)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Criar Evento no Google Agenda	POST	/api/v1/google/create-event	{ summary, date, users }	Cria evento em agenda Google.
+2	Adicionar Contato ao Google	POST	/api/v1/google/add-contact	{ name, email, phone }	Cria novo contato na conta Google.
+3	Enviar E-mail pelo Gmail	POST	/api/v1/google/send-gmail	{ to, subject, body }	Dispara e-mail via Gmail da conta integrada.
+4	Criar Rascunho de E-mail	POST	/api/v1/google/create-gmail-draft	{ to, subject, body }	Salva rascunho no Gmail.
+5	Upload para Google Drive	POST	/api/v1/google/upload-drive	{ fileUrl, folderId }	Envia arquivo para pasta do Drive.
+6	Listar Arquivos do Drive	POST	/api/v1/google/list-drive	{ folderId }	Lista arquivos da pasta do Drive.
+7	Compartilhar Arquivo Drive	POST	/api/v1/google/share-drive-file	{ fileId, emails }	Compartilha arquivo Drive por e-mail.
+8	Criar Documento Google Docs	POST	/api/v1/google/create-doc	{ title, content }	Cria doc no Google Docs.
+9	Atualizar Documento Docs	POST	/api/v1/google/update-doc	{ docId, content }	Atualiza conteúdo de um Google Doc.
+10	Listar Documentos do Docs	POST	/api/v1/google/list-docs	{ folderId }	Lista documentos de pasta específica.
+11	Criar Planilha Google Sheets	POST	/api/v1/google/create-sheet	{ title }	Cria planilha no Google Sheets.
+12	Adicionar Linha ao Sheets	POST	/api/v1/google/add-row-sheets	{ sheetId, rowData }	Adiciona linha com dados à planilha.
+13	Atualizar Linha do Sheets	POST	/api/v1/google/update-row-sheets	{ sheetId, row, rowData }	Atualiza dados de linha na planilha.
+14	Ler Dados do Sheets	POST	/api/v1/google/read-sheet	{ sheetId, range }	Busca dados da planilha em range.
+15	Listar Planilhas Disponíveis	GET	/api/v1/google/list-sheets	-	Retorna todas planilhas do usuário.
+16	Criar Apresentação Slides	POST	/api/v1/google/create-slides	{ title }	Cria nova apresentação no Google Slides.
+17	Adicionar Slide à Apresentação	POST	/api/v1/google/add-slide	{ slidesId, layout }	Adiciona slide à apresentação.
+18	Atualizar Slide	POST	/api/v1/google/update-slide	{ slidesId, slideId, content }	Atualiza conteúdo de slide.
+19	Compartilhar Apresentação	POST	/api/v1/google/share-slides	{ slidesId, emails }	Compartilha slides por e-mail.
+20	Listar Apresentações Slides	GET	/api/v1/google/list-slides	-	Lista apresentações de slides.
+21	Sincronizar Agenda com Sheets	POST	/api/v1/google/sync-calendar-sheet	{ calendarId, sheetId }	Exporta eventos da agenda para planilha.
+22	Criar Tarefa Google Tasks	POST	/api/v1/google/create-task	{ title, dueDate }	Cria tarefa no Google Tasks.
+23	Atualizar Tarefa no Tasks	POST	/api/v1/google/update-task	{ taskId, title, dueDate }	Atualiza tarefa existente.
+24	Listar Tarefas Google Tasks	GET	/api/v1/google/list-tasks	-	Lista tarefas da conta.
+25	Convidar Participante para Evento	POST	/api/v1/google/invite-to-event	{ eventId, email }	Envia convite para evento na agenda.
+26	Cancelar Evento Agenda	POST	/api/v1/google/cancel-event	{ eventId }	Cancela evento do calendário.
+27	Exportar Dados do Sheets	POST	/api/v1/google/export-sheet	{ sheetId, format }	Exporta planilha em formato (csv, xlsx, pdf).
+28	Converter Docs em PDF	POST	/api/v1/google/convert-doc-pdf	{ docId }	Converte documento em PDF e retorna link.
+29	Backup Automático para Drive	POST	/api/v1/google/auto-backup-drive	{ folderId, frequency }	Cria rotina automática de backup para Drive.
+30	Ler Agenda do Dia	POST	/api/v1/google/daily-agenda	{ date }	Retorna eventos do dia na agenda.
+31	Enviar Notificação Push	POST	/api/v1/google/send-push	{ userId, message }	Dispara push via FCM integrado ao Google.
+32	Compartilhar Link Encurtado	POST	/api/v1/google/short-link	{ url }	Gera link curto com Google.
+33	Gerar Relatório de Atividade	POST	/api/v1/google/activity-report	{ dateRange }	Relatório de atividades Google do período.
+34	Atualizar Permissões de Arquivo	POST	/api/v1/google/update-file-permission	{ fileId, emails, permission }	Altera permissão (leitura, edição) de arquivo no Drive.
+35	Registrar Lead via Formulário	POST	/api/v1/google/register-lead-form	{ formId, formData }	Integra dados do Google Forms a CRM/Sheets.
+36	Buscar Arquivo por Nome	POST	/api/v1/google/search-drive-file	{ name, folderId }	Busca arquivo pelo nome no Drive.
+37	Anexar Arquivo ao Evento	POST	/api/v1/google/attach-event-file	{ eventId, fileId }	Anexa arquivo Drive ao evento Agenda.
+38	Gerar Planilha de Relatório	POST	/api/v1/google/report-sheet	{ reportData, sheetTitle }	Cria planilha automática de relatório.
+39	Converter Sheets para PDF	POST	/api/v1/google/convert-sheet-pdf	{ sheetId }	Converte planilha em PDF e retorna link.
+40	Ler E-mails Não Lidos	POST	/api/v1/google/unread-emails	{ label }	Busca e-mails não lidos com filtro de label.
+41	Marcar E-mail como Lido	POST	/api/v1/google/mark-email-read	{ emailId }	Marca mensagem como lida.
+42	Atualizar Status de Tarefa	POST	/api/v1/google/update-task-status	{ taskId, status }	Altera status (aberta, concluída, etc.) no Google Tasks.
+43	Remover Participante de Evento	POST	/api/v1/google/remove-event-participant	{ eventId, email }	Remove participante específico de um evento do Google Agenda.
+44	Gerar Relatório de Compartilhamento	POST	/api/v1/google/share-report	{ fileId }	Gera relatório de acessos/compartilhamentos de um arquivo Drive.
+45	Listar Pastas do Drive	GET	/api/v1/google/list-folders	–	Retorna lista de pastas do Drive do usuário autenticado.
+46	Alterar Propriedades de Evento	POST	/api/v1/google/update-event-props	{ eventId, updates }	Atualiza propriedades de um evento do Google Agenda.
+47	Copiar Arquivo no Drive	POST	/api/v1/google/copy-drive-file	{ fileId, targetFolder }	Copia arquivo existente para outra pasta do Drive.
+48	Agendar E-mail Gmail	POST	/api/v1/google/schedule-gmail	{ to, subject, body, sendAt }	Agenda envio de e-mail usando o Gmail integrado.
+49	Gerar Agenda Recorrente	POST	/api/v1/google/recurring-event	{ summary, recurrence, users }	Cria evento recorrente no calendário do Google Agenda.
+50	Exportar Dados Agenda para Sheets	POST	/api/v1/google/export-calendar	{ calendarId, sheetId }	Exporta eventos do calendário Google para uma planilha Google Sheets.
+
+HubSpot (50 APIs)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Criar Contato	POST	/api/v1/hubspot/create-contact	{ name, email, phone }	Cria novo contato no HubSpot CRM.
+2	Atualizar Contato	POST	/api/v1/hubspot/update-contact	{ contactId, updates }	Atualiza dados de um contato.
+3	Buscar Contato	POST	/api/v1/hubspot/find-contact	{ email }	Busca contato pelo e-mail.
+4	Criar Deal	POST	/api/v1/hubspot/create-deal	{ dealName, value, stage, owner }	Cria nova oportunidade no pipeline.
+5	Atualizar Deal	POST	/api/v1/hubspot/update-deal	{ dealId, updates }	Atualiza dados da oportunidade.
+6	Mover Deal de Estágio	POST	/api/v1/hubspot/move-deal-stage	{ dealId, stage }	Move a oportunidade para outro estágio.
+7	Registrar Atividade	POST	/api/v1/hubspot/register-activity	{ contactId, activity, date }	Loga atividade em contato.
+8	Agendar Reunião	POST	/api/v1/hubspot/schedule-meeting	{ contactId, date, topic }	Agenda reunião via HubSpot.
+9	Registrar Nota no Deal	POST	/api/v1/hubspot/add-note	{ dealId, note }	Adiciona nota interna à oportunidade.
+10	Criar Tarefa para SDR	POST	/api/v1/hubspot/create-task	{ owner, subject, dueDate }	Cria tarefa para membro do time.
+11	Atualizar Tarefa	POST	/api/v1/hubspot/update-task	{ taskId, updates }	Atualiza status/dados da tarefa.
+12	Buscar Tasks por Usuário	POST	/api/v1/hubspot/tasks-by-user	{ owner }	Lista tarefas atribuídas a um SDR.
+13	Criar Ticket de Suporte	POST	/api/v1/hubspot/create-ticket	{ subject, description, contactId }	Cria ticket de suporte no HubSpot.
+14	Atualizar Status do Ticket	POST	/api/v1/hubspot/update-ticket	{ ticketId, status }	Atualiza status de ticket.
+15	Registrar Feedback de Cliente	POST	/api/v1/hubspot/client-feedback	{ contactId, feedback }	Loga feedback no histórico do contato.
+16	Enviar E-mail Automático	POST	/api/v1/hubspot/send-auto-email	{ to, subject, body }	Dispara e-mail automatizado.
+17	Matricular em Sequência	POST	/api/v1/hubspot/enroll-in-sequence	{ contactId, sequenceId }	Matricula contato em sequência de e-mails/calls.
+18	Cancelar Matrícula de Sequência	POST	/api/v1/hubspot/cancel-sequence	{ contactId, sequenceId }	Cancela inscrição da sequência.
+19	Registrar Reunião Realizada	POST	/api/v1/hubspot/log-meeting	{ contactId, meetingId, notes }	Loga reunião como concluída e adiciona notas.
+20	Atualizar Propriedades Customizadas	POST	/api/v1/hubspot/update-custom-fields	{ objectId, updates }	Atualiza campos customizados em contato, deal, ticket.
+21	Exportar Lista de Contatos	POST	/api/v1/hubspot/export-contacts	{ filter, format }	Exporta lista segmentada para Excel/CSV.
+22	Exportar Deals	POST	/api/v1/hubspot/export-deals	{ filter, format }	Exporta oportunidades do pipeline.
+23	Exportar Atividades	POST	/api/v1/hubspot/export-activities	{ filter, format }	Exporta log de atividades para planilha.
+24	Importar Contatos em Massa	POST	/api/v1/hubspot/import-contacts	{ contacts }	Importa lista de contatos em lote.
+25	Importar Deals em Massa	POST	/api/v1/hubspot/import-deals	{ deals }	Importa lista de oportunidades em lote.
+26	Atualizar Propriedades de Empresa	POST	/api/v1/hubspot/update-company	{ companyId, updates }	Altera dados de empresa cadastrada.
+27	Criar Empresa	POST	/api/v1/hubspot/create-company	{ name, domain }	Registra nova empresa no HubSpot.
+28	Associar Empresa a Contato	POST	/api/v1/hubspot/associate-company	{ contactId, companyId }	Liga contato a empresa no CRM.
+29	Atualizar Dono de Deal	POST	/api/v1/hubspot/update-deal-owner	{ dealId, owner }	Altera SDR responsável pela oportunidade.
+30	Log de Comunicação (Call/E-mail)	POST	/api/v1/hubspot/log-communication	{ contactId, type, details }	Loga call, e-mail, reunião no histórico do contato.
+31	Consultar Linha do Tempo	POST	/api/v1/hubspot/timeline	{ contactId }	Consulta todas interações do contato.
+32	Buscar Leads por Segmento	POST	/api/v1/hubspot/find-leads	{ segment }	Retorna leads do segmento/ICP.
+33	Buscar Deals por Pipeline	POST	/api/v1/hubspot/find-deals	{ pipeline }	Lista oportunidades do pipeline.
+34	Buscar Empresas por Setor	POST	/api/v1/hubspot/find-companies	{ sector }	Lista empresas do setor.
+35	Criar Workflow Automático	POST	/api/v1/hubspot/create-workflow	{ name, actions, triggers }	Gera novo workflow automatizado no HubSpot.
+36	Ativar/Desativar Workflow	POST	/api/v1/hubspot/toggle-workflow	{ workflowId, active }	Ativa/desativa workflow criado.
+37	Geração de Relatório de Pipeline	POST	/api/v1/hubspot/pipeline-report	{ pipeline, dateRange }	Relatório de desempenho de pipeline.
+38	Geração de Relatório de Conversão	POST	/api/v1/hubspot/conversion-report	{ dateRange, segment }	Relatório de taxas de conversão por segmento/período.
+39	Atualizar Etapa de Lead	POST	/api/v1/hubspot/update-lead-stage	{ leadId, stage }	Atualiza estágio do lead no funil.
+40	Buscar Tarefas por Status	POST	/api/v1/hubspot/find-tasks	{ status }	Lista tarefas filtradas por status.
+41	Atualizar Owner de Contato	POST	/api/v1/hubspot/update-contact-owner	{ contactId, owner }	Altera responsável pelo contato.
+42	Adicionar Observação em Contato	POST	/api/v1/hubspot/add-contact-note	{ contactId, note }	Adiciona nota interna ao contato.
+43	Atualizar Propriedades de Ticket	POST	/api/v1/hubspot/update-ticket-fields	{ ticketId, updates }	Atualiza campos customizados do ticket.
+44	Listar Workflows Existentes	GET	/api/v1/hubspot/list-workflows	–	Retorna todos os workflows configurados.
+45	Listar Sequências Existentes	GET	/api/v1/hubspot/list-sequences	–	Retorna todas as sequências de automação criadas.
+46	Registrar Proposta Comercial	POST	/api/v1/hubspot/register-proposal	{ dealId, proposalLink }	Adiciona proposta ao histórico da oportunidade.
+47	Marcar Deal como Ganhou/Perdeu	POST	/api/v1/hubspot/close-deal	{ dealId, status }	Marca oportunidade como ganha, perdida, cancelada.
+48	Enviar E-mail Individual para Lead	POST	/api/v1/hubspot/send-lead-email	{ leadId, subject, body }	Dispara e-mail individual para lead.
+49	Gerar Relatório de Tickets	POST	/api/v1/hubspot/tickets-report	{ dateRange, status }	Relatório de tickets de suporte/atendimento.
+50	Gerar Relatório Geral do Funil	POST	/api/v1/hubspot/general-funnel-report	{ dateRange, segment }	Relatório geral do funil comercial/marketing.
+
+Apollo (50 APIs)
+Nº	Nome da Automação	Método	Endpoint	Payload (JSON)	Descrição
+1	Enriquecer Lead	POST	/api/v1/apollo/enrich-lead	{ email, name }	Consulta dados públicos, sociais e firmográficos para lead.
+2	Buscar Empresas	POST	/api/v1/apollo/search-companies	{ query, filters }	Busca empresas no Apollo para prospecção.
+3	Buscar Leads	POST	/api/v1/apollo/search-leads	{ query, filters }	Busca leads filtrados para campanhas.
+4	Buscar Contatos	POST	/api/v1/apollo/list-contacts	{ companyId }	Lista todos contatos de uma empresa no Apollo.
+5	Adicionar Lead à Sequência	POST	/api/v1/apollo/add-to-sequence	{ leadId, sequenceId }	Adiciona lead a sequência de e-mails/calls.
+6	Remover Lead de Sequência	POST	/api/v1/apollo/remove-from-sequence	{ leadId, sequenceId }	Remove lead de sequência ativa.
+7	Atualizar Status do Lead	POST	/api/v1/apollo/update-lead-status	{ leadId, status }	Atualiza status/opinião do lead (ativo, cliente, desqualificado, etc).
+8	Verificar E-mail	POST	/api/v1/apollo/verify-email	{ email }	Verifica validade e histórico de e-mail.
+9	Enviar E-mail Personalizado	POST	/api/v1/apollo/send-personal-email	{ leadId, subject, body }	Dispara e-mail direto via Apollo.
+10	Registrar Ligação Efetuada	POST	/api/v1/apollo/log-call	{ leadId, callData }	Loga ligação feita para lead.
+11	Atualizar Dados do Lead	POST	/api/v1/apollo/update-lead	{ leadId, updates }	Atualiza dados cadastrais e histórico.
+12	Criar Nova Empresa	POST	/api/v1/apollo/create-company	{ name, website, industry }	Cria empresa nova no Apollo.
+13	Associar Lead a Empresa	POST	/api/v1/apollo/associate-lead-company	{ leadId, companyId }	Relaciona lead a empresa existente.
+14	Gerar Lista de Leads por ICP	POST	/api/v1/apollo/icp-leads	{ icpFilters }	Busca leads qualificados por perfil ICP.
+15	Buscar Oportunidades por Pipeline	POST	/api/v1/apollo/find-opportunities	{ pipeline, filters }	Lista oportunidades no pipeline do Apollo.
+16	Registrar Atividade Customizada	POST	/api/v1/apollo/log-custom-activity	{ leadId, type, details }	Loga atividade customizada (call, visita, demo).
+17	Gerar Relatório de Atividades	POST	/api/v1/apollo/activity-report	{ leadId, dateRange }	Relatório de atividades do lead.
+18	Atualizar Responsável de Lead	POST	/api/v1/apollo/update-lead-owner	{ leadId, ownerId }	Troca SDR responsável pelo lead.
+19	Registrar Anotação no Lead	POST	/api/v1/apollo/add-lead-note	{ leadId, note }	Adiciona anotação ao lead.
+20	Buscar Engajamento de Lead	POST	/api/v1/apollo/lead-engagement	{ leadId }	Busca métricas de engajamento do lead (abertura, resposta, etc).
+21	Geração de Lista Inteligente	POST	/api/v1/apollo/generate-smart-list	{ filters, sort }	Gera lista dinâmica de leads por critérios avançados.
+22	Importar Leads em Massa	POST	/api/v1/apollo/import-leads	{ leads }	Importa base de leads externa para Apollo.
+23	Exportar Leads	POST	/api/v1/apollo/export-leads	{ filters, format }	Exporta lista de leads filtrada.
+24	Gerar Relatório de Conversão	POST	/api/v1/apollo/conversion-report	{ dateRange, filters }	Relatório de conversão de leads/opps.
+25	Criar Nova Oportunidade	POST	/api/v1/apollo/create-opportunity	{ leadId, dealData }	Cria oportunidade para lead existente.
+26	Atualizar Status de Oportunidade	POST	/api/v1/apollo/update-opportunity-status	{ opportunityId, status }	Atualiza status/opinião da oportunidade.
+27	Buscar Histórico de Oportunidade	POST	/api/v1/apollo/opportunity-history	{ opportunityId }	Lista histórico completo de uma oportunidade.
+28	Gerar Relatório de Pipeline	POST	/api/v1/apollo/pipeline-report	{ pipeline, dateRange }	Relatório de desempenho do pipeline de vendas.
+29	Buscar Contatos por Cargo	POST	/api/v1/apollo/contacts-by-role	{ role, filters }	Busca contatos em empresas com cargo/área definida.
+30	Atualizar Dados de Empresa	POST	/api/v1/apollo/update-company	{ companyId, updates }	Atualiza campos da empresa cadastrada.
+31	Adicionar Lead a Lista Favorita	POST	/api/v1/apollo/add-lead-favorite	{ leadId }	Marca lead como favorito/destaque.
+32	Remover Lead da Lista Favorita	POST	/api/v1/apollo/remove-lead-favorite	{ leadId }	Remove lead dos favoritos.
+33	Buscar Leads por Origem	POST	/api/v1/apollo/leads-by-source	{ source }	Lista leads pelo canal de aquisição.
+34	Atualizar Dados de Contato	POST	/api/v1/apollo/update-contact	{ contactId, updates }	Atualiza campos do contato.
+35	Criar Nova Sequência de E-mails	POST	/api/v1/apollo/create-sequence	{ name, steps, owner }	Cria nova sequência personalizada.
+36	Atualizar Sequência de E-mails	POST	/api/v1/apollo/update-sequence	{ sequenceId, updates }	Edita etapas ou dados da sequência.
+37	Buscar Leads com Interação Recente	POST	/api/v1/apollo/recently-engaged-leads	{ days }	Retorna leads com interação recente (x dias).
+38	Gerar Relatório de Engajamento	POST	/api/v1/apollo/engagement-report	{ filters, dateRange }	Relatório de engajamento do time e leads.
+39	Adicionar Observação em Empresa	POST	/api/v1/apollo/add-company-note	{ companyId, note }	Registra nota na empresa.
+40	Remover Lead de Oportunidade	POST	/api/v1/apollo/remove-lead-opportunity	{ leadId, opportunityId }	Remove lead de determinada oportunidade.
+41	Atualizar Propriedades Customizadas	POST	/api/v1/apollo/update-custom-fields	{ objectId, updates }	Atualiza campos customizados em qualquer entidade.
+42	Buscar Oportunidades por Status	POST	/api/v1/apollo/opportunities-by-status	{ status }	Lista oportunidades filtradas por status (aberta, ganha, perdida, etc.).
+43	Agendar Lembrete de Atividade	POST	/api/v1/apollo/schedule-activity-reminder	{ leadId, date, activity }	Agenda lembrete para ação futura no lead.
+44	Geração de Relatório de Perdas	POST	/api/v1/apollo/lost-report	{ dateRange, filters }	Relatório de motivos de perda/opps.
+45	Enviar Template de E-mail	POST	/api/v1/apollo/send-template-email	{ leadId, templateId, params }	Dispara e-mail por template com parâmetros.
+46	Atualizar Score de Lead	POST	/api/v1/apollo/update-lead-score	{ leadId, score }	Atualiza pontuação do lead (fit, engajamento, etc.).
+47	Buscar Leads por Funil	POST	/api/v1/apollo/leads-by-funnel	{ funnel, stage }	Lista leads por etapa do funil.
+48	Gerar Lista Segmentada de Empresas	POST	/api/v1/apollo/segmented-company-list	{ filters }	Gera lista de empresas segmentada por filtros avançados.
+49	Exportar Oportunidades	POST	/api/v1/apollo/export-opportunities	{ filters, format }	Exporta oportunidades para Excel/CSV.
+50	Gerar Relatório Geral	POST	/api/v1/apollo/general-report	{ dateRange, filters }	Relatório geral de vendas/atividades no Apollo.
+
+                </pre>
+            </div>
+        </section>
+        <section id="central-treinamento-content-section" class="hidden playbook-sub-section">
+            <div class="container mx-auto">
+                <button class="btn-voltar-secao backToMenuPrincipalBtn mb-8 text-sm"> <i class="fas fa-arrow-left mr-2"></i> VOLTAR AO MENU PRINCIPAL </button>
+                <h2 class="playbook-content-title text-center"><span class="emoji-original-color">🎓</span> CENTRAL DE TREINAMENTO <span class="text-aa-green-darker">AUTO ARREMATE</span></h2>
+                <p class="text-center text-xl">Conteúdo detalhado sobre a Central de Treinamento em breve!</p>
+            </div>
+        </section>
+
+
+    </main>
+
+    <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Alternar tema" title="Alternar Tema">
+        <i class="fas fa-moon"></i> </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({ duration: 700, once: true, offset: 50 });
+
+            const capaSection = document.getElementById('capa-section');
+            const menuPrincipalSection = document.getElementById('menu-principal-section');
+            const manualPitstopDetalhesSection = document.getElementById('manual-pitstop-detalhes-section');
+            const rota66ContentSection = document.getElementById('rota-66-content-section');
+            const boxIdentidadeContentSection = document.getElementById('box-identidade-content-section');
+            const academiaRepassadoresContentSection = document.getElementById('academia-repassadores-content-section');
+            const centralTreinamentoContentSection = document.getElementById('central-treinamento-content-section');
+            const allPlaybookSubSections = document.querySelectorAll('.playbook-sub-section');
+            
+            const btnIniciarCapa = document.getElementById('btnIniciarCapa');
+            const backToCoverBtnMenu = document.getElementById('backToCoverBtnMenu');
+            const openManualPitStopBtn = document.getElementById('openManualPitStopBtn');
+            const openRota66Btn = document.getElementById('openRota66Btn');
+            const openBoxIdentidadeBtn = document.getElementById('openBoxIdentidadeBtn');
+            const openCentralTreinamentoBtn = document.getElementById('openCentralTreinamentoBtn');
+            const openAcademiaRepassadoresBtn = document.getElementById('openAcademiaRepassadoresBtn');
+            const backToMenuPrincipalBtns = document.querySelectorAll('.backToMenuPrincipalBtn');
+            const backToManualPitStopDetalhesBtns = document.querySelectorAll('.backToManualPitStopDetalhesBtn');
+
+            function showSection(sectionToShow) {
+                [capaSection, menuPrincipalSection, manualPitstopDetalhesSection, rota66ContentSection, boxIdentidadeContentSection, academiaRepassadoresContentSection, centralTreinamentoContentSection].forEach(s => {
+                    if (s) s.classList.add('hidden');
+                });
+                allPlaybookSubSections.forEach(s => {
+                    if (s && s !== sectionToShow) s.classList.add('hidden');
+                });
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    AOS.refreshHard();
+                }
+            }
+
+            if (btnIniciarCapa) { btnIniciarCapa.addEventListener('click', (e) => { e.preventDefault(); showSection(menuPrincipalSection); }); }
+            if (backToCoverBtnMenu) { backToCoverBtnMenu.addEventListener('click', (e) => { e.preventDefault(); showSection(capaSection); }); }
+            if (openManualPitStopBtn) { openManualPitStopBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(manualPitstopDetalhesSection); renderPlaybookIndex(); }); }
+            if (openRota66Btn) { openRota66Btn.addEventListener('click', (e) => { e.preventDefault(); showSection(rota66ContentSection); }); }
+            if (openBoxIdentidadeBtn) { openBoxIdentidadeBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(boxIdentidadeContentSection); }); }
+            if (openAcademiaRepassadoresBtn) { openAcademiaRepassadoresBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(academiaRepassadoresContentSection); }); }
+            if (openCentralTreinamentoBtn) { openCentralTreinamentoBtn.addEventListener('click', (e) => { e.preventDefault(); showSection(centralTreinamentoContentSection); }); }
+            backToMenuPrincipalBtns.forEach(button => { button.addEventListener('click', (e) => { e.preventDefault(); showSection(menuPrincipalSection); }); });
+            backToManualPitStopDetalhesBtns.forEach(button => { button.addEventListener('click', (e) => { e.preventDefault(); showSection(manualPitstopDetalhesSection); }); });
+
+            const indexDataPlaybook = [
+                { emoji: "🚀", title: "<strong>NOSSA PISTA DE DECOLAGEM: HISTÓRIA, VALORES E A FORÇA DA EQUIPE <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Conheça o motor que impulsiona a Auto Arremate & Arremaq: nossa cultura, missão e o time de campeões.", targetSectionId: "playbook-sec-0-content-main", sentenceEmoji: "📜" },
+                { emoji: "<span class='emoji-autoarremate-color'>🚗</span>", title: "<strong><span class='text-aa-green-darker'>AUTO ARREMATE</span> NA POLE POSITION: DOMINANDO O UNIVERSO DOS VEÍCULOS LEVES!</strong>", sub: "Descubra como nossa plataforma acelera a gestão e venda de veículos leves, da captação à comercialização.", targetSectionId: "playbook-sec-1-content-main", sentenceEmoji: "🏆" },
+                { emoji: "<span class='emoji-arremaq-color'>🚜</span>", title: "<strong><span class='text-arremaq-orange-darker'>ARREMAQ</span>: A FORÇA BRUTA DOS GIGANTES DO AGRO E CONSTRUÇÃO!</strong>", sub: "Soluções de peso e estratégias robustas para o repasse eficiente de máquinas agrícolas e de construção.", targetSectionId: "playbook-sec-arremaq-content-main", sentenceEmoji: "⚙️" },
+                { emoji: "🎯", title: "<strong>MAPEANDO OS CAMPEÕES: NOSSOS CLIENTES IDEAIS <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> (ICPS & PERSONAS)!</strong>", sub: "Identifique os perfis de clientes com maior potencial e as personas chave para uma abordagem estratégica.", targetSectionId: "playbook-sec-2-content-main", sentenceEmoji: "🌟" },
+                { emoji: "📊", title: "<strong>A JORNADA DO CLIENTE VENCEDOR <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: DA PROSPECÇÃO À BANDEIRADA FINAL (ANIMAÇÃO)!</strong>", sub: "Visualize a transformação do cliente, da necessidade à solução, através de nossa animação dinâmica.", targetSectionId: "playbook-persona-animation-section", sentenceEmoji: "🎬" },
+                { emoji: "🧠", title: "<strong>PIT STOP DA SABEDORIA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: QUALIFICAÇÃO DE ALTA PERFORMANCE (SPIN, SNAP & AIDA)!</strong>", sub: "Domine as técnicas de qualificação (SPIN, SNAP, AIDA) para abastecer seu funil com leads de qualidade.", targetSectionId: "playbook-sec-3-content-main", sentenceEmoji: "💡" },
+                { emoji: "🛡️", title: "<strong>BLINDAGEM ANTI-OBJEÇÃO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: ESTRATÉGIAS PARA UMA NEGOCIAÇÃO VITORIOSA!</strong>", sub: "Estratégias e contra-argumentos para transformar objeções em oportunidades de fechar negócio.", targetSectionId: "playbook-sec-4-content-main", sentenceEmoji: "⚔️" },
+                { emoji: "🗺️", title: "<strong>ROTAS DA CONQUISTA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: FLUXOS DE PROSPECÇÃO E CADÊNCIAS DE IMPACTO!</strong>", sub: "Roteiros, cadências e modelos de abordagem para prospecção Inbound e Outbound que geram resultados.", targetSectionId: "playbook-sec-5-content-main", sentenceEmoji: "🧭" },
+                { emoji: "🤝", title: "<strong>ALIANÇAS DE AÇO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: VALIDAÇÃO B2B (CNPJ) E PARCERIAS DE CONFIANÇA!</strong>", sub: "Critérios e ferramentas para validar parceiros CNPJ e construir relações comerciais sólidas e seguras.", targetSectionId: "playbook-sec-6-content-main", sentenceEmoji: "🔗" },
+                { emoji: "✍️", title: "<strong>A ARTE DA COMUNICAÇÃO ESTRATÉGICA <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: MODELOS QUE CONVERTEM!</strong>", sub: "Termos de impacto, orientações e exemplos práticos para uma comunicação persuasiva e eficaz.", targetSectionId: "playbook-sec-7-content-main", sentenceEmoji: "🗣️" },
+                { emoji: "📖", title: "<strong>DICIONÁRIO DOS MESTRES: GLOSSÁRIO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Decifre os termos técnicos e jargões do mercado automotivo e de máquinas para dominar a linguagem do setor.", targetSectionId: "playbook-sec-8-content-main", sentenceEmoji: "📚" },
+                { emoji: "📈", title: "<strong>EVOLUÇÃO CONTÍNUA: NOSSO PLAYBOOK <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span> EM CONSTANTE APERFEIÇOAMENTO!</strong>", sub: "Os próximos passos para o desenvolvimento do playbook e o crescimento contínuo da nossa equipe.", targetSectionId: "playbook-sec-9-content-main", sentenceEmoji: "🌌" },
+                { emoji: "📞", title: "<strong>CENTRAL DE COMANDO <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: CANAIS DE CONTATO E SUPORTE ÁGIL!</strong>", sub: "Acesse nossos canais de suporte dedicados e encontre ajuda rápida para suas dúvidas e desafios.", targetSectionId: "playbook-sec-10-content-main", sentenceEmoji: "🛠️" },
+                { emoji: "⚙️", title: "<strong>ENGENHARIA INTERNA: OS SETORES QUE MOVEM <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>!</strong>", sub: "Descubra a sinergia e o papel de cada setor na construção do nosso sucesso e no suporte à sua performance.", targetSectionId: "playbook-sec-13-content-main", sentenceEmoji: "🏛️" },
+                { emoji: "🃏", title: "<strong>AUTOCARDS™ <span class='text-aa-green-darker'>AUTO ARREMATE</span> & <span class='text-arremaq-orange-darker'>ARREMAQ</span>: SUAS CARTAS NA MANGA PARA UMA PROSPECÇÃO INVENCÍVEL!</strong>", sub: "Utilize nossos cartões estratégicos para transformar sua equipe em uma força de prospecção imbatível.", targetSectionId: "playbook-autocards-content-main", sentenceEmoji: "✨" },
+                { emoji: "🏆", title: "<strong>DESAFIO DOS CAMPEÕES <span class='text-aa-green-darker'>AUTO ARREMATE</span>: TESTE SEU CONHECIMENTO ESTRATÉGICO!</strong>", sub: "Teste sua sabedoria e astúcia em nosso quiz gamificado sobre o playbook e o universo do repasse!", targetSectionId: "playbook-quiz-gamificado-section", sentenceEmoji: "🏅" },
+                { emoji: "🏎️💨", title: "<strong>GRANDE PRÊMIO <span class='text-aa-green-darker'>AUTO ARREMATE</span>: ACELERE NO JOGO DO REPASSE!</strong>", sub: "Desafie seus limites e rivais em nosso jogo 2D de alta octanagem e torne-se uma lenda da pista digital!", targetSectionId: "playbook-corrida-svg-section", sentenceEmoji: "🏁" }
+            ];
+
+            const playbookIndexContainer = document.getElementById('playbookIndexContainer');
+
+            function renderPlaybookIndex() {
+                if (!playbookIndexContainer) return;
+                playbookIndexContainer.innerHTML = ''; 
+                indexDataPlaybook.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'index-item-card'; 
+                    card.setAttribute('data-target', item.targetSectionId);
+                    let emojiHtml = item.emoji;
+                    if (item.emoji.includes("emoji-autoarremate-color") || item.emoji.includes("emoji-arremaq-color")) {
+                        // Já é um span com classe, não precisa envolver
+                    } else { 
+                         emojiHtml = `<span class="emoji-original-color">${item.emoji}</span>`;
+                    }
+
+                    card.innerHTML = `
+                        <span class="index-item-emoji">${emojiHtml}</span>
+                        <h3 class="index-item-title">${item.title}</h3>
+                        <p class="index-item-sub">
+                            ${item.sentenceEmoji ? `<span class="sentence-emoji emoji-original-color">${item.sentenceEmoji}</span>` : ''}
+                            ${item.sub}
+                        </p>`;
+                    card.addEventListener('click', () => {
+                        showSection(document.getElementById(item.targetSectionId));
+                    });
+                    playbookIndexContainer.appendChild(card);
+                });
+            }
+            
+            document.querySelectorAll('.navigateToPlaybookSection').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    if (targetId) {
+                        showSection(document.getElementById(targetId));
+                    }
+                });
+            });
+
+            const htmlEl = document.documentElement;
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const moonIcon = '<i class="fas fa-moon"></i>';
+            const sunIcon = '<i class="fas fa-sun"></i>';
+
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                if (themeToggleBtn) { 
+                    themeToggleBtn.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+                }
+            }
+            
+            let storedTheme = null;
+            try { storedTheme = localStorage.getItem('theme'); } catch (e) { console.warn("LocalStorage não disponível para persistência do tema.");}
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(storedTheme || preferredTheme); 
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; 
+                    applyTheme(newTheme); 
+                    try { localStorage.setItem('theme', newTheme); } catch (e) { console.warn("LocalStorage não está disponível para persistência do tema."); }
+                });
+            }
+
+            // --- Controles de Acessibilidade de Fonte ---
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const FONT_STEP_PERCENT = 10; 
+            const MIN_HTML_FONT_PERCENT = 60; 
+            const MAX_HTML_FONT_PERCENT = 140; 
+
+            function getCurrentHtmlFontSizePercent() {
+                const currentSizePx = parseFloat(window.getComputedStyle(htmlEl).fontSize);
+                const browserBaseSizePx = 16; 
+                return (currentSizePx / browserBaseSizePx) * 100;
+            }
+
+            if (increaseFontBtn) {
+                increaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent + FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.min(newPercent, MAX_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+            if (decreaseFontBtn) {
+                decreaseFontBtn.addEventListener('click', () => {
+                    let currentPercent = getCurrentHtmlFontSizePercent();
+                    let newPercent = currentPercent - FONT_STEP_PERCENT;
+                    htmlEl.style.fontSize = Math.max(newPercent, MIN_HTML_FONT_PERCENT) + '%';
+                });
+            }
+
+
+            // --- Leitura de Voz (Text-to-Speech) ---
+            const readPageBtn = document.getElementById('readPageBtn');
+            const synth = window.speechSynthesis;
+            let isReading = false;
+            let utterance = null;
+
+            if (readPageBtn && synth) {
+                readPageBtn.addEventListener('click', () => {
+                    if (synth.speaking) { synth.cancel(); return; }
+                    let activeSection = null;
+                    if (capaSection && !capaSection.classList.contains('hidden')) activeSection = capaSection;
+                    else if (menuPrincipalSection && !menuPrincipalSection.classList.contains('hidden')) activeSection = menuPrincipalSection;
+                    else if (manualPitstopDetalhesSection && !manualPitstopDetalhesSection.classList.contains('hidden')) activeSection = manualPitstopDetalhesSection;
+                    else if (rota66ContentSection && !rota66ContentSection.classList.contains('hidden')) activeSection = rota66ContentSection;
+                    else if (boxIdentidadeContentSection && !boxIdentidadeContentSection.classList.contains('hidden')) activeSection = boxIdentidadeContentSection;
+                    else if (academiaRepassadoresContentSection && !academiaRepassadoresContentSection.classList.contains('hidden')) activeSection = academiaRepassadoresContentSection;
+                    else if (centralTreinamentoContentSection && !centralTreinamentoContentSection.classList.contains('hidden')) activeSection = centralTreinamentoContentSection;
+                    else { allPlaybookSubSections.forEach(subSec => { if (subSec && !subSec.classList.contains('hidden')) activeSection = subSec; }); }
+                    if (!activeSection) { alert("Nenhuma seção ativa encontrada para leitura."); return; }
+                    let textToRead = "";
+                    activeSection.querySelectorAll('h1, h2, h3, h4, p, .menu-card-title, .index-item-title, .index-item-sub, .frase-destaque, .capa-criado').forEach(el => { if (el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') { textToRead += el.textContent.replace(/<br>/gi, ' ').trim() + ". "; } });
+                    if (textToRead.trim() === "") { alert("Nenhum texto principal encontrado para leitura na seção atual."); return; }
+                    utterance = new SpeechSynthesisUtterance(textToRead.replace(/\s+/g, ' ').trim());
+                    utterance.lang = 'pt-BR';
+                    utterance.onstart = () => { isReading = true; readPageBtn.innerHTML = '<i class="fas fa-stop-circle"></i>'; readPageBtn.setAttribute('aria-label', 'Parar leitura'); readPageBtn.title = 'Parar Leitura'; };
+                    utterance.onend = () => { isReading = false; readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); readPageBtn.title = 'Ler Página'; utterance = null; };
+                    utterance.onerror = (event) => { console.error('Erro na síntese de voz:', event.error); isReading = false; readPageBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; readPageBtn.setAttribute('aria-label', 'Ler página em voz alta'); readPageBtn.title = 'Ler Página'; alert('Erro ao tentar ler a página.'); utterance = null; };
+                    synth.speak(utterance);
+                });
+            } else if (readPageBtn) {
+                readPageBtn.style.display = 'none'; 
+                console.warn("Web Speech API (SpeechSynthesis) não é suportada neste navegador.");
+            }
+        });
+    </script>
+</body>
+</html>
