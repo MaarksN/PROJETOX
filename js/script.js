@@ -11,6 +11,7 @@ function loadPartial(name) {
       if (name === 'autocards') {
         initAutocards();
       }
+      applyStagger(container);
       updateProgress();
     });
 }
@@ -38,10 +39,18 @@ function observeCube() {
   obs.observe(cube);
 }
 
+function applyStagger(container) {
+  const items = container.querySelectorAll('h1, h2, p, li');
+  if (items.length) {
+    gsap.from(items, {opacity: 0, y: 30, duration: 0.6, stagger: 0.1});
+  }
+}
+
 // Som ao clicar
+let synth;
 function playTone() {
   if (!window.Tone) return;
-  const synth = new Tone.Synth().toDestination();
+  if (!synth) synth = new Tone.Synth().toDestination();
   synth.triggerAttackRelease('C5', '8n');
 }
 

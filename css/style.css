@@ -80,16 +80,21 @@ section {
   to { transform: rotateX(360deg) rotateY(360deg); }
 }
 
-.focus-mode body > *:not(header):not(#progress-container) {
+html.focus-mode body > *:not(header):not(#progress-container) {
   filter: grayscale(0.8);
   opacity: 0.7;
 }
 
 /* Títulos formatados */
+h1,
+h2,
 .section-title {
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
+}
+
+.section-title {
   margin-bottom: 2rem;
 }
 
